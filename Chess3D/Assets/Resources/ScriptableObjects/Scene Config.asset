@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568a24956e424cf48b6c3a511c475ec5, type: 3}
+  m_Name: Scene Config
+  m_EditorClassIdentifier: 
+  data:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 03000000330000006500000066000000670000006d00000068000000690000006a0000006b0000006c0000009700000098000000990000009a0000009b0000009d0000009e0000009c00000000000000
+    _keys: 03000000330000006500000066000000670000006d00000068000000690000006a0000006b0000006c0000009700000098000000990000009a0000009b0000009d0000009e0000009c00000000000000
+    _values:
+    - Intro
+    - Real_World_Area_01
+    - Begin_Area_01
+    - Begin_Area_02
+    - Begin_Area_03
+    - Begin_Area_House
+    - Begin_Area_04
+    - Begin_Area_05
+    - Begin_Area_06
+    - Begin_Area_07
+    - Begin_Area_08
+    - Area1_01
+    - Area1_02
+    - Area1_03
+    - Area1_04
+    - Area1_05
+    - Sun_Flower_Field_Area
+    - Area1_Bonus
+    - Area1_Dungeon
+    - MainMenu

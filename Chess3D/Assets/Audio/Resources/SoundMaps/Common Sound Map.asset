@@ -1,0 +1,323 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9938e02597404e54f8bd7d20d972854e, type: 3}
+  m_Name: Common Sound Map
+  m_EditorClassIdentifier: 
+  soundType: 0
+  path: SoundData/SoundEffect
+  SoundMappingList:
+  - name: BUTTON_HOVER
+    Id: 1
+    Data: {fileID: 11400000, guid: 91336b7b944362540a37feeed2c080c9, type: 2}
+  - name: BUTTON_CLICK
+    Id: 2
+    Data: {fileID: 11400000, guid: 439a2f18f949b2c4fb4240952b324733, type: 2}
+  - name: TRANSITION_IN
+    Id: 3
+    Data: {fileID: 11400000, guid: bf4beeffe469a3e4cb02aba5c7f51993, type: 2}
+  - name: TRANSITION_OUT
+    Id: 4
+    Data: {fileID: 11400000, guid: 022a1adb200bc344f8c7d6104e5156ef, type: 2}
+  - name: OPEN_CHEST
+    Id: 6
+    Data: {fileID: 11400000, guid: 5af4244bce9896041b8ae3af039075dd, type: 2}
+  - name: DIALOGUE
+    Id: 8
+    Data: {fileID: 11400000, guid: 7e84cb24667d37c4a8594b5dc5ecf9de, type: 2}
+  - name: SFX_SWORD_ATTACK
+    Id: 301
+    Data: {fileID: 11400000, guid: 8913bfcbac1f2604597092f4bb2bc37b, type: 2}
+  - name: SFX_BOW_ATTACK
+    Id: 302
+    Data: {fileID: 11400000, guid: 28f344f519b78e242b4a92b521bb8027, type: 2}
+  - name: SFX_HURT
+    Id: 303
+    Data: {fileID: 11400000, guid: b2c7cc2bcae9ad7418ee09f6753e6c32, type: 2}
+  - name: SFX_DASH
+    Id: 305
+    Data: {fileID: 11400000, guid: 700de378d377d144880a4f0b84f9bf51, type: 2}
+  - name: SFX_ABSORB
+    Id: 306
+    Data: {fileID: 11400000, guid: 7f0af513133591245b2f5551d8b72061, type: 2}
+  - name: SFX_GET_SPELL
+    Id: 307
+    Data: {fileID: 11400000, guid: 7e168ba826fb0de4aa5a4c51642f6ac2, type: 2}
+  - name: SFX_HEAL
+    Id: 308
+    Data: {fileID: 11400000, guid: f9850669d079a6640aec6c892cdeffa5, type: 2}
+  - name: SFX_DIE
+    Id: 309
+    Data: {fileID: 11400000, guid: d9076ce610af9e14d81c942595287d33, type: 2}
+  - name: SFX_LOW_HP
+    Id: 310
+    Data: {fileID: 11400000, guid: b4b8fc8632292054489cf6f9b3fdc29c, type: 2}
+  - name: SFX_JUMP
+    Id: 311
+    Data: {fileID: 11400000, guid: 2b942fbfb048871449995060275c68a4, type: 2}
+  - name: SFX_SURPRISE
+    Id: 312
+    Data: {fileID: 11400000, guid: 0b928c5f86e0a5b46b5290bfbb2cf95b, type: 2}
+  - name: SFX_LOOT
+    Id: 313
+    Data: {fileID: 11400000, guid: da3dd302a23597748bf22f76adae1912, type: 2}
+  - name: SFX_LOOT_SPECIAL
+    Id: 314
+    Data: {fileID: 11400000, guid: 28c87ba8d34e5a343a920ea3764bd2da, type: 2}
+  - name: SFX_CHARGE_SWORD_ATTACK
+    Id: 315
+    Data: {fileID: 11400000, guid: c506c229b45402640be5b8fc6bf04fbf, type: 2}
+  - name: SFX_PLUCK
+    Id: 316
+    Data: {fileID: 11400000, guid: 624ac47ef49de41419589ff932f1fede, type: 2}
+  - name: SFX_COLLECT_COIN
+    Id: 317
+    Data: {fileID: 11400000, guid: 1a23beb948fed1b4abbf027cf6ae5ff2, type: 2}
+  - name: SFX_TALL_GRASS
+    Id: 318
+    Data: {fileID: 11400000, guid: 2cf2004e2deb253488a2b422ccab315e, type: 2}
+  - name: SFX_CHARGE
+    Id: 319
+    Data: {fileID: 11400000, guid: d023113fd0996a548af3207d39b16b88, type: 2}
+  - name: SFX_FULL_CHARGE
+    Id: 320
+    Data: {fileID: 11400000, guid: ee99ae3d9b3a62243bf02e85412f8231, type: 2}
+  - name: SFX_LEVEL_UP
+    Id: 401
+    Data: {fileID: 11400000, guid: 8cedf5bc92045e34e9dc1cf493d140f5, type: 2}
+  - name: SFX_EXP_UP
+    Id: 402
+    Data: {fileID: 11400000, guid: a6c9fd0173309b641ae247a21150a01e, type: 2}
+  - name: SFX_HOLD_ITEM
+    Id: 404
+    Data: {fileID: 11400000, guid: fe811be0d3b446e4e823d329e91c51f2, type: 2}
+  - name: SFX_RELEASE_ITEM
+    Id: 405
+    Data: {fileID: 11400000, guid: 409c13ae65be21842abc94ec3a1cbdf6, type: 2}
+  - name: SFX_PRESS_BUTTON
+    Id: 406
+    Data: {fileID: 11400000, guid: 72714226eaf258d42a3ac2bcefab539d, type: 2}
+  - name: SFX_TRANSITION_IN
+    Id: 407
+    Data: {fileID: 11400000, guid: c5e8c5c4ddd5f3c4a869ed692027a4fd, type: 2}
+  - name: SFX_TRANSITION_OUT
+    Id: 408
+    Data: {fileID: 11400000, guid: d19a2a702175c7e4eb9263b279e28a0a, type: 2}
+  - name: SFX_PURCHASE
+    Id: 409
+    Data: {fileID: 11400000, guid: 8dde3706e9f484248bfd1f093938806b, type: 2}
+  - name: SFX_START_UI
+    Id: 410
+    Data: {fileID: 11400000, guid: 42dfbea15c199664a84aab55c50a6303, type: 2}
+  - name: SFX_END_UI
+    Id: 411
+    Data: {fileID: 11400000, guid: 1576770eac69d7e439d8ccb6db76909a, type: 2}
+  - name: SFX_INTERACT
+    Id: 412
+    Data: {fileID: 11400000, guid: 7d03e54dce0a94d4f8dde1be8bf30f47, type: 2}
+  - name: SFX_START_PAPER
+    Id: 413
+    Data: {fileID: 11400000, guid: 2d0b9f4dee988ca4fb0e493eab9dbcf1, type: 2}
+  - name: SFX_LIGHT_TRANSITION
+    Id: 414
+    Data: {fileID: 11400000, guid: 8cd3baea529cfb44ba84c7b230ffbeda, type: 2}
+  - name: SFX_BOOK_PAGE
+    Id: 415
+    Data: {fileID: 11400000, guid: e8968e63683def644b4c84348eebaa95, type: 2}
+  - name: SFX_SHOW_CARRY_SLOT
+    Id: 416
+    Data: {fileID: 11400000, guid: 1cb4ffd750df78f43ab3383ed8b24703, type: 2}
+  - name: SFX_HIDE_CARRY_SLOT
+    Id: 417
+    Data: {fileID: 11400000, guid: def84b1170bb77641a40ea70d9cbc777, type: 2}
+  - name: SFX_GAME_OVER
+    Id: 418
+    Data: {fileID: 11400000, guid: 22ceb9f22c3bb774e91d47e3f5686103, type: 2}
+  - name: SFX_SPELL_INTRO
+    Id: 420
+    Data: {fileID: 11400000, guid: 4b09465064bf5a941b4c20a93500f735, type: 2}
+  - name: SFX_EXCLAMATION
+    Id: 421
+    Data: {fileID: 11400000, guid: be0e97f7376bf3b499f56f30d742467b, type: 2}
+  - name: SFX_TYPING
+    Id: 422
+    Data: {fileID: 11400000, guid: eef58bdd4b2685d4b8eb14ed2b626923, type: 2}
+  - name: SFX_UNLOCK
+    Id: 501
+    Data: {fileID: 11400000, guid: c0205b663021a2047b47aa96ebf413c4, type: 2}
+  - name: SFX_WATER_SPLASH
+    Id: 502
+    Data: {fileID: 11400000, guid: fdffe4fe080199148ad74b213dedde4a, type: 2}
+  - name: SFX_HIT_BOULDER
+    Id: 503
+    Data: {fileID: 11400000, guid: 6c1024b0e8cc20542a7697bf5b22633e, type: 2}
+  - name: SFX_DOOR_CLOSE
+    Id: 504
+    Data: {fileID: 11400000, guid: 9c29bfb5d8e2c024ca51d84cfe93aff5, type: 2}
+  - name: SFX_DOOR_OPEN
+    Id: 505
+    Data: {fileID: 11400000, guid: bb45bfd0f188f8e49bef827ef71e9288, type: 2}
+  - name: SFX_SAVE
+    Id: 506
+    Data: {fileID: 11400000, guid: 85b6fbd349832b34c8afa770dfaee160, type: 2}
+  - name: SFX_FAIRY_DUST
+    Id: 507
+    Data: {fileID: 11400000, guid: 90676828ebf5a5f4aa03d706103d8c38, type: 2}
+  - name: SFX_CUT_GRASS
+    Id: 508
+    Data: {fileID: 11400000, guid: 310ba3554d7950040b3681dd7b98baee, type: 2}
+  - name: SFX_BREAK_POT
+    Id: 509
+    Data: {fileID: 11400000, guid: 6216275d04573a1408d3528a32ebe2ee, type: 2}
+  - name: SFX_BIRD_FLY
+    Id: 510
+    Data: {fileID: 11400000, guid: 6f73e91714f4e7c45af44366940675d7, type: 2}
+  - name: SFX_APPEAR
+    Id: 511
+    Data: {fileID: 11400000, guid: 95be31feee290464d9d569d0dbad21a1, type: 2}
+  - name: SFX_ERROR
+    Id: 512
+    Data: {fileID: 11400000, guid: e02a3dc7d0053b54fa08f717672b43cd, type: 2}
+  - name: SFX_BIRD_SHORT_FLY
+    Id: 513
+    Data: {fileID: 11400000, guid: 1da46a5b0846169469f345698b70a170, type: 2}
+  - name: SFX_EATING
+    Id: 514
+    Data: {fileID: 11400000, guid: 3fae03e326d91db44b8c00070be61ff2, type: 2}
+  - name: SFX_FALL
+    Id: 515
+    Data: {fileID: 11400000, guid: e7ba9096a87ed744080c12cd18db36f9, type: 2}
+  - name: SFX_BOMB
+    Id: 601
+    Data: {fileID: 11400000, guid: 84b3419486aca9c478afc73e913debf1, type: 2}
+  - name: SFX_FIRE
+    Id: 602
+    Data: {fileID: 11400000, guid: 89f5930dd600c2f4aa8cffef922c297b, type: 2}
+  - name: SFX_THUNDER
+    Id: 603
+    Data: {fileID: 11400000, guid: 6f8cb42508ae18446b1c3bbc315d152d, type: 2}
+  - name: SFX_BOOMERANG
+    Id: 604
+    Data: {fileID: 11400000, guid: 9b5b89958d871c9428986ca040a84ba4, type: 2}
+  - name: SFX_INHALE
+    Id: 605
+    Data: {fileID: 11400000, guid: aa655bbec6f7a01449a09a529500037d, type: 2}
+  - name: SFX_EXPLOSION
+    Id: 606
+    Data: {fileID: 11400000, guid: 283033d064d0d6945bc39d09d0f861d9, type: 2}
+  - name: SFX_HYPNOSIS
+    Id: 607
+    Data: {fileID: 11400000, guid: 2a63f8ceda2b9704dac54a30f6729229, type: 2}
+  - name: SFX_HYPER_BEAM
+    Id: 608
+    Data: {fileID: 11400000, guid: 852b2c7fa72f99d4d8760dadd565a10c, type: 2}
+  - name: SFX_SPIKE
+    Id: 609
+    Data: {fileID: 11400000, guid: 339a5cc3bfc0a7c4d8e8208e3e0aa35f, type: 2}
+  - name: SFX_BUFF
+    Id: 610
+    Data: {fileID: 11400000, guid: e41bdf13c174fc6469e4a396ab0d49f3, type: 2}
+  - name: SFX_ICE
+    Id: 611
+    Data: {fileID: 11400000, guid: 5467ee624645b1f49898bf821da304d4, type: 2}
+  - name: SFX_TELEPORT
+    Id: 612
+    Data: {fileID: 11400000, guid: 6bd4cd9fcc291544ca02d591338e1d11, type: 2}
+  - name: SFX_LAND_FOOTSTEP
+    Id: 701
+    Data: {fileID: 11400000, guid: 91609e3de8c777a479d93ef1de5689bc, type: 2}
+  - name: SFX_ROCK_FOOTSTEP
+    Id: 702
+    Data: {fileID: 11400000, guid: 584730647e534354abfb53578e62b21b, type: 2}
+  - name: SFX_GRASS_FOOTSTEP
+    Id: 703
+    Data: {fileID: 11400000, guid: 33add491b24a4ff4db2163aca8ff7ce2, type: 2}
+  - name: SFX_ICE_FOOTSTEP
+    Id: 704
+    Data: {fileID: 11400000, guid: bd646dab27094714bb4bc9b8f3738298, type: 2}
+  - name: SFX_SLIME_WALK
+    Id: 801
+    Data: {fileID: 11400000, guid: 18bf78e8a185c8c4995ff419a2e2b8fa, type: 2}
+  - name: SFX_SLIME_FIRE
+    Id: 802
+    Data: {fileID: 11400000, guid: 62bf224d461f09f4fa165da9525dde36, type: 2}
+  - name: SFX_SLIME_POISON_BOMB
+    Id: 803
+    Data: {fileID: 11400000, guid: 64e360f2cb51c0841b571c2e39e67556, type: 2}
+  - name: SFX_SING
+    Id: 804
+    Data: {fileID: 11400000, guid: 90dec3fd9e45dd245b12bccf8ebd37c1, type: 2}
+  - name: SFX_SPLASH
+    Id: 805
+    Data: {fileID: 11400000, guid: ce17663bef6c66c45a1a93e79f307594, type: 2}
+  - name: SFX_SPLASH_1
+    Id: 806
+    Data: {fileID: 11400000, guid: b7d3662aaef447042885a0164a1cddf5, type: 2}
+  - name: SFX_ACRO_JUMP
+    Id: 807
+    Data: {fileID: 11400000, guid: 8ac13ea1f84a0524ca11638c3ee238db, type: 2}
+  - name: SFX_MOLDWORM
+    Id: 810
+    Data: {fileID: 11400000, guid: 13bd9b2dfdfb26142aff2a09ac43b54b, type: 2}
+  - name: SFX_BITE
+    Id: 811
+    Data: {fileID: 11400000, guid: b895563dcdfa69d43ae074fac9daf931, type: 2}
+  - name: SFX_GROUND_POUND
+    Id: 812
+    Data: {fileID: 11400000, guid: 4fbda3630ad270449aa7deb28b860567, type: 2}
+  - name: SFX_EGG_HATCH
+    Id: 813
+    Data: {fileID: 11400000, guid: 4aa0bd748ea1cc347a3b7277180c540f, type: 2}
+  - name: SFX_EGG_HATCH_1
+    Id: 814
+    Data: {fileID: 11400000, guid: ded8bbf4d430424418746abf1e2fe255, type: 2}
+  - name: SFX_EGG_REFLECT
+    Id: 815
+    Data: {fileID: 11400000, guid: 7610ad157343b824897eec5c65373819, type: 2}
+  - name: SFX_BOSS_WALK
+    Id: 816
+    Data: {fileID: 11400000, guid: a0ad75e3bc1a37540a8080fbf4697c91, type: 2}
+  - name: SFX_BOSS_ROAR
+    Id: 817
+    Data: {fileID: 11400000, guid: 11d6c5d25894e854bbcb04648714a1a7, type: 2}
+  - name: SFX_LASER_BEAM
+    Id: 818
+    Data: {fileID: 11400000, guid: d1810b0b0315a51499e3df58977991c7, type: 2}
+  - name: SFX_KAMEHAMEHA
+    Id: 819
+    Data: {fileID: 11400000, guid: 612874850d534b44fb75fec7b96f2fbc, type: 2}
+  - name: SFX_ENEMY_SHOOT
+    Id: 820
+    Data: {fileID: 11400000, guid: fed16acec857b3c48be0cd2db793461d, type: 2}
+  - name: SFX_DIG
+    Id: 821
+    Data: {fileID: 11400000, guid: e15ed600d2e4fc7419db2e0596964023, type: 2}
+  - name: SFX_FROG_EAT
+    Id: 822
+    Data: {fileID: 11400000, guid: dc534924419f89642b13de8a9df25d87, type: 2}
+  - name: SFX_POP
+    Id: 823
+    Data: {fileID: 11400000, guid: 09650e8c2ce42c343a5a8e9d059d2c82, type: 2}
+  - name: SFX_ENEMY_TELEPORT
+    Id: 824
+    Data: {fileID: 11400000, guid: c5b7f172df64feb4ea252080010c370f, type: 2}
+  - name: SFX_SMALL_EXPLOSION
+    Id: 825
+    Data: {fileID: 11400000, guid: af40c541d6f50ba47a8c039cd82d44a9, type: 2}
+  - name: SFX_ENEMY_ELECTRIC
+    Id: 826
+    Data: {fileID: 11400000, guid: 17ad17af87d091742991085b55d04082, type: 2}
+  - name: SFX_ENEMY_HURT
+    Id: 827
+    Data: {fileID: 11400000, guid: 8602232596d32b642953af94b8ba5e7f, type: 2}
+  - name: SFX_BOSS_DIE
+    Id: 828
+    Data: {fileID: 11400000, guid: a012fd3898696b04b9b63da22f46e126, type: 2}
