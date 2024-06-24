@@ -15,7 +15,6 @@ namespace GDC.Managers
         public static LoadingManager Instance {get; private set;}
         [SerializeField] GameObject loadingCanvas;
         [SerializeField] Image loadingIcon;
-        [SerializeField] Sprite slime, bigSlime, spikeSlime, fireSlime, poisonSlime, metalSlime, goldenSlime, iceSlime;
         void Awake()
         {
             if (Instance != null)

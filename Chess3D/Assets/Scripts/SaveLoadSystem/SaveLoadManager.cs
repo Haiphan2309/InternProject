@@ -31,9 +31,8 @@ namespace GDC.Managers
         [Button]
         public void Save()
         {
-            //GameData.IsHaveSaveData = true;
-            GameDataOrigin = GameData.ConvertToGameDataOrigin();            
-            //StartCoroutine(Cor_SaveLoadProgress("Save success"));
+            GameDataOrigin = GameData.ConvertToGameDataOrigin();
+            StartCoroutine(Cor_SaveLoadProgress("Save success"));
             //print("SAVE game");
         }
         [Button]
@@ -41,9 +40,9 @@ namespace GDC.Managers
         {
             SaveLoadSystem.LoadData(GameDataOrigin);
             GameData.SetupData();
-            
+
             //StartCoroutine(Cor_LoadPlayer());
-            //StartCoroutine(Cor_SaveLoadProgress("load success"));
+            StartCoroutine(Cor_SaveLoadProgress("load success"));
             //Debug.Log("Load successed");
         }
         [Button]
@@ -58,25 +57,25 @@ namespace GDC.Managers
             //GameDataOrigin.SeenItemIDList.Add(so_defaultArmor.ID);
             //GameDataOrigin.SeenItemIDList.Add(so_defaultShoe.ID);
             SaveLoadSystem.SaveData(GameDataOrigin);
-            //GameData.SetupData();
-            //StartCoroutine(Cor_ResetData());
+            GameData.SetupData();
+            StartCoroutine(Cor_ResetData());
             //Debug.Log("Reset data successed");
         }
-       
-        //IEnumerator Cor_SaveLoadProgress(string progressStr)
-        //{
-        //    yield return new WaitUntil(()=>this.GameData.IsSaveLoadProcessing == false);
-        //    SaveLoadSystem.SaveData(GameDataOrigin);
-        //    Debug.Log(progressStr);
-        //}    
-        //IEnumerator Cor_ResetData()
-        //{
-        //    //Save();
-        //    //yield return new WaitUntil(() => this.GameData.IsSaveLoadProcessing == false);
-        //    Load();
-        //    yield return new WaitUntil(() => this.GameData.IsSaveLoadProcessing == false);
-        //    StartCoroutine(Cor_LoadPlayer());
-        //    StartCoroutine(Cor_SaveLoadProgress("reset data success"));
-        //}    
+
+        IEnumerator Cor_SaveLoadProgress(string progressStr)
+        {
+            yield return new WaitUntil(() => this.GameData.IsSaveLoadProcessing == false);
+            SaveLoadSystem.SaveData(GameDataOrigin);
+            Debug.Log(progressStr);
+        }
+        IEnumerator Cor_ResetData()
+        {
+            //Save();
+            yield return new WaitUntil(() => this.GameData.IsSaveLoadProcessing == false);
+            Load();
+            yield return new WaitUntil(() => this.GameData.IsSaveLoadProcessing == false);
+            //StartCoroutine(Cor_LoadPlayer());
+            StartCoroutine(Cor_SaveLoadProgress("reset data success"));
+        }
     }
 }
