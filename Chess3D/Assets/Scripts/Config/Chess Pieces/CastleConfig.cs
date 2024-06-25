@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PawnConfig", menuName = "ChessManConfig/PawnConfig", order = 0)]
-public class PawnConfig : ChessManConfig
+[CreateAssetMenu(fileName = "CastleConfig", menuName = "ChessManConfig/CastleConfig", order = 1)]
+public class CastleConfig : ChessManConfig
 {
     public GameObject prefab;
-    private int _moveRange = 1;    // hard-coded number
+    private int _moveRange = 16;    // hard-coded number
     private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
-    PawnConfig()
+
+    CastleConfig()
     {
-        Debug.Log("Spawn Pawn");
-        this.chessManType = GDC.Enums.ChessManType.PAWN;
+        Debug.Log("Spawn Castle");
+        this.chessManType = GDC.Enums.ChessManType.CASTLE;
         this.possibleMoveList = new List<Vector3>();
     }
 
