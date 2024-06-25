@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Level Brush
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 919132149155446097, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
-  selectedIndex: 0
+  - {fileID: 4051196245707785669, guid: 92f8d1382ff3e764d95cd56b73762036, type: 3}
+  - {fileID: 4051196245707785669, guid: b9bb84bceeaa20d4d8966b3def03aae6, type: 3}
+  selectedIndex: 1
   manualOffset: 0
   manualOffsetValue: 0
+  rotateWithTile: 1
+  rotationAngle: 0
