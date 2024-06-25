@@ -12,7 +12,7 @@ public class ChessManConfig : ScriptableObject
     public float height { get; set; }
     public GDC.Enums.ChessManType chessManType { get; set; }
 
-    public virtual List<Vector3> Move()
+    public virtual List<Vector3> Move(Vector3 currentPosIndex)
     {
         return null;
     }
