@@ -30,11 +30,12 @@ public class GameplayManager : MonoBehaviour
     }
     void EnemyTurn()
     {
-
+        //dosomething
+        ChangeTurn(false);
     }
     void PlayerTurn()
     {
-
+        //dosomething
     }
     public void ShowAvailableMove(ChessManConfig chessManConfig, Vector3 curPosIndex)
     {
