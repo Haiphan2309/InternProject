@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -10,6 +11,8 @@ public class LevelBrush : GridBrushBase
     public int selectedIndex = 0;
     public bool manualOffset = false;
     public int manualOffsetValue = 0;
+    public bool rotateWithTile = true; // Toggle to rotate GameObject with the tile
+    public float rotationAngle = 0f;   // Rotation angle to apply to the GameObject
 
     public override void Paint(GridLayout grid, GameObject brushTarget, Vector3Int position)
     {
@@ -22,6 +25,12 @@ public class LevelBrush : GridBrushBase
                 // Calculate the world position of the cell and center the GameObject within the cell
                 Vector3 cellWorldPosition = grid.CellToWorld(position);
                 int offset = manualOffset ? manualOffsetValue : GetOffsetBasedOnTilemapName(brushTarget);
+                Quaternion rotation = Quaternion.identity;
+
+                if (rotateWithTile)
+                {
+                    rotation = Quaternion.Euler(0, rotationAngle, 0);
+                }
 
                 // Instantiate the prefab
                 GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(selectedPrefab);
@@ -29,6 +38,9 @@ public class LevelBrush : GridBrushBase
                 // Adjust the position to center the GameObject within the cell
                 Vector3 adjustedPosition = new Vector3(cellWorldPosition.x + 0.5f, 0, cellWorldPosition.z + 0.5f);
                 adjustedPosition.y += offset;
+
+                // Set rotation
+                instance.transform.rotation = rotation;
 
                 // Set the position and parent of the instance
                 instance.transform.position = adjustedPosition;
@@ -47,6 +59,12 @@ public class LevelBrush : GridBrushBase
             // Calculate the world position of the cell and center the GameObject within the cell
             Vector3 cellWorldPosition = grid.CellToWorld(position);
             int offset = manualOffset ? manualOffsetValue : GetOffsetBasedOnTilemapName(brushTarget);
+            Quaternion rotation = Quaternion.identity;
+
+            if (rotateWithTile)
+            {
+                rotation = Quaternion.Euler(0, rotationAngle, 0);
+            }
 
             // Adjust the position to match the position used in Paint
             Vector3 adjustedPosition = new Vector3(cellWorldPosition.x + 0.5f, 0, cellWorldPosition.z + 0.5f);

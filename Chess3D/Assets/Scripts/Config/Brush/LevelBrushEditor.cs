@@ -41,6 +41,15 @@ public class LevelBrushEditor : Editor
             brush.manualOffsetValue = EditorGUILayout.IntField("Manual Offset Value", brush.manualOffsetValue);
         }
 
+        // Checkbox for rotation with tile
+        brush.rotateWithTile = EditorGUILayout.Toggle("Rotate With Tile", brush.rotateWithTile);
+
+        if (brush.rotateWithTile)
+        {
+            // Field for rotation angle
+            brush.rotationAngle = EditorGUILayout.FloatField("Rotation Angle", brush.rotationAngle);
+        }
+
         // Save changes
         if (GUI.changed)
         {

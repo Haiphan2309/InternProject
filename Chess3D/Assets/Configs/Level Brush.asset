@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b3d9e92cc2adf49a5c0db558d31053, type: 3}
   m_Name: Level Brush
   m_EditorClassIdentifier: 
-  prefabs: []
+  prefabs:
+  - {fileID: 919132149155446097, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
   selectedIndex: 0
   manualOffset: 0
   manualOffsetValue: 0
