@@ -90,7 +90,7 @@ public class KnightConfig : ChessManConfig
 
     public override void GenerateMoveList(Vector3 currentPositionIndex)
     {
-        for (int i = 0; i < _knightDirection.Length; ++i)
+        for (int i = 0; i < _knightDirection.GetLength(0); ++i)
         {
             for(int j = -(int)_jumpLimit; j < (int)_jumpLimit; ++j)
             {

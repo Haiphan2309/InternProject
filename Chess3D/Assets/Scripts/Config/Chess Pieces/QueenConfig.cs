@@ -41,12 +41,12 @@ public class QueenConfig : ChessManConfig
     }
     public override void GenerateMoveList(Vector3 currentPositionIndex)
     {
-        for (int i = 0; i < _straghtDirection.Length; ++i)
+        for (int i = 0; i < _straghtDirection.GetLength(0); ++i)
         {
             Vector3 direction = Vector3.right * _straghtDirection[i, 0] + Vector3.forward * _straghtDirection[i, 1];
             GenerateMove(currentPositionIndex, direction);
         }
-        for (int i = 0; i < _diagonalDirection.Length; ++i)
+        for (int i = 0; i < _diagonalDirection.GetLength(0); ++i)
         {
             Vector3 direction = Vector3.right * _diagonalDirection[i, 0] + Vector3.forward * _diagonalDirection[i, 1];
             GenerateMove(currentPositionIndex, direction);
