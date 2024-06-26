@@ -8,7 +8,7 @@ using UnityEngine;
 public class ChessMan : MonoBehaviour
 {
     public ChessManConfig config;
-    public Vector3 posIndex;
+    [ReadOnly] public Vector3 posIndex;
     [SerializeField] float speed;
     [SerializeField] Vector3 posIndexToMove;
 
@@ -20,6 +20,12 @@ public class ChessMan : MonoBehaviour
     public void Move(Vector3 posIndexToMove)
     {
         //todo some animaiton
+        if (config == null)
+        {
+            Debug.LogError(gameObject.name + " chua co config");
+            return;
+        }
+
         if (config.chessManType != ChessManType.KNIGHT)
         {
             OtherMoveAnim(posIndexToMove);

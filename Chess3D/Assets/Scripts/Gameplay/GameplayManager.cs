@@ -40,6 +40,11 @@ public class GameplayManager : MonoBehaviour
     }
     public void ShowAvailableMove(ChessManConfig chessManConfig, Vector3 curPosIndex)
     {
+        if (chessManConfig == null)
+        {
+            Debug.LogError("chessman chua co config");
+            return;
+        }
         List<Vector3> moves = chessManConfig.Move(curPosIndex);
         //todo
     }
