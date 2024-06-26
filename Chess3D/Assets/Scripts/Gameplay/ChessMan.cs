@@ -8,24 +8,31 @@ using UnityEngine;
 public class ChessMan : MonoBehaviour
 {
     public ChessManConfig config;
-    [ReadOnly] public Vector3 posIndex;
+    public Vector3 posIndex;
     [SerializeField] float speed;
     [SerializeField] Vector3 posIndexToMove;
 
+    [SerializeField] GameObject vfxDefeated;
+
     [Button]
-    void TestMove()
+    void TestOtherMove()
     {
         OtherMoveAnim(posIndexToMove);
     }
+    [Button]
+    void TestKnightMove()
+    {
+        KnightMoveAnim(posIndexToMove);
+    }
     public void Move(Vector3 posIndexToMove)
     {
-        //todo some animaiton
         if (config == null)
         {
             Debug.LogError(gameObject.name + " chua co config");
             return;
         }
 
+        posIndex = posIndexToMove;
         if (config.chessManType != ChessManType.KNIGHT)
         {
             OtherMoveAnim(posIndexToMove);
@@ -38,8 +45,12 @@ public class ChessMan : MonoBehaviour
     }
     void KnightMoveAnim(Vector3 posIndexToMove)
     {
-
+        transform.DOJump(posIndexToMove + new Vector3(0.5f, 0, 0.5f), 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(()=>
+        {
+            AjustPosToGround(transform.position);
+        });   
     }
+
     void OtherMoveAnim(Vector3 posIndexToMove)
     {
         StartCoroutine(Cor_OtherMoveAnim(posIndexToMove));
@@ -74,5 +85,14 @@ public class ChessMan : MonoBehaviour
             newPosition += Vector3.down * Time.deltaTime * 5;
         }
         transform.position = newPosition;
+    }
+    [Button]
+    public void Defeated()
+    {
+        Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0,2), 2, Random.Range(0,2));
+        transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
+        });
     }
 }

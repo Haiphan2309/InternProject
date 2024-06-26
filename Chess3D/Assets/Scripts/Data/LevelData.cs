@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 using GDC.Enums;
+using System;
+using System.ComponentModel;
 
+[Serializable]
 public class TileInfo
 {
     public int id;
@@ -14,12 +17,25 @@ public class TileInfo
     }
 }
 
+[Serializable]
+public class TileData
+{
+    public Vector3 pos;
+    public TileInfo tileInfo;
+    public TileData(Vector3 pos, TileInfo info)
+    {
+        this.pos = pos;
+        this.tileInfo = info;
+    }
+}
+[Serializable]
 public abstract class Army
 {
     public ChessManType chessManType;
     public Vector3 posIndex;
 }
 
+[Serializable]
 public class PlayerArmy : Army
 {
     public PlayerArmy(Vector3 posIndex, ChessManType chessManType)
@@ -29,6 +45,7 @@ public class PlayerArmy : Army
     }
 }
 
+[Serializable]
 public class EnemyArmy : Army
 {
     public EnemyArmy(Vector3 posIndex, ChessManType chessManType)
@@ -40,39 +57,70 @@ public class EnemyArmy : Army
 }
 
 [CreateAssetMenu(menuName = "Data/Level Data")]
+[Serializable]
 public class LevelData : ScriptableObject
 {
-    private TileInfo[,,] tileInfo;
-    private List<PlayerArmy> playerArmies;
-    private List<EnemyArmy> enemyArmies;
+    [SerializeField] private List<TileData> tileInfo;
+    [SerializeField] private List<PlayerArmy> playerArmies;
+    [SerializeField] private List<EnemyArmy> enemyArmies;
 
     public LevelData()
     {
-        tileInfo = new TileInfo[30, 20, 30];
+        tileInfo = new List<TileData> ();
         playerArmies = new List<PlayerArmy>();
         enemyArmies = new List<EnemyArmy>();
     }
 
     public void SetData(TileInfo[,,] tileInfo, List<PlayerArmy> playerArmies, List<EnemyArmy> enemyArmies)
     {
-        this.tileInfo = DeepCopyArray(tileInfo);
+        //this.tileInfo = DeepCopyArray(tileInfo);
+        SetTileInfo(tileInfo);
         this.playerArmies.AddRange(playerArmies);
         this.enemyArmies.AddRange(enemyArmies);
+    }
+    
+    public void SetTileInfo(TileInfo[,,] tileInfo)
+    {
+        int dim0 = tileInfo.GetLength(0);
+        int dim1 = tileInfo.GetLength(1);
+        int dim2 = tileInfo.GetLength(2);
+
+        TileInfo[,,] newArray = new TileInfo[dim0, dim1, dim2];
+
+        for (int i = 0; i < dim0; i++)
+        {
+            for (int j = 0; j < dim1; j++)
+            {
+                for (int k = 0; k < dim2; k++)
+                {
+                    Vector3 pos = new Vector3(i, j, k);
+                    TileInfo newInfo = new TileInfo(tileInfo[i, j, k].id, tileInfo[i, j, k].tileType);
+                    this.tileInfo.Add(new TileData(pos, newInfo));
+                }
+            }
+        }
+
+       
     }
 
     public TileInfo[,,] GetTileInfo()
     {
-        return DeepCopyArray(tileInfo);
+        TileInfo[,,] map = new TileInfo[30, 20, 30];
+        foreach(TileData data in this.tileInfo)
+        {
+            map[(int)data.pos.x, (int)data.pos.y, (int)data.pos.z] = data.tileInfo;
+        }
+        return DeepCopyArray(map);
+
     }
 
     public List<PlayerArmy> GetPlayerArmies()
     {
-        return new List<PlayerArmy>(playerArmies); // Return a shallow copy to prevent external modification
+        return new List<PlayerArmy>(playerArmies);
     }
-
     public List<EnemyArmy> GetEnemyArmies()
     {
-        return new List<EnemyArmy>(enemyArmies); // Return a shallow copy to prevent external modification
+        return new List<EnemyArmy>(enemyArmies);
     }
 
     private TileInfo[,,] DeepCopyArray(TileInfo[,,] originalArray)

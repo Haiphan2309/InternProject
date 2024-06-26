@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ea2989c52f4fd49821c3f2b28b28bd, type: 3}
-  m_Name: Level_1
+  m_Script: {fileID: 11500000, guid: 4841a184fc32276499ae145043cefa34, type: 3}
+  m_Name: CastleConfig
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
