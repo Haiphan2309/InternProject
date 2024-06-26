@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class ChessManConfig : ScriptableObject
 {
     private float _height;
+    private int _moveRange;
     private GDC.Enums.ChessManType _chessManType;
     private List<Vector3> _possibleMoveList;
 
     public float height { get; set; }
+    public int moveRange { get; set; }
     public GDC.Enums.ChessManType chessManType { get; set; }
     public List<Vector3> possibleMoveList { get; set; }
 
@@ -68,6 +71,12 @@ public class ChessManConfig : ScriptableObject
         return canStandOn;
     }
 
+    public virtual bool ValidateJump(Vector3 currentMove, Vector3 direction)
+    {
+        bool isJumpable = true;
+        return isJumpable;
+    }
+
     public virtual bool ValidateMove(Vector3 currentMove, Vector3 direction)
     {
         bool isMovable = true;
@@ -109,15 +118,37 @@ public class ChessManConfig : ScriptableObject
     }
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
-        return;
+        for (int i = 1; i <= moveRange; ++i)
+        {
+            Vector3 move = currentPositionIndex + direction * i;
+            if (!OnBound(move))
+            {
+                return;
+            }
+            if (!CanStandOn(move))
+            {
+                return;
+            }
+            if (!ValidateJump(move, direction))
+            {
+                return;
+            }
+            if (!ValidateMove(move, direction))
+            {
+                return;
+            }
+            // If here means the move is executable, we add it to the list
+            possibleMoveList.Add(move);
+        }
     }
     public virtual void GenerateMoveList(Vector3 currentPositionIndex)
     {
         return;
     }
-
     public virtual List<Vector3> Move(Vector3 currentPositionIndex)
     {
-        return null;
+        possibleMoveList.Clear();
+        GenerateMoveList(currentPositionIndex);
+        return possibleMoveList;
     }
 }
