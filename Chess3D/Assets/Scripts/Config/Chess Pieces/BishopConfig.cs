@@ -7,8 +7,6 @@ public class BishopConfig : ChessManConfig
 {
     public GameObject prefab;
 
-    private List<Vector3> _possibleMoveList;
-    public List<Vector3> possibleMoveList { get; private set; }
     private int _moveRange = 16;    // hard-coded number
     private float[,] _diagonalDirection = { { -1f, 1f },  { 1f, 1f }, { -1f, -1f }, { 1f, -1f } };
 
@@ -51,6 +49,7 @@ public class BishopConfig : ChessManConfig
 
     public override List<Vector3> Move(Vector3 currentPositionIndex)
     {
+        possibleMoveList.Clear();
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }
