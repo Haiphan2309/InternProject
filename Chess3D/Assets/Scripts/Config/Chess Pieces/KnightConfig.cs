@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PawnConfig", menuName = "ChessManConfig/PawnConfig", order = 0)]
-public class PawnConfig : ChessManConfig
+[CreateAssetMenu(fileName = "KnightConfig", menuName = "ChessManConfig/KnightConfig", order = 2)]
+public class KnightConfig : ChessManConfig
 {
     public GameObject prefab;
-    private int _moveRange = 1;    // hard-coded number
-    private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
-    PawnConfig()
+
+    private int _moveRange = 16;    // hard-coded number
+    private float[,] _knightDirection = { 
+        { -1f, 2f }, { 1f, 2f }, { 1f, -2f }, { -1f, -2f },
+        { -2f, 1f }, { 2f, 1f }, { 2f, -1f }, { -2f, -1f }
+    };
+
+    KnightConfig()
     {
-        Debug.Log("Spawn Pawn");
-        this.chessManType = GDC.Enums.ChessManType.PAWN;
+        Debug.Log("Spawn Knight");
+        this.chessManType = GDC.Enums.ChessManType.KNIGHT;
         this.possibleMoveList = new List<Vector3>();
     }
 
@@ -36,9 +41,9 @@ public class PawnConfig : ChessManConfig
     }
     public override void GenerateMoveList(Vector3 currentPositionIndex)
     {
-        for (int i = 0; i < _straghtDirection.Length; ++i)
+        for (int i = 0; i < _knightDirection.Length; ++i)
         {
-            Vector3 direction = Vector3.right * _straghtDirection[i, 0] + Vector3.forward * _straghtDirection[i, 1];
+            Vector3 direction = Vector3.right * _knightDirection[i, 0] + Vector3.forward * _knightDirection[i, 1];
             GenerateMove(currentPositionIndex, direction);
         }
     }

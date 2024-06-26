@@ -41,5 +41,19 @@ namespace GDC.Enums
         QUEEN,
         KING,
     }
+
+    public enum TileType
+    {
+        NONE, //Ko co gi
+        GROUND, //Dung duoc
+        OBJECT, //Khong di qua duoc va khong dung duoc
+        WATER, //Nuoc
+        BOX, //Box
+        BOULDER, //Boulder
+        SLOPE_0, //Slope rotate 0 do
+        SLOPE_90, //Slope rotate 90 do
+        SLOPE_180,
+        SLOPE_270,
+    }
     
 }

@@ -61,13 +61,17 @@ public class ChessMan : MonoBehaviour
     void AjustPosToGround(Vector3 newPosition)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 5))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1))
         {
             newPosition.y = hit.point.y + 0.5f;
 
             Vector3 slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
             transform.DORotate(slopeRotation, 0.3f);
             //transform.rotation = slopeRotation * transform.rotation;
+        }
+        else
+        {
+            newPosition += Vector3.down * Time.deltaTime * 5;
         }
         transform.position = newPosition;
     }

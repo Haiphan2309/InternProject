@@ -1,4 +1,5 @@
 using GDC.Enums;
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ public class GameplayManager : MonoBehaviour
     public static GameplayManager Instance { get; private set; }
 
     [SerializeField, ReadOnly] bool enemyTurn;
+    public LevelData levelData;
     private void Awake()
     {
-        
         Instance = this;
     }
 
