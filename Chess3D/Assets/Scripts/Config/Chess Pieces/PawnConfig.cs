@@ -7,6 +7,9 @@ using UnityEngine;
 public class PawnConfig : ChessManConfig
 {
     public GameObject prefab;
+
+    private List<Vector3> _possibleMoveList;
+    public List<Vector3> possibleMoveList { get; private set; }
     private int _moveRange = 1;    // hard-coded number
     private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
     PawnConfig()

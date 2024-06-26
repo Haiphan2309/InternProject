@@ -6,10 +6,8 @@ public class ChessManConfig : ScriptableObject
 {
     private float _height;
     private GDC.Enums.ChessManType _chessManType;
-    private List<Vector3> _possibleMoveList;
     public float height { get; set; }
     public GDC.Enums.ChessManType chessManType { get; set; }
-    public List<Vector3> possibleMoveList { get; set; }
 
     // Check if the tile below is Standable
     public virtual bool OnBound(Vector3 currentMove)

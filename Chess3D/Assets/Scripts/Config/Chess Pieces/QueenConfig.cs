@@ -7,6 +7,8 @@ public class QueenConfig : ChessManConfig
 {
     public GameObject prefab;
 
+    private List<Vector3> _possibleMoveList;
+    public List<Vector3> possibleMoveList { get; private set; }
     private int _moveRange = 16;    // hard-coded number
     private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
     private float[,] _diagonalDirection = { { -1f, 1f }, { 1f, 1f }, { -1f, -1f }, { 1f, -1f } };
