@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PawnConfig", menuName = "ChessManConfig/PawnConfig", order = 0)]
@@ -14,10 +15,14 @@ public class PawnConfig : ChessManConfig
         this.chessManType = GDC.Enums.ChessManType.PAWN;
         this.possibleMoveList = new List<Vector3>();
     }
-
-    public override bool ValidateMove(Vector3 currentMove)
+    public override bool CanStandOn(Vector3 currentMove, Vector3 direction)
     {
-        bool isMovable = true;
+        bool canStandOn = base.CanStandOn(currentMove, direction);
+        return canStandOn;
+    }
+    public override bool ValidateMove(Vector3 currentMove, Vector3 direction)
+    {
+        bool isMovable = base.ValidateMove(currentMove, direction);
         return isMovable;
     }
     public override void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
@@ -25,8 +30,11 @@ public class PawnConfig : ChessManConfig
         for (int i = 0; i < _moveRange; ++i)
         {
             Vector3 move = currentPositionIndex + direction * i;
-            // Check if this potential move is executable
-            if (!ValidateMove(move))
+            if (!CanStandOn(move, direction))
+            {
+                return;
+            }
+            if (!ValidateMove(move, direction))
             {
                 return;
             }
