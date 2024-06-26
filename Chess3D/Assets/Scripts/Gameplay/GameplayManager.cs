@@ -63,7 +63,6 @@ public class GameplayManager : MonoBehaviour
         if (moves != null)
         {
             availableMoveTrans.Clear();
-            Debug.Log(moves.Count);
             foreach (Vector3 move in moves)
             {
                 
@@ -101,12 +100,24 @@ public class GameplayManager : MonoBehaviour
             Debug.LogError("move is null");
         }
     }
+    public void HideAvailableMove()
+    {
+        if (availableMoveTrans != null)
+        {
+            foreach (var tran in availableMoveTrans)
+            {
+                Destroy(tran.gameObject);
+            }
+            availableMoveTrans.Clear();
+        }
+    }
     public bool CheckMove(ChessManConfig chessManConfig, Vector3 curPosIndex, Vector3 posIndexToMove)
     {
         List<Vector3> moves = chessManConfig.Move(curPosIndex);
         foreach (Vector3 move in moves)
         {
-            if (move == posIndexToMove) return true;
+            Debug.Log(move + "    " + posIndexToMove);
+            if ((int)move.x == (int)posIndexToMove.x && (int)move.y == (int)posIndexToMove.y && (int)move.z == (int)posIndexToMove.z) return true;
         }
         return false;
     }    

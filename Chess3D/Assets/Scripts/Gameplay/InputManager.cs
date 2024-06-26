@@ -43,11 +43,6 @@ public class InputManager : MonoBehaviour
         bool isHit = Physics.Raycast(ray, out hit, 100);
         if (isHit)
         {
-            if ((chessLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
-            {
-                HitChessMan(hit);
-            }
-            
             if (isPicking)//Neu da pick quan co
             {
                 if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
@@ -61,11 +56,18 @@ public class InputManager : MonoBehaviour
                 }
                 isPicking = false;
             }
+
+            if ((chessLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+            {
+                HitChessMan(hit);
+            }      
+            
             Debug.Log("hit: " + hit.transform.name);
         }
         else
         {
             Debug.Log("Nhan vao hu khong");
+            GameplayManager.Instance.HideAvailableMove();
             isPicking = false;
         }
     }
@@ -79,10 +81,11 @@ public class InputManager : MonoBehaviour
     }
     void HitTileToMove(RaycastHit hit)
     {
-        Vector3 tileToMoveIndex = hit.transform.position; //Hien tai position = tile index
+        Vector3 tileToMoveIndex = hit.transform.position + Vector3.up; //Hien tai position = tile index
         if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, tileToMoveIndex))
         {
             GameplayManager.Instance.MakeMove(curChessMan, tileToMoveIndex);
+            GameplayManager.Instance.HideAvailableMove();
         }
         else
         {
@@ -91,6 +94,7 @@ public class InputManager : MonoBehaviour
     }
     void MoveInvalid()
     {
+        GameplayManager.Instance.HideAvailableMove();
         Debug.Log("Nuoc di khong hop le");
     }
 }
