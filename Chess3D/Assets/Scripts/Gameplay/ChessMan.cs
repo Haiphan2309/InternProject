@@ -8,7 +8,7 @@ using UnityEngine;
 public class ChessMan : MonoBehaviour
 {
     public ChessManConfig config;
-    [ReadOnly] public Vector3 posIndex;
+    public Vector3 posIndex;
     [SerializeField] float speed;
     [SerializeField] Vector3 posIndexToMove;
 
