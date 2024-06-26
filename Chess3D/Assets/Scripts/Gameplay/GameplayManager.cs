@@ -19,9 +19,11 @@ public class GameplayManager : MonoBehaviour
         Instance = this;
     }
 
+    [Button]
     public void LoadLevel()
     {
         levelSpawner.Setup();
+        levelSpawner.SpawnLevel();
         levelData = levelSpawner.levelData;
     }
 

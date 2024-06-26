@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 7ac94aed580bed84a82e33cb11e2aa70, type: 2}
-  posIndex: {x: 0, y: 0, z: 0}
+  posIndex: {x: 0, y: 1, z: 0}
   speed: 0.01
   posIndexToMove: {x: 2, y: 1, z: 2}
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
@@ -450,10 +450,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498196610ab39a642a7a775d3d6ace2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSpawner: {fileID: 0}
+  levelSpawner: {fileID: 1220447863}
   enemyTurn: 0
   levelData: {fileID: 0}
-  availableMovePrefab: {fileID: 0}
+  availableMovePrefab: {fileID: 8749137230178799531, guid: 84568a093dba36641903864ef114cacc, type: 3}
 --- !u!4 &386281600
 Transform:
   m_ObjectHideFlags: 0
