@@ -29,26 +29,15 @@ public class LevelSpawner : MonoBehaviour
     [Button]
     public void SpawnLevel()
     {
-        //TileInfo[,,] map = new TileInfo[30, 20, 30];
-        //List<PlayerArmy> playerArmies = new List<PlayerArmy>();
-        //List<EnemyArmy> enemyArmies = new List<EnemyArmy>();
-        // Get Level Data
         GetLevelData();
-
-        // Get all prefabs
         GetPrefabs();
-
-        // Spawn map
         SpawnMap();
         
         
     }
     private void SpawnMap()
     {
-        //
-        //
         GameObject levelObject = new GameObject("Level");
-       // Instantiate(levelObject);
         //
 
         TileInfo[,,] map = levelData.GetTileInfo();
@@ -71,10 +60,12 @@ public class LevelSpawner : MonoBehaviour
                     //
                     if (tileInfo == null) continue;
                     if (tileInfo.tileType == TileType.NONE) continue;
+                    //
                     GameObject tile = Instantiate(prefabDic[tileId], spawnPos, Quaternion.identity);
                     tile.transform.parent = floor.transform;
                 }
             }
+            // If Floor does not have block
             if (floor.transform.childCount <= 0)
             {
                 Destroy(floor);
@@ -89,7 +80,7 @@ public class LevelSpawner : MonoBehaviour
         
         if (levelData == null)
         {
-            Debug.LogError($"Failed to load level: ");
+            Debug.LogError($"Failed to load level: " + spawnLevelName);
 
         }
         else
