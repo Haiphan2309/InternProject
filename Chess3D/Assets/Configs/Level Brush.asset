@@ -15,8 +15,8 @@ MonoBehaviour:
   prefabs:
   - {fileID: 4051196245707785669, guid: 92f8d1382ff3e764d95cd56b73762036, type: 3}
   - {fileID: 4051196245707785669, guid: b9bb84bceeaa20d4d8966b3def03aae6, type: 3}
-  selectedIndex: 1
+  selectedIndex: 0
   manualOffset: 1
-  manualOffsetValue: 1
+  manualOffsetValue: 0
   rotateWithTile: 1
   rotationAngle: 0

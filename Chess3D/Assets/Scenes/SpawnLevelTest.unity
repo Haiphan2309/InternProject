@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   storeLevelName: 
-  spawnLevelName: 
+  spawnLevelName: Level_0
 --- !u!4 &104026981
 Transform:
   m_ObjectHideFlags: 0
