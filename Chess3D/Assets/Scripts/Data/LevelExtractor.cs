@@ -16,7 +16,7 @@ public class LevelExtractor : MonoBehaviour
     string levelDataPath;
 
     public string storeLevelName = "";
-    public string spawnLevelName = "";
+    
     //
     TileInfo[,,] map = new TileInfo[30, 20, 30];
     List<PlayerArmy> playerArmies = new List<PlayerArmy>();
@@ -88,17 +88,17 @@ public class LevelExtractor : MonoBehaviour
         
         // Create new Level Data
         LevelData newLevelData = ScriptableObject.CreateInstance<LevelData>();
-
+        playerArmies.Add(new PlayerArmy(new Vector3(0, 0, 0), ChessManType.PAWN));
         // Assign attribute to levelData
         newLevelData.SetData(map, playerArmies, enemyArmies);
-
+       
         // Store levelData to real file
         string path = $"{levelDataPath}/{storeLevelName}.asset";
    
         AssetDatabase.CreateAsset(newLevelData, path);
         AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
 
+        
         //
         Debug.Log("Level Data created successfully: " + path);
 
@@ -174,38 +174,5 @@ public class LevelExtractor : MonoBehaviour
     }
 
 
-    [Button]
-    public void SpawnLevel()
-    {
-        TileInfo[,,] map = new TileInfo[30, 20, 30];
-        List<PlayerArmy> playerArmies = new List<PlayerArmy>();
-        List<EnemyArmy> enemyArmies = new List<EnemyArmy>();
-        // Get Level Data
-        LevelData levelData = GetLevelData();
-        if (levelData == null)
-        {
-            Debug.LogError($"Failed to load level: ");
-
-        }
-        else
-        {
-            Debug.Log($"Loading level {spawnLevelName} successfully");
-        }
-        // Spawn Level
-        GameObject levelObject = new GameObject();
-        levelObject.name = "LevelObject";
-        
-        Instantiate(levelObject);
-
-
-
-
-    }
-
-    private LevelData GetLevelData()
-    {
-        string loadPath = "ScriptableObjects/LevelData/" + spawnLevelName;
-        LevelData levelData = Resources.Load<LevelData>(loadPath);
-        return levelData;
-    }
+    
 }
