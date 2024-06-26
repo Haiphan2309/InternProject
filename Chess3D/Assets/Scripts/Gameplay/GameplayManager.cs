@@ -9,6 +9,7 @@ public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance { get; private set; }
 
+    [SerializeField] LevelSpawner levelSpawner;
     [SerializeField, ReadOnly] bool enemyTurn;
     public LevelData levelData;
     [SerializeField] Transform availableMovePrefab;
@@ -16,6 +17,12 @@ public class GameplayManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    public void LoadLevel()
+    {
+        levelSpawner.Setup();
+        levelData = levelSpawner.levelData;
     }
 
     public void ChangeTurn(bool enemyTurn)

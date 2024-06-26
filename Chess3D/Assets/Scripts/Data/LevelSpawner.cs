@@ -15,11 +15,6 @@ public class LevelSpawner : MonoBehaviour
     string prefabPath;
 
     Dictionary<int, GameObject> prefabDic = new Dictionary<int, GameObject>();
-    void Start()
-    {
-        Setup();
-    }
-
     public void Setup()
     {
         levelDataPath = "Assets/Resources/ScriptableObjects/LevelData";

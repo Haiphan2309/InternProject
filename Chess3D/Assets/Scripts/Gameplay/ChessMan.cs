@@ -8,7 +8,7 @@ using UnityEngine;
 public class ChessMan : MonoBehaviour
 {
     public ChessManConfig config;
-    [ReadOnly] public Vector3 posIndex;
+    public Vector3 posIndex;
     [SerializeField] float speed;
     [SerializeField] Vector3 posIndexToMove;
 
@@ -90,7 +90,7 @@ public class ChessMan : MonoBehaviour
     public void Defeated()
     {
         Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0,2), 2, Random.Range(0,2));
-        transform.DOJump(posToDissapear, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
+        transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
             Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
         });
