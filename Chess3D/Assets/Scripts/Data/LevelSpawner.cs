@@ -42,9 +42,8 @@ public class LevelSpawner : MonoBehaviour
     {
         //
         //
-        GameObject levelObject = new GameObject();
-        levelObject.name = "Level";
-        Instantiate(levelObject);
+        GameObject levelObject = new GameObject("Level");
+       // Instantiate(levelObject);
         //
 
         TileInfo[,,] map = levelData.GetTileInfo();
@@ -54,10 +53,9 @@ public class LevelSpawner : MonoBehaviour
 
         for (int j = 0; j < dim1; j++)
         {
-            GameObject floor = new GameObject();
-            floor.name = "Floor_" + j;
+            GameObject floor = new GameObject("Floor_" + j);
             floor.transform.parent = levelObject.transform;
-            Instantiate(floor);
+            //Instantiate(floor);
             for (int i = 0; i < dim0; i++) 
             {
                 for (int k = 0; k < dim2; k++)
@@ -71,6 +69,10 @@ public class LevelSpawner : MonoBehaviour
                     GameObject tile = Instantiate(prefabDic[tileId], spawnPos, Quaternion.identity);
                     tile.transform.parent = floor.transform;
                 }
+            }
+            if (floor.transform.childCount <= 0)
+            {
+                Destroy(floor);
             }
         }
     }
@@ -89,7 +91,7 @@ public class LevelSpawner : MonoBehaviour
         {
             Debug.Log($"Loading level {spawnLevelName} successfully");
         }
-        Debug.Log(levelData.GetPlayerArmies()[0].chessManType);
+
     }
     private void GetPrefabs()
     {
