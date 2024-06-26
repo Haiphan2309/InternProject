@@ -28,7 +28,7 @@ public class InputManager : MonoBehaviour
         if (isHit)
         {
             mouseOver.gameObject.SetActive(true);
-            mouseOver.transform.position = hit.transform.position + Vector3.up * 0.51f;
+            mouseOver.transform.position = hit.transform.position + Vector3.up * 1.05f;
         }
         else
         {

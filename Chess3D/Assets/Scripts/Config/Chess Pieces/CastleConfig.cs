@@ -51,6 +51,7 @@ public class CastleConfig : ChessManConfig
 
     public override List<Vector3> Move(Vector3 currentPositionIndex)
     {
+        possibleMoveList.Clear();
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }
