@@ -12,6 +12,30 @@ public class ChessManConfig : ScriptableObject
     public List<Vector3> possibleMoveList { get; set; }
 
     // Check if the tile below is Standable
+    public virtual bool OnBound(Vector3 currentMove)
+    {
+        bool onBound = true;
+        float Xpos = currentMove.x;
+        float Ypos = currentMove.y; // check the tile below the object
+        float Zpos = currentMove.z;
+
+        float Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
+        float Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
+        float Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
+        if (Xpos < 0 || Xpos >= Xlimit)
+        {
+            onBound = false;
+        }
+        if (Ypos < 0 || Ypos >= Ylimit)
+        {
+            onBound = false;
+        }
+        if (Zpos < 0 || Zpos >= Zlimit)
+        {
+            onBound = false;
+        }
+        return onBound;
+    }
     public virtual bool CanStandOn(Vector3 currentMove)
     {
         bool canStandOn = true;

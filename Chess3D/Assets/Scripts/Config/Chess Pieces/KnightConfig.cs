@@ -22,12 +22,6 @@ public class KnightConfig : ChessManConfig
         this.possibleMoveList = new List<Vector3>();
     }
 
-    public override bool CanStandOn(Vector3 currentMove)
-    {
-        bool canStandOn = base.CanStandOn(currentMove);
-        return canStandOn;
-    }
-
     // THE FACT
     // THE FACT THAT THIS FUCKER CAN JUMP
     // EVERYTIME I WAKE UP
@@ -68,17 +62,15 @@ public class KnightConfig : ChessManConfig
         return isJumpable;
     }
 
-    public override bool ValidateMove(Vector3 currentMove, Vector3 direction)
-    {
-        bool isMovable = base.ValidateMove(currentMove, direction);
-        return isMovable;
-    }
-
     public override void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
         for (int i = 1; i <= _moveRange; ++i)
         {
             Vector3 move = currentPositionIndex + direction * i;
+            if (!OnBound(move))
+            {
+                return;
+            }
             if (!CanStandOn(move))
             {   
                 return;
