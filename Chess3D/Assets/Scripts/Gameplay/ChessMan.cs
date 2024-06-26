@@ -45,7 +45,7 @@ public class ChessMan : MonoBehaviour
     }
     void KnightMoveAnim(Vector3 posIndexToMove)
     {
-        transform.DOJump(posIndexToMove + new Vector3(0.5f, 0, 0.5f), 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(()=>
+        transform.DOJump(posIndexToMove, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(()=>
         {
             AjustPosToGround(transform.position);
         });   
@@ -74,7 +74,7 @@ public class ChessMan : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 1))
         {
-            newPosition.y = hit.point.y + 0.5f;
+            newPosition.y = hit.point.y;
 
             Vector3 slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
             transform.DORotate(slopeRotation, 0.3f);

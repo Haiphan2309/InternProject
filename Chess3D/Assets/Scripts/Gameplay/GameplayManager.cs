@@ -3,6 +3,7 @@ using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
@@ -61,8 +62,11 @@ public class GameplayManager : MonoBehaviour
         List<Vector3> moves = chessManConfig.Move(curPosIndex);
         if (moves != null)
         {
+            availableMoveTrans.Clear();
+            Debug.Log(moves.Count);
             foreach (Vector3 move in moves)
             {
+                
                 TileInfo tileInfo = levelData.GetTileInfo()[(int)move.x, (int)move.y, (int)move.z];
                 Transform tran = Instantiate(availableMovePrefab, move, Quaternion.identity);
                 switch (tileInfo.tileType)
