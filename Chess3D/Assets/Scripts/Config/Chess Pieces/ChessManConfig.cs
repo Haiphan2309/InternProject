@@ -18,7 +18,7 @@ public class ChessManConfig : ScriptableObject
         float Xpos = currentMove.x;
         float Ypos = currentMove.y - 1f; // check the tile below the object
         float Zpos = currentMove.z;
-        GDC.Enums.TileType tileData = GameplayManager.Instance.levelData.GetMap()[(int)Xpos, (int)Ypos, (int)Zpos].tileType;
+        GDC.Enums.TileType tileData = GameplayManager.Instance.levelData.GetTileInfo()[(int)Xpos, (int)Ypos, (int)Zpos].tileType;
 
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
@@ -44,7 +44,7 @@ public class ChessManConfig : ScriptableObject
         float Ypos = currentMove.y;
         float Zpos = currentMove.z;
 
-        GDC.Enums.TileType tileData = GameplayManager.Instance.levelData.GetMap()[(int)Xpos, (int)Ypos, (int)Zpos].tileType;
+        GDC.Enums.TileType tileData = GameplayManager.Instance.levelData.GetTileInfo()[(int)Xpos, (int)Ypos, (int)Zpos].tileType;
 
         switch (tileData)
         {

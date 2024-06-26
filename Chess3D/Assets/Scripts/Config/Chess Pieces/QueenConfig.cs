@@ -44,6 +44,7 @@ public class QueenConfig : ChessManConfig
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
         }
+    }
     public override void GenerateMoveList(Vector3 currentPositionIndex)
     {
         for (int i = 0; i < _straghtDirection.Length; ++i)
