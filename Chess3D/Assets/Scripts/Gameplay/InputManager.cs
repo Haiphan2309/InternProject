@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] Transform mouseOver;
+    [SerializeField] Transform mouseOver, posIcon;
     [SerializeField] LayerMask tileLayerMask, chessLayerMask;
     [SerializeField, ReadOnly] bool isPicking;
 
@@ -37,6 +37,7 @@ public class InputManager : MonoBehaviour
     }
     void MouseDownInput()
     {
+        posIcon.gameObject.SetActive(false);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         bool isHit = Physics.Raycast(ray, out hit, 100);
@@ -44,29 +45,19 @@ public class InputManager : MonoBehaviour
         {
             if ((chessLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
             {
-                curChessMan = hit.transform.GetComponent<ChessMan>();
-                GameplayManager.Instance.ShowAvailableMove(curChessMan.config, curChessMan.posIndex);
-                isPicking = true;
-
+                HitChessMan(hit);
             }
             
             if (isPicking)//Neu da pick quan co
             {
                 if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
                 {
-                    Vector3 tileToMoveIndex = hit.transform.position; //Hien tai position = tile index
-                    if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, tileToMoveIndex))
-                    {
-                        GameplayManager.Instance.MakeMove(curChessMan, tileToMoveIndex);
-                    }
-                    else
-                    {
-                        Debug.Log("Nuoc di khong hop le");
-                    }
+                    HitTileToMove(hit);
                 }
                 else
                 {
-                    Debug.Log("Nhan vao o khong the di duoc");
+                    MoveInvalid();
+                    Debug.Log("Nhan vao tile ko phai ground");
                 }
                 isPicking = false;
             }
@@ -76,7 +67,30 @@ public class InputManager : MonoBehaviour
         {
             Debug.Log("Nhan vao hu khong");
             isPicking = false;
-
         }
+    }
+    void HitChessMan(RaycastHit hit)
+    {
+        curChessMan = hit.transform.GetComponent<ChessMan>();
+        GameplayManager.Instance.ShowAvailableMove(curChessMan.config, curChessMan.posIndex);
+        posIcon.gameObject.SetActive(true);
+        posIcon.position = curChessMan.posIndex + Vector3.one * 0.02f;
+        isPicking = true;
+    }
+    void HitTileToMove(RaycastHit hit)
+    {
+        Vector3 tileToMoveIndex = hit.transform.position; //Hien tai position = tile index
+        if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, tileToMoveIndex))
+        {
+            GameplayManager.Instance.MakeMove(curChessMan, tileToMoveIndex);
+        }
+        else
+        {
+            MoveInvalid();
+        }
+    }
+    void MoveInvalid()
+    {
+        Debug.Log("Nuoc di khong hop le");
     }
 }
