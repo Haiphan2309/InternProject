@@ -1,5 +1,7 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(LevelBrush))]
 public class LevelBrushEditor : Editor
@@ -7,6 +9,23 @@ public class LevelBrushEditor : Editor
     public override void OnInspectorGUI()
     {
         LevelBrush brush = (LevelBrush)target;
+
+        // Dropdown for selecting the target Tilemap
+        EditorGUILayout.LabelField("Target Tilemap", EditorStyles.boldLabel);
+
+        Tilemap[] tilemaps = FindObjectsOfType<Tilemap>();
+        List<string> tilemapNames = new List<string>();
+        foreach (Tilemap tilemap in tilemaps)
+        {
+            tilemapNames.Add(tilemap.name);
+        }
+
+        int selectedTilemapIndex = Mathf.Max(tilemapNames.IndexOf(brush.targetTilemapName), 0);
+        selectedTilemapIndex = EditorGUILayout.Popup("Active Tilemap", selectedTilemapIndex, tilemapNames.ToArray());
+        brush.targetTilemapName = tilemapNames[selectedTilemapIndex];
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
 
         EditorGUILayout.LabelField("Prefab List", EditorStyles.boldLabel);
 
@@ -41,14 +60,8 @@ public class LevelBrushEditor : Editor
             brush.manualOffsetValue = EditorGUILayout.IntField("Manual Offset Value", brush.manualOffsetValue);
         }
 
-        // Checkbox for rotation with tile
-        brush.rotateWithTile = EditorGUILayout.Toggle("Rotate With Tile", brush.rotateWithTile);
-
-        if (brush.rotateWithTile)
-        {
-            // Field for rotation angle
-            brush.rotationAngle = EditorGUILayout.FloatField("Rotation Angle", brush.rotationAngle);
-        }
+        // Dropdown for rotation angle
+        brush.rotationAngle = (LevelBrush.RotationAngle)EditorGUILayout.EnumPopup("Rotation Angle", brush.rotationAngle);
 
         // Save changes
         if (GUI.changed)
