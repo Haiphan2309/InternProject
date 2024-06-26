@@ -12,13 +12,18 @@ public class ChessManConfig : ScriptableObject
     public List<Vector3> possibleMoveList { get; set; }
 
     // Check if the tile below is Standable
-    public virtual bool CanStandOn(Vector3 currentMove, Vector3 direction)
+    public virtual bool CanStandOn(Vector3 currentMove)
     {
         bool canStandOn = true;
         float Xpos = currentMove.x;
         float Ypos = currentMove.y - 1f; // check the tile below the object
         float Zpos = currentMove.z;
-        GDC.Enums.TileType tileData = GameplayManager.Instance.levelData.GetTileInfo()[(int)Xpos, (int)Ypos, (int)Zpos].tileType;
+        GDC.Enums.TileType tileData 
+            = GameplayManager.Instance.levelData.GetTileInfo()[
+                (int)Xpos, 
+                (int)Ypos, 
+                (int)Zpos
+                ].tileType;
 
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
@@ -44,7 +49,12 @@ public class ChessManConfig : ScriptableObject
         float Ypos = currentMove.y;
         float Zpos = currentMove.z;
 
-        GDC.Enums.TileType tileData = GameplayManager.Instance.levelData.GetTileInfo()[(int)Xpos, (int)Ypos, (int)Zpos].tileType;
+        GDC.Enums.TileType tileData
+            = GameplayManager.Instance.levelData.GetTileInfo()[
+                (int)Xpos, 
+                (int)Ypos,
+                (int)Zpos
+                ].tileType;
 
         switch (tileData)
         {
@@ -62,7 +72,7 @@ public class ChessManConfig : ScriptableObject
             // The next TileData based on direction is not a STATIC OBJECT
             case GDC.Enums.TileType.BOX:
             case GDC.Enums.TileType.BOULDER:
-                isMovable = CanStandOn(currentMove + direction, direction) && ValidateMove(currentMove + direction, direction);
+                isMovable = CanStandOn(currentMove + direction) && ValidateMove(currentMove + direction, direction);
                 break;
 
             // if SLOPES then FUCK YOU

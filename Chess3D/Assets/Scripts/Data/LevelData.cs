@@ -33,6 +33,7 @@ public class EnemyArmy : Army
 {
     public EnemyArmy(Vector3 posIndex, ChessManType chessManType)
     {
+
         this.posIndex = posIndex;
         this.chessManType = chessManType;
     }

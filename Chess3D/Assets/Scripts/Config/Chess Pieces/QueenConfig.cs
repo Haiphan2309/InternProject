@@ -18,9 +18,9 @@ public class QueenConfig : ChessManConfig
         this.possibleMoveList = new List<Vector3>();
     }
 
-    public override bool CanStandOn(Vector3 currentMove, Vector3 direction)
+    public override bool CanStandOn(Vector3 currentMove)
     {
-        bool canStandOn = base.CanStandOn(currentMove, direction);
+        bool canStandOn = base.CanStandOn(currentMove);
         return canStandOn;
     }
     public override bool ValidateMove(Vector3 currentMove, Vector3 direction)
@@ -30,10 +30,10 @@ public class QueenConfig : ChessManConfig
     }
     public override void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
-        for (int i = 0; i < _moveRange; ++i)
+        for (int i = 1; i < _moveRange; ++i)
         {
             Vector3 move = currentPositionIndex + direction * i;
-            if (!CanStandOn(move, direction))
+            if (!CanStandOn(move))
             {
                 return;
             }
