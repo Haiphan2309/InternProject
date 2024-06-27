@@ -54,6 +54,8 @@ namespace GDC.Enums
         SLOPE_90, //Slope rotate 90 do
         SLOPE_180,
         SLOPE_270,
+        ENEMY_CHESS,
+        PLAYER_CHESS,
     }
     
 }

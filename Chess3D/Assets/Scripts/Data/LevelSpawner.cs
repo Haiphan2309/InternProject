@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GDC.Enums;
+using System;
 public class LevelSpawner : MonoBehaviour
 {
     // 
@@ -13,30 +14,44 @@ public class LevelSpawner : MonoBehaviour
     
     //
     string levelDataPath = "Assets/Resources/ScriptableObjects/LevelData";
-    string prefabPath = "ObjectPrefabs";
+    string objectPrefabPath = "ObjectPrefabs";
+    string chessPrefabPath = "ChessManPrefabs";
 
-    Dictionary<int, GameObject> prefabDic = new Dictionary<int, GameObject>();
+    Dictionary<int, GameObject> tilePrefabDic = new Dictionary<int, GameObject>();
+    Dictionary<int, GameObject> chessPrefabDic = new Dictionary<int, GameObject>();
+    Dictionary<ChessManType, int> chessDic;
     public void Setup()
     {
-        //levelDataPath = 
-        //prefabPath = 
+        chessDic = new Dictionary<ChessManType, int> 
+        {
+            { ChessManType.PAWN ,   0 },
+            { ChessManType.CASTLE,  1 },
+            { ChessManType.KNIGHT,  2 },
+            { ChessManType.BISHOP,  3 },
+            { ChessManType.QUEEN,   4 },
+            { ChessManType.KING,    5 }
+
+        };
     }
 
     [Button]
     public void SpawnLevel()
     {
+        Setup();
         GetLevelData();
         GetPrefabs();
-        SpawnMap();
-        
-        
+        SpawnTile();
+        SpawnPlayerChess();
+        SpawnEnemyChess();
     }
-    private void SpawnMap()
+    private void SpawnTile()
     {
         GameObject levelObject = new GameObject("Level");
         //
 
         TileInfo[,,] map = levelData.GetTileInfo();
+        
+        List<EnemyArmy> enemyArmies = levelData.GetEnemyArmies();
         int dim0 = map.GetLength(0);
         int dim1 = map.GetLength(1);
         int dim2 = map.GetLength(2);
@@ -57,7 +72,7 @@ public class LevelSpawner : MonoBehaviour
                     if (tileInfo == null) continue;
                     if (tileInfo.tileType == TileType.NONE) continue;
                     //
-                    GameObject tile = Instantiate(prefabDic[tileId], spawnPos, prefabDic[tileId].transform.rotation);
+                    GameObject tile = Instantiate(tilePrefabDic[tileId], spawnPos, tilePrefabDic[tileId].transform.rotation);
                     tile.transform.parent = floor.transform;
                 }
             }
@@ -69,6 +84,46 @@ public class LevelSpawner : MonoBehaviour
         }
     }
 
+    private void SpawnPlayerChess()
+    {
+        List<PlayerArmy> playerArmies = levelData.GetPlayerArmies();
+        GameObject playerChessObject = new GameObject("PlayerChessObject");
+        int index = 0;
+        foreach (var army in playerArmies)
+        {
+            ChessManType armyType = army.chessManType;
+            int armyId = chessDic[armyType] + 300;
+            Vector3 spawnPos = army.posIndex;
+            if (army == null) continue;
+            GameObject armyObject = Instantiate(chessPrefabDic[armyId], spawnPos, chessPrefabDic[armyId].transform.rotation);
+            armyObject.transform.parent = playerChessObject.transform;
+            // Setup Player Army
+            armyObject.GetComponent<ChessMan>().Setup(army, index);
+            playerArmy.Add(armyObject.GetComponent<ChessMan>());
+            //
+            index++;
+        }
+    }
+    private void SpawnEnemyChess()
+    {
+        List<EnemyArmy> enemyArmies = levelData.GetEnemyArmies();
+        GameObject enemyChessObject = new GameObject("EnemyChessObject");
+        int index = 0;
+        foreach (var army in enemyArmies)
+        {
+            ChessManType armyType = army.chessManType;
+            int armyId = chessDic[armyType] + 400;
+            Vector3 spawnPos = army.posIndex;
+            if (army == null) continue;
+            GameObject armyObject = Instantiate(chessPrefabDic[armyId], spawnPos, chessPrefabDic[armyId].transform.rotation);
+            armyObject.transform.parent = enemyChessObject.transform;
+            // Setup Player Army
+            armyObject.GetComponent<ChessMan>().Setup(army, index);
+            enemyArmy.Add(armyObject.GetComponent<ChessMan>());
+            //
+            index++;
+        }
+    }
     private void GetLevelData()
     {
         string loadPath = "ScriptableObjects/LevelData/" + spawnLevelName;
@@ -87,17 +142,29 @@ public class LevelSpawner : MonoBehaviour
     }
     private void GetPrefabs()
     {
-        GameObject[] prefabsList =  Resources.LoadAll<GameObject>(prefabPath);
-        for(int i = 0; i < prefabsList.Length; i++)
+        GameObject[] objectPrefabsList =  Resources.LoadAll<GameObject>(objectPrefabPath);
+        GameObject[] chessPrefabsList = Resources.LoadAll<GameObject>(chessPrefabPath);
+        for (int i = 0; i < objectPrefabsList.Length; i++)
         {
             int prefabId = 0;
-            if (!int.TryParse(prefabsList[i].name, out prefabId))
+            if (!int.TryParse(objectPrefabsList[i].name, out prefabId))
             {
-                Debug.LogError("Prefab name is not correct, must be an integer: " + prefabsList[i].name);
+                Debug.LogError("Prefab name is not correct, must be an integer: " + objectPrefabsList[i].name);
             }
-            GameObject prefab = prefabsList[i] as GameObject;
-            prefabDic.Add(prefabId, prefab);
+            GameObject prefab = objectPrefabsList[i] as GameObject;
+            tilePrefabDic.Add(prefabId, prefab);
         }
-        
+        for (int i = 0; i < chessPrefabsList.Length; i++)
+        {
+            int prefabId = 0;
+            if (!int.TryParse(chessPrefabsList[i].name, out prefabId))
+            {
+                Debug.LogError("Prefab name is not correct, must be an integer: " + chessPrefabsList[i].name);
+            }
+            GameObject prefab = chessPrefabsList[i] as GameObject;
+            //tilePrefabDic.Add(prefabId, prefab);
+            chessPrefabDic.Add(prefabId, prefab);
+        }
+
     }
 }
