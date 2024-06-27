@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b3d9e92cc2adf49a5c0db558d31053, type: 3}
   m_Name: Level Brush
   m_EditorClassIdentifier: 
-  targetTilemapName: Floor_3
+  targetTilemapName: Floor_4
   prefabs:
   - {fileID: 5213880191220909169, guid: 66614f3fc2a21be4d88294c6a39ba04e, type: 3}
   - {fileID: 5213880191220909169, guid: aae60704497e0974db73d5f264d910e4, type: 3}
   - {fileID: 5213880191220909169, guid: 83eb7013c6d7f8043aa6cabdd638802f, type: 3}
   - {fileID: 5213880191220909169, guid: e56aaf6d5463f2940bba8be744b7d760, type: 3}
-  selectedIndex: 1
+  - {fileID: 8998501177938085803, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
+  - {fileID: 8998501177938085803, guid: 0ff962d6b41e27d49a623e7718583f8c, type: 3}
+  selectedIndex: 5
   manualOffset: 0
   manualOffsetValue: 0

@@ -12,7 +12,8 @@ public class LevelSpawner : MonoBehaviour
     
     //
     string levelDataPath = "Assets/Resources/ScriptableObjects/LevelData";
-    string prefabPath = "ObjectPrefabs";
+    string objectPrefabPath = "ObjectPrefabs";
+    string chessPrefabPath = "ChessManPrefabs";
 
     Dictionary<int, GameObject> prefabDic = new Dictionary<int, GameObject>();
     public void Setup()
@@ -86,17 +87,28 @@ public class LevelSpawner : MonoBehaviour
     }
     private void GetPrefabs()
     {
-        GameObject[] prefabsList =  Resources.LoadAll<GameObject>(prefabPath);
-        for(int i = 0; i < prefabsList.Length; i++)
+        GameObject[] objectPrefabsList =  Resources.LoadAll<GameObject>(objectPrefabPath);
+        GameObject[] chessPrefabsList = Resources.LoadAll<GameObject>(chessPrefabPath);
+        for (int i = 0; i < objectPrefabsList.Length; i++)
         {
             int prefabId = 0;
-            if (!int.TryParse(prefabsList[i].name, out prefabId))
+            if (!int.TryParse(objectPrefabsList[i].name, out prefabId))
             {
-                Debug.LogError("Prefab name is not correct, must be an integer: " + prefabsList[i].name);
+                Debug.LogError("Prefab name is not correct, must be an integer: " + objectPrefabsList[i].name);
             }
-            GameObject prefab = prefabsList[i] as GameObject;
+            GameObject prefab = objectPrefabsList[i] as GameObject;
             prefabDic.Add(prefabId, prefab);
         }
-        
+        for (int i = 0; i < chessPrefabsList.Length; i++)
+        {
+            int prefabId = 0;
+            if (!int.TryParse(chessPrefabsList[i].name, out prefabId))
+            {
+                Debug.LogError("Prefab name is not correct, must be an integer: " + chessPrefabsList[i].name);
+            }
+            GameObject prefab = chessPrefabsList[i] as GameObject;
+            prefabDic.Add(prefabId, prefab);
+        }
+
     }
 }

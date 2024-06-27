@@ -156,12 +156,12 @@ public class LevelExtractor : MonoBehaviour
                 } 
                 else if (blockNumber >= 300 && blockNumber <= 305)// Id 300 - 305 -> Player Chess
                 {
-                    PlayerArmy playerArmy = new PlayerArmy(indexVector, chessTypeDic[blockNumber/100]);
+                    PlayerArmy playerArmy = new PlayerArmy(indexVector, chessTypeDic[blockNumber % 100]);
                     playerArmies.Add(playerArmy);
                 }
                 else if (blockNumber >= 400 && blockNumber <= 405)// Id 400 - 405 -> Player Chess
                 {
-                    EnemyArmy enemyArmy = new EnemyArmy(indexVector, chessTypeDic[blockNumber]);
+                    EnemyArmy enemyArmy = new EnemyArmy(indexVector, chessTypeDic[blockNumber % 100]);
                     enemyArmies.Add(enemyArmy);
                 }
             }
