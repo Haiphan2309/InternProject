@@ -76,7 +76,6 @@ public class ChessManConfig : ScriptableObject
         float Ypos = currentMove.y; // check the tile below the object
         float Zpos = currentMove.z;
 
-        // Debug.Log("X = " + Xpos + " Y = " + Ypos + " Z = " + Zpos);
         if (Xpos < 0 || Xpos >= Xlimit)
         {
             inBound = false;
@@ -190,7 +189,7 @@ public class ChessManConfig : ScriptableObject
                 }
                 break;
             case GDC.Enums.TileType.SLOPE_90:
-                if (direction.x < 0)
+                if (direction.x > 0)
                 {
                     onSlopeUp = true;
                 }
@@ -202,7 +201,7 @@ public class ChessManConfig : ScriptableObject
                 }
                 break;
             case GDC.Enums.TileType.SLOPE_270:
-                if (direction.x > 0)
+                if (direction.x < 0)
                 {
                     onSlopeUp = true;
                 }
@@ -230,7 +229,7 @@ public class ChessManConfig : ScriptableObject
                 }
                 break;
             case GDC.Enums.TileType.SLOPE_90:
-                if (direction.x > 0)
+                if (direction.x < 0)
                 {
                     onSlopeDown = true;
                 }
@@ -242,7 +241,7 @@ public class ChessManConfig : ScriptableObject
                 }
                 break;
             case GDC.Enums.TileType.SLOPE_270:
-                if (direction.x < 0)
+                if (direction.x > 0)
                 {
                     onSlopeDown = true;
                 }
