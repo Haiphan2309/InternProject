@@ -16,6 +16,8 @@ public class ChessMan : MonoBehaviour
     public Outline outline;
     [SerializeField] LayerMask groundLayerMask;
 
+    public bool isEnemy;
+
     bool isFalling;
 
     [Button]

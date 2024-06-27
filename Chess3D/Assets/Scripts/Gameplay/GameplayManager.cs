@@ -11,10 +11,12 @@ public class GameplayManager : MonoBehaviour
     public static GameplayManager Instance { get; private set; }
 
     [SerializeField] LevelSpawner levelSpawner;
-    [SerializeField, ReadOnly] bool enemyTurn;
+    [ReadOnly] public bool enemyTurn;
     public LevelData levelData;
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
+
+    [SerializeField, ReadOnly] List<ChessMan> playerArmy, enemyArmy; 
     private void Awake()
     {
         Instance = this;
@@ -45,6 +47,10 @@ public class GameplayManager : MonoBehaviour
     {
         //dosomething
         Debug.Log("Enemy Turn!");
+        foreach(var enemy in enemyArmy)
+        {
+            
+        }
         ChangeTurn(false);
     }
     void PlayerTurn()
