@@ -17,6 +17,7 @@ public class ChessMan : MonoBehaviour
     [SerializeField] LayerMask groundLayerMask;
 
     public bool isEnemy;
+    public int priority;
 
     bool isFalling;
 
