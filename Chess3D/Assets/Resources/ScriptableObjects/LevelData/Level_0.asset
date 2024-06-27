@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   center: {x: 0, y: 0, z: 0}
+  maxTurn: 0
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -44,28 +45,28 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 0, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 0, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 0, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 0, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 0, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 0, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 0, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -80,56 +81,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 0, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 6}
     tileInfo:
       id: 101
       tileType: 1
   - pos: {x: 0, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 0, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -556,28 +557,28 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 1, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 1, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 1, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 1, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 1, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 1, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 1, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -592,12 +593,12 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 1, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 2}
     tileInfo:
       id: 101
@@ -616,32 +617,32 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 1, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 1, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -1068,28 +1069,28 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 2, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -1128,32 +1129,32 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 2, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 2, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 2, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 2, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 2, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 2, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 2, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 2, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -1184,40 +1185,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 2, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 2, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -1580,28 +1581,28 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 3, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -1616,12 +1617,12 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 3, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 2}
     tileInfo:
       id: 101
@@ -1640,32 +1641,32 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 3, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 3, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -1696,40 +1697,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 3, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 3, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -2092,28 +2093,28 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 4, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -2128,12 +2129,12 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 4, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 2}
     tileInfo:
       id: 101
@@ -2152,32 +2153,32 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 4, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -2208,40 +2209,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 4, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 4, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -2280,32 +2281,32 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 4, y: 3, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 3, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 3, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 3, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 3, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 3, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 3, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 4, y: 3, z: 13}
     tileInfo:
       id: 0
@@ -2604,28 +2605,28 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 5, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -2640,56 +2641,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 5, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 4}
     tileInfo:
       id: 101
       tileType: 1
   - pos: {x: 5, y: 1, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -2720,40 +2721,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 5, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 5, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -2792,32 +2793,32 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 5, y: 3, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 3, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 3, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 3, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 3, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 3, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 3, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 5, y: 3, z: 13}
     tileInfo:
       id: 0
@@ -3088,56 +3089,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 0, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -3152,56 +3153,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -3232,40 +3233,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -3304,32 +3305,32 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 3, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 3, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 3, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 3, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 3, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 3, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 3, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 6, y: 3, z: 13}
     tileInfo:
       id: 0
@@ -3600,56 +3601,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 0, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -3664,56 +3665,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -3744,40 +3745,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -3816,32 +3817,32 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 3, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 3, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 3, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 3, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 3, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 3, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 3, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 7, y: 3, z: 13}
     tileInfo:
       id: 0
@@ -4112,56 +4113,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 0, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -4176,56 +4177,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -4256,40 +4257,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 8, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -4328,32 +4329,32 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 3, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 3, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 3, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 3, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 3, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 3, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 3, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 8, y: 3, z: 13}
     tileInfo:
       id: 0
@@ -4624,56 +4625,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 9, y: 0, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -4688,56 +4689,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 9, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 9, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -4768,40 +4769,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 9, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 9, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -5136,56 +5137,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 10, y: 0, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 10, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -5200,56 +5201,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 10, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 10, y: 1, z: 13}
     tileInfo:
       id: 0
@@ -5648,56 +5649,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 11, y: 0, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 11, y: 0, z: 13}
     tileInfo:
       id: 0
@@ -5712,56 +5713,56 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 11, y: 1, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 11}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 101
+      tileType: 1
   - pos: {x: 11, y: 1, z: 13}
     tileInfo:
       id: 0
