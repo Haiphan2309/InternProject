@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ChessManConfig : ScriptableObject
 {
@@ -24,11 +25,30 @@ public class ChessManConfig : ScriptableObject
     {
         // if the tile below the currentMove's y-level is NONE
         // then there is no tile below the currentMove.
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-                (int)currentMove.x,
-                (int)(currentMove.y - 1f),
-                (int)currentMove.z
-                ].tileType != GDC.Enums.TileType.NONE;
+        bool isTile = false;
+        float Xpos = currentMove.x;
+        float Ypos = currentMove.y - 1f; // check the tile below the object
+        float Zpos = currentMove.z;
+        Debug.Log("Xpos = " + Mathf.Round(Xpos) + " Ypos = " + Mathf.Round(Ypos) + " Zpos = " + Mathf.Round(Zpos));
+        GDC.Enums.TileType tileData
+            = GameplayManager.Instance.levelData.GetTileInfo()[
+                (int)Mathf.Round(Xpos),
+                (int)Mathf.Round(Ypos),
+                (int)Mathf.Round(Zpos)
+                ].tileType;
+
+        // Object cannot stand on NONE
+        switch (tileData)
+        {
+            // if it's not NONE then it's a tile
+            case GDC.Enums.TileType.NONE:
+                break;
+            // else
+            default:
+                isTile = true;
+                break;
+        }
+        return isTile;
     }
 
     // Check if the potential tile is in bound
@@ -39,11 +59,12 @@ public class ChessManConfig : ScriptableObject
         float Ypos = currentMove.y; // check the tile below the object
         float Zpos = currentMove.z;
 
+        Debug.Log("X = " + Xpos + " Y = " + Ypos + " Z = " + Zpos);
         if (Xpos < 0 || Xpos >= Xlimit)
         {
             inBound = false;
         }
-        if (Ypos < 0 || Ypos >= Ylimit)
+        if (Ypos <= 0 || Ypos >= Ylimit)
         {
             inBound = false;
         }
@@ -51,6 +72,7 @@ public class ChessManConfig : ScriptableObject
         {
             inBound = false;
         }
+        Debug.Log("InBound = " + inBound);
         return inBound;
     }
 
@@ -132,25 +154,15 @@ public class ChessManConfig : ScriptableObject
 
             // if SLOPES then we check based on direction
             case GDC.Enums.TileType.SLOPE_0:
-                if (direction.x > 0)
+            case GDC.Enums.TileType.SLOPE_180:
+                if (direction.z != 0)
                 {
                     isMovable = true;
                 }
                 break;
             case GDC.Enums.TileType.SLOPE_90:
-                if (direction.z > 0)
-                {
-                    isMovable = true;
-                }
-                break;
-            case GDC.Enums.TileType.SLOPE_180:
-                if (direction.x < 0)
-                {
-                    isMovable = true;
-                }
-                break;
             case GDC.Enums.TileType.SLOPE_270:
-                if (direction.z < 0)
+                if (direction.x != 0)
                 {
                     isMovable = true;
                 }
@@ -161,12 +173,12 @@ public class ChessManConfig : ScriptableObject
         return isMovable;
     }
 
-    // Check if the potential tile that the pieces move into is a SLOPE
-    public virtual bool OnSlope(Vector3 currentPositionIndex, Vector3 direction)
+    // Check if the potential tile that the pieces move into is a SLOPE UP
+    public virtual bool OnSlopeUp(Vector3 currentPositionIndex, Vector3 direction)
     {
-        bool onSlope = false;
+        bool onSlopeUp = false;
         float Xpos = currentPositionIndex.x;
-        float Ypos = currentPositionIndex.y - 1f; // check the tile below the object
+        float Ypos = currentPositionIndex.y; // check the tile
         float Zpos = currentPositionIndex.z;
         GDC.Enums.TileType tileData
             = GameplayManager.Instance.levelData.GetTileInfo()[
@@ -178,21 +190,85 @@ public class ChessManConfig : ScriptableObject
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
         {
-            // if it's NONE / GROUND / BOX / OBJECT / BOULDER / WATER
-            case GDC.Enums.TileType.NONE:
-            case GDC.Enums.TileType.GROUND:
-            case GDC.Enums.TileType.BOX:
-            case GDC.Enums.TileType.OBJECT:
-            case GDC.Enums.TileType.BOULDER:
-            case GDC.Enums.TileType.WATER:
+            // it's SLOPES
+            case GDC.Enums.TileType.SLOPE_0:
+                if (direction.z < 0)
+                {
+                    onSlopeUp = true;
+                }
                 break;
-            // else it's SLOPES
+            case GDC.Enums.TileType.SLOPE_90:
+                if (direction.x < 0)
+                {
+                    onSlopeUp = true;
+                }
+                break;
+            case GDC.Enums.TileType.SLOPE_180:
+                if (direction.z > 0)
+                {
+                    onSlopeUp = true;
+                }
+                break;
+            case GDC.Enums.TileType.SLOPE_270:
+                if (direction.x > 0)
+                {
+                    onSlopeUp = true;
+                }
+                break;
             default:
-                onSlope = true;
                 break;
         }
-        return onSlope;
+        return onSlopeUp;
     }
+
+    // Check if the potential tile that the pieces move into is a SLOPE DOWN
+    public virtual bool OnSlopeDown(Vector3 currentPositionIndex, Vector3 direction)
+    {
+        bool onSlopeDown = false;
+        float Xpos = currentPositionIndex.x;
+        float Ypos = currentPositionIndex.y - 1f; // check the tile below
+        float Zpos = currentPositionIndex.z;
+        GDC.Enums.TileType tileData
+            = GameplayManager.Instance.levelData.GetTileInfo()[
+                (int)Mathf.Round(Xpos),
+                (int)Mathf.Round(Ypos),
+                (int)Mathf.Round(Zpos)
+                ].tileType;
+
+        // Object can only stand on GROUND / BOX / SLOPES
+        switch (tileData)
+        {
+            // it's SLOPES
+            case GDC.Enums.TileType.SLOPE_0:
+                if (direction.z > 0)
+                {
+                    onSlopeDown = true;
+                }
+                break;
+            case GDC.Enums.TileType.SLOPE_90:
+                if (direction.x > 0)
+                {
+                    onSlopeDown = true;
+                }
+                break;
+            case GDC.Enums.TileType.SLOPE_180:
+                if (direction.z < 0)
+                {
+                    onSlopeDown = true;
+                }
+                break;
+            case GDC.Enums.TileType.SLOPE_270:
+                if (direction.x < 0)
+                {
+                    onSlopeDown = true;
+                }
+                break;
+            default:
+                break;
+        }
+        return onSlopeDown;
+    }
+
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
         // The Vector3 that stores the current position for the next move
@@ -201,12 +277,10 @@ public class ChessManConfig : ScriptableObject
         {
             Vector3 move = currentMove + direction;
             // We find the first tile below the next move
-/*            while (!IsTile(move))
+            while (move.y >= 1f && InBound(move) && !IsTile(move))
             {
                 move += Vector3.down;
-                if (move.y < 1f) return;
-                Debug.Log(move.y);
-            }*/
+            }
             // Check if the potential move is in bound
             if (!InBound(move))
             {
@@ -228,13 +302,18 @@ public class ChessManConfig : ScriptableObject
             {
                 return;
             }
-            // Check if the potential move is into slopes
-            if (OnSlope(move, direction))
+            // Check if the potential move is into slopes up
+            if (OnSlopeUp(move, direction))
             {
-                move += Vector3.down;
+                move += Vector3.up;
             }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
+            // Check if the potential move is into slopes down
+            if (OnSlopeDown(move, direction))
+            {
+                move += Vector3.down;
+            }
             // Update the currentMove
             currentMove = move;
         }
