@@ -8208,16 +8208,16 @@ MonoBehaviour:
       id: 0
       tileType: 0
   playerArmies:
-  - chessManType: 3
+  - chessManType: 1
     posIndex: {x: 3, y: 2, z: 1}
-  - chessManType: 3
+  - chessManType: 1
     posIndex: {x: 8, y: 2, z: 1}
   enemyArmies:
-  - chessManType: 4
+  - chessManType: 1
     posIndex: {x: 5, y: 4, z: 9}
     priority: 0
     movePosIndex: []
-  - chessManType: 4
+  - chessManType: 1
     posIndex: {x: 8, y: 4, z: 11}
     priority: 0
     movePosIndex: []

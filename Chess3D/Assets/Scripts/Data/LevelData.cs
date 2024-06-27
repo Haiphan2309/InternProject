@@ -32,6 +32,7 @@ public class TileData
 [Serializable]
 public abstract class Army
 {
+
     public ChessManType chessManType;
     public Vector3 posIndex;
 }
@@ -50,7 +51,7 @@ public class PlayerArmy : Army
 public class EnemyArmy : Army
 {
     public int priority;
-    public List<Vector3> movePosIndex;
+    public List<Vector3> movePosIndexs;
     public EnemyArmy(Vector3 posIndex, ChessManType chessManType)
     {
 

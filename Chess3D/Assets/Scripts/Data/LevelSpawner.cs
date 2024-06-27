@@ -27,16 +27,18 @@ public class LevelSpawner : MonoBehaviour
     {
         GetLevelData();
         GetPrefabs();
-        SpawnMap();
+        SpawnTile();
         
         
     }
-    private void SpawnMap()
+    private void SpawnTile()
     {
         GameObject levelObject = new GameObject("Level");
         //
 
         TileInfo[,,] map = levelData.GetTileInfo();
+        
+        List<EnemyArmy> enemyArmies = levelData.GetEnemyArmies();
         int dim0 = map.GetLength(0);
         int dim1 = map.GetLength(1);
         int dim2 = map.GetLength(2);
@@ -69,6 +71,23 @@ public class LevelSpawner : MonoBehaviour
         }
     }
 
+    private void SpawnPlayerChess()
+    {
+        //List<PlayerArmy> playerArmies = levelData.GetPlayerArmies();
+        //GameObject playerChessObject = new GameObject("PlayerChessObject");
+
+        //foreach (var army in playerArmies)
+        //{ 
+           
+        //    Vector3 spawnPos = army.posIndex;
+        //    if (army == null) continue;
+        //    GameObject armyObject = Instantiate(prefabDic[armyId], spawnPos, prefabDic[armyId].transform.rotation);
+        //    armyObject.transform.parent = playerChessObject.transform;
+        //    // Setup Player Army
+
+        //    //
+        //}
+    }
     private void GetLevelData()
     {
         string loadPath = "ScriptableObjects/LevelData/" + spawnLevelName;
