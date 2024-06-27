@@ -73,7 +73,7 @@ public class ChessMan : MonoBehaviour
     void AjustPosToGround(Vector3 newPosition, bool isRoundInterger = false)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up/2f, Vector3.down, out hit, 2))
+        if (Physics.Raycast(transform.position + Vector3.up/2f, Vector3.down, out hit, 0.75f))
         {
             newPosition.y = hit.point.y;
 
