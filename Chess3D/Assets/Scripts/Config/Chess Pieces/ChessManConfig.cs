@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class ChessManConfig : ScriptableObject
 {
-    public float Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
-    public float Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
-    public float Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
+    public float Xlimit = 0;
+    public float Ylimit = 0;
+    public float Zlimit = 0;
 
     private float _height;
     private int _moveRange;
@@ -224,6 +224,7 @@ public class ChessManConfig : ScriptableObject
             }
             // Check if the potential move is movable
             if (!ValidateMove(move, direction))
+
             {
                 return;
             }
@@ -245,7 +246,10 @@ public class ChessManConfig : ScriptableObject
     public virtual List<Vector3> Move(Vector3 currentPositionIndex)
     {
         possibleMoveList.Clear();
-        GenerateMoveList(currentPositionIndex);
+        Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
+        Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
+        Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
+    GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }
 }
