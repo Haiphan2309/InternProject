@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GDC.Enums;
 using System;
 using System.ComponentModel;
+using GDC.Constants;
 
 [Serializable]
 public class TileInfo
@@ -48,6 +49,8 @@ public class PlayerArmy : Army
 [Serializable]
 public class EnemyArmy : Army
 {
+    public int priority;
+    public List<Vector3> movePosIndex;
     public EnemyArmy(Vector3 posIndex, ChessManType chessManType)
     {
 
@@ -60,9 +63,13 @@ public class EnemyArmy : Army
 [Serializable]
 public class LevelData : ScriptableObject
 {
+
+    [SerializeField] private Vector3 center;
+    [SerializeField] private int maxTurn;
     [SerializeField] private List<TileData> tileInfo;
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;
+    
 
     public LevelData()
     {
@@ -105,7 +112,8 @@ public class LevelData : ScriptableObject
 
     public TileInfo[,,] GetTileInfo()
     {
-        TileInfo[,,] map = new TileInfo[30, 20, 30];
+        
+        TileInfo[,,] map = new TileInfo[GameConstants.MAX_X_SIZE, GameConstants.MAX_Y_SIZE, GameConstants.MAX_Z_SIZE];
         foreach(TileData data in this.tileInfo)
         {
             map[(int)data.pos.x, (int)data.pos.y, (int)data.pos.z] = data.tileInfo;

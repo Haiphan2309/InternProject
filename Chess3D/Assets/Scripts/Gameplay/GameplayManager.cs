@@ -3,6 +3,7 @@ using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
@@ -61,9 +62,11 @@ public class GameplayManager : MonoBehaviour
         List<Vector3> moves = chessManConfig.Move(curPosIndex);
         if (moves != null)
         {
+            availableMoveTrans.Clear();
             foreach (Vector3 move in moves)
             {
-                TileInfo tileInfo = levelData.GetTileInfo()[(int)move.x, (int)move.y, (int)move.z];
+                
+                TileInfo tileInfo = levelData.GetTileInfo()[(int)Mathf.Round(move.x), (int)Mathf.Round(move.y), (int)Mathf.Round(move.z)];
                 Transform tran = Instantiate(availableMovePrefab, move, Quaternion.identity);
                 switch (tileInfo.tileType)
                 {
@@ -97,12 +100,27 @@ public class GameplayManager : MonoBehaviour
             Debug.LogError("move is null");
         }
     }
+    public void HideAvailableMove()
+    {
+        if (availableMoveTrans != null)
+        {
+            foreach (var tran in availableMoveTrans)
+            {
+                Destroy(tran.gameObject);
+            }
+            availableMoveTrans.Clear();
+        }
+    }
     public bool CheckMove(ChessManConfig chessManConfig, Vector3 curPosIndex, Vector3 posIndexToMove)
     {
         List<Vector3> moves = chessManConfig.Move(curPosIndex);
         foreach (Vector3 move in moves)
         {
-            if (move == posIndexToMove) return true;
+            Debug.Log(move + "    " + posIndexToMove);
+            //if (Vector3Int.FloorToInt(move) == Vector3Int.FloorToInt(posIndexToMove)) return true;
+            if ((int)Mathf.Round(move.x) == (int)Mathf.Round(posIndexToMove.x) 
+                && (int)Mathf.Round(move.y) == (int)Mathf.Round(posIndexToMove.y) 
+                && (int)Mathf.Round(move.z) == (int)Mathf.Round(posIndexToMove.z)) return true;
         }
         return false;
     }    

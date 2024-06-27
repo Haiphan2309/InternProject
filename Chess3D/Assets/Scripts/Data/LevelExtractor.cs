@@ -1,3 +1,4 @@
+using GDC.Constants;
 using GDC.Enums;
 using NaughtyAttributes;
 using RotaryHeart.Lib;
@@ -18,7 +19,7 @@ public class LevelExtractor : MonoBehaviour
     public string storeLevelName = "";
     
     //
-    TileInfo[,,] map = new TileInfo[30, 20, 30];
+    TileInfo[,,] map = new TileInfo[GameConstants.MAX_X_SIZE, GameConstants.MAX_Y_SIZE, GameConstants.MAX_Z_SIZE];
     List<PlayerArmy> playerArmies = new List<PlayerArmy>();
     List<EnemyArmy> enemyArmies = new List<EnemyArmy>();
 
@@ -56,6 +57,22 @@ public class LevelExtractor : MonoBehaviour
         {
             return TileType.WATER;
         }
+        if (id == 104)
+        {
+            return TileType.SLOPE_0;
+        }
+        if (id == 105)
+        {
+            return TileType.SLOPE_90;
+        }
+        if (id == 106)
+        {
+            return TileType.SLOPE_180;
+        }
+        if (id == 107)
+        {
+            return TileType.SLOPE_270;
+        }
         if (id >= 110 && id <= 120)
         {
             return TileType.OBJECT;
@@ -88,7 +105,7 @@ public class LevelExtractor : MonoBehaviour
         
         // Create new Level Data
         LevelData newLevelData = ScriptableObject.CreateInstance<LevelData>();
-        playerArmies.Add(new PlayerArmy(new Vector3(0, 0, 0), ChessManType.PAWN));
+
         // Assign attribute to levelData
         newLevelData.SetData(map, playerArmies, enemyArmies);
        
