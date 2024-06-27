@@ -152,7 +152,7 @@ public class InputManager : MonoBehaviour
                     {
                         //Enemy co the an duoc
                         Debug.Log("Enemy bi an");
-                        GameplayManager.Instance.MakeMove(preChessMan, curChessMan.posIndex);
+                        GameplayManager.Instance.MakeMove(preChessMan, curChessMan.posIndex, curChessMan);
                         
                     }
                     else

@@ -27,9 +27,22 @@ public class GameplayManager : MonoBehaviour
     {
         levelSpawner.Setup();
         levelSpawner.SpawnLevel();
+        DeepCopyLevelData(levelSpawner.levelData,out levelData);
         levelData = levelSpawner.levelData;
+        playerArmy = levelSpawner.playerArmy;
+        enemyArmy = levelSpawner.enemyArmy;
     }
 
+    void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
+    {
+        levelData = new LevelData();
+        levelData.SetData(levelDataSO.GetTileInfo(), levelDataSO.GetPlayerArmies(), levelDataSO.GetEnemyArmies());
+    }
+
+    public void ChangeTurn()
+    {
+        ChangeTurn(!enemyTurn);
+    }
     public void ChangeTurn(bool enemyTurn)
     {
         this.enemyTurn = enemyTurn;
@@ -47,6 +60,23 @@ public class GameplayManager : MonoBehaviour
     {
         //dosomething
         Debug.Log("Enemy Turn!");
+
+        foreach (var enemy in enemyArmy)
+        {
+            foreach (var player in playerArmy)
+            {
+                foreach (var move in enemy.config.Move(enemy.posIndex))
+                {
+                    if ((int)Mathf.Round(move.x) == (int)Mathf.Round(player.posIndex.x)
+                        && (int)Mathf.Round(move.y) == (int)Mathf.Round(player.posIndex.y)
+                        && (int)Mathf.Round(move.z) == (int)Mathf.Round(player.posIndex.z))
+                    {
+                        MakeMove(enemy, move, player);
+                        return;
+                    }
+                }
+            }
+        }
 
         if (listEnemyPriorityLowest == null || listEnemyPriorityLowest.Count == 0)
         {
@@ -75,12 +105,28 @@ public class GameplayManager : MonoBehaviour
             listEnemyPriorityLowest.Add(temp);
         }
         
-        ChangeTurn(false);
+        //ChangeTurn(false);
     }
     void PlayerTurn()
     {
         Debug.Log("Player Turn");
         //dosomething
+    }
+    public void DefeatEnemyChessMan(int enemyIndex)
+    {
+        foreach(var chessman in listEnemyPriorityLowest)
+        {
+            if (chessman.index == enemyIndex)
+            {
+                listEnemyPriorityLowest.Remove(chessman);
+                break;
+            }
+        }
+        enemyArmy.RemoveAt(enemyIndex);
+    }
+    public void DefeatPlayerChessMan(int playerIndex)
+    {
+        playerArmy.RemoveAt(playerIndex);
     }
     public void ShowAvailableMove(ChessManConfig chessManConfig, Vector3 curPosIndex)
     {
@@ -163,8 +209,14 @@ public class GameplayManager : MonoBehaviour
         }
         return false;
     }    
-    public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove)
+    public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
         chessMan.Move(posIndexToMove);
+        levelData.GetTileInfo()[(int)Mathf.Round(chessMan.posIndex.x), (int)Mathf.Round(chessMan.posIndex.y), (int)Mathf.Round(chessMan.posIndex.z)] = new TileInfo();
+    }
+    IEnumerator Cor_DefeatedChessMan(ChessMan defeatChessMan, ChessMan defeatedChessMan)
+    {
+        yield return new WaitUntil(() => Vector3.Distance(defeatChessMan.transform.position, defeatedChessMan.transform.position) < 1);
+        defeatedChessMan.Defeated();
     }
 }
