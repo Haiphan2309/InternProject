@@ -12,18 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b3d9e92cc2adf49a5c0db558d31053, type: 3}
   m_Name: Level Brush
   m_EditorClassIdentifier: 
-  targetTilemapName: Level_1
+  targetTilemapName: Level_3
   prefabs:
-  - {fileID: 4051196245707785669, guid: 92f8d1382ff3e764d95cd56b73762036, type: 3}
-  - {fileID: 4051196245707785669, guid: b9bb84bceeaa20d4d8966b3def03aae6, type: 3}
-<<<<<<< HEAD
-  selectedIndex: 0
-  manualOffset: 1
-=======
-  - {fileID: 919132149155446097, guid: 813224797b59f4a4dbd8df8820bc87b5, type: 3}
+  - {fileID: 4051196245707785669, guid: 83585b764e054e645b2a034f4f319ca6, type: 3}
+  - {fileID: 4051196245707785669, guid: 2c36bd543e637f74b87ec9c021067a2f, type: 3}
+  - {fileID: 5213880191220909169, guid: 66614f3fc2a21be4d88294c6a39ba04e, type: 3}
+  - {fileID: 5213880191220909169, guid: aae60704497e0974db73d5f264d910e4, type: 3}
+  - {fileID: 5213880191220909169, guid: 83eb7013c6d7f8043aa6cabdd638802f, type: 3}
+  - {fileID: 5213880191220909169, guid: e56aaf6d5463f2940bba8be744b7d760, type: 3}
   selectedIndex: 2
   manualOffset: 0
->>>>>>> 34592478d6f7a3d8e56f64408ed69b609edda605
   manualOffsetValue: 0
   rotateWithTile: 1
   rotationAngle: 0
