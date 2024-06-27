@@ -70,7 +70,7 @@ public class ChessMan : MonoBehaviour
         {
             KnightMoveAnim(posIndexToMove);
         }
-        GameplayManager.Instance.ChangeTurn(true);
+        //GameplayManager.Instance.ChangeTurn(true);
     }
     void KnightMoveAnim(Vector3 posIndexToMove)
     {
@@ -96,6 +96,8 @@ public class ChessMan : MonoBehaviour
         }
 
         AjustPosToGround(transform.position, target, true);
+        yield return new WaitForSeconds(1);
+        GameplayManager.Instance.ChangeTurn();
     }
     void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInterger = false)
     {
