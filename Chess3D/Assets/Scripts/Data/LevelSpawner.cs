@@ -72,7 +72,9 @@ public class LevelSpawner : MonoBehaviour
                     if (tileInfo == null) continue;
                     if (tileInfo.tileType == TileType.NONE) continue;
                     //
+                    if (tileId < 0 || tileId >= 300) continue;
                     GameObject tile = Instantiate(tilePrefabDic[tileId], spawnPos, tilePrefabDic[tileId].transform.rotation);
+
                     tile.transform.parent = floor.transform;
                 }
             }
@@ -165,6 +167,8 @@ public class LevelSpawner : MonoBehaviour
             //tilePrefabDic.Add(prefabId, prefab);
             chessPrefabDic.Add(prefabId, prefab);
         }
+
+
 
     }
 }

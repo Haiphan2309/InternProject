@@ -168,7 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelData: {fileID: 0}
-  spawnLevelName: Level_0
+  playerArmy: []
+  enemyArmy: []
+  spawnLevelName: Level_1
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0

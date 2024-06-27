@@ -85,7 +85,14 @@ public class LevelExtractor : MonoBehaviour
         {
             return TileType.BOULDER;
         }
-        
+        if (id >=300 && id < 400)
+        {
+            return TileType.PLAYER_CHESS;
+        }
+        if (id >=400 && id < 500)
+        {
+            return TileType.ENEMY_CHESS;
+        }
         return TileType.NONE;
     }
    
@@ -149,12 +156,11 @@ public class LevelExtractor : MonoBehaviour
                 }
 
                 
-                if (blockNumber < 300)// Store to array if id <300
-                {
-                    TileInfo newTileInfo = new TileInfo(blockNumber, GetTileTypeById(blockNumber));
-                    map[(int)blockPos.x, (int)blockPos.y, (int)blockPos.z] = newTileInfo;
-                } 
-                else if (blockNumber >= 300 && blockNumber <= 305)// Id 300 - 305 -> Player Chess
+                
+                TileInfo newTileInfo = new TileInfo(blockNumber, GetTileTypeById(blockNumber));
+                map[(int)blockPos.x, (int)blockPos.y, (int)blockPos.z] = newTileInfo;
+                 
+                if (blockNumber >= 300 && blockNumber <= 305)// Id 300 - 305 -> Player Chess
                 {
                     PlayerArmy playerArmy = new PlayerArmy(indexVector, chessTypeDic[blockNumber % 100]);
                     playerArmies.Add(playerArmy);
