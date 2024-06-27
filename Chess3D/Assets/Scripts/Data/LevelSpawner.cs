@@ -100,7 +100,7 @@ public class LevelSpawner : MonoBehaviour
             GameObject armyObject = Instantiate(chessPrefabDic[armyId], spawnPos, chessPrefabDic[armyId].transform.rotation);
             armyObject.transform.parent = playerChessObject.transform;
             // Setup Player Army
-            armyObject.GetComponent<ChessMan>().Setup(army, index);
+            armyObject.GetComponent<ChessMan>().Setup(army, index, army.posIndex);
             playerArmy.Add(armyObject.GetComponent<ChessMan>());
             //
             index++;
@@ -120,7 +120,7 @@ public class LevelSpawner : MonoBehaviour
             GameObject armyObject = Instantiate(chessPrefabDic[armyId], spawnPos, chessPrefabDic[armyId].transform.rotation);
             armyObject.transform.parent = enemyChessObject.transform;
             // Setup Player Army
-            armyObject.GetComponent<ChessMan>().Setup(army, index);
+            armyObject.GetComponent<ChessMan>().Setup(army, index, army.posIndex);
             enemyArmy.Add(armyObject.GetComponent<ChessMan>());
             //
             index++;

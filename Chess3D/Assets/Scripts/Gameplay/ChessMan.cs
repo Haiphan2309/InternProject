@@ -22,15 +22,17 @@ public class ChessMan : MonoBehaviour
 
     bool isFalling;
 
-    public void Setup(PlayerArmy playerArmy, int index)
+    public void Setup(PlayerArmy playerArmy, int index, Vector3 posIndex)
     {
         isEnemy = false;
         this.index = index;
+        this.posIndex = posIndex;
     }
-    public void Setup(EnemyArmy enemyArmy, int index)
+    public void Setup(EnemyArmy enemyArmy, int index, Vector3 posIndex)
     {
         isEnemy = true;
         this.index = index;
+        this.posIndex = posIndex;
     }
     [Button]
     void TestOtherMove()
@@ -51,7 +53,7 @@ public class ChessMan : MonoBehaviour
             return;
         }
         Move(moves[moveIndex]);
-        index = (index + 1) % moves.Count;
+        moveIndex = (moveIndex + 1) % moves.Count;
     }
     public void Move(Vector3 posIndexToMove)
     {
@@ -87,7 +89,7 @@ public class ChessMan : MonoBehaviour
     IEnumerator Cor_OtherMoveAnim(Vector3 target)
     {
         float distance = Vector3.Distance(transform.position, target);
-        while (distance > 0.1f)
+        while (distance >= 0.05f)
         {
             AjustPosToGround(transform.position, target);
             
@@ -97,7 +99,7 @@ public class ChessMan : MonoBehaviour
 
         AjustPosToGround(transform.position, target, true);
         yield return new WaitForSeconds(1);
-        GameplayManager.Instance.ChangeTurn(true);
+        GameplayManager.Instance.ChangeTurn();
     }
     void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInterger = false)
     {
@@ -108,13 +110,14 @@ public class ChessMan : MonoBehaviour
             newPosition.y = hit.point.y;
 
             Vector3 slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
-            Debug.Log(hit.normal * Mathf.Rad2Deg); 
+
             transform.DORotate(slopeRotation, 0.3f);
-            //transform.rotation = slopeRotation * transform.rotation;
+
         }
         else
         {
-            newPosition += Vector3.down * 10* Time.deltaTime;
+            Debug.Log("A");
+            newPosition += Vector3.down * 10*Time.deltaTime;
         }
 
         if (isRoundInterger)
@@ -134,6 +137,15 @@ public class ChessMan : MonoBehaviour
         transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
             Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
+            if (isEnemy)
+            {
+                GameplayManager.Instance.DefeatEnemyChessMan(index);
+            }
+            else
+            {
+                GameplayManager.Instance.DefeatPlayerChessMan(index);
+            }
+            Destroy(gameObject);
         });
     }
 }

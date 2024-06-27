@@ -135,6 +135,8 @@ public class GameplayManager : MonoBehaviour
             Debug.LogError("chessman chua co config");
             return;
         }
+
+        HideAvailableMove();
         List<Vector3> moves = chessManConfig.Move(curPosIndex);
         if (moves != null)
         {
@@ -211,8 +213,14 @@ public class GameplayManager : MonoBehaviour
     }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
+        TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
+        levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
+        levelData.SetTileInfoNoDeep((int)posIndexToMove.x, (int)posIndexToMove.y, (int)posIndexToMove.z, curTileInfo);
         chessMan.Move(posIndexToMove);
-        levelData.GetTileInfo()[(int)Mathf.Round(chessMan.posIndex.x), (int)Mathf.Round(chessMan.posIndex.y), (int)Mathf.Round(chessMan.posIndex.z)] = new TileInfo();
+        if (defeatedChessMan != null)
+        {
+            StartCoroutine(Cor_DefeatedChessMan(chessMan, defeatedChessMan));
+        }
     }
     IEnumerator Cor_DefeatedChessMan(ChessMan defeatChessMan, ChessMan defeatedChessMan)
     {
