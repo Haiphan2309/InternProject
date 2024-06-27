@@ -22,8 +22,6 @@ public class ChessManConfig : ScriptableObject
     // Check if the potential tile is available
     public virtual bool IsTile(Vector3 currentMove)
     {
-        // If it's below y=1 level
-        if (currentMove.y < 1f) return false;
         // if the tile below the currentMove's y-level is NONE
         // then there is no tile below the currentMove.
         return GameplayManager.Instance.levelData.GetTileInfo()[
@@ -65,9 +63,9 @@ public class ChessManConfig : ScriptableObject
         float Zpos = currentMove.z;
         GDC.Enums.TileType tileData 
             = GameplayManager.Instance.levelData.GetTileInfo()[
-                (int)Xpos, 
-                (int)Ypos, 
-                (int)Zpos
+                (int)Mathf.Round(Xpos), 
+                (int)Mathf.Round(Ypos), 
+                (int)Mathf.Round(Zpos)
                 ].tileType;
 
         // Object can only stand on GROUND / BOX / SLOPES
@@ -105,9 +103,9 @@ public class ChessManConfig : ScriptableObject
 
         GDC.Enums.TileType tileData
             = GameplayManager.Instance.levelData.GetTileInfo()[
-                (int)Xpos, 
-                (int)Ypos,
-                (int)Zpos
+                (int)Mathf.Round(Xpos), 
+                (int)Mathf.Round(Ypos),
+                (int)Mathf.Round(Zpos)
                 ].tileType;
 
         switch (tileData)
@@ -172,9 +170,9 @@ public class ChessManConfig : ScriptableObject
         float Zpos = currentPositionIndex.z;
         GDC.Enums.TileType tileData
             = GameplayManager.Instance.levelData.GetTileInfo()[
-                (int)Xpos,
-                (int)Ypos,
-                (int)Zpos
+                (int)Mathf.Round(Xpos),
+                (int)Mathf.Round(Ypos),
+                (int)Mathf.Round(Zpos)
                 ].tileType;
 
         // Object can only stand on GROUND / BOX / SLOPES
@@ -203,10 +201,12 @@ public class ChessManConfig : ScriptableObject
         {
             Vector3 move = currentMove + direction;
             // We find the first tile below the next move
-            while (move.y > 0f && !IsTile(move))
+/*            while (!IsTile(move))
             {
                 move += Vector3.down;
-            }
+                if (move.y < 1f) return;
+                Debug.Log(move.y);
+            }*/
             // Check if the potential move is in bound
             if (!InBound(move))
             {
@@ -249,7 +249,7 @@ public class ChessManConfig : ScriptableObject
         Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
         Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
         Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
-    GenerateMoveList(currentPositionIndex);
+        GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }
 }
