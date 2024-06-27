@@ -14,6 +14,9 @@ public class ChessMan : MonoBehaviour
 
     [SerializeField] GameObject vfxDefeated;
     public Outline outline;
+    [SerializeField] LayerMask groundLayerMask;
+
+    bool isFalling;
 
     [Button]
     void TestOtherMove()
@@ -48,7 +51,7 @@ public class ChessMan : MonoBehaviour
     {
         transform.DOJump(posIndexToMove, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(()=>
         {
-            AjustPosToGround(transform.position);
+            AjustPosToGround(transform.position, posIndexToMove, true);
         });   
     }
 
@@ -61,20 +64,20 @@ public class ChessMan : MonoBehaviour
         float distance = Vector3.Distance(transform.position, target);
         while (distance > 0.1f)
         {
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, target, speed);
-            AjustPosToGround(newPosition);
+            AjustPosToGround(transform.position, target);
             
             distance = Vector3.Distance(transform.position, target);
             yield return null;
         }
 
-        AjustPosToGround(target, true);
+        AjustPosToGround(transform.position, target, true);
     }
-    void AjustPosToGround(Vector3 newPosition, bool isRoundInterger = false)
+    void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInterger = false)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up/2f, Vector3.down, out hit, 0.75f))
+        if (Physics.Raycast(transform.position + Vector3.up/2f, Vector3.down, out hit, 0.6f, groundLayerMask))
         {
+            newPosition = Vector3.MoveTowards(transform.position, target, speed);
             newPosition.y = hit.point.y;
 
             Vector3 slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
@@ -83,12 +86,13 @@ public class ChessMan : MonoBehaviour
         }
         else
         {
-            newPosition += Vector3.down * Time.deltaTime * 5;
+            newPosition += Vector3.down * 10*Time.deltaTime;
         }
 
         if (isRoundInterger)
         {
-            transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
+            //transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
+            transform.position = target;
         }
         else
         {

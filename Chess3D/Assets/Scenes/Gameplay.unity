@@ -43433,6 +43433,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
+      propertyPath: speed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: outline
       value: 
       objectReference: {fileID: 183277108}
@@ -43447,6 +43451,14 @@ PrefabInstance:
     - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: posIndex.z
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
+      propertyPath: groundLayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652286005729679838, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2078798457456553781, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: m_RootOrder
