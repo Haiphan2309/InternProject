@@ -86,7 +86,7 @@ public class ChessMan : MonoBehaviour
         }
         else
         {
-            newPosition += Vector3.down * 10*Time.deltaTime;
+            newPosition += Vector3.down * 10* Time.deltaTime;
         }
 
         if (isRoundInterger)

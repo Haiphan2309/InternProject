@@ -43437,6 +43437,10 @@ PrefabInstance:
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
+      propertyPath: config
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e3a9db0ea16c5649b6bec67d6844e87, type: 2}
+    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: outline
       value: 
       objectReference: {fileID: 183277108}

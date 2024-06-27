@@ -6,14 +6,18 @@ using UnityEngine.Rendering.Universal;
 
 public class ChessManConfig : ScriptableObject
 {
-    public float Xlimit = 0;
-    public float Ylimit = 0;
-    public float Zlimit = 0;
+    private float _Xlimit = 0;
+    private float _Ylimit = 0;
+    private float _Zlimit = 0;
 
     private float _height;
     private int _moveRange;
     private GDC.Enums.ChessManType _chessManType;
     private List<Vector3> _possibleMoveList;
+
+    public float Xlimit { get; set; }
+    public float Ylimit { get; set; }
+    public float Zlimit { get; set; }
 
     public float height { get; set; }
     public int moveRange { get; set; }
@@ -47,7 +51,7 @@ public class ChessManConfig : ScriptableObject
     }
 
     // Check if the potential tile is available
-    public virtual bool IsTile(Vector3 currentMove)
+    private bool IsTile(Vector3 currentMove)
     {
         // if the tile below the currentMove's y-level is NONE
         // then there is no tile below the currentMove.
@@ -69,31 +73,31 @@ public class ChessManConfig : ScriptableObject
     }
 
     // Check if the potential tile is in bound
-    public virtual bool InBound(Vector3 currentMove)
+    private bool InBound(Vector3 currentMove)
     {
         bool inBound = true;
         float Xpos = currentMove.x;
-        float Ypos = currentMove.y; // check the tile below the object
+        float Ypos = currentMove.y;
         float Zpos = currentMove.z;
 
-        if (Xpos < 0 || Xpos >= Xlimit)
+        if (Xpos < 0 || Xpos >= _Xlimit)
         {
             inBound = false;
         }
-        if (Ypos <= 0 || Ypos >= Ylimit)
+        if (Ypos <= 0 || Ypos >= _Ylimit)
         {
             inBound = false;
         }
-        if (Zpos < 0 || Zpos >= Zlimit)
+        if (Zpos < 0 || Zpos >= _Zlimit)
         {
             inBound = false;
         }
-        Debug.Log("InBound = " + inBound);
+        // Debug.Log("InBound = " + inBound);
         return inBound;
     }
 
     // Check if the potential tile that the pieces move into can be stood on
-    public virtual bool CanStandOn(Vector3 currentMove)
+    private bool CanStandOn(Vector3 currentMove)
     {
         bool canStandOn = true;
         GDC.Enums.TileType tileData = GetTileBelow(currentMove);
@@ -124,7 +128,7 @@ public class ChessManConfig : ScriptableObject
 
 
     // Check if the potential tile that the pieces move into is movable
-    public virtual bool ValidateMove(Vector3 currentMove, Vector3 direction)
+    private bool ValidateMove(Vector3 currentMove, Vector3 direction)
     {
         bool isMovable = false;
         GDC.Enums.TileType tileData = GetTile(currentMove);
@@ -136,11 +140,6 @@ public class ChessManConfig : ScriptableObject
                 isMovable = true;
                 break;
 
-            // if STATIC OBJECT then it's not movable
-            case GDC.Enums.TileType.GROUND:
-            case GDC.Enums.TileType.OBJECT:
-                isMovable = false;
-                break;
 
             // if DYNAMIC OBJECT then it can be movable if:
             // The next TileData based on direction is not a STATIC OBJECT
@@ -166,6 +165,8 @@ public class ChessManConfig : ScriptableObject
                     isMovable = true;
                 }
                 break;
+
+            // it is STATIC OBJECT by then it's not movable
             default:
                 break;
         }
@@ -173,7 +174,7 @@ public class ChessManConfig : ScriptableObject
     }
 
     // Check if the potential tile that the pieces move into is a SLOPE UP
-    public virtual bool OnSlopeUp(Vector3 currentMove, Vector3 direction)
+    private bool OnSlopeUp(Vector3 currentMove, Vector3 direction)
     {
         bool onSlopeUp = false;
         GDC.Enums.TileType tileData = GetTile(currentMove);
@@ -213,7 +214,7 @@ public class ChessManConfig : ScriptableObject
     }
 
     // Check if the potential tile that the pieces move into is a SLOPE DOWN
-    public virtual bool OnSlopeDown(Vector3 currentMove, Vector3 direction)
+    private bool OnSlopeDown(Vector3 currentMove, Vector3 direction)
     {
         bool onSlopeDown = false;
         GDC.Enums.TileType tileData = GetTileBelow(currentMove);
@@ -308,9 +309,9 @@ public class ChessManConfig : ScriptableObject
     public virtual List<Vector3> Move(Vector3 currentPositionIndex)
     {
         possibleMoveList.Clear();
-        Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
-        Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
-        Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
+        _Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
+        _Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
+        _Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }

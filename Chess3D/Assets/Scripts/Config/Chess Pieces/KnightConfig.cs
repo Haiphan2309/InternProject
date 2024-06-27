@@ -7,8 +7,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "KnightConfig", menuName = "ChessManConfig/KnightConfig", order = 2)]
 public class KnightConfig : ChessManConfig
 {
-    public GameObject prefab;
-
     private float _jumpLimit = 2f;      // hard-coded number
     private float[,] _knightDirection = { 
         { -1f, 2f }, { 1f, 2f }, { 1f, -2f }, { -1f, -2f },
