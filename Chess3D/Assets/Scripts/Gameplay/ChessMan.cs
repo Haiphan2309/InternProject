@@ -13,6 +13,7 @@ public class ChessMan : MonoBehaviour
     [SerializeField] Vector3 posIndexToMove;
 
     [SerializeField] GameObject vfxDefeated;
+    public Outline outline;
 
     [Button]
     void TestOtherMove()
@@ -67,12 +68,12 @@ public class ChessMan : MonoBehaviour
             yield return null;
         }
 
-        AjustPosToGround(target);
+        AjustPosToGround(target, true);
     }
-    void AjustPosToGround(Vector3 newPosition)
+    void AjustPosToGround(Vector3 newPosition, bool isRoundInterger = false)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1))
+        if (Physics.Raycast(transform.position + Vector3.up/2f, Vector3.down, out hit, 2))
         {
             newPosition.y = hit.point.y;
 
@@ -84,7 +85,15 @@ public class ChessMan : MonoBehaviour
         {
             newPosition += Vector3.down * Time.deltaTime * 5;
         }
-        transform.position = newPosition;
+
+        if (isRoundInterger)
+        {
+            transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
+        }
+        else
+        {
+            transform.position = newPosition;
+        }
     }
     [Button]
     public void Defeated()

@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] LayerMask tileLayerMask, chessLayerMask;
     [SerializeField, ReadOnly] bool isPicking;
 
-    ChessMan curChessMan;
+    ChessMan curChessMan, hitChessMan;
     private void Update()
     {
         DisplayMouseOver();
@@ -24,15 +24,35 @@ public class InputManager : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        bool isHit = Physics.Raycast(ray, out hit, 100, tileLayerMask);
+        bool isHit = Physics.Raycast(ray, out hit, 100);
+        bool isHitChessMan = false;
         if (isHit)
         {
-            mouseOver.gameObject.SetActive(true);
-            mouseOver.transform.position = hit.transform.position + Vector3.up * 1.05f;
+            if ((chessLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+            {
+                ChessMan tempChessMan = hit.transform.GetComponent<ChessMan>();
+                if (hitChessMan == null || (hitChessMan != null && hitChessMan.posIndex != tempChessMan.posIndex))
+                {
+                    hitChessMan = tempChessMan;
+                    hitChessMan.outline.OutlineWidth = 100;
+                    isHitChessMan = true;
+                }
+            }
+            else if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+            {
+                mouseOver.gameObject.SetActive(true);
+                mouseOver.transform.position = hit.transform.position + Vector3.up * 1.05f;
+            }
         }
         else
         {
             mouseOver.gameObject.SetActive(false);
+        }
+
+        if (isHitChessMan)
+        {
+            hitChessMan.outline.OutlineWidth = 0;
+            hitChessMan = null;
         }
     }
     void MouseDownInput()

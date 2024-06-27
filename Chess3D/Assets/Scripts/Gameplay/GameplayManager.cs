@@ -66,7 +66,7 @@ public class GameplayManager : MonoBehaviour
             foreach (Vector3 move in moves)
             {
                 
-                TileInfo tileInfo = levelData.GetTileInfo()[(int)move.x, (int)move.y, (int)move.z];
+                TileInfo tileInfo = levelData.GetTileInfo()[(int)Mathf.Round(move.x), (int)Mathf.Round(move.y), (int)Mathf.Round(move.z)];
                 Transform tran = Instantiate(availableMovePrefab, move, Quaternion.identity);
                 switch (tileInfo.tileType)
                 {
@@ -117,7 +117,10 @@ public class GameplayManager : MonoBehaviour
         foreach (Vector3 move in moves)
         {
             Debug.Log(move + "    " + posIndexToMove);
-            if ((int)move.x == (int)posIndexToMove.x && (int)move.y == (int)posIndexToMove.y && (int)move.z == (int)posIndexToMove.z) return true;
+            //if (Vector3Int.FloorToInt(move) == Vector3Int.FloorToInt(posIndexToMove)) return true;
+            if ((int)Mathf.Round(move.x) == (int)Mathf.Round(posIndexToMove.x) 
+                && (int)Mathf.Round(move.y) == (int)Mathf.Round(posIndexToMove.y) 
+                && (int)Mathf.Round(move.z) == (int)Mathf.Round(posIndexToMove.z)) return true;
         }
         return false;
     }    
