@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] LayerMask tileLayerMask, chessLayerMask;
     [SerializeField, ReadOnly] bool isPicking;
 
-    ChessMan curChessMan, hitChessMan;
+    ChessMan preChessMan, curChessMan, hitChessMan;
     //bool isHitChessMan = false;
     float timeMouseDown;
     [SerializeField] float deltaTimeToHold;
@@ -89,26 +89,34 @@ public class InputManager : MonoBehaviour
                     ShowMouseOver(hit.transform.position);
                     HitTileToMove(hit);
                     HideOulineHitChessMan();
+                    isPicking = false;
+                }
+                else if ((chessLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+                {
+                    HideOulineHitChessMan();
+                    HitChessMan(hit);
                 }
                 else
                 {
                     HideMouseOver();
                     MoveInvalid();
                     HideOulineHitChessMan();
+                    isPicking = false;
                     Debug.Log("Nhan vao tile ko phai ground");
                 }
-                isPicking = false;
             }
-
-            if ((chessLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+            else
             {
-                HideMouseOver();
-                HitChessMan(hit);
-            }
-            else if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
-            {
-                ShowMouseOver(hit.transform.position);
-                HideOulineHitChessMan();
+                if ((chessLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+                {
+                    HideMouseOver();
+                    HitChessMan(hit);
+                }
+                else if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+                {
+                    ShowMouseOver(hit.transform.position);
+                    HideOulineHitChessMan();
+                }
             }
 
             Debug.Log("hit: " + hit.transform.name);
@@ -124,16 +132,44 @@ public class InputManager : MonoBehaviour
     }
     void HitChessMan(RaycastHit hit)
     {
+        preChessMan = curChessMan;
         curChessMan = hit.transform.GetComponent<ChessMan>();
-        GameplayManager.Instance.ShowAvailableMove(curChessMan.config, curChessMan.posIndex);
-        posIcon.gameObject.SetActive(true);
-        posIcon.position = curChessMan.posIndex + Vector3.one * 0.02f;
-        isPicking = true;
-
-        if (hitChessMan == null || (hitChessMan != null && hitChessMan.posIndex != curChessMan.posIndex))
+        if (GameplayManager.Instance.enemyTurn == false)
         {
-            hitChessMan = curChessMan;
-            hitChessMan.outline.OutlineWidth = 10;
+            if (curChessMan.isEnemy == false)
+            {
+                GameplayManager.Instance.ShowAvailableMove(curChessMan.config, curChessMan.posIndex);
+                posIcon.gameObject.SetActive(true);
+                posIcon.position = curChessMan.posIndex + Vector3.one * 0.02f;
+                isPicking = true;
+                CheckShowOutlineChessMan();
+            }
+            else
+            {
+                if (isPicking)
+                {
+                    if (GameplayManager.Instance.CheckMove(preChessMan.config,preChessMan.posIndex,curChessMan.posIndex))
+                    {
+                        //Enemy co the an duoc
+                        Debug.Log("Enemy bi an");
+                        GameplayManager.Instance.MakeMove(preChessMan, curChessMan.posIndex);
+                        
+                    }
+                    else
+                    {
+                        //Enemy khong the an duoc
+                        CheckShowOutlineChessMan();
+                    }
+                }
+                else
+                {
+                    CheckShowOutlineChessMan();
+                }         
+            }
+        }
+        else
+        {
+            CheckShowOutlineChessMan();
         }
     }
     void HitTileToMove(RaycastHit hit)
@@ -190,6 +226,14 @@ public class InputManager : MonoBehaviour
     void HideMouseOver()
     {
         mouseOver.gameObject.SetActive(false);
+    }
+    void CheckShowOutlineChessMan()
+    {
+        if (hitChessMan == null || (hitChessMan != null && hitChessMan.posIndex != curChessMan.posIndex))
+        {
+            hitChessMan = curChessMan;
+            hitChessMan.outline.OutlineWidth = 10;
+        }
     }
     void HideOulineHitChessMan()
     {

@@ -50,7 +50,7 @@ public class PlayerArmy : Army
 public class EnemyArmy : Army
 {
     public int priority;
-    public List<Vector3> movePosIndex;
+    public List<Vector3> movePosIndexs;
     public EnemyArmy(Vector3 posIndex, ChessManType chessManType)
     {
 
