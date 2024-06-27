@@ -61,7 +61,7 @@ public class LevelBrushEditor : Editor
         }
 
         // Dropdown for rotation angle
-        brush.rotationAngle = (LevelBrush.RotationAngle)EditorGUILayout.EnumPopup("Rotation Angle", brush.rotationAngle);
+        //brush.rotationAngle = (LevelBrush.RotationAngle)EditorGUILayout.EnumPopup("Rotation Angle", brush.rotationAngle);
 
         // Save changes
         if (GUI.changed)
