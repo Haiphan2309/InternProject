@@ -21,17 +21,17 @@ public class LevelBrush : GridBrushBase
     public int manualOffsetValue = 0;
 
     // Toggle to rotate GameObject with the tile
-    public bool rotateWithTile = true;
+    //public bool rotateWithTile = true;
 
     // Enum for rotation angles
-    public RotationAngle rotationAngle = RotationAngle.Degree0; 
-    public enum RotationAngle
-    {
-        Degree0 = 0,
-        Degree90 = 90,
-        Degree180 = 180,
-        Degree270 = 270
-    }
+    //public RotationAngle rotationAngle = RotationAngle.Degree0; 
+    //public enum RotationAngle
+    //{
+    //    Degree0 = 0,
+    //    Degree90 = 90,
+    //    Degree180 = 180,
+    //    Degree270 = 270
+    //}
 
     public override void Paint(GridLayout grid, GameObject brushTarget, Vector3Int position)
     {
@@ -45,12 +45,12 @@ public class LevelBrush : GridBrushBase
                 // Calculate the world position of the cell and center the GameObject within the cell
                 Vector3 cellWorldPosition = grid.CellToWorld(position);
                 int offset = manualOffset ? manualOffsetValue : GetOffsetBasedOnTilemapName(targetTilemap);
-                Quaternion rotation = Quaternion.identity;
+                //Quaternion rotation = Quaternion.identity;
 
-                if (rotateWithTile)
-                {
-                    rotation = Quaternion.Euler(0, (float)rotationAngle, 0);
-                }
+                //if (rotateWithTile)
+                //{
+                //    rotation = Quaternion.Euler(0, (float)rotationAngle, 0);
+                //}
 
                 // Adjust the position to center the GameObject within the cell
                 Vector3 adjustedPosition = new Vector3(cellWorldPosition.x + 0.5f, 0, cellWorldPosition.z + 0.5f);
@@ -65,7 +65,7 @@ public class LevelBrush : GridBrushBase
                 GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(selectedPrefab);
 
                 // Set rotation
-                instance.transform.rotation = rotation;
+                //instance.transform.rotation = rotation;
 
                 // Set the position and parent of the instance
                 instance.transform.position = adjustedPosition;
@@ -124,7 +124,7 @@ public class LevelBrush : GridBrushBase
         if (tilemap != null)
         {
             string name = tilemap.name;
-            if (name.StartsWith("Level_"))
+            if (name.StartsWith("Floor_"))
             {
                 if (int.TryParse(name.Substring(6), out int level))
                 {
