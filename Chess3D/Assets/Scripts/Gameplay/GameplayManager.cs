@@ -16,7 +16,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
 
-    [SerializeField, ReadOnly] List<ChessMan> playerArmy, enemyArmy; 
+    [SerializeField, ReadOnly] List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest; 
     private void Awake()
     {
         Instance = this;
@@ -47,10 +47,34 @@ public class GameplayManager : MonoBehaviour
     {
         //dosomething
         Debug.Log("Enemy Turn!");
-        foreach(var enemy in enemyArmy)
+
+        if (listEnemyPriorityLowest == null || listEnemyPriorityLowest.Count == 0)
         {
-            
+            listEnemyPriorityLowest = new List<ChessMan>();
+            if (enemyArmy.Count > 0)
+            {
+                foreach (var enemy in enemyArmy)
+                {
+                    if (levelData.GetEnemyArmies()[enemy.index].priority == levelData.GetEnemyArmies()[0].priority)
+                    {
+                        listEnemyPriorityLowest.Add(enemy);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("Da het quan dich");
+            }
         }
+
+        if (listEnemyPriorityLowest.Count > 0)
+        {
+            listEnemyPriorityLowest[0].EnemyMove();
+            ChessMan temp = listEnemyPriorityLowest[0]; //Thuc hien dua vi tri dau xuong vi tri cuoi sau khi di chuyen xong
+            listEnemyPriorityLowest.RemoveAt(0);
+            listEnemyPriorityLowest.Add(temp);
+        }
+        
         ChangeTurn(false);
     }
     void PlayerTurn()

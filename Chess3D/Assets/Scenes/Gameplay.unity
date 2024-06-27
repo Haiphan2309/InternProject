@@ -3324,17 +3324,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183217247}
   m_Mesh: {fileID: 2464513778602664487, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
---- !u!114 &183277108 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 183277108, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-  m_PrefabInstance: {fileID: 4301637780456024068}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &186349694
 GameObject:
   m_ObjectHideFlags: 0
@@ -7624,6 +7613,9 @@ MonoBehaviour:
   enemyTurn: 0
   levelData: {fileID: 11400000, guid: 62e5dc0698d74664db3f5fb0847a97ae, type: 2}
   availableMovePrefab: {fileID: 7245618113376876351, guid: 84568a093dba36641903864ef114cacc, type: 3}
+  playerArmy: []
+  enemyArmy: []
+  listEnemyPriorityLowest: []
 --- !u!4 &386281600
 Transform:
   m_ObjectHideFlags: 0
@@ -10711,7 +10703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &549308750
 Transform:
   m_ObjectHideFlags: 0
@@ -24717,7 +24709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: 62e5dc0698d74664db3f5fb0847a97ae, type: 2}
-  spawnLevelName: Level_0
+  spawnLevelName: Level_2
 --- !u!1 &1225432023
 GameObject:
   m_ObjectHideFlags: 0
@@ -43428,38 +43420,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 183277108, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: outlineWidth
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: speed
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: outline
+      propertyPath: config
       value: 
-      objectReference: {fileID: 183277108}
-    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: posIndex.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: posIndex.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: posIndex.z
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: groundLayerMask.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652286005729679838, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 4e0fee00cf6e79749983ac846ea8afc5, type: 2}
     - target: {fileID: 2078798457456553781, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: m_RootOrder
       value: 7

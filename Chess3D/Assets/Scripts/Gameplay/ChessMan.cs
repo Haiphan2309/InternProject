@@ -17,10 +17,21 @@ public class ChessMan : MonoBehaviour
     [SerializeField] LayerMask groundLayerMask;
 
     public bool isEnemy;
-    public int priority;
+    public int index;
+    int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
 
     bool isFalling;
 
+    public void Setup(PlayerArmy playerArmy, int index)
+    {
+        isEnemy = false;
+        this.index = index;
+    }
+    public void Setup(EnemyArmy enemyArmy, int index)
+    {
+        isEnemy = true;
+        this.index = index;
+    }
     [Button]
     void TestOtherMove()
     {
@@ -30,6 +41,17 @@ public class ChessMan : MonoBehaviour
     void TestKnightMove()
     {
         KnightMoveAnim(posIndexToMove);
+    }
+    public void EnemyMove()
+    {
+        List<Vector3> moves = GameplayManager.Instance.levelData.GetEnemyArmies()[index].movePosIndexs;
+        if (moves.Count == 0)
+        {
+            Debug.LogError(gameObject.name + " khong co nuoc di mac dinh nao ca!");
+            return;
+        }
+        Move(moves[moveIndex]);
+        index = (index + 1) % moves.Count;
     }
     public void Move(Vector3 posIndexToMove)
     {
