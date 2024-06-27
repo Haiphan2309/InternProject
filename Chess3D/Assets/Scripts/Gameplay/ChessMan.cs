@@ -108,8 +108,10 @@ public class ChessMan : MonoBehaviour
             newPosition.y = hit.point.y;
 
             Vector3 slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
-            Debug.Log(hit.normal * Mathf.Rad2Deg); 
-            transform.DORotate(slopeRotation, 0.3f);
+
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + slopeRotation);
+
+            //transform.DORotate(slopeRotation, Time.deltaTime);
             //transform.rotation = slopeRotation * transform.rotation;
         }
         else
