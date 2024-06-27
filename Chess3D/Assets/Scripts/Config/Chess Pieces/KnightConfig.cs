@@ -18,18 +18,19 @@ public class KnightConfig : ChessManConfig
     KnightConfig()
     {
         Debug.Log("Spawn Knight");
-        this.moveRange = 1;    // hard-coded number
+        this.moveRange = 1;             // hard-coded number
         this.chessManType = GDC.Enums.ChessManType.KNIGHT;
         this.possibleMoveList = new List<Vector3>();
     }
 
-    // THE FACT
-    // THE FACT THAT THIS FUCKER CAN JUMP
-    // EVERYTIME I WAKE UP
-    // AND THIS PIECE HAUNTS MEEEEEEEEEEEEEEEE
     // We have to check if this jump is executable, before checking if the move is valid
     public override bool ValidateJump(Vector3 currentMove, Vector3 direction)
     {
+        // if the jump height is higher than the world limit
+        // then there is no object to block the jump
+        // therefore we return true
+        if ((currentMove - direction).y + _jumpLimit >= Ylimit)
+            return true;
         bool isJumpable = true;
 
         float Xsign = direction.x / Mathf.Abs(direction.x);
@@ -67,7 +68,7 @@ public class KnightConfig : ChessManConfig
     {
         for (int i = 0; i < _knightDirection.GetLength(0); ++i)
         {
-            for(int j = -(int)_jumpLimit; j < (int)_jumpLimit; ++j)
+            for(int j = -(int)currentPositionIndex.y; j < (int)_jumpLimit; ++j)
             {
                 Vector3 direction
                     = Vector3.right * _knightDirection[i, 0]
