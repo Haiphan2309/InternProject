@@ -8,6 +8,7 @@ public class LevelSpawner : MonoBehaviour
 {
     // 
     [HideInInspector] public LevelData levelData;
+    [HideInInspector] public List<ChessMan> playerArmy, enemyArmy;
     public string spawnLevelName = "";
     
     //
