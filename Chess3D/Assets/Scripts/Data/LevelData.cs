@@ -32,6 +32,7 @@ public class TileData
 [Serializable]
 public abstract class Army
 {
+
     public ChessManType chessManType;
     public Vector3 posIndex;
 }
