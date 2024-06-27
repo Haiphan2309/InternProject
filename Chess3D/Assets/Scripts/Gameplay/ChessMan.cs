@@ -97,7 +97,7 @@ public class ChessMan : MonoBehaviour
 
         AjustPosToGround(transform.position, target, true);
         yield return new WaitForSeconds(1);
-        GameplayManager.Instance.ChangeTurn();
+        GameplayManager.Instance.ChangeTurn(true);
     }
     void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInterger = false)
     {

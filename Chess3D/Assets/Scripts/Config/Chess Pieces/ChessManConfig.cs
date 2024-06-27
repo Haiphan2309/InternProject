@@ -135,11 +135,12 @@ public class ChessManConfig : ScriptableObject
 
         switch (tileData)
         {
-            // if NONE then it's movable
+            // if NONE / PLAYER_CHESS / ENEMY_CHESS then it's movable
             case GDC.Enums.TileType.NONE:
+            case GDC.Enums.TileType.PLAYER_CHESS:
+            case GDC.Enums.TileType.ENEMY_CHESS:
                 isMovable = true;
                 break;
-
 
             // if DYNAMIC OBJECT then it can be movable if:
             // The next TileData based on direction is not a STATIC OBJECT
@@ -253,6 +254,23 @@ public class ChessManConfig : ScriptableObject
         return onSlopeDown;
     }
 
+    // Check if the potential tile that the pieces move into is a team's piece
+    private bool IsSameTeam(Vector3 currentPosition, Vector3 currentMove)
+    {
+        GDC.Enums.TileType playerData = GetTile(currentPosition);
+        GDC.Enums.TileType tileData = GetTile(currentMove);
+        return playerData == tileData;
+    }
+
+    // Check if the potential tile that the pieces move into is another team's piece
+    private bool IsDifferentTeam(Vector3 currentPosition, Vector3 currentMove)
+    {
+        GDC.Enums.TileType playerData = GetTile(currentPosition);
+        GDC.Enums.TileType tileData = GetTile(currentMove);
+        return (playerData == GDC.Enums.TileType.PLAYER_CHESS && tileData == GDC.Enums.TileType.ENEMY_CHESS)
+            || (playerData == GDC.Enums.TileType.ENEMY_CHESS && tileData == GDC.Enums.TileType.PLAYER_CHESS);
+    }
+
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
         // The Vector3 that stores the current position for the next move
@@ -282,7 +300,6 @@ public class ChessManConfig : ScriptableObject
             }
             // Check if the potential move is movable
             if (!ValidateMove(move, direction))
-
             {
                 return;
             }
@@ -291,8 +308,20 @@ public class ChessManConfig : ScriptableObject
             {
                 move += Vector3.up;
             }
+            // Check if the potential move is into the same team piece
+            // The pieces are ALWAYS ABOVE SLOPES
+            if (IsSameTeam(currentPositionIndex, move))
+            {
+                return;
+            }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
+            // Check if the potential move is into another team piece
+            // The pieces are ALWAYS ABOVE SLOPES
+            if (IsDifferentTeam(currentPositionIndex, move))
+            {
+                return;
+            }
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
             {
