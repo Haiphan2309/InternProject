@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b3d9e92cc2adf49a5c0db558d31053, type: 3}
   m_Name: Level Brush
   m_EditorClassIdentifier: 
-  targetTilemapName: Level_0
+  targetTilemapName: Floor_3
   prefabs:
   - {fileID: 5213880191220909169, guid: 66614f3fc2a21be4d88294c6a39ba04e, type: 3}
   - {fileID: 5213880191220909169, guid: aae60704497e0974db73d5f264d910e4, type: 3}

@@ -11,14 +11,14 @@ public class LevelSpawner : MonoBehaviour
     public string spawnLevelName = "";
     
     //
-    string levelDataPath;
-    string prefabPath;
+    string levelDataPath = "Assets/Resources/ScriptableObjects/LevelData";
+    string prefabPath = "ObjectPrefabs";
 
     Dictionary<int, GameObject> prefabDic = new Dictionary<int, GameObject>();
     public void Setup()
     {
-        levelDataPath = "Assets/Resources/ScriptableObjects/LevelData";
-        prefabPath = "ObjectPrefabs";
+        //levelDataPath = 
+        //prefabPath = 
     }
 
     [Button]
@@ -56,7 +56,7 @@ public class LevelSpawner : MonoBehaviour
                     if (tileInfo == null) continue;
                     if (tileInfo.tileType == TileType.NONE) continue;
                     //
-                    GameObject tile = Instantiate(prefabDic[tileId], spawnPos, Quaternion.identity);
+                    GameObject tile = Instantiate(prefabDic[tileId], spawnPos, prefabDic[tileId].transform.rotation);
                     tile.transform.parent = floor.transform;
                 }
             }
