@@ -49,6 +49,8 @@ public class PlayerArmy : Army
 [Serializable]
 public class EnemyArmy : Army
 {
+    public int priority;
+    public List<Vector3> movePosIndex;
     public EnemyArmy(Vector3 posIndex, ChessManType chessManType)
     {
 
@@ -61,7 +63,9 @@ public class EnemyArmy : Army
 [Serializable]
 public class LevelData : ScriptableObject
 {
+
     [SerializeField] private Vector3 center;
+    [SerializeField] private int maxTurn;
     [SerializeField] private List<TileData> tileInfo;
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;

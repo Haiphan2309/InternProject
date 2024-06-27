@@ -57,6 +57,22 @@ public class LevelExtractor : MonoBehaviour
         {
             return TileType.WATER;
         }
+        if (id == 104)
+        {
+            return TileType.SLOPE_0;
+        }
+        if (id == 105)
+        {
+            return TileType.SLOPE_90;
+        }
+        if (id == 106)
+        {
+            return TileType.SLOPE_180;
+        }
+        if (id == 107)
+        {
+            return TileType.SLOPE_270;
+        }
         if (id >= 110 && id <= 120)
         {
             return TileType.OBJECT;
