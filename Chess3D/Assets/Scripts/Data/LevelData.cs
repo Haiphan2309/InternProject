@@ -134,16 +134,16 @@ public class LevelData : ScriptableObject
             }
         }
     }
-    public void SetTileInfoNoDeep(int x, int y, int z, TileInfo tileInfoValue) //Not for scriptable object
-    {
-        foreach (TileData data in this.tileInfo)
-        {
-            if (x == (int)data.pos.x && y == (int)data.pos.y && z == (int)data.pos.z)
-            {
-                data.tileInfo = tileInfoValue;
-            }
-        }
-    }
+    //public void SetTileInfoNoDeep(int x, int y, int z, TileInfo tileInfoValue) //Not for scriptable object
+    //{
+    //    foreach (TileData data in this.tileInfo)
+    //    {
+    //        if (x == (int)data.pos.x && y == (int)data.pos.y && z == (int)data.pos.z)
+    //        {
+    //            data.tileInfo = tileInfoValue;
+    //        }
+    //    }
+    //}
     public TileInfo GetTileInfoNoDeep(int x, int y, int z) //Not for scriptable object
     {
         foreach (TileData data in this.tileInfo)
