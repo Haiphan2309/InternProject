@@ -6,8 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PawnConfig", menuName = "ChessManConfig/PawnConfig", order = 0)]
 public class PawnConfig : ChessManConfig
 {
-    public GameObject prefab;
-
     private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
     PawnConfig()
     {

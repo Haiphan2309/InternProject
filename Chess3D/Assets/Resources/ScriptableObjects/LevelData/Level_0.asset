@@ -2998,7 +2998,7 @@ MonoBehaviour:
   - pos: {x: 5, y: 6, z: 9}
     tileInfo:
       id: 0
-      tileType: 0
+      tileType: 2
   - pos: {x: 5, y: 6, z: 10}
     tileInfo:
       id: 0

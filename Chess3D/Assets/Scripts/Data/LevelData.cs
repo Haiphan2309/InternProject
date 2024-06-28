@@ -67,7 +67,7 @@ public class LevelData : ScriptableObject
 
     [SerializeField] private Vector3 center;
     [SerializeField] private int maxTurn;
-    [SerializeField] private List<TileData> tileInfo;
+    public List<TileData> tileInfo;
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;
     
@@ -121,6 +121,39 @@ public class LevelData : ScriptableObject
         }
         return DeepCopyArray(map);
 
+    }
+
+    public void SetTileInfoNoDeep(int x, int y, int z, int idValue, TileType tileTypeValue) //Not for scriptable object
+    {
+        foreach (TileData data in this.tileInfo)
+        {
+            if (x == (int)data.pos.x && y == (int)data.pos.y && z == (int)data.pos.z)
+            {
+                data.tileInfo.id = idValue;
+                data.tileInfo.tileType = tileTypeValue;
+            }
+        }
+    }
+    public void SetTileInfoNoDeep(int x, int y, int z, TileInfo tileInfoValue) //Not for scriptable object
+    {
+        foreach (TileData data in this.tileInfo)
+        {
+            if (x == (int)data.pos.x && y == (int)data.pos.y && z == (int)data.pos.z)
+            {
+                data.tileInfo = tileInfoValue;
+            }
+        }
+    }
+    public TileInfo GetTileInfoNoDeep(int x, int y, int z) //Not for scriptable object
+    {
+        foreach (TileData data in this.tileInfo)
+        {
+            if (x == (int)data.pos.x && y == (int)data.pos.y && z == (int)data.pos.z)
+            {
+                return data.tileInfo;
+            }
+        }
+        return null;
     }
 
     public List<PlayerArmy> GetPlayerArmies()

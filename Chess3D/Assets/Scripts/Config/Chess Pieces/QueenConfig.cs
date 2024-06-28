@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "QueenConfig", menuName = "ChessManConfig/KingConfig", order = 4)]
+[CreateAssetMenu(fileName = "QueenConfig", menuName = "ChessManConfig/QueenConfig", order = 4)]
 public class QueenConfig : ChessManConfig
 {
-    public GameObject prefab;
-
     private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
     private float[,] _diagonalDirection = { { -1f, 1f }, { 1f, 1f }, { -1f, -1f }, { 1f, -1f } };
 

@@ -6,8 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "KingConfig", menuName = "ChessManConfig/KingConfig", order = 5)]
 public class KingConfig : ChessManConfig
 {
-    public GameObject prefab;
-
     private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
     private float[,] _diagonalDirection = { { -1f, 1f }, { 1f, 1f }, { -1f, -1f }, { 1f, -1f } };
 
