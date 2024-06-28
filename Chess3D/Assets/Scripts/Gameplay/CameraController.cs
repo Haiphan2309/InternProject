@@ -23,8 +23,9 @@ public class CameraController : MonoBehaviour
     private float targetY;
     private float targetDistance;
 
-    public void Setup(Vector3 center)
+    public void Setup(Vector3 center, float distance)
     {
+        this.distance = distance;
         target = center;
         Vector3 angles = transform.eulerAngles;
         x = angles.y;

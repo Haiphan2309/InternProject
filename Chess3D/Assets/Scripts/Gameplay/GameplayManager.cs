@@ -35,7 +35,7 @@ public class GameplayManager : MonoBehaviour
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
         SetRemainTurn(levelSpawner.levelData.maxTurn);
-        camController.Setup(levelSpawner.levelData.center);
+        camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
     }
 
     void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
