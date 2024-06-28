@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CastleConfig", menuName = "ChessManConfig/CastleConfig", order = 1)]
 public class CastleConfig : ChessManConfig
 {
+    public GameObject prefab;
     private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
 
     CastleConfig()
