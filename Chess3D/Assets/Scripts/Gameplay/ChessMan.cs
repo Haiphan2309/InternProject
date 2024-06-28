@@ -3,6 +3,7 @@ using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class ChessMan : MonoBehaviour
@@ -100,20 +101,30 @@ public class ChessMan : MonoBehaviour
         Vector3 direction = (target - currentPos).normalized;
 
         // Calculate the path (all grid points between currentPos and target)
-        List<Vector3> path = CalculatePath(currentPos, target);
+        // List<Vector3> path = CalculatePath(currentPos, target);
 
-        foreach (var point in path)
+        //foreach (var point in path)
+        //{
+        //    float distance = Vector3.Distance(transform.position, point);
+        //    while (distance >= 0.05f)
+        //    {
+        //        AjustPosToGround(transform.position, point);
+        //        distance = Vector3.Distance(transform.position, point);
+        //        yield return null;
+        //    }
+        //    AjustPosToGround(transform.position, point, true);
+        //    yield return new WaitForSeconds(0.3f);
+        //}
+
+        float distance = Vector3.Distance(transform.position, target);
+        while (distance >= 0.05f)
         {
-            float distance = Vector3.Distance(transform.position, point);
-            while (distance >= 0.05f)
-            {
-                AjustPosToGround(transform.position, point);
-                distance = Vector3.Distance(transform.position, point);
-                yield return null;
-            }
-            AjustPosToGround(transform.position, point, true);
-            yield return new WaitForSeconds(0.3f);
+            AjustPosToGround(transform.position, target);
+            distance = Vector3.Distance(transform.position, target);
+            yield return null;
         }
+        AjustPosToGround(transform.position, target, true);
+        yield return new WaitForSeconds(0.3f);
 
         yield return new WaitForSeconds(1);
         GameplayManager.Instance.ChangeTurn();
