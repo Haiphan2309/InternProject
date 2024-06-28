@@ -325,7 +325,7 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsSameTeam(currentPositionIndex, move))
             {
-                Debug.Log("Same team spotted");
+                // Debug.Log("Same team spotted");
                 return;
             }
             // If here means the move is executable, we add it to the list
@@ -334,7 +334,7 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsDifferentTeam(currentPositionIndex, move))
             {
-                Debug.Log("Different team spotted");
+                // Debug.Log("Different team spotted");
                 return;
             }
             // Check if the potential move is into slopes down
