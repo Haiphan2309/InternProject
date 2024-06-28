@@ -95,12 +95,24 @@ public class ChessMan : MonoBehaviour
             AjustPosToGround(transform.position, target);
             
             distance = Vector3.Distance(transform.position, target);
-            yield return null;
+
+            if (IsInteger(transform.position.x) && IsInteger(transform.position.z))
+            {
+                Debug.Log("Wait");
+                yield return new WaitForSeconds(1);
+            }
+
+            else yield return null;
         }
 
         AjustPosToGround(transform.position, target, true);
         yield return new WaitForSeconds(1);
         GameplayManager.Instance.ChangeTurn();
+    }
+
+    bool IsInteger(float number)
+    {
+        return Mathf.FloorToInt(number) == number;
     }
     void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInterger = false)
     {
