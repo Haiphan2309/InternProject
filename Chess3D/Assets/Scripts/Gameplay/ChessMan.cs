@@ -100,22 +100,6 @@ public class ChessMan : MonoBehaviour
         Vector3 currentPos = SnapToGrid(transform.position);
         Vector3 direction = (target - currentPos).normalized;
 
-        // Calculate the path (all grid points between currentPos and target)
-        // List<Vector3> path = CalculatePath(currentPos, target);
-
-        //foreach (var point in path)
-        //{
-        //    float distance = Vector3.Distance(transform.position, point);
-        //    while (distance >= 0.05f)
-        //    {
-        //        AjustPosToGround(transform.position, point);
-        //        distance = Vector3.Distance(transform.position, point);
-        //        yield return null;
-        //    }
-        //    AjustPosToGround(transform.position, point, true);
-        //    yield return new WaitForSeconds(0.3f);
-        //}
-
         float distance = Vector3.Distance(transform.position, target);
         while (distance >= 0.05f)
         {
@@ -124,8 +108,6 @@ public class ChessMan : MonoBehaviour
             yield return null;
         }
         AjustPosToGround(transform.position, target, true);
-        yield return new WaitForSeconds(0.3f);
-
         yield return new WaitForSeconds(1);
         GameplayManager.Instance.ChangeTurn();
     }
@@ -135,13 +117,13 @@ public class ChessMan : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position + Vector3.up / 2f, Vector3.down, out hit, 0.6f, groundLayerMask))
         {
-            newPosition = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            newPosition = Vector3.MoveTowards(transform.position, target, speed );
             // newPosition = target;
             newPosition.y = hit.point.y;
 
             Vector3 slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
 
-            transform.DORotate(slopeRotation, 0.3f);
+            // transform.DORotate(slopeRotation, 0.3f);
         }
         else
         {
