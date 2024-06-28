@@ -149,23 +149,22 @@ public class ChessMan : MonoBehaviour
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
         Vector3 rotation = transform.rotation.eulerAngles;
 
-        TileType tileType = GetChess(newPosition);
+        TileType tileType = GetChess(SnapToGrid(newPosition));
         switch (tileType) {
             case TileType.SLOPE_0:
-                rotation.z = -45;
-                break;
-
-            case TileType.SLOPE_90:
                 rotation.x = 45;
                 break;
 
+            case TileType.SLOPE_90:
+                rotation.z = 45;
+                break;
+
             case TileType.SLOPE_180:
-                Time.timeScale = 0.1f;
                 rotation.x = -45;
                 break;
 
             case TileType.SLOPE_270:
-                rotation.z = 45;
+                rotation.z = -45;
                 break;
 
             default:
@@ -184,7 +183,7 @@ public class ChessMan : MonoBehaviour
             transform.position = newPosition;
         }
 
-        transform.DORotate(rotation, 0.1f);
+        transform.DORotate(rotation, 0.01f);
     }
 
     Vector3 SnapToGrid(Vector3 position)
