@@ -110,6 +110,7 @@ public class InputManager : MonoBehaviour
                 if ((chessLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
                 {
                     HideMouseOver();
+                    HideOulineHitChessMan();
                     HitChessMan(hit);
                 }
                 else if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
@@ -119,7 +120,7 @@ public class InputManager : MonoBehaviour
                 }
             }
 
-            Debug.Log("hit: " + hit.transform.name);
+            //Debug.Log("hit: " + hit.transform.name);
         }
         else
         {
@@ -132,6 +133,7 @@ public class InputManager : MonoBehaviour
     }
     void HitChessMan(RaycastHit hit)
     {
+        GameplayManager.Instance.HideAvailableMove();
         preChessMan = curChessMan;
         curChessMan = hit.transform.GetComponent<ChessMan>();
         if (GameplayManager.Instance.enemyTurn == false)
@@ -237,8 +239,10 @@ public class InputManager : MonoBehaviour
     }
     void HideOulineHitChessMan()
     {
+        GameplayManager.Instance.HideOutLineAllChessMan();
         if (hitChessMan != null)
         {
+            hitChessMan.outline.OutlineColor = Color.white;
             hitChessMan.outline.OutlineWidth = 0;
             hitChessMan = null;
         }

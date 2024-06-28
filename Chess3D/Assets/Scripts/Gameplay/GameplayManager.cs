@@ -3,6 +3,7 @@ using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,12 +12,14 @@ public class GameplayManager : MonoBehaviour
     public static GameplayManager Instance { get; private set; }
 
     [SerializeField] LevelSpawner levelSpawner;
-    [ReadOnly] public bool enemyTurn;
+    [SerializeField] CameraController camController;
     public LevelData levelData;
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
 
-    [SerializeField, ReadOnly] List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest; 
+    [SerializeField, ReadOnly] List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest, outlineChessMan;
+    public int remainTurn;
+    [ReadOnly] public bool enemyTurn;
     private void Awake()
     {
         Instance = this;
@@ -28,9 +31,11 @@ public class GameplayManager : MonoBehaviour
         levelSpawner.Setup();
         levelSpawner.SpawnLevel();
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
-        levelData = levelSpawner.levelData;
+        //levelData = levelSpawner.levelData;
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
+        SetRemainTurn(levelSpawner.levelData.maxTurn);
+        camController.Setup(levelSpawner.levelData.center);
     }
 
     void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
@@ -38,13 +43,19 @@ public class GameplayManager : MonoBehaviour
         levelData = new LevelData();
         levelData.SetData(levelDataSO.GetTileInfo(), levelDataSO.GetPlayerArmies(), levelDataSO.GetEnemyArmies());
     }
-
+    void SetRemainTurn(int value)
+    {
+        remainTurn = value;
+    }
     public void ChangeTurn()
     {
         ChangeTurn(!enemyTurn);
     }
     public void ChangeTurn(bool enemyTurn)
     {
+        if (CheckWin()) Win();
+        else if (CheckLose()) Lose();
+
         this.enemyTurn = enemyTurn;
         if (enemyTurn)
         {
@@ -58,7 +69,6 @@ public class GameplayManager : MonoBehaviour
     }
     void EnemyTurn()
     {
-        //dosomething
         Debug.Log("Enemy Turn!");
 
         foreach (var enemy in enemyArmy)
@@ -91,18 +101,40 @@ public class GameplayManager : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                Debug.LogError("Da het quan dich");
-            }
+            //else
+            //{
+            //    Win();
+            //}
         }
 
         if (listEnemyPriorityLowest.Count > 0)
         {
-            listEnemyPriorityLowest[0].EnemyMove();
-            ChessMan temp = listEnemyPriorityLowest[0]; //Thuc hien dua vi tri dau xuong vi tri cuoi sau khi di chuyen xong
-            listEnemyPriorityLowest.RemoveAt(0);
-            listEnemyPriorityLowest.Add(temp);
+
+            if (listEnemyPriorityLowest[0].EnemyMove())
+            {
+                ChessMan temp = listEnemyPriorityLowest[0]; //Thuc hien dua vi tri dau xuong vi tri cuoi sau khi di chuyen xong
+                listEnemyPriorityLowest.RemoveAt(0);
+                listEnemyPriorityLowest.Add(temp);
+            }
+            else
+            {
+                if (enemyArmy.Count > 0)
+                {
+                    foreach (var enemy in enemyArmy)
+                    {
+                        if (enemy.EnemyMove()) //trong EnemyMove da thuc hien di chuyen neu true roi
+                        {
+                            return;
+                        }
+                    }
+                    Debug.LogError("Khong co enemy nao co the di chuyen theo pattern dinh san ca!");
+                    //Co the dua ra giai phap di chuyen random o day
+                }
+                //else
+                //{
+                //    Win();
+                //}
+            }            
         }
         
         //ChangeTurn(false);
@@ -143,7 +175,6 @@ public class GameplayManager : MonoBehaviour
             availableMoveTrans.Clear();
             foreach (Vector3 move in moves)
             {
-                
                 TileInfo tileInfo = levelData.GetTileInfo()[(int)Mathf.Round(move.x), (int)Mathf.Round(move.y)-1, (int)Mathf.Round(move.z)];
                 Transform tran = Instantiate(availableMovePrefab, move, Quaternion.identity);
                 switch (tileInfo.tileType)
@@ -175,6 +206,14 @@ public class GameplayManager : MonoBehaviour
                         break;
                 }
                 availableMoveTrans.Add(tran);
+
+                foreach(var enemy in enemyArmy)
+                {
+                    if (enemy.posIndex.Compare(move,1))
+                    {
+                        ShowOutlineChessMan(enemy);   
+                    }
+                }
             }
 
             if (moves.Count == 0)
@@ -187,6 +226,25 @@ public class GameplayManager : MonoBehaviour
         {
             Debug.LogError("move is null");
         }
+    }
+    void ShowOutlineChessMan(ChessMan chessMan)
+    {
+        chessMan.outline.OutlineColor = Color.yellow;
+        chessMan.outline.OutlineWidth = 10;
+        if (outlineChessMan == null)
+        {
+            outlineChessMan = new List<ChessMan>();
+        }
+        outlineChessMan.Add(chessMan);
+    }
+    public void HideOutLineAllChessMan()
+    {
+        if (outlineChessMan == null) return;
+        foreach (var chessMan in outlineChessMan)
+        {
+            chessMan.outline.OutlineWidth = 0;
+        }
+        outlineChessMan.Clear();
     }
     public void HideAvailableMove()
     {
@@ -221,6 +279,46 @@ public class GameplayManager : MonoBehaviour
         {
             StartCoroutine(Cor_DefeatedChessMan(chessMan, defeatedChessMan));
         }
+
+        if (enemyTurn == false)
+            SetRemainTurn(remainTurn - 1);
+    }
+
+    void Win()
+    {
+        Debug.Log("Win");
+    }
+    void Lose()
+    {
+        Debug.Log("Lose");
+    }
+    bool CheckLose()
+    {
+        bool isHaveKing = false;
+        foreach(var chess in playerArmy)
+        {
+            if (chess.config.chessManType == ChessManType.KING)
+            {
+                isHaveKing = true;
+                break;
+            }
+        }
+        if (playerArmy.Count == 0 || isHaveKing == false || remainTurn <=0) return true;
+        return false;
+    }
+    bool CheckWin()
+    {
+        bool isHaveKing = false;
+        foreach (var chess in enemyArmy)
+        {
+            if (chess.config.chessManType == ChessManType.KING)
+            {
+                isHaveKing = true;
+                break;
+            }
+        }
+        if (isHaveKing == false) return true;
+        return false;
     }
     IEnumerator Cor_DefeatedChessMan(ChessMan defeatChessMan, ChessMan defeatedChessMan)
     {
