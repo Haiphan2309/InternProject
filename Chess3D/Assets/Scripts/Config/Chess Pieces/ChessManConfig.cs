@@ -25,6 +25,13 @@ public class ChessManConfig : ScriptableObject
     public List<Vector3> possibleMoveList { get; set; }
 
     // Get TileType of a tile below position
+    public void LoadLimit()
+    {
+        _Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
+        _Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
+        _Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
+    }
+
     private GDC.Enums.TileType GetTileBelow(Vector3 position)
     {
         float Xpos = position.x;
@@ -259,7 +266,8 @@ public class ChessManConfig : ScriptableObject
     {
         GDC.Enums.TileType playerData = GetTile(currentPosition);
         GDC.Enums.TileType tileData = GetTile(currentMove);
-        return playerData == tileData;
+        return (playerData == GDC.Enums.TileType.PLAYER_CHESS && tileData == GDC.Enums.TileType.PLAYER_CHESS)
+            || (playerData == GDC.Enums.TileType.ENEMY_CHESS && tileData == GDC.Enums.TileType.ENEMY_CHESS);
     }
 
     // Check if the potential tile that the pieces move into is another team's piece
@@ -312,7 +320,7 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsSameTeam(currentPositionIndex, move))
             {
-                // return;
+                return;
             }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
@@ -320,7 +328,7 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsDifferentTeam(currentPositionIndex, move))
             {
-                // return;
+                return;
             }
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
@@ -338,9 +346,7 @@ public class ChessManConfig : ScriptableObject
     public virtual List<Vector3> Move(Vector3 currentPositionIndex)
     {
         possibleMoveList.Clear();
-        _Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
-        _Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
-        _Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
+        LoadLimit();
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }
