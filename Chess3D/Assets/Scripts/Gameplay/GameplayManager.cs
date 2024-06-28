@@ -175,7 +175,7 @@ public class GameplayManager : MonoBehaviour
             availableMoveTrans.Clear();
             foreach (Vector3 move in moves)
             {
-                TileInfo tileInfo = levelData.GetTileInfo()[(int)Mathf.Round(move.x), (int)Mathf.Round(move.y)-1, (int)Mathf.Round(move.z)];
+                TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(move.x), (int)Mathf.Round(move.y) - 1, (int)Mathf.Round(move.z));
                 Transform tran = Instantiate(availableMovePrefab, move, Quaternion.identity);
                 switch (tileInfo.tileType)
                 {
