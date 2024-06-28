@@ -89,6 +89,7 @@ public class ChessMan : MonoBehaviour
     IEnumerator Cor_OtherMoveAnim(Vector3 target)
     {
         float distance = Vector3.Distance(transform.position, target);
+        Debug.Log("Distance: " + distance);
         while (distance >= 0.05f)
         {
             AjustPosToGround(transform.position, target);
