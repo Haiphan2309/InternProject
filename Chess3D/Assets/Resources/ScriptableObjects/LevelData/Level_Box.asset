@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea2989c52f4fd49821c3f2b28b28bd, type: 3}
   m_Name: Level_Box
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
-  distance: 0
-  maxTurn: 0
+  center: {x: 5, y: 6, z: 0}
+  distance: 10
+  maxTurn: 6
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -8217,4 +8217,6 @@ MonoBehaviour:
   - chessManType: 1
     posIndex: {x: 5, y: 3, z: 11}
     priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 5, y: 3, z: 10}
+    - {x: 5, y: 3, z: 11}
