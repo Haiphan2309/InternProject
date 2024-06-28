@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea2989c52f4fd49821c3f2b28b28bd, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
-  center: {x: 5, y: 6, z: 0}
-  maxTurn: 5
+  center: {x: 5, y: 6, z: 3}
+  distance: 0
+  maxTurn: 0
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -3297,8 +3298,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 3, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 301
+      tileType: 11
   - pos: {x: 6, y: 3, z: 5}
     tileInfo:
       id: 106
@@ -8212,6 +8213,8 @@ MonoBehaviour:
     posIndex: {x: 3, y: 2, z: 1}
   - chessManType: 1
     posIndex: {x: 8, y: 2, z: 1}
+  - chessManType: 1
+    posIndex: {x: 6, y: 3, z: 4}
   enemyArmies:
   - chessManType: 1
     posIndex: {x: 5, y: 4, z: 9}
