@@ -44,10 +44,10 @@ public class ChessManConfig : ScriptableObject
                ].tileType;
     }
 
-    // Get TileType of a tile at position
     private GDC.Enums.TileType GetTile(Vector3 position)
     {
         float Xpos = position.x;
+    // Get TileType of a tile at position
         float Ypos = position.y;
         float Zpos = position.z;
         return GameplayManager.Instance.levelData.GetTileInfo()[
@@ -264,67 +264,23 @@ public class ChessManConfig : ScriptableObject
     // Check if the potential tile that the pieces move into is a team's piece
     private bool IsSameTeam(Vector3 currentPosition, Vector3 currentMove)
     {
-/*        List<PlayerArmy> playerList = GameplayManager.Instance.levelData.GetPlayerArmies();
-        List<EnemyArmy> enemyList = GameplayManager.Instance.levelData.GetEnemyArmies();
-        bool isPlayer = playerList.Contains(new PlayerArmy(currentPosition, this.chessManType));
-        Debug.Log("isPlayer = " + isPlayer);
-        // if the current piece is player
-        if (isPlayer)
-        {
-            foreach (PlayerArmy player in playerList)
-            {
-                if (player.posIndex == currentMove)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        // if the current piece is enemy
-        foreach (EnemyArmy enemy in enemyList)
-        {
-            if (enemy.posIndex == currentMove)
-            {
-                return true;
-            }
-        }
-        return false;*/
-        Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
-        Debug.Log("Current Move: " + GetTile(currentMove).ToString());
-        return false;
+        // Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
+        // Debug.Log("Current Move: " + GetTile(currentMove).ToString());
+        // return false;
+
+        return (GetTile(currentPosition) == GDC.Enums.TileType.PLAYER_CHESS && GetTile(currentMove) == GDC.Enums.TileType.PLAYER_CHESS)
+            || (GetTile(currentPosition) == GDC.Enums.TileType.ENEMY_CHESS && GetTile(currentMove) == GDC.Enums.TileType.ENEMY_CHESS);
     }
 
     // Check if the potential tile that the pieces move into is another team's piece
     private bool IsDifferentTeam(Vector3 currentPosition, Vector3 currentMove)
     {
-    /*        List<PlayerArmy> playerList = GameplayManager.Instance.levelData.GetPlayerArmies();
-            List<EnemyArmy> enemyList = GameplayManager.Instance.levelData.GetEnemyArmies();
-            bool isPlayer = playerList.Contains(new PlayerArmy(currentPosition, this.chessManType));
-            Debug.Log("isPlayer = " + isPlayer);
-            // if the current piece is player
-            if (isPlayer)
-            {
-                foreach (EnemyArmy enemy in enemyList)
-                {
-                    if (enemy.posIndex == currentMove)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            // if the current piece is enemy
-            foreach (PlayerArmy player in playerList)
-            {
-                if (player.posIndex == currentMove)
-                {
-                    return true;
-                }
-            }
-            return false;*/
         Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
         Debug.Log("Current Move: " + GetTile(currentMove).ToString());
-        return false;
+        // return false;
+
+        return (GetTile(currentPosition) == GDC.Enums.TileType.PLAYER_CHESS && GetTile(currentMove) == GDC.Enums.TileType.ENEMY_CHESS)
+            || (GetTile(currentPosition) == GDC.Enums.TileType.ENEMY_CHESS && GetTile(currentMove) == GDC.Enums.TileType.PLAYER_CHESS);
     }
 
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
