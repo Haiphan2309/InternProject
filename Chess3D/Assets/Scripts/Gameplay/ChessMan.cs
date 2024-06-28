@@ -44,16 +44,23 @@ public class ChessMan : MonoBehaviour
     {
         KnightMoveAnim(posIndexToMove);
     }
-    public void EnemyMove()
+    public bool EnemyMove()
     {
         List<Vector3> moves = GameplayManager.Instance.levelData.GetEnemyArmies()[index].movePosIndexs;
         if (moves.Count == 0)
         {
             Debug.LogError(gameObject.name + " khong co nuoc di mac dinh nao ca!");
-            return;
+            return false;
+        }
+
+        Vector3 intendedMove = moves[moveIndex];
+        if (GameplayManager.Instance.CheckMove(config,posIndex,intendedMove) == false)
+        {
+            return false;
         }
         Move(moves[moveIndex]);
         moveIndex = (moveIndex + 1) % moves.Count;
+        return true;
     }
     public void Move(Vector3 posIndexToMove)
     {

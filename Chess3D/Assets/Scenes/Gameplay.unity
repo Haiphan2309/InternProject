@@ -10703,7 +10703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &549308750
 Transform:
   m_ObjectHideFlags: 0
@@ -24711,7 +24711,7 @@ MonoBehaviour:
   levelData: {fileID: 11400000, guid: 62e5dc0698d74664db3f5fb0847a97ae, type: 2}
   playerArmy: []
   enemyArmy: []
-  spawnLevelName: Level_2
+  spawnLevelName: Level_1
 --- !u!1 &1225432023
 GameObject:
   m_ObjectHideFlags: 0
@@ -43424,23 +43424,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: speed
-      value: 0.01
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: config
       value: 
       objectReference: {fileID: 11400000, guid: 7ac94aed580bed84a82e33cb11e2aa70, type: 2}
-    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: posIndex.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: posIndex.z
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1784069761, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-      propertyPath: groundLayerMask.m_Bits
-      value: 128
+    - target: {fileID: 1652286005729679838, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2078798457456553781, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: m_RootOrder
@@ -43452,11 +43444,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2078798457456553781, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2078798457456553781, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2078798457456553781, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -43489,6 +43481,10 @@ PrefabInstance:
     - target: {fileID: 8998501177938085803, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
       propertyPath: m_Name
       value: Castle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8998501177938085803, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
