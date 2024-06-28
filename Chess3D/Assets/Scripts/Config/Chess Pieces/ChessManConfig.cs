@@ -25,6 +25,13 @@ public class ChessManConfig : ScriptableObject
     public List<Vector3> possibleMoveList { get; set; }
 
     // Get TileType of a tile below position
+    public void LoadLimit()
+    {
+        _Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
+        _Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
+        _Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
+    }
+
     private GDC.Enums.TileType GetTileBelow(Vector3 position)
     {
         float Xpos = position.x;
@@ -257,18 +264,67 @@ public class ChessManConfig : ScriptableObject
     // Check if the potential tile that the pieces move into is a team's piece
     private bool IsSameTeam(Vector3 currentPosition, Vector3 currentMove)
     {
-        GDC.Enums.TileType playerData = GetTile(currentPosition);
-        GDC.Enums.TileType tileData = GetTile(currentMove);
-        return playerData == tileData;
+/*        List<PlayerArmy> playerList = GameplayManager.Instance.levelData.GetPlayerArmies();
+        List<EnemyArmy> enemyList = GameplayManager.Instance.levelData.GetEnemyArmies();
+        bool isPlayer = playerList.Contains(new PlayerArmy(currentPosition, this.chessManType));
+        Debug.Log("isPlayer = " + isPlayer);
+        // if the current piece is player
+        if (isPlayer)
+        {
+            foreach (PlayerArmy player in playerList)
+            {
+                if (player.posIndex == currentMove)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        // if the current piece is enemy
+        foreach (EnemyArmy enemy in enemyList)
+        {
+            if (enemy.posIndex == currentMove)
+            {
+                return true;
+            }
+        }
+        return false;*/
+        Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
+        Debug.Log("Current Move: " + GetTile(currentMove).ToString());
+        return false;
     }
 
     // Check if the potential tile that the pieces move into is another team's piece
     private bool IsDifferentTeam(Vector3 currentPosition, Vector3 currentMove)
     {
-        GDC.Enums.TileType playerData = GetTile(currentPosition);
-        GDC.Enums.TileType tileData = GetTile(currentMove);
-        return (playerData == GDC.Enums.TileType.PLAYER_CHESS && tileData == GDC.Enums.TileType.ENEMY_CHESS)
-            || (playerData == GDC.Enums.TileType.ENEMY_CHESS && tileData == GDC.Enums.TileType.PLAYER_CHESS);
+    /*        List<PlayerArmy> playerList = GameplayManager.Instance.levelData.GetPlayerArmies();
+            List<EnemyArmy> enemyList = GameplayManager.Instance.levelData.GetEnemyArmies();
+            bool isPlayer = playerList.Contains(new PlayerArmy(currentPosition, this.chessManType));
+            Debug.Log("isPlayer = " + isPlayer);
+            // if the current piece is player
+            if (isPlayer)
+            {
+                foreach (EnemyArmy enemy in enemyList)
+                {
+                    if (enemy.posIndex == currentMove)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            // if the current piece is enemy
+            foreach (PlayerArmy player in playerList)
+            {
+                if (player.posIndex == currentMove)
+                {
+                    return true;
+                }
+            }
+            return false;*/
+        Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
+        Debug.Log("Current Move: " + GetTile(currentMove).ToString());
+        return false;
     }
 
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
@@ -278,6 +334,7 @@ public class ChessManConfig : ScriptableObject
         for (int i = 1; i <= moveRange; ++i)
         {
             Vector3 move = currentMove + direction;
+            // Debug.Log("Load " + move.ToString());
             // We find the first tile below the next move
             while (move.y >= 1f && InBound(move) && !IsTile(move))
             {
@@ -312,7 +369,8 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsSameTeam(currentPositionIndex, move))
             {
-                // return;
+                Debug.Log("Same team spotted");
+                return;
             }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
@@ -320,7 +378,8 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsDifferentTeam(currentPositionIndex, move))
             {
-                // return;
+                Debug.Log("Different team spotted");
+                return;
             }
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
@@ -338,9 +397,7 @@ public class ChessManConfig : ScriptableObject
     public virtual List<Vector3> Move(Vector3 currentPositionIndex)
     {
         possibleMoveList.Clear();
-        _Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
-        _Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
-        _Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
+        LoadLimit();
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }
