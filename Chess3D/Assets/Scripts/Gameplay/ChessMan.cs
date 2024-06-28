@@ -3,6 +3,7 @@ using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class ChessMan : MonoBehaviour
@@ -93,43 +94,45 @@ public class ChessMan : MonoBehaviour
     {
         StartCoroutine(Cor_OtherMoveAnim(posIndexToMove));
     }
+
     IEnumerator Cor_OtherMoveAnim(Vector3 target)
     {
+        Vector3 currentPos = SnapToGrid(transform.position);
+        Vector3 direction = (target - currentPos).normalized;
+
         float distance = Vector3.Distance(transform.position, target);
         while (distance >= 0.05f)
         {
             AjustPosToGround(transform.position, target);
-            
             distance = Vector3.Distance(transform.position, target);
             yield return null;
         }
-
         AjustPosToGround(transform.position, target, true);
         yield return new WaitForSeconds(1);
         GameplayManager.Instance.ChangeTurn();
     }
-    void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInterger = false)
+
+    void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInteger = false)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up/2f, Vector3.down, out hit, 0.6f, groundLayerMask))
+        if (Physics.Raycast(transform.position + Vector3.up / 2f, Vector3.down, out hit, 0.6f, groundLayerMask))
         {
-            newPosition = Vector3.MoveTowards(transform.position, target, speed);
+            newPosition = Vector3.MoveTowards(transform.position, target, speed );
+            // newPosition = target;
             newPosition.y = hit.point.y;
 
             Vector3 slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
 
-            transform.DORotate(slopeRotation, 0.3f);
-
+            // transform.DORotate(slopeRotation, 0.3f);
         }
         else
         {
-            Debug.Log("A");
-            newPosition += Vector3.down * 10*Time.deltaTime;
+            Debug.Log("No ground detected");
+            newPosition += Vector3.down * 10 * Time.deltaTime;
         }
 
-        if (isRoundInterger)
+        if (isRoundInteger)
         {
-            //transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
             transform.position = target;
         }
         else
@@ -137,6 +140,39 @@ public class ChessMan : MonoBehaviour
             transform.position = newPosition;
         }
     }
+
+    Vector3 SnapToGrid(Vector3 position)
+    {
+        return new Vector3(Mathf.Floor(position.x), Mathf.Floor(position.y), Mathf.Floor(position.z));
+    }
+
+    List<Vector3> CalculatePath(Vector3 start, Vector3 end)
+    {
+        List<Vector3> path = new List<Vector3>();
+        Vector3 current = start;
+
+        while (current != end)
+        {
+            if (current.x != end.x)
+            {
+                current.x += Mathf.Sign(end.x - current.x);
+            }
+            if (current.y != end.y)
+            {
+                current.y += Mathf.Sign(end.y - current.y);
+            }
+            if (current.z != end.z)
+            {
+                current.z += Mathf.Sign(end.z - current.z);
+            }
+            path.Add(new Vector3(current.x, start.y, current.z));
+        }
+
+        foreach (var item in path) Debug.Log(item);
+
+        return path;
+    }
+
     [Button]
     public void Defeated()
     {

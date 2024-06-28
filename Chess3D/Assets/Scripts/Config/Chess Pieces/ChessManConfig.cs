@@ -354,6 +354,7 @@ public class ChessManConfig : ScriptableObject
     {
         possibleMoveList.Clear();
         LoadLimit();
+
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }

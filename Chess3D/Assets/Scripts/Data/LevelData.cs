@@ -64,9 +64,9 @@ public class EnemyArmy : Army
 [Serializable]
 public class LevelData : ScriptableObject
 {
-
-    [SerializeField] private Vector3 center;
-    [SerializeField] private int maxTurn;
+    public Vector3 center;
+    public float distance;
+    public int maxTurn;
     public List<TileData> tileInfo;
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;

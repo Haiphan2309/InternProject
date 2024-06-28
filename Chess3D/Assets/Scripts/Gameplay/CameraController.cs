@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
-    public Transform target; // Đối tượng mà camera sẽ xoay quanh
+    public Vector3 target; // Đối tượng mà camera sẽ xoay quanh
     public float distance = 10.0f; // Khoảng cách từ camera đến đối tượng
     public float xSpeed = 250.0f; // Tốc độ xoay theo trục x
     public float ySpeed = 120.0f; // Tốc độ xoay theo trục y
@@ -23,8 +23,10 @@ public class MouseLook : MonoBehaviour
     private float targetY;
     private float targetDistance;
 
-    void Start()
+    public void Setup(Vector3 center, float distance)
     {
+        this.distance = distance;
+        target = center;
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
@@ -37,26 +39,23 @@ public class MouseLook : MonoBehaviour
     }
 
     void LateUpdate()
-    {
-        if (target)
+{
+        if (Input.GetMouseButton(0)) // Kiểm tra xem nút chuột trái có được nhấn không
         {
-            if (Input.GetMouseButton(0)) // Kiểm tra xem nút chuột trái có được nhấn không
-            {
-                targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
-                targetY -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+            targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
+            targetY -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
-                targetY = ClampAngle(targetY, yMinLimit, yMaxLimit);
-            }
-
-            x = Mathf.SmoothDamp(x, targetX, ref velocityX, smoothTime);
-            y = Mathf.SmoothDamp(y, targetY, ref velocityY, smoothTime);
-
-            Quaternion rotation = Quaternion.Euler(y, x, 0);
-            Vector3 position = rotation * new Vector3(0.0f, 0.0f, -targetDistance) + target.position;
-
-            transform.rotation = rotation;
-            transform.position = position;
+            targetY = ClampAngle(targetY, yMinLimit, yMaxLimit);
         }
+
+        x = Mathf.SmoothDamp(x, targetX, ref velocityX, smoothTime);
+        y = Mathf.SmoothDamp(y, targetY, ref velocityY, smoothTime);
+
+        Quaternion rotation = Quaternion.Euler(y, x, 0);
+        Vector3 position = rotation * new Vector3(0.0f, 0.0f, -targetDistance) + target;
+
+        transform.rotation = rotation;
+        transform.position = position;
     }
 
     // Hàm để giới hạn góc quay

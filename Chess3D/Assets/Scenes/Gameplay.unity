@@ -7610,12 +7610,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSpawner: {fileID: 1220447863}
-  enemyTurn: 0
+  camController: {fileID: 1349836853}
   levelData: {fileID: 11400000, guid: 62e5dc0698d74664db3f5fb0847a97ae, type: 2}
   availableMovePrefab: {fileID: 7245618113376876351, guid: 84568a093dba36641903864ef114cacc, type: 3}
   playerArmy: []
   enemyArmy: []
   listEnemyPriorityLowest: []
+  outlineChessMan: []
+  remainTurn: 0
+  enemyTurn: 0
 --- !u!4 &386281600
 Transform:
   m_ObjectHideFlags: 0
@@ -9894,7 +9897,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isPicking: 0
-  deltaTimeToHold: 0.4
+  deltaTimeToHold: 0.25
 --- !u!4 &479896633
 Transform:
   m_ObjectHideFlags: 0
@@ -16162,11 +16165,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819059643}
   m_Mesh: {fileID: 2464513778602664487, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
---- !u!4 &820503617 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2078798457456553781, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-  m_PrefabInstance: {fileID: 4301637780456024068}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &821030588
 GameObject:
   m_ObjectHideFlags: 0
@@ -27404,13 +27402,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf9c8faf06cbc64e853efad0f767c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 820503617}
+  target: {x: 0, y: 0, z: 0}
   distance: 10
-  xSpeed: 400
-  ySpeed: 200
+  xSpeed: 250
+  ySpeed: 120
   yMinLimit: -20
   yMaxLimit: 80
-  smoothTime: 0.3
+  smoothTime: 0.2
 --- !u!1 &1351055830
 GameObject:
   m_ObjectHideFlags: 0
