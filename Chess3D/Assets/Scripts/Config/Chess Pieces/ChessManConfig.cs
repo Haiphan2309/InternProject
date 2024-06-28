@@ -275,8 +275,8 @@ public class ChessManConfig : ScriptableObject
     // Check if the potential tile that the pieces move into is another team's piece
     private bool IsDifferentTeam(Vector3 currentPosition, Vector3 currentMove)
     {
-        Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
-        Debug.Log("Current Move: " + GetTile(currentMove).ToString());
+        // Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
+        // Debug.Log("Current Move: " + GetTile(currentMove).ToString());
         // return false;
 
         return (GetTile(currentPosition) == GDC.Enums.TileType.PLAYER_CHESS && GetTile(currentMove) == GDC.Enums.TileType.ENEMY_CHESS)
