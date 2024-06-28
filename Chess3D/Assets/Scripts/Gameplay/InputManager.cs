@@ -136,7 +136,7 @@ public class InputManager : MonoBehaviour
         GameplayManager.Instance.HideAvailableMove();
         preChessMan = curChessMan;
         curChessMan = hit.transform.GetComponent<ChessMan>();
-        if (GameplayManager.Instance.enemyTurn == false)
+        if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false)
         {
             if (curChessMan.isEnemy == false)
             {
@@ -234,6 +234,7 @@ public class InputManager : MonoBehaviour
         if (hitChessMan == null || (hitChessMan != null && hitChessMan.posIndex != curChessMan.posIndex))
         {
             hitChessMan = curChessMan;
+            hitChessMan.outline.OutlineColor = Color.white;
             hitChessMan.outline.OutlineWidth = 10;
         }
     }
@@ -242,7 +243,6 @@ public class InputManager : MonoBehaviour
         GameplayManager.Instance.HideOutLineAllChessMan();
         if (hitChessMan != null)
         {
-            hitChessMan.outline.OutlineColor = Color.white;
             hitChessMan.outline.OutlineWidth = 0;
             hitChessMan = null;
         }

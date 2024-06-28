@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   center: {x: 5, y: 6, z: 0}
+  distance: 10
   maxTurn: 5
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}

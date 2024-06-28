@@ -20,6 +20,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField, ReadOnly] List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest, outlineChessMan;
     public int remainTurn;
     [ReadOnly] public bool enemyTurn;
+    public bool isAnimMoving;
     private void Awake()
     {
         Instance = this;
@@ -53,6 +54,7 @@ public class GameplayManager : MonoBehaviour
     }
     public void ChangeTurn(bool enemyTurn)
     {
+        isAnimMoving = false;
         if (CheckWin()) Win();
         else if (CheckLose()) Lose();
 
@@ -154,11 +156,26 @@ public class GameplayManager : MonoBehaviour
                 break;
             }
         }
-        enemyArmy.RemoveAt(enemyIndex);
+        foreach(var chessman in enemyArmy)
+        {
+            if (chessman.index == enemyIndex)
+            {
+                enemyArmy.Remove(chessman);
+                break;
+            }
+        }
     }
     public void DefeatPlayerChessMan(int playerIndex)
     {
-        playerArmy.RemoveAt(playerIndex);
+        foreach (var chessman in playerArmy)
+        {
+            if (chessman.index == playerIndex)
+            {
+                Debug.Log("A");
+                playerArmy.Remove(chessman);
+                break;
+            }
+        }
     }
     public void ShowAvailableMove(ChessManConfig chessManConfig, Vector3 curPosIndex)
     {
@@ -271,9 +288,10 @@ public class GameplayManager : MonoBehaviour
     }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
+        isAnimMoving = true;
         TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
-        levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
         levelData.SetTileInfoNoDeep((int)posIndexToMove.x, (int)posIndexToMove.y, (int)posIndexToMove.z, curTileInfo);
+        levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
         {
