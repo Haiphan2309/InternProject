@@ -92,6 +92,8 @@ public class ChessMan : MonoBehaviour
             AjustPosToGround(transform.position, target);
             
             distance = Vector3.Distance(transform.position, target);
+
+            Debug.Log(target);
             yield return null;
         }
 
@@ -110,6 +112,8 @@ public class ChessMan : MonoBehaviour
             Vector3 slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
 
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + slopeRotation);
+
+            //Debug.Log($"transform.up {transform.up}, hit.normal {hit.normal}");
 
             //transform.DORotate(slopeRotation, Time.deltaTime);
             //transform.rotation = slopeRotation * transform.rotation;
