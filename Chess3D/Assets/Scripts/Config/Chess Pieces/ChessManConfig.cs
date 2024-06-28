@@ -146,16 +146,11 @@ public class ChessManConfig : ScriptableObject
             case GDC.Enums.TileType.NONE:
             case GDC.Enums.TileType.PLAYER_CHESS:
             case GDC.Enums.TileType.ENEMY_CHESS:
-                isMovable = true;
-                break;
 
-            // if DYNAMIC OBJECT then it can be movable if:
-            // The next TileData based on direction is not a STATIC OBJECT
+            // if DYNAMIC OBJECT then we will check it later, we just assume it's movable
             case GDC.Enums.TileType.BOX:
             case GDC.Enums.TileType.BOULDER:
-                // We check the next tile of that direction can be stood on
-                // Then check if the next tile is movable
-                isMovable = CanStandOn(currentMove + direction) && ValidateMove(currentMove + direction, direction);
+                isMovable = true;
                 break;
 
             // if SLOPES then we check based on direction
@@ -283,13 +278,20 @@ public class ChessManConfig : ScriptableObject
             || (GetTile(currentPosition) == GDC.Enums.TileType.ENEMY_CHESS && GetTile(currentMove) == GDC.Enums.TileType.PLAYER_CHESS);
     }
 
+    private bool IsDynamicObject(Vector3 currentMove)
+    {
+        return GetTile(currentMove) == GDC.Enums.TileType.BOX || GetTile(currentMove) == GDC.Enums.TileType.BOULDER;
+    }
+
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
         // The Vector3 that stores the current position for the next move
+        int dynamicObjectOnDirection = 0;
         Vector3 currentMove = currentPositionIndex;
+        Vector3 move = currentMove;
         for (int i = 1; i <= moveRange; ++i)
         {
-            Vector3 move = currentMove + direction;
+            move = currentMove + direction;
             // Debug.Log("Load " + move.ToString());
             // We find the first tile below the next move
             while (move.y >= 1f && InBound(move) && !IsTile(move))
@@ -299,12 +301,12 @@ public class ChessManConfig : ScriptableObject
             // Check if the potential move is in bound
             if (!InBound(move))
             {
-                return;
+                break;
             }
             // Check if the potential move is standable
             if (!CanStandOn(move))
             {
-                return;
+                break;
             }
             // Check if the potential move is jumpable
             if (!ValidateJump(move, direction))
@@ -314,7 +316,11 @@ public class ChessManConfig : ScriptableObject
             // Check if the potential move is movable
             if (!ValidateMove(move, direction))
             {
-                return;
+                break;
+            }
+            if (IsDynamicObject(move))
+            {
+                dynamicObjectOnDirection++;
             }
             // Check if the potential move is into slopes up
             if (OnSlopeUp(move, direction))
@@ -326,7 +332,7 @@ public class ChessManConfig : ScriptableObject
             if (IsSameTeam(currentPositionIndex, move))
             {
                 // Debug.Log("Same team spotted");
-                return;
+                break;
             }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
@@ -335,7 +341,7 @@ public class ChessManConfig : ScriptableObject
             if (IsDifferentTeam(currentPositionIndex, move))
             {
                 // Debug.Log("Different team spotted");
-                return;
+                break;
             }
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
@@ -344,6 +350,20 @@ public class ChessManConfig : ScriptableObject
             }
             // Update the currentMove
             currentMove = move;
+        }
+
+        // Dynamic Object check
+        // If the last move is out of bound, we don't care about the dynamic objects
+        if (!InBound(move))
+        {
+            return;
+        }
+        // If it is in bound, that means we have faced the STATIC OBJECTS
+        // We pop_back the dynamicObjectOnDirection amount of moves in the list
+        while (dynamicObjectOnDirection > 0)
+        {
+            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+            dynamicObjectOnDirection--;
         }
     }
     public virtual void GenerateMoveList(Vector3 currentPositionIndex)
