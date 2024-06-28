@@ -312,7 +312,7 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsSameTeam(currentPositionIndex, move))
             {
-                return;
+                // return;
             }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
@@ -320,7 +320,7 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsDifferentTeam(currentPositionIndex, move))
             {
-                return;
+                // return;
             }
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
