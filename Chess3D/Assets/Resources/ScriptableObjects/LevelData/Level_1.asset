@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea2989c52f4fd49821c3f2b28b28bd, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
-  maxTurn: 0
+  center: {x: 5, y: 6, z: 0}
+  maxTurn: 5
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
