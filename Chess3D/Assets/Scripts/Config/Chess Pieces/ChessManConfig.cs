@@ -1,6 +1,9 @@
+using GDC.Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -370,12 +373,105 @@ public class ChessManConfig : ScriptableObject
     {
         return;
     }
-    public virtual List<Vector3> Move(Vector3 currentPositionIndex)
+
+    public List<Vector3> Move(Vector3 currentPositionIndex)
     {
         possibleMoveList.Clear();
         LoadLimit();
-
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
+    }
+    // Simple AI Mechanics (every pieces except KING)
+    // The AI knows all of the player's positions and types and also their own move list and the KINGs.
+    // There will be 4 states: PatrolState, AttackState, DefenseState, KillState
+    // The priority queue is as follows: KillState -> DefenseState -> AttackState -> PatrolState
+    // The pieces' priority on states: KING -> QUEEN -> CASTLE -> KNIGHT -> BISHOP -> PAWN
+    public Vector3 MoveByDefault(Vector3 currentPositionIndex)
+    {
+        List<Vector3> possibleMoveList = Move(currentPositionIndex);
+
+        Dictionary<ChessManType, int> chessManPriority = new Dictionary<ChessManType, int>();
+        chessManPriority[ChessManType.PAWN] = 0;
+        chessManPriority[ChessManType.BISHOP] = 1;
+        chessManPriority[ChessManType.KNIGHT] = 2;
+        chessManPriority[ChessManType.CASTLE] = 3;
+        chessManPriority[ChessManType.QUEEN] = 4;
+        chessManPriority[ChessManType.KING] = 5;
+
+        List<PlayerArmy> playerArmy = GameplayManager.Instance.levelData.GetPlayerArmies();
+        List<EnemyArmy> enemyArmy = GameplayManager.Instance.levelData.GetEnemyArmies();
+
+        Vector3 patrolState = PatrolState(playerArmy, chessManPriority);
+        Vector3 attackState = AttackState(playerArmy, chessManPriority);
+        Vector3 defendState = DefendState(playerArmy, chessManPriority);
+        Vector3 killState = KillState(playerArmy, chessManPriority);
+
+        Debug.Log("Move by default!");
+        if (killState != Vector3.zero)
+        {
+            return killState;
+        }
+        if (defendState != Vector3.zero)
+        {
+            return defendState;
+        }
+        if (attackState != Vector3.zero)
+        {
+            return attackState;
+        }
+        return patrolState;
+    }
+
+    // KillState: activate when there is a guaranteed kill
+    public virtual Vector3 KillState(List<PlayerArmy> playerArmy, Dictionary<ChessManType, int> chessManPriority)
+    {
+        int bestChessManID = 0;
+
+        // We find the best ChessManType in the playerArmy list
+        for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
+        {
+            Debug.Log("Contain: " + playerArmy[playerIdx].posIndex + " = " + possibleMoveList.Contains(playerArmy[playerIdx].posIndex));
+            if (possibleMoveList.Contains(playerArmy[playerIdx].posIndex))
+            {
+                if (bestChessManID < chessManPriority[playerArmy[playerIdx].chessManType])
+                {
+                    bestChessManID = chessManPriority[playerArmy[playerIdx].chessManType];
+                }
+            }
+        }
+
+        Vector3 decision = Vector3.zero;
+        for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
+        {
+            if (chessManPriority[playerArmy[playerIdx].chessManType] == bestChessManID)
+            {
+                // Default
+                if (decision == Vector3.zero)
+                {
+                    decision = playerArmy[playerIdx].posIndex;
+                }
+                // Random pick
+                if (UnityEngine.Random.Range(0, 100) >= 50)
+                {
+                    decision = playerArmy[playerIdx].posIndex;
+                }
+            }
+        }
+        return decision;
+    }
+    // DefendState: activate when there is a guaranteed kill from the players
+    public virtual Vector3 DefendState(List<PlayerArmy> playerArmy, Dictionary<ChessManType, int> chessManPriority)
+    {
+        return Vector3.zero;
+    }
+    // AttackState: ???
+    public virtual Vector3 AttackState(List<PlayerArmy> playerArmy, Dictionary<ChessManType, int> chessManPriority)
+    {
+        return Vector3.zero;
+    }
+    // PatrolState: activate by default
+    public virtual Vector3 PatrolState(List<PlayerArmy> playerArmy, Dictionary<ChessManType, int> chessManPriority)
+    {
+        return Vector3.zero;
     }
 }
