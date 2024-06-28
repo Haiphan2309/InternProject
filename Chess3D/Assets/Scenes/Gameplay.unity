@@ -7619,6 +7619,7 @@ MonoBehaviour:
   outlineChessMan: []
   remainTurn: 0
   enemyTurn: 0
+  isAnimMoving: 0
 --- !u!4 &386281600
 Transform:
   m_ObjectHideFlags: 0
@@ -24709,7 +24710,7 @@ MonoBehaviour:
   levelData: {fileID: 11400000, guid: 62e5dc0698d74664db3f5fb0847a97ae, type: 2}
   playerArmy: []
   enemyArmy: []
-  spawnLevelName: Level_1
+  spawnLevelName: Level_Box
 --- !u!1 &1225432023
 GameObject:
   m_ObjectHideFlags: 0
