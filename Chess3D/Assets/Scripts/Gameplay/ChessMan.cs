@@ -216,6 +216,8 @@ public class ChessMan : MonoBehaviour
                     current.z += Mathf.Sign(end.z - current.z);
                 }
 
+                if (CheckTwoLastElement(path)) break;
+
                 continue;
             }
 
@@ -224,6 +226,7 @@ public class ChessMan : MonoBehaviour
             {
                 current.y -= 1;
                 path.Add(new Vector3(current.x, current.y, current.z));
+                if (CheckTwoLastElement(path)) break;
                 continue;
             }
 
@@ -239,6 +242,7 @@ public class ChessMan : MonoBehaviour
                     current.z += Mathf.Sign(end.z - current.z);
                 }
                 path.Add(new Vector3(current.x, current.y, current.z));
+                if (CheckTwoLastElement(path)) break;
                 continue;
             }
 
@@ -252,9 +256,20 @@ public class ChessMan : MonoBehaviour
             }
 
             path.Add(new Vector3(current.x, current.y, current.z));
+            if (CheckTwoLastElement(path)) break;
         }
 
         return path;
+    }
+
+    bool CheckTwoLastElement(List<Vector3> list)
+    {
+        if (list.Count < 2)
+        {
+            return false; // Not enough elements to compare
+        }
+
+        return list[list.Count - 1].Equals(list[list.Count - 2]);
     }
 
     bool CheckSlope(TileType tileType)
