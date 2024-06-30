@@ -17,7 +17,8 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
 
-    [SerializeField, ReadOnly] List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest, outlineChessMan;
+    public List<ChessMan> playerArmy, enemyArmy;
+    [SerializeField, ReadOnly] List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
     public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     public bool isAnimMoving;
