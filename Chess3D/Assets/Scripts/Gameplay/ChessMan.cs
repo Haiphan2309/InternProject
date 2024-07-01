@@ -28,6 +28,7 @@ public class ChessMan : MonoBehaviour
 
     bool isFalling = true;
     bool isOnSlope = false;
+    bool isOnPathSlope = false;
 
     public void Setup(PlayerArmy playerArmy, int index, Vector3 posIndex)
     {
@@ -53,20 +54,28 @@ public class ChessMan : MonoBehaviour
     }
     public bool EnemyMove()
     {
-        List<Vector3> moves = GameplayManager.Instance.levelData.GetEnemyArmies()[index].movePosIndexs;
-        if (moves.Count == 0)
+        EnemyArmy enemy = GameplayManager.Instance.levelData.GetEnemyArmies()[index];
+        if (enemy.isAI)
         {
-            Debug.LogError(gameObject.name + " khong co nuoc di mac dinh nao ca!");
-            return false;
+            Move(config.MoveByDefault(posIndex));
         }
+        else
+        {
+            List<Vector3> moves = enemy.movePosIndexs;
+            if (moves.Count == 0)
+            {
+                Debug.LogError(gameObject.name + " khong co nuoc di mac dinh nao ca!");
+                return false;
+            }
 
-        Vector3 intendedMove = moves[moveIndex];
-        if (GameplayManager.Instance.CheckMove(config,posIndex,intendedMove) == false)
-        {
-            return false;
+            Vector3 intendedMove = moves[moveIndex];
+            if (GameplayManager.Instance.CheckMove(config, posIndex, intendedMove) == false)
+            {
+                return false;
+            }
+            Move(moves[moveIndex]);
+            moveIndex = (moveIndex + 1) % moves.Count;
         }
-        Move(moves[moveIndex]);
-        moveIndex = (moveIndex + 1) % moves.Count;
         return true;
     }
     public void Move(Vector3 posIndexToMove)
@@ -180,7 +189,6 @@ public class ChessMan : MonoBehaviour
 
         if (isRoundInteger)
         {
-            
             transform.position = target;
         }
         else
@@ -207,11 +215,12 @@ public class ChessMan : MonoBehaviour
         Vector3 current = start;
 
         Debug.Log("Start: " + start + "; End" + end);
+        isOnPathSlope = isOnSlope;
 
         while (current != end) 
         {
             // Move to next tile
-            if (!isFalling)
+            if (!isFalling || isOnPathSlope)
             {
                 if (current.x != end.x)
                 {
@@ -222,7 +231,7 @@ public class ChessMan : MonoBehaviour
                     current.z += Mathf.Sign(end.z - current.z);
                 }
             }
-            
+
             // Check the tile above
             Vector3 tileUp = current + Vector3.up;
             TileType tileType = GetChess(tileUp);
@@ -231,7 +240,6 @@ public class ChessMan : MonoBehaviour
             {
                 current.y += 1;
                 path.Add(new Vector3(current.x, current.y, current.z));
-
                 continue;
             }
 
@@ -248,7 +256,7 @@ public class ChessMan : MonoBehaviour
 
             else if (CheckSlope(tileType))
             {
-                if (isOnSlope)
+                if (isOnPathSlope)
                 {
                     current.y -= 1;
                     path.Add(new Vector3(current.x, current.y, current.z));
@@ -259,13 +267,12 @@ public class ChessMan : MonoBehaviour
                     current.y -= 1;
                 }
                 
-
+                isFalling = false;
                 continue;
             }
 
             path.Add(new Vector3(current.x, current.y, current.z));
             isFalling = false;
-
         }
         LogVector3List(path);
 
