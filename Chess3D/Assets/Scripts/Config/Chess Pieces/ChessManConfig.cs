@@ -15,7 +15,7 @@ public class ChessManConfig : ScriptableObject
 
     private float _height;
     private int _moveRange;
-    private GDC.Enums.ChessManType _chessManType;
+    private ChessManType _chessManType;
     private List<Vector3> _possibleMoveList;
 
     public float Xlimit { get; set; }
@@ -24,7 +24,7 @@ public class ChessManConfig : ScriptableObject
 
     public float height { get; set; }
     public int moveRange { get; set; }
-    public GDC.Enums.ChessManType chessManType { get; set; }
+    public ChessManType chessManType { get; set; }
     public List<Vector3> possibleMoveList { get; set; }
 
     // Get TileType of a tile below position
@@ -35,7 +35,7 @@ public class ChessManConfig : ScriptableObject
         _Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
     }
 
-    private GDC.Enums.TileType GetTileBelow(Vector3 position)
+    private TileType GetTileBelow(Vector3 position)
     {
         float Xpos = position.x;
         float Ypos = position.y - 1f;
@@ -47,7 +47,7 @@ public class ChessManConfig : ScriptableObject
                ].tileType;
     }
 
-    private GDC.Enums.TileType GetTile(Vector3 position)
+    private TileType GetTile(Vector3 position)
     {
         float Xpos = position.x;
     // Get TileType of a tile at position
@@ -66,13 +66,15 @@ public class ChessManConfig : ScriptableObject
         // if the tile below the currentMove's y-level is NONE
         // then there is no tile below the currentMove.
         bool isTile = false;
-        GDC.Enums.TileType tileData = GetTileBelow(currentMove);
+        TileType tileData = GetTileBelow(currentMove);
 
         // Object cannot stand on NONE
         switch (tileData)
         {
-            // if it's not NONE then it's a tile
-            case GDC.Enums.TileType.NONE:
+            // if it's not NONE / PLAYER_CHESS / ENEMY_CHESS then it's a tile
+            case TileType.NONE:
+            case TileType.PLAYER_CHESS:
+            case TileType.ENEMY_CHESS:
                 break;
             // else
             default:
@@ -110,16 +112,16 @@ public class ChessManConfig : ScriptableObject
     private bool CanStandOn(Vector3 currentMove)
     {
         bool canStandOn = true;
-        GDC.Enums.TileType tileData = GetTileBelow(currentMove);
+        TileType tileData = GetTileBelow(currentMove);
 
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
         {
             // if it's not GROUND / BOX / SLOPES then it's NONE / OBJECT / BOULDER / WATER
-            case GDC.Enums.TileType.NONE:
-            case GDC.Enums.TileType.OBJECT:
-            case GDC.Enums.TileType.BOULDER:
-            case GDC.Enums.TileType.WATER:
+            case TileType.NONE:
+            case TileType.OBJECT:
+            case TileType.BOULDER:
+            case TileType.WATER:
                 canStandOn = false;
                 break;
             // else
@@ -141,31 +143,31 @@ public class ChessManConfig : ScriptableObject
     private bool ValidateMove(Vector3 currentMove, Vector3 direction)
     {
         bool isMovable = false;
-        GDC.Enums.TileType tileData = GetTile(currentMove);
+        TileType tileData = GetTile(currentMove);
 
         switch (tileData)
         {
             // if NONE / PLAYER_CHESS / ENEMY_CHESS then it's movable
-            case GDC.Enums.TileType.NONE:
-            case GDC.Enums.TileType.PLAYER_CHESS:
-            case GDC.Enums.TileType.ENEMY_CHESS:
+            case TileType.NONE:
+            case TileType.PLAYER_CHESS:
+            case TileType.ENEMY_CHESS:
 
             // if DYNAMIC OBJECT then we will check it later, we just assume it's movable
-            case GDC.Enums.TileType.BOX:
-            case GDC.Enums.TileType.BOULDER:
+            case TileType.BOX:
+            case TileType.BOULDER:
                 isMovable = true;
                 break;
 
             // if SLOPES then we check based on direction
-            case GDC.Enums.TileType.SLOPE_0:
-            case GDC.Enums.TileType.SLOPE_180:
+            case TileType.SLOPE_0:
+            case TileType.SLOPE_180:
                 if (direction.z != 0)
                 {
                     isMovable = true;
                 }
                 break;
-            case GDC.Enums.TileType.SLOPE_90:
-            case GDC.Enums.TileType.SLOPE_270:
+            case TileType.SLOPE_90:
+            case TileType.SLOPE_270:
                 if (direction.x != 0)
                 {
                     isMovable = true;
@@ -183,31 +185,31 @@ public class ChessManConfig : ScriptableObject
     private bool OnSlopeUp(Vector3 currentMove, Vector3 direction)
     {
         bool onSlopeUp = false;
-        GDC.Enums.TileType tileData = GetTile(currentMove);
+        TileType tileData = GetTile(currentMove);
 
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
         {
             // it's SLOPES
-            case GDC.Enums.TileType.SLOPE_0:
+            case TileType.SLOPE_0:
                 if (direction.z < 0)
                 {
                     onSlopeUp = true;
                 }
                 break;
-            case GDC.Enums.TileType.SLOPE_90:
+            case TileType.SLOPE_90:
                 if (direction.x > 0)
                 {
                     onSlopeUp = true;
                 }
                 break;
-            case GDC.Enums.TileType.SLOPE_180:
+            case TileType.SLOPE_180:
                 if (direction.z > 0)
                 {
                     onSlopeUp = true;
                 }
                 break;
-            case GDC.Enums.TileType.SLOPE_270:
+            case TileType.SLOPE_270:
                 if (direction.x < 0)
                 {
                     onSlopeUp = true;
@@ -223,31 +225,31 @@ public class ChessManConfig : ScriptableObject
     private bool OnSlopeDown(Vector3 currentMove, Vector3 direction)
     {
         bool onSlopeDown = false;
-        GDC.Enums.TileType tileData = GetTileBelow(currentMove);
+        TileType tileData = GetTileBelow(currentMove);
 
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
         {
             // it's SLOPES
-            case GDC.Enums.TileType.SLOPE_0:
+            case TileType.SLOPE_0:
                 if (direction.z > 0)
                 {
                     onSlopeDown = true;
                 }
                 break;
-            case GDC.Enums.TileType.SLOPE_90:
+            case TileType.SLOPE_90:
                 if (direction.x < 0)
                 {
                     onSlopeDown = true;
                 }
                 break;
-            case GDC.Enums.TileType.SLOPE_180:
+            case TileType.SLOPE_180:
                 if (direction.z < 0)
                 {
                     onSlopeDown = true;
                 }
                 break;
-            case GDC.Enums.TileType.SLOPE_270:
+            case TileType.SLOPE_270:
                 if (direction.x > 0)
                 {
                     onSlopeDown = true;
@@ -266,8 +268,8 @@ public class ChessManConfig : ScriptableObject
         // Debug.Log("Current Move: " + GetTile(currentMove).ToString());
         // return false;
 
-        return (GetTile(currentPosition) == GDC.Enums.TileType.PLAYER_CHESS && GetTile(currentMove) == GDC.Enums.TileType.PLAYER_CHESS)
-            || (GetTile(currentPosition) == GDC.Enums.TileType.ENEMY_CHESS && GetTile(currentMove) == GDC.Enums.TileType.ENEMY_CHESS);
+        return (GetTile(currentPosition) == TileType.PLAYER_CHESS && GetTile(currentMove) == TileType.PLAYER_CHESS)
+            || (GetTile(currentPosition) == TileType.ENEMY_CHESS && GetTile(currentMove) == TileType.ENEMY_CHESS);
     }
 
     // Check if the potential tile that the pieces move into is another team's piece
@@ -277,13 +279,13 @@ public class ChessManConfig : ScriptableObject
         // Debug.Log("Current Move: " + GetTile(currentMove).ToString());
         // return false;
 
-        return (GetTile(currentPosition) == GDC.Enums.TileType.PLAYER_CHESS && GetTile(currentMove) == GDC.Enums.TileType.ENEMY_CHESS)
-            || (GetTile(currentPosition) == GDC.Enums.TileType.ENEMY_CHESS && GetTile(currentMove) == GDC.Enums.TileType.PLAYER_CHESS);
+        return (GetTile(currentPosition) == TileType.PLAYER_CHESS && GetTile(currentMove) == TileType.ENEMY_CHESS)
+            || (GetTile(currentPosition) == TileType.ENEMY_CHESS && GetTile(currentMove) == TileType.PLAYER_CHESS);
     }
 
     private bool IsDynamicObject(Vector3 currentMove)
     {
-        return GetTile(currentMove) == GDC.Enums.TileType.BOX || GetTile(currentMove) == GDC.Enums.TileType.BOULDER;
+        return GetTile(currentMove) == TileType.BOX || GetTile(currentMove) == TileType.BOULDER;
     }
 
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
@@ -381,6 +383,7 @@ public class ChessManConfig : ScriptableObject
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }
+
     // Simple AI Mechanics (every pieces except KING)
     // The AI knows all of the player's positions and types and also their own move list and the KINGs.
     // There will be 4 states: PatrolState, RetreatState, TradeState, KillState (the KING will not have this)

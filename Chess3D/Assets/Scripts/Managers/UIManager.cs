@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using GDC.Enums;
 
-public class UIManager : MonoBehaviour
+public class AIManager : MonoBehaviour
 {
-    public static UIManager Instance { get; private set; }
+    public static AIManager Instance { get; private set; }
+    private List<PlayerArmy> playerArmies;
+    private List<EnemyArmy> enemyArmies;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null)
         {
@@ -16,10 +19,7 @@ public class UIManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Update()
-    {
-        
+        playerArmies = GameplayManager.Instance.levelData.GetPlayerArmies();
+        enemyArmies = GameplayManager.Instance.levelData.GetEnemyArmies();
     }
 }
