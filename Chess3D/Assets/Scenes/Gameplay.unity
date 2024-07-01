@@ -27436,7 +27436,7 @@ GameObject:
   - component: {fileID: 1349836853}
   - component: {fileID: 1349836854}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: WorldCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41327,7 +41327,7 @@ GameObject:
   - component: {fileID: 2039303116}
   - component: {fileID: 2039303115}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
