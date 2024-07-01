@@ -59,7 +59,6 @@ public class ChessMan : MonoBehaviour
         {
             Vector3 posIndexToMove = config.MoveByDefault(posIndex);
             GameplayManager.Instance.MakeMove(this, posIndexToMove);
-            Move(posIndexToMove);
         }
         else
         {
@@ -76,7 +75,6 @@ public class ChessMan : MonoBehaviour
                 return false;
             }
             GameplayManager.Instance.MakeMove(this, moves[moveIndex]);
-            Move(moves[moveIndex]);
             moveIndex = (moveIndex + 1) % moves.Count;
         }
         return true;
