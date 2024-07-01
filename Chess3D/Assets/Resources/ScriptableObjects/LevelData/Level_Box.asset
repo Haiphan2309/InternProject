@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea2989c52f4fd49821c3f2b28b28bd, type: 3}
   m_Name: Level_Box
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
+  center: {x: 5, y: 5, z: 5}
   distance: 0
   maxTurn: 0
   starTurn2: 0
@@ -8220,7 +8220,7 @@ MonoBehaviour:
     isAI: 0
     priority: 0
     movePosIndexs: []
-  - chessManType: 0
+  - chessManType: 1
     posIndex: {x: 4, y: 3, z: 10}
     isAI: 1
     priority: 0

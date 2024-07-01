@@ -23,6 +23,8 @@ public class CameraController : MonoBehaviour
     private float targetY;
     private float targetDistance;
 
+    [SerializeField] float zoomSpeed;
+
     //For zoom
     private float zoomMax = 60;
     private float zoomMin = 16;
@@ -92,9 +94,9 @@ public class CameraController : MonoBehaviour
         //    zoom(diff * 0.01f);
         //}
 
-        zoom(Input.GetAxis("Mouse ScrollWheel")*10f);
+        Zoom(Input.GetAxis("Mouse ScrollWheel")*zoomSpeed);
     }
-    private void zoom(float inc)
+    private void Zoom(float inc)
     {
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - inc, zoomMin, zoomMax);
     }
