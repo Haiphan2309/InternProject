@@ -27478,6 +27478,7 @@ MonoBehaviour:
   yMinLimit: -20
   yMaxLimit: 80
   smoothTime: 0.2
+  zoomSpeed: 20
 --- !u!1 &1351055830
 GameObject:
   m_ObjectHideFlags: 0
