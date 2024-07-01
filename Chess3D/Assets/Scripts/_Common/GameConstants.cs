@@ -11,7 +11,6 @@ namespace GDC.Constants
         public const int MAX_Y_SIZE = 8;
         public const int MAX_Z_SIZE = 16;
         
-
         public static readonly Vector2 obstacleIdBoundary = new Vector2(100, 299);
         public static readonly Vector2 playerChessIdBoundary = new Vector2(300, 305);
         public static readonly Vector2 enemyChessIdBoundary = new Vector2(400, 410);
