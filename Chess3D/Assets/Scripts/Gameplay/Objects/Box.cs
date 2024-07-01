@@ -13,6 +13,9 @@ public class Box : MonoBehaviour
     //khi nào đẩy đến rơi xuống vực mới di chuyển với tốc độ defaultSpeed;
     {
         //todo anim
+        Vector3 direction = transform.position - posIndexToMove;
+
+
         //Nếu chessManAbove != null (là có chessMan đứng trên box) thi nho cap nhat posIndex cho chessManAbove
     }
 }

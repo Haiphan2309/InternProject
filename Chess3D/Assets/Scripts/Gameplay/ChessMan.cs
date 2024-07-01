@@ -4,6 +4,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 using UnityEngine.UIElements;
@@ -15,6 +16,7 @@ public class ChessMan : MonoBehaviour
     public Vector3 posIndex;
     [SerializeField] float speed;
     [SerializeField] Vector3 posIndexToMove;
+    Vector3 oldPosIndex;
 
     [SerializeField] GameObject vfxDefeated;
     public Outline outline;
@@ -24,7 +26,8 @@ public class ChessMan : MonoBehaviour
     public int index;
     int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
 
-    bool isFalling;
+    bool isFalling = true;
+    bool isOnSlope = false;
 
     public void Setup(PlayerArmy playerArmy, int index, Vector3 posIndex)
     {
@@ -74,7 +77,6 @@ public class ChessMan : MonoBehaviour
             return;
         }
 
-        posIndex = posIndexToMove;
         if (config.chessManType != ChessManType.KNIGHT)
         {
             OtherMoveAnim(posIndexToMove);
@@ -83,7 +85,9 @@ public class ChessMan : MonoBehaviour
         {
             KnightMoveAnim(posIndexToMove);
         }
-        //GameplayManager.Instance.ChangeTurn(true);
+
+        posIndex = posIndexToMove;
+        // GameplayManager.Instance.ChangeTurn(true);
     }
     void KnightMoveAnim(Vector3 posIndexToMove)
     {
@@ -96,18 +100,6 @@ public class ChessMan : MonoBehaviour
     void OtherMoveAnim(Vector3 posIndexToMove)
     {
         StartCoroutine(Cor_OtherMoveAnim(posIndexToMove));
-    }
-
-    private TileType GetTile(Vector3 position)
-    {
-        float Xpos = position.x;
-        float Ypos = position.y;
-        float Zpos = position.z;
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
     }
 
     private TileType GetChess(Vector3 position)
@@ -124,17 +116,18 @@ public class ChessMan : MonoBehaviour
 
     IEnumerator Cor_OtherMoveAnim(Vector3 target)
     {
-        Vector3 initPos = SnapToGrid(transform.position);
-        Vector3 direction = (target - initPos);
+        Vector3 currPos = transform.position;
+        Vector3 currPosIdx = posIndex;
 
-        List<Vector3> path = CalculatePath(transform.position, target);
+        List<Vector3> path = CalculatePath(currPosIdx, target);
 
         foreach (var gridCell in path)
         {
-            while (transform.position != gridCell)
+            while (currPos != gridCell)
             {
                 AjustPosToGround(transform.position, gridCell);
-                
+                if (!isOnSlope) currPos = transform.position;
+                else currPos = transform.position + Vector3.up * 0.4f;
                 yield return null;
             }
         }
@@ -146,36 +139,48 @@ public class ChessMan : MonoBehaviour
 
     void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInteger = false)
     {   
-        newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
         Vector3 rotation = transform.rotation.eulerAngles;
 
-        TileType tileType = GetChess(SnapToGrid(newPosition));
+        TileType tileType = GetChess(SnapToGrid(target));
         switch (tileType) {
             case TileType.SLOPE_0:
                 rotation.x = 45;
+                isOnSlope = true;
                 break;
 
             case TileType.SLOPE_90:
                 rotation.z = 45;
+                isOnSlope = true;
                 break;
 
             case TileType.SLOPE_180:
                 rotation.x = -45;
+                isOnSlope = true;
                 break;
 
             case TileType.SLOPE_270:
                 rotation.z = -45;
+                isOnSlope = true;
+                break;
+
+            case TileType.BOX:
+                break;
+
+            case TileType.BOULDER:
                 break;
 
             default:
                 rotation = Vector3.zero;
+                isOnSlope = false;
                 break;
         }
-        
 
+        if (isOnSlope) target = target - Vector3.up * 0.4f;
+        newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
         if (isRoundInteger)
         {
+            
             transform.position = target;
         }
         else
@@ -183,7 +188,7 @@ public class ChessMan : MonoBehaviour
             transform.position = newPosition;
         }
 
-        transform.DORotate(rotation, 0.01f);
+        transform.DORotate(rotation, 0.3f);
     }
 
     Vector3 SnapToGrid(Vector3 position)
@@ -191,75 +196,89 @@ public class ChessMan : MonoBehaviour
         return new Vector3(Mathf.Floor(position.x), Mathf.Floor(position.y), Mathf.Floor(position.z));
     }
 
+    Vector3 SnapToSlope(Vector3 position)
+    {
+        return new Vector3(Mathf.Ceil(position.x), Mathf.Ceil(position.y), Mathf.Ceil(position.z));
+    }
+
     List<Vector3> CalculatePath(Vector3 start, Vector3 end)
     {
         List<Vector3> path = new List<Vector3>();
         Vector3 current = start;
 
+        Debug.Log("Start: " + start + "; End" + end);
+
         while (current != end) 
         {
+            // Move to next tile
+            if (!isFalling)
+            {
+                if (current.x != end.x)
+                {
+                    current.x += Mathf.Sign(end.x - current.x);
+                }
+                if (current.z != end.z)
+                {
+                    current.z += Mathf.Sign(end.z - current.z);
+                }
+            }
+            
+            // Check the tile above
             Vector3 tileUp = current + Vector3.up;
             TileType tileType = GetChess(tileUp);
 
             if (CheckSlope(tileType))
             {
-                Debug.Log("Im in SLope");
                 current.y += 1;
                 path.Add(new Vector3(current.x, current.y, current.z));
-
-                if (current.x != end.x)
-                {
-                    current.x += Mathf.Sign(end.x - current.x);
-                }
-                if (current.z != end.z)
-                {
-                    current.z += Mathf.Sign(end.z - current.z);
-                }
-
-                if (CheckTwoLastElement(path)) break;
 
                 continue;
             }
 
+            // Check the tile
             tileType = GetChess(current);
-            if (tileType == TileType.NONE)
+            if (tileType == TileType.NONE || tileType == TileType.PLAYER_CHESS || tileType == TileType.ENEMY_CHESS)
             {
-                current.y -= 1;
+                isFalling = true;
                 path.Add(new Vector3(current.x, current.y, current.z));
-                if (CheckTwoLastElement(path)) break;
+                current.y -= 1;
+
                 continue;
             }
 
             else if (CheckSlope(tileType))
             {
-                current.y -= 1;
-                if (current.x != end.x)
+                if (isOnSlope)
                 {
-                    current.x += Mathf.Sign(end.x - current.x);
+                    current.y -= 1;
+                    path.Add(new Vector3(current.x, current.y, current.z));
                 }
-                if (current.z != end.z)
+                else
                 {
-                    current.z += Mathf.Sign(end.z - current.z);
+                    path.Add(new Vector3(current.x, current.y, current.z));
+                    current.y -= 1;
                 }
-                path.Add(new Vector3(current.x, current.y, current.z));
-                if (CheckTwoLastElement(path)) break;
+                
+
                 continue;
             }
 
-            if (current.x != end.x)
-            {
-                current.x += Mathf.Sign(end.x - current.x);
-            }
-            if (current.z != end.z)
-            {
-                current.z += Mathf.Sign(end.z - current.z);
-            }
-
             path.Add(new Vector3(current.x, current.y, current.z));
-            if (CheckTwoLastElement(path)) break;
+            isFalling = false;
+
         }
+        LogVector3List(path);
 
         return path;
+    }
+
+    public void LogVector3List(List<Vector3> vectorList, string message = "Vector3 List:")
+    {
+        Debug.Log(message);
+        foreach (Vector3 vec in vectorList)
+        {
+            Debug.Log(vec.ToString());
+        }
     }
 
     bool CheckTwoLastElement(List<Vector3> list)
