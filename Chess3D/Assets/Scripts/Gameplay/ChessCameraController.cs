@@ -1,9 +1,10 @@
 ﻿using Cinemachine;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class ChessCameraController : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera _camera;
 
@@ -30,13 +31,35 @@ public class CameraController : MonoBehaviour
 
     //For zoom
     private float zoom;
-    private float zoomMax = 60;
+    [SerializeField]private float zoomMax = 40;
     private float zoomMin = 16;
     private float zoomVelocity = 0f;
     private float smoothZoomTime = 0.25f;
 
-    public void Setup(Vector3 center, float distance)
+    [SerializeField] Transform chess;
+
+
+    
+
+
+    [Button]
+    void Setup()
     {
+        if (chess == null)
+        {
+            Debug.LogError("No chess found");
+            return;
+        }
+        _camera = GetComponent<CinemachineVirtualCamera>();
+        
+
+        ChangeChess(chess, 16f);
+
+    }
+    public void ChangeChess(Transform chess, float distance)
+    {
+        _camera.Follow = chess;
+        Vector3 center = chess.transform.position;
         this.distance = distance;
         target = center;
         Vector3 angles = transform.eulerAngles;
@@ -59,7 +82,7 @@ public class CameraController : MonoBehaviour
             HandleZoomCamera();
             HandleSwipeCamera();
         }
-        
+
     }
 
     // Hàm để giới hạn góc quay
@@ -110,13 +133,13 @@ public class CameraController : MonoBehaviour
             Zoom(diff * zoomSpeed);
         }
 
-        Zoom(Input.GetAxis("Mouse ScrollWheel")*zoomSpeed);
+        Zoom(Input.GetAxis("Mouse ScrollWheel") * zoomSpeed);
     }
     protected void Zoom(float inc)
     {
-    
+
         zoom -= inc;
         zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
-        _camera.m_Lens.FieldOfView = Mathf.SmoothDamp(_camera.m_Lens.FieldOfView, zoom,  ref zoomVelocity, smoothZoomTime);
+        _camera.m_Lens.FieldOfView = Mathf.SmoothDamp(_camera.m_Lens.FieldOfView, zoom, ref zoomVelocity, smoothZoomTime);
     }
 }
