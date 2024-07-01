@@ -11,6 +11,6 @@ namespace GDC.Constants
         public const int MAX_Y_SIZE = 8;
         public const int MAX_Z_SIZE = 16;
 
-
+        public const int MAX_LEVEL = 10;
     }
 }
