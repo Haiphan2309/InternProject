@@ -15,6 +15,9 @@ public class UIMainMenuManager : MonoBehaviour
     private RectTransform bottomChessHolder;
     private RectTransform bottomChessContainer;
 
+    [SerializeField] RectTransform buttonSystem;
+    private RectTransform startButton;
+    private RectTransform settingButton;
 
     [Button]
     private void Anim()
@@ -30,6 +33,12 @@ public class UIMainMenuManager : MonoBehaviour
         bottomChessHolder = bottomSlider.Find("ChessHolder") as RectTransform;
         bottomChessContainer = bottomChessHolder.Find("ChessContainer") as RectTransform;
         bottomSlider.anchoredPosition = Vector2.down * 600;
+
+        startButton = buttonSystem.Find("StartButton") as RectTransform;
+        startButton.anchoredPosition = Vector2.right * 600;
+
+        settingButton = buttonSystem.Find("SettingButton") as RectTransform;
+        settingButton.anchoredPosition = Vector2.left * 600;
     }
 
     private void AnimSlider()
@@ -56,6 +65,12 @@ public class UIMainMenuManager : MonoBehaviour
         bottomHolderCircle.DOScale(Vector3.right * 20 + Vector3.up * 20, 1f).SetEase(Ease.OutBack);
     }
 
+    private void AnimButton()
+    {
+        startButton.DOAnchorPos(Vector3.left * 50 + Vector3.up * 25, 1f);
+        settingButton.DOAnchorPos(Vector3.right * 25 + Vector3.down * 25, 1f);
+    }
+
     IEnumerator Cor_AnimChessPieces()
     {
         for (int i = 0; i < bottomChessContainer.childCount; ++i)
@@ -80,5 +95,6 @@ public class UIMainMenuManager : MonoBehaviour
         AnimChessHolder();
         yield return new WaitForSeconds(1);
         StartCoroutine(Cor_AnimChessPieces());
+        AnimButton();
     }
 }
