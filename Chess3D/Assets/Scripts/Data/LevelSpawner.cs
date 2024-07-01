@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GDC.Enums;
 using System;
+using GDC.Constants;
 public class LevelSpawner : MonoBehaviour
 {
     // 
@@ -72,7 +73,7 @@ public class LevelSpawner : MonoBehaviour
                     if (tileInfo == null) continue;
                     if (tileInfo.tileType == TileType.NONE) continue;
                     //
-                    if (tileId < 0 || tileId >= 300) continue;
+                    if (tileId < 0 || tileId > GameConstants.obstacleIdBoundary.y) continue;
                     GameObject tile = Instantiate(tilePrefabDic[tileId], spawnPos, tilePrefabDic[tileId].transform.rotation);
 
                     tile.transform.parent = floor.transform;
@@ -94,7 +95,7 @@ public class LevelSpawner : MonoBehaviour
         foreach (var army in playerArmies)
         {
             ChessManType armyType = army.chessManType;
-            int armyId = chessDic[armyType] + 300;
+            int armyId = chessDic[armyType] + (int)GameConstants.playerChessIdBoundary.x;
             Vector3 spawnPos = army.posIndex;
             if (army == null) continue;
             GameObject armyObject = Instantiate(chessPrefabDic[armyId], spawnPos, chessPrefabDic[armyId].transform.rotation);
@@ -114,7 +115,8 @@ public class LevelSpawner : MonoBehaviour
         foreach (var army in enemyArmies)
         {
             ChessManType armyType = army.chessManType;
-            int armyId = chessDic[armyType] + 400;
+            int armyId = chessDic[armyType] + (int)GameConstants.enemyChessIdBoundary.x;
+            if (army.isAI) armyId += 6;
             Vector3 spawnPos = army.posIndex;
             if (army == null) continue;
             GameObject armyObject = Instantiate(chessPrefabDic[armyId], spawnPos, chessPrefabDic[armyId].transform.rotation);
