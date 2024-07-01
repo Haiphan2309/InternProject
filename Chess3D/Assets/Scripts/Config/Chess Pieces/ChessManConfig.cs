@@ -265,8 +265,8 @@ public class ChessManConfig : ScriptableObject
     // Check if the potential tile that the pieces move into is a team's piece
     private bool IsSameTeam(Vector3 currentPosition, Vector3 currentMove)
     {
-        // Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
-        // Debug.Log("Current Move: " + GetTile(currentMove).ToString());
+        // Debug.Log("Current Position: " + currentPosition + GetTile(currentPosition).ToString());
+        // Debug.Log("Current Move: " + currentMove + GetTile(currentMove).ToString());
         // return false;
 
         return (GetTile(currentPosition) == TileType.PLAYER_CHESS && GetTile(currentMove) == TileType.PLAYER_CHESS)
@@ -392,7 +392,8 @@ public class ChessManConfig : ScriptableObject
     // The pieces' priority on states: KING -> QUEEN -> CASTLE -> KNIGHT -> BISHOP -> PAWN
     public Vector3 MoveByDefault(Vector3 currentPositionIndex)
     {
-        Move(currentPositionIndex);
+        // Debug.Log("AI CHECK");
+        possibleMoveList = Move(currentPositionIndex);
         Dictionary<ChessManType, int> chessManPriority = new Dictionary<ChessManType, int>();
         chessManPriority[ChessManType.PAWN] = 0;
         chessManPriority[ChessManType.BISHOP] = 1;
@@ -405,7 +406,7 @@ public class ChessManConfig : ScriptableObject
         Vector3 retreatState = RetreatState(currentPositionIndex, chessManPriority);
         Vector3 killState = KillState(chessManPriority);
 
-        Debug.Log("Decision");
+        // Debug.Log("Decision");
         if (killState != Vector3.zero)
         {
             Debug.Log("Kill State" + killState);

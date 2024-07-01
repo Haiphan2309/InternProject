@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea2989c52f4fd49821c3f2b28b28bd, type: 3}
   m_Name: Level_Test_AI
   m_EditorClassIdentifier: 
-  center: {x: 5, y: 5, z: 5}
+  center: {x: 5, y: 6, z: 0}
   distance: 10
-  maxTurn: 0
+  maxTurn: 15
   starTurn2: 0
+  starTurn3: 0
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -1199,8 +1200,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 2, y: 2, z: 7}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 302
+      tileType: 11
   - pos: {x: 2, y: 2, z: 8}
     tileInfo:
       id: 0
@@ -8214,12 +8215,16 @@ MonoBehaviour:
     posIndex: {x: 1, y: 2, z: 2}
   - chessManType: 1
     posIndex: {x: 9, y: 2, z: 1}
+  - chessManType: 2
+    posIndex: {x: 2, y: 2, z: 7}
   enemyArmies:
   - chessManType: 1
     posIndex: {x: 5, y: 3, z: 11}
     isAI: 0
     priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 5, y: 3, z: 10}
+    - {x: 5, y: 3, z: 11}
   - chessManType: 1
     posIndex: {x: 4, y: 3, z: 10}
     isAI: 1
