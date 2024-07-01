@@ -15,7 +15,7 @@ public class ChessMan : MonoBehaviour
     public ChessManConfig config;
     public Vector3 posIndex;
     [SerializeField] float speed;
-    [SerializeField] Vector3 posIndexToMove;
+    //[SerializeField] Vector3 posIndexToMove;
     Vector3 oldPosIndex;
 
     [SerializeField] GameObject vfxDefeated;
@@ -42,16 +42,16 @@ public class ChessMan : MonoBehaviour
         this.index = index;
         this.posIndex = posIndex;
     }
-    [Button]
-    void TestOtherMove()
-    {
-        OtherMoveAnim(posIndexToMove);
-    }
-    [Button]
-    void TestKnightMove()
-    {
-        KnightMoveAnim(posIndexToMove);
-    }
+    //[Button]
+    //void TestOtherMove()
+    //{
+    //    OtherMoveAnim(posIndexToMove);
+    //}
+    //[Button]
+    //void TestKnightMove()
+    //{
+    //    KnightMoveAnim(posIndexToMove);
+    //}
     public bool EnemyMove()
     {
         EnemyArmy enemy = GameplayManager.Instance.levelData.GetEnemyArmies()[index];
@@ -95,7 +95,7 @@ public class ChessMan : MonoBehaviour
             KnightMoveAnim(posIndexToMove);
         }
 
-        posIndex = posIndexToMove;
+        // posIndex = posIndexToMove;
         // GameplayManager.Instance.ChangeTurn(true);
     }
     void KnightMoveAnim(Vector3 posIndexToMove)
@@ -143,6 +143,7 @@ public class ChessMan : MonoBehaviour
 
         AjustPosToGround(transform.position, target, true);
         yield return new WaitForSeconds(1);
+        posIndex = target;
         GameplayManager.Instance.ChangeTurn();
     }
 
@@ -231,6 +232,18 @@ public class ChessMan : MonoBehaviour
                     current.z += Mathf.Sign(end.z - current.z);
                 }
             }
+            isFalling = false;
+
+            if (isOnPathSlope)
+            {
+                isOnPathSlope = false;
+                if (CheckSlope(GetChess(current + Vector3.down)))
+                {
+                    current.y -= 1;
+                    path.Add(new Vector3(current.x, current.y, current.z));
+                    continue;
+                }
+            }
 
             // Check the tile above
             Vector3 tileUp = current + Vector3.up;
@@ -247,7 +260,12 @@ public class ChessMan : MonoBehaviour
             tileType = GetChess(current);
             if (tileType == TileType.NONE || tileType == TileType.PLAYER_CHESS || tileType == TileType.ENEMY_CHESS)
             {
-                isFalling = true;
+                if (isOnPathSlope)
+                {
+                    isFalling = false;
+                }
+                else isFalling = true;
+
                 path.Add(new Vector3(current.x, current.y, current.z));
                 current.y -= 1;
 
@@ -266,13 +284,11 @@ public class ChessMan : MonoBehaviour
                     path.Add(new Vector3(current.x, current.y, current.z));
                     current.y -= 1;
                 }
-                
-                isFalling = false;
+
                 continue;
             }
 
             path.Add(new Vector3(current.x, current.y, current.z));
-            isFalling = false;
         }
         LogVector3List(path);
 

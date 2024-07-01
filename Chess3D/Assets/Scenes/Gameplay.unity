@@ -7611,7 +7611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSpawner: {fileID: 1220447863}
   camController: {fileID: 1349836853}
-  levelData: {fileID: 11400000, guid: 2eac02057220f5b4cb14ff5b3a3058e9, type: 2}
+  levelData: {fileID: 11400000, guid: 9f08f85719b1312479fee4740f9d2f58, type: 2}
   availableMovePrefab: {fileID: 7245618113376876351, guid: 84568a093dba36641903864ef114cacc, type: 3}
   playerArmy: []
   enemyArmy: []
@@ -24778,7 +24778,7 @@ MonoBehaviour:
   levelData: {fileID: 11400000, guid: 62e5dc0698d74664db3f5fb0847a97ae, type: 2}
   playerArmy: []
   enemyArmy: []
-  spawnLevelName: Level_Box
+  spawnLevelName: Level_Test_AI
 --- !u!1 &1225432023
 GameObject:
   m_ObjectHideFlags: 0
