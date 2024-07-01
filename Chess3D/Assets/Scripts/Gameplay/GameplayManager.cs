@@ -28,6 +28,16 @@ public class GameplayManager : MonoBehaviour
     }
 
     [Button]
+    void ResetLevelRef()
+    {
+        playerArmy.Clear();
+        enemyArmy.Clear();
+        listEnemyPriorityLowest.Clear();
+        outlineChessMan.Clear();
+        levelData = null;
+        enemyTurn = false;
+    }
+    [Button]
     public void LoadLevel()
     {
         levelSpawner.Setup();
