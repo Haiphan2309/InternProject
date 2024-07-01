@@ -35,26 +35,8 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 03000000330000006500000066000000670000006d00000068000000690000006a0000006b0000006c0000009700000098000000990000009a0000009b0000009d0000009e0000009c00000000000000
-    _keys: 03000000330000006500000066000000670000006d00000068000000690000006a0000006b0000006c0000009700000098000000990000009a0000009b0000009d0000009e0000009c00000000000000
+    _keyValues: 0000000001000000
+    _keys: 0000000001000000
     _values:
-    - Intro
-    - Real_World_Area_01
-    - Begin_Area_01
-    - Begin_Area_02
-    - Begin_Area_03
-    - Begin_Area_House
-    - Begin_Area_04
-    - Begin_Area_05
-    - Begin_Area_06
-    - Begin_Area_07
-    - Begin_Area_08
-    - Area1_01
-    - Area1_02
-    - Area1_03
-    - Area1_04
-    - Area1_05
-    - Sun_Flower_Field_Area
-    - Area1_Bonus
-    - Area1_Dungeon
     - MainMenu
+    - Gameplay

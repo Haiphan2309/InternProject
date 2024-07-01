@@ -160,14 +160,20 @@ public class LevelExtractor : MonoBehaviour
                 TileInfo newTileInfo = new TileInfo(blockNumber, GetTileTypeById(blockNumber));
                 map[(int)blockPos.x, (int)blockPos.y, (int)blockPos.z] = newTileInfo;
                  
-                if (blockNumber >= 300 && blockNumber <= 305)// Id 300 - 305 -> Player Chess
+                if (blockNumber >= GameConstants.playerChessIdBoundary.x && blockNumber  <= GameConstants.playerChessIdBoundary.y)// Id 300 - 305 -> Player Chess
                 {
                     PlayerArmy playerArmy = new PlayerArmy(indexVector, chessTypeDic[blockNumber % 100]);
                     playerArmies.Add(playerArmy);
                 }
-                else if (blockNumber >= 400 && blockNumber <= 405)// Id 400 - 405 -> Player Chess
+                else if (blockNumber >= GameConstants.enemyChessIdBoundary.x && blockNumber <= GameConstants.enemyChessIdBoundary.y)// Id 400 - 405 -> Enemy Chess
                 {
-                    EnemyArmy enemyArmy = new EnemyArmy(indexVector, chessTypeDic[blockNumber % 100]);
+                    int id = blockNumber % 100;
+                    if (id > 5) id -= 6; // AI Enemy store as Default in Dic
+                    EnemyArmy enemyArmy = new EnemyArmy(indexVector, chessTypeDic[id]);
+                    if (blockNumber > 405) // AI Enemy
+                    {
+                        enemyArmy.isAI = true;
+                    }
                     enemyArmies.Add(enemyArmy);
                 }
             }

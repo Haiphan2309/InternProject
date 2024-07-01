@@ -50,11 +50,12 @@ public class PlayerArmy : Army
 [Serializable]
 public class EnemyArmy : Army
 {
+    public bool isAI;
     public int priority;
     public List<Vector3> movePosIndexs;
     public EnemyArmy(Vector3 posIndex, ChessManType chessManType)
     {
-
+        isAI = false;
         this.posIndex = posIndex;
         this.chessManType = chessManType;
     }
@@ -67,6 +68,8 @@ public class LevelData : ScriptableObject
     public Vector3 center;
     public float distance;
     public int maxTurn;
+    public int starTurn2;
+    public int starTurn3;
     public List<TileData> tileInfo;
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;
