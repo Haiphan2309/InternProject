@@ -38,8 +38,12 @@ public class ChessCameraController : MonoBehaviour
 
     [SerializeField] Transform chess;
 
+
+    
+
+
     [Button]
-    void Spawn()
+    void Setup()
     {
         if (chess == null)
         {
@@ -47,13 +51,15 @@ public class ChessCameraController : MonoBehaviour
             return;
         }
         _camera = GetComponent<CinemachineVirtualCamera>();
-        _camera.Follow = chess;
         
-        Setup(chess.transform.position, 16f);
+
+        ChangeChess(chess, 16f);
 
     }
-    public void Setup(Vector3 center, float distance)
+    public void ChangeChess(Transform chess, float distance)
     {
+        _camera.Follow = chess;
+        Vector3 center = chess.transform.position;
         this.distance = distance;
         target = center;
         Vector3 angles = transform.eulerAngles;
