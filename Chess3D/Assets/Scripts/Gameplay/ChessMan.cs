@@ -102,7 +102,7 @@ public class ChessMan : MonoBehaviour
     {
         transform.DOJump(posIndexToMove, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            AjustPosToGround(transform.position, posIndexToMove, true);
+            AjustPosToGround(transform.position, posIndexToMove, posIndexToMove - transform.position, true);
         });
     }
 
@@ -128,48 +128,53 @@ public class ChessMan : MonoBehaviour
         Vector3 currPos = transform.position;
         Vector3 currPosIdx = posIndex;
 
+        Vector3 direction = (target - currPos).normalized;
+        RotateToDirection(direction);
+        yield return new WaitForSeconds(0.5f);
+
         List<Vector3> path = CalculatePath(currPosIdx, target);
 
         foreach (var gridCell in path)
         {
             while (currPos != gridCell)
             {
-                AjustPosToGround(transform.position, gridCell);
+                AjustPosToGround(transform.position, gridCell, direction);
                 if (!isOnSlope) currPos = transform.position;
                 else currPos = transform.position + Vector3.up * 0.4f;
                 yield return null;
             }
         }
 
-        AjustPosToGround(transform.position, target, true);
+        AjustPosToGround(transform.position, target, direction, true);
         yield return new WaitForSeconds(1);
         posIndex = target;
         GameplayManager.Instance.ChangeTurn();
     }
 
-    void AjustPosToGround(Vector3 newPosition, Vector3 target, bool isRoundInteger = false)
+    void RotateToDirection(Vector3 direction)
+    {
+        Debug.Log("Forward: " + Vector3.forward);
+        Debug.Log("Direction: " + direction);
+
+        // Calculate the rotation
+        Quaternion targetRotation = Quaternion.FromToRotation(Vector3.forward, direction);
+        Debug.Log("Target Rotation: " + Vector3.up * targetRotation.eulerAngles.y);
+
+        // Apply the rotation to the GameObject
+        transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
+    }
+
+    void AjustPosToGround(Vector3 newPosition, Vector3 target, Vector3 direction, bool isRoundInteger = false)
     {   
         Vector3 rotation = transform.rotation.eulerAngles;
 
         TileType tileType = GetChess(SnapToGrid(target));
         switch (tileType) {
             case TileType.SLOPE_0:
-                rotation.x = 45;
-                isOnSlope = true;
-                break;
-
             case TileType.SLOPE_90:
-                rotation.z = 45;
-                isOnSlope = true;
-                break;
-
             case TileType.SLOPE_180:
-                rotation.x = -45;
-                isOnSlope = true;
-                break;
-
             case TileType.SLOPE_270:
-                rotation.z = -45;
+                rotation.x = -45 * direction.normalized.x;
                 isOnSlope = true;
                 break;
 
@@ -180,7 +185,7 @@ public class ChessMan : MonoBehaviour
                 break;
 
             default:
-                rotation = Vector3.zero;
+                rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
                 isOnSlope = false;
                 break;
         }
@@ -215,7 +220,6 @@ public class ChessMan : MonoBehaviour
         List<Vector3> path = new List<Vector3>();
         Vector3 current = start;
 
-        Debug.Log("Start: " + start + "; End" + end);
         isOnPathSlope = isOnSlope;
 
         while (current != end) 
@@ -290,18 +294,8 @@ public class ChessMan : MonoBehaviour
 
             path.Add(new Vector3(current.x, current.y, current.z));
         }
-        LogVector3List(path);
 
         return path;
-    }
-
-    public void LogVector3List(List<Vector3> vectorList, string message = "Vector3 List:")
-    {
-        Debug.Log(message);
-        foreach (Vector3 vec in vectorList)
-        {
-            Debug.Log(vec.ToString());
-        }
     }
 
     bool CheckTwoLastElement(List<Vector3> list)
