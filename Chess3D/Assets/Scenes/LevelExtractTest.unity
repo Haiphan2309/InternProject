@@ -5213,7 +5213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 927305075}
-  storeLevelName: Level_Box
+  storeLevelName: Level_Test_AI
 --- !u!4 &534999578
 Transform:
   m_ObjectHideFlags: 0
@@ -8938,6 +8938,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3707426945118461823, guid: 2c36bd543e637f74b87ec9c021067a2f, type: 3}
   m_PrefabInstance: {fileID: 958121324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &961381464
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1962440002}
+    m_Modifications:
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8998501177938085803, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+      propertyPath: m_Name
+      value: 407
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+--- !u!4 &961381465 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2078798457456553781, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
+  m_PrefabInstance: {fileID: 961381464}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &963882804
 PrefabInstance:
@@ -16641,14 +16703,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662324000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.02634481, y: -0.022330664, z: -0.0005886483, w: 0.99940336}
+  m_LocalPosition: {x: 0, y: 5.25, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.02, y: -2.56, z: 0}
 --- !u!1001 &1663744475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20136,6 +20198,7 @@ Transform:
   - {fileID: 370391860}
   - {fileID: 978339217}
   - {fileID: 586371599}
+  - {fileID: 961381465}
   m_Father: {fileID: 927305076}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
