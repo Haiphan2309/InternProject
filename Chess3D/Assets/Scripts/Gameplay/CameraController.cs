@@ -23,11 +23,14 @@ public class CameraController : MonoBehaviour
     private float targetY;
     private float targetDistance;
 
-    [SerializeField] float zoomSpeed;
+    [SerializeField] float zoomSpeed = 50f;
 
     //For zoom
+    private float zoom;
     private float zoomMax = 60;
     private float zoomMin = 16;
+    private float zoomVelocity = 0f;
+    private float smoothZoomTime = 0.25f;
 
     public void Setup(Vector3 center, float distance)
     {
@@ -42,6 +45,8 @@ public class CameraController : MonoBehaviour
 
         // Đảm bảo rằng con trỏ chuột không bị khóa (tùy chọn)
         Cursor.lockState = CursorLockMode.None;
+        //
+        zoom = Camera.main.fieldOfView;
     }
 
     void LateUpdate()
@@ -77,27 +82,30 @@ public class CameraController : MonoBehaviour
 
     private void HandleZoomCamera()
     {
-        //if (Input.touchCount == 2)
-        //{
-        //    Debug.Log("Zoom");
-        //    Touch touchFirst = Input.GetTouch(0);
-        //    Touch touchSecond = Input.GetTouch(1);
+        if (Input.touchCount == 2)
+        {
+            Debug.Log("Zoom");
+            Touch touchFirst = Input.GetTouch(0);
+            Touch touchSecond = Input.GetTouch(1);
 
-        //    Vector2 touchFirstPrePos = touchFirst.position - touchFirst.deltaPosition;
-        //    Vector2 touchSecondPrePos = touchSecond.position - touchSecond.deltaPosition;
+            Vector2 touchFirstPrePos = touchFirst.position - touchFirst.deltaPosition;
+            Vector2 touchSecondPrePos = touchSecond.position - touchSecond.deltaPosition;
 
-        //    float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
-        //    float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
+            float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
+            float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
 
-        //    float diff = currentMagnitude - preMagnitude;
+            float diff = currentMagnitude - preMagnitude;
 
-        //    zoom(diff * 0.01f);
-        //}
+            Zoom(diff * zoomSpeed);
+        }
 
         Zoom(Input.GetAxis("Mouse ScrollWheel")*zoomSpeed);
     }
     private void Zoom(float inc)
     {
-        Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - inc, zoomMin, zoomMax);
+    
+        zoom -= inc;
+        zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
+        Camera.main.fieldOfView = Mathf.SmoothDamp(Camera.main.fieldOfView, zoom,  ref zoomVelocity, smoothZoomTime);
     }
 }
