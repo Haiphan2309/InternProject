@@ -23,6 +23,10 @@ public class CameraController : MonoBehaviour
     private float targetY;
     private float targetDistance;
 
+    //For zoom
+    private float zoomMax = 60;
+    private float zoomMin = 16;
+
     public void Setup(Vector3 center, float distance)
     {
         this.distance = distance;
@@ -40,6 +44,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
 {
+        HandleZoomCamera();
         if (Input.GetMouseButton(0)) // Kiểm tra xem nút chuột trái có được nhấn không
         {
             targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
@@ -66,5 +71,31 @@ public class CameraController : MonoBehaviour
         if (angle > 360F)
             angle -= 360F;
         return Mathf.Clamp(angle, min, max);
+    }
+
+    private void HandleZoomCamera()
+    {
+        //if (Input.touchCount == 2)
+        //{
+        //    Debug.Log("Zoom");
+        //    Touch touchFirst = Input.GetTouch(0);
+        //    Touch touchSecond = Input.GetTouch(1);
+
+        //    Vector2 touchFirstPrePos = touchFirst.position - touchFirst.deltaPosition;
+        //    Vector2 touchSecondPrePos = touchSecond.position - touchSecond.deltaPosition;
+
+        //    float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
+        //    float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
+
+        //    float diff = currentMagnitude - preMagnitude;
+
+        //    zoom(diff * 0.01f);
+        //}
+
+        zoom(Input.GetAxis("Mouse ScrollWheel")*10f);
+    }
+    private void zoom(float inc)
+    {
+        Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - inc, zoomMin, zoomMax);
     }
 }
