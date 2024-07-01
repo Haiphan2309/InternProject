@@ -7617,6 +7617,7 @@ MonoBehaviour:
   enemyArmy: []
   listEnemyPriorityLowest: []
   outlineChessMan: []
+  outlineGameplayObj: []
   remainTurn: 0
   enemyTurn: 0
   isAnimMoving: 0
@@ -9897,6 +9898,9 @@ MonoBehaviour:
   chessLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  gameplayObjectLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   isPicking: 0
   deltaTimeToHold: 0.25
 --- !u!4 &479896633
