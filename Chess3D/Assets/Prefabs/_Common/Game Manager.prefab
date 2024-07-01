@@ -450,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -338947006, guid: 1959e8d28ffdc0e4b90c631a2df70cbc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0110ang t\u1EA3i"
+  m_text: Loading...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d27c0925a824b1d48b79733d25629811, type: 2}
   m_sharedMaterial: {fileID: 5339556139337349112, guid: d27c0925a824b1d48b79733d25629811, type: 2}
@@ -775,12 +775,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameDataOrigin:
     IsHaveSaveData: 1
-    Coin: 0
-    PlayerName: 
+    playerLevelTurns: 
+    playerLevelStars: 
+    currentLevel: 0
   GameData:
     IsSaveLoadProcessing: 0
-    Coin: 0
-    PlayerName: 
+    playerLevelDatas: []
+    currentLevel: 0
 --- !u!1 &8249350817095926785
 GameObject:
   m_ObjectHideFlags: 0
