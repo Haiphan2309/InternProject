@@ -57,7 +57,9 @@ public class ChessMan : MonoBehaviour
         EnemyArmy enemy = GameplayManager.Instance.levelData.GetEnemyArmies()[index];
         if (enemy.isAI)
         {
-            Move(config.MoveByDefault(posIndex));
+            Vector3 posIndexToMove = config.MoveByDefault(posIndex);
+            GameplayManager.Instance.MakeMove(this, posIndexToMove);
+            Move(posIndexToMove);
         }
         else
         {
@@ -73,6 +75,7 @@ public class ChessMan : MonoBehaviour
             {
                 return false;
             }
+            GameplayManager.Instance.MakeMove(this, moves[moveIndex]);
             Move(moves[moveIndex]);
             moveIndex = (moveIndex + 1) % moves.Count;
         }
