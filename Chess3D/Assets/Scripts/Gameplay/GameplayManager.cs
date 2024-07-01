@@ -94,6 +94,7 @@ public class GameplayManager : MonoBehaviour
         if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
         if (enemyArmy.Count > 0)
         {
+            listEnemyPriorityLowest.Clear();
             foreach (var enemy in enemyArmy)
             {
                 if (levelData.GetEnemyArmies()[enemy.index].priority == levelData.GetEnemyArmies()[0].priority)

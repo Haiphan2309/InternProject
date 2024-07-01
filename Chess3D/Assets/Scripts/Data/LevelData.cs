@@ -69,6 +69,7 @@ public class LevelData : ScriptableObject
     public float distance;
     public int maxTurn;
     public int starTurn2;
+    public int starTurn3;
     public List<TileData> tileInfo;
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;
