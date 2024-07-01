@@ -17,7 +17,8 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
 
-    [SerializeField, ReadOnly] List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest, outlineChessMan;
+    public List<ChessMan> playerArmy, enemyArmy;
+    [SerializeField, ReadOnly] List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
     public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     public bool isAnimMoving;
@@ -90,24 +91,18 @@ public class GameplayManager : MonoBehaviour
             }
         }
 
-        if (listEnemyPriorityLowest == null || listEnemyPriorityLowest.Count == 0)
+        if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
+        if (enemyArmy.Count > 0)
         {
-            listEnemyPriorityLowest = new List<ChessMan>();
-            if (enemyArmy.Count > 0)
+            foreach (var enemy in enemyArmy)
             {
-                foreach (var enemy in enemyArmy)
+                if (levelData.GetEnemyArmies()[enemy.index].priority == levelData.GetEnemyArmies()[0].priority)
                 {
-                    if (levelData.GetEnemyArmies()[enemy.index].priority == levelData.GetEnemyArmies()[0].priority)
-                    {
-                        listEnemyPriorityLowest.Add(enemy);
-                    }
+                    listEnemyPriorityLowest.Add(enemy);
                 }
             }
-            //else
-            //{
-            //    Win();
-            //}
         }
+
 
         if (listEnemyPriorityLowest.Count > 0)
         {
