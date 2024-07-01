@@ -24778,7 +24778,7 @@ MonoBehaviour:
   levelData: {fileID: 11400000, guid: 62e5dc0698d74664db3f5fb0847a97ae, type: 2}
   playerArmy: []
   enemyArmy: []
-  spawnLevelName: Level_Box
+  spawnLevelName: Level_Test_AI
 --- !u!1 &1225432023
 GameObject:
   m_ObjectHideFlags: 0
@@ -27478,6 +27478,7 @@ MonoBehaviour:
   yMinLimit: -20
   yMaxLimit: 80
   smoothTime: 0.2
+  zoomSpeed: 20
 --- !u!1 &1351055830
 GameObject:
   m_ObjectHideFlags: 0
