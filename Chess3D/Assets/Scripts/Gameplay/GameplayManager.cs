@@ -48,6 +48,19 @@ public class GameplayManager : MonoBehaviour
         enemyArmy = levelSpawner.enemyArmy;
         SetRemainTurn(levelSpawner.levelData.maxTurn);
         camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
+
+        if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
+        if (enemyArmy.Count > 0)
+        {
+            listEnemyPriorityLowest.Clear();
+            foreach (var enemy in enemyArmy)
+            {
+                if (levelData.GetEnemyArmies()[enemy.index].priority == levelData.GetEnemyArmies()[0].priority)
+                {
+                    listEnemyPriorityLowest.Add(enemy);
+                }
+            }
+        }
     }
 
     void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
@@ -101,23 +114,8 @@ public class GameplayManager : MonoBehaviour
             }
         }
 
-        if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
-        if (enemyArmy.Count > 0)
-        {
-            listEnemyPriorityLowest.Clear();
-            foreach (var enemy in enemyArmy)
-            {
-                if (levelData.GetEnemyArmies()[enemy.index].priority == levelData.GetEnemyArmies()[0].priority)
-                {
-                    listEnemyPriorityLowest.Add(enemy);
-                }
-            }
-        }
-
-
         if (listEnemyPriorityLowest.Count > 0)
         {
-
             if (listEnemyPriorityLowest[0].EnemyMove())
             {
                 ChessMan temp = listEnemyPriorityLowest[0]; //Thuc hien dua vi tri dau xuong vi tri cuoi sau khi di chuyen xong
@@ -177,7 +175,6 @@ public class GameplayManager : MonoBehaviour
         {
             if (chessman.index == playerIndex)
             {
-                Debug.Log("A");
                 playerArmy.Remove(chessman);
                 break;
             }
