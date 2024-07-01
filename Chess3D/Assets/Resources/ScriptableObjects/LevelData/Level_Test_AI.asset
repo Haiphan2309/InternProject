@@ -8222,7 +8222,9 @@ MonoBehaviour:
     posIndex: {x: 5, y: 3, z: 11}
     isAI: 0
     priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 5, y: 3, z: 10}
+    - {x: 5, y: 3, z: 11}
   - chessManType: 1
     posIndex: {x: 4, y: 3, z: 10}
     isAI: 1
