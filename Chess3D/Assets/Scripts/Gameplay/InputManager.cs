@@ -86,7 +86,7 @@ public class InputManager : MonoBehaviour
             {
                 if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
                 {
-                    ShowMouseOver(hit.transform.position);
+                    ShowObjectOver(mouseOver ,hit.transform.position);
                     HitTileToMove(hit);
                     HideOulineHitChessMan();
                     isPicking = false;
@@ -115,7 +115,7 @@ public class InputManager : MonoBehaviour
                 }
                 else if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
                 {
-                    ShowMouseOver(hit.transform.position);
+                    ShowObjectOver(mouseOver, hit.transform.position);
                     HideOulineHitChessMan();
                 }
             }
@@ -141,8 +141,9 @@ public class InputManager : MonoBehaviour
             if (curChessMan.isEnemy == false)
             {
                 GameplayManager.Instance.ShowAvailableMove(curChessMan.config, curChessMan.posIndex);
-                posIcon.gameObject.SetActive(true);
-                posIcon.position = curChessMan.posIndex + Vector3.one * 0.02f;
+                //posIcon.gameObject.SetActive(true);
+                //posIcon.position = curChessMan.posIndex + Vector3.one * 0.02f;
+                ShowObjectOver(posIcon, curChessMan.posIndex + Vector3.down);
                 isPicking = true;
                 CheckShowOutlineChessMan();
             }
@@ -192,36 +193,36 @@ public class InputManager : MonoBehaviour
         GameplayManager.Instance.HideAvailableMove();
         Debug.Log("Nuoc di khong hop le");
     }
-    void ShowMouseOver(Vector3 pos)
+    void ShowObjectOver(Transform obj, Vector3 pos)
     {
-        mouseOver.gameObject.SetActive(true);
+        obj.gameObject.SetActive(true);
         
         switch (GameplayManager.Instance.levelData.GetTileInfo()[(int)Mathf.Round(pos.x), (int)Mathf.Round(pos.y), (int)Mathf.Round(pos.z)].tileType)
         {
             case GDC.Enums.TileType.SLOPE_0:
-                mouseOver.transform.position = pos + new Vector3(0, 0.55f, 0.1f);
-                mouseOver.localScale = new Vector3(1, 1.3f, 1);
-                mouseOver.rotation = Quaternion.Euler(45, 180, 0);
+                obj.transform.position = pos + new Vector3(0, 0.55f, 0.1f);
+                obj.localScale = new Vector3(1, 1.3f, 1);
+                obj.rotation = Quaternion.Euler(45, 180, 0);
                 break;
             case GDC.Enums.TileType.SLOPE_90:
-                mouseOver.transform.position = pos + new Vector3(-0.1f, 0.55f, 0f);
-                mouseOver.rotation = Quaternion.Euler(45, 90, 0);
-                mouseOver.localScale = new Vector3(1, 1.3f, 1);
+                obj.transform.position = pos + new Vector3(-0.1f, 0.55f, 0f);
+                obj.rotation = Quaternion.Euler(45, 90, 0);
+                obj.localScale = new Vector3(1, 1.3f, 1);
                 break;
             case GDC.Enums.TileType.SLOPE_180:
-                mouseOver.transform.position = pos + new Vector3(0, 0.55f, -0.1f);
-                mouseOver.rotation = Quaternion.Euler(45, 0, 0);
-                mouseOver.localScale = new Vector3(1, 1.3f, 1);
+                obj.transform.position = pos + new Vector3(0, 0.55f, -0.1f);
+                obj.rotation = Quaternion.Euler(45, 0, 0);
+                obj.localScale = new Vector3(1, 1.3f, 1);
                 break;
             case GDC.Enums.TileType.SLOPE_270:
-                mouseOver.transform.position = pos + new Vector3(0.1f, 0.55f, 0f);
-                mouseOver.rotation = Quaternion.Euler(45, 270, 0);
-                mouseOver.localScale = new Vector3(1, 1.3f, 1);
+                obj.transform.position = pos + new Vector3(0.1f, 0.55f, 0f);
+                obj.rotation = Quaternion.Euler(45, 270, 0);
+                obj.localScale = new Vector3(1, 1.3f, 1);
                 break;
             default:
-                mouseOver.transform.position = pos + Vector3.up * 1.02f;
-                mouseOver.rotation = Quaternion.Euler(90, 0, 0);
-                mouseOver.localScale = new Vector3(1, 1, 1);
+                obj.transform.position = pos + Vector3.up * 1.02f;
+                obj.rotation = Quaternion.Euler(90, 0, 0);
+                obj.localScale = new Vector3(1, 1, 1);
                 break;
         }
     }
