@@ -4,12 +4,8 @@ using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 using UnityEngine.UIElements;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class ChessMan : MonoBehaviour
 {
@@ -200,6 +196,13 @@ public class ChessMan : MonoBehaviour
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 0.6f, objectLayer))
+        {
+            Box gameplayObject = hit.transform.GetComponent<Box>();
+            Debug.Log(gameplayObject.name);
+            gameplayObject.MoveAnim(transform.position, 5f * Time.deltaTime, isRoundInteger);
+        }
 
         if (isRoundInteger)
         {
@@ -211,14 +214,19 @@ public class ChessMan : MonoBehaviour
         }
 
         transform.DORotate(rotation, 0.3f);
+    }
 
-        RaycastHit hit;
-        if (Physics.Raycast(newPosition, Vector3.forward, out hit, 0.5f, objectLayer))
-        {
-            Box gameplayObject = hit.transform.GetComponent<Box>();
-            Debug.Log(gameplayObject.name);
-            gameplayObject.MoveAnim(newPosition, 5f * Time.deltaTime, isRoundInteger);
-        }
+    private void OnDrawGizmos()
+    {
+        // Set the color for the Gizmos
+        Gizmos.color = Color.red;
+
+        // Define the Ray origin and direction
+        Vector3 rayOrigin = transform.position;
+        Vector3 rayDirection = transform.forward;
+
+        // Draw the Raycast
+        Gizmos.DrawRay(rayOrigin, rayDirection * 0.6f);
     }
 
     Vector3 SnapToGrid(Vector3 position)

@@ -27,6 +27,7 @@ public class Box : GameplayObject
     {
         //todo anim
         Vector3 direction = transform.position - posIndexToMove;
+        Debug.Log("Direction: " + direction + " posIndexToMove: " + posIndexToMove);
 
         StartCoroutine(Cor_MoveAnim(direction, speed, isRoundInteger));
 
