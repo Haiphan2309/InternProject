@@ -3,6 +3,7 @@ using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField, ReadOnly] List<GameplayObject> outlineGameplayObj;
     public int remainTurn;
     [ReadOnly] public bool enemyTurn;
-    public bool isAnimMoving;
+    public bool isAnimMoving, isEndTurn;
     private void Awake()
     {
         Instance = this;
@@ -65,6 +66,10 @@ public class GameplayManager : MonoBehaviour
                 }
             }
         }
+
+        isAnimMoving = false;
+        isEndTurn = true;
+        enemyTurn = false;
     }
 
     void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
@@ -78,11 +83,16 @@ public class GameplayManager : MonoBehaviour
     }
     public void ChangeTurn()
     {
+        isAnimMoving = false;
+        StartCoroutine(Cor_EndTurn());
+    }
+    IEnumerator Cor_EndTurn()
+    {
+        yield return new WaitUntil(() => isEndTurn);
         ChangeTurn(!enemyTurn);
     }
-    public void ChangeTurn(bool enemyTurn)
+    void ChangeTurn(bool enemyTurn)
     {
-        isAnimMoving = false;
         if (CheckWin()) Win();
         else if (CheckLose()) Lose();
 
@@ -330,6 +340,7 @@ public class GameplayManager : MonoBehaviour
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
         isAnimMoving = true;
+        isEndTurn = false;
 
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
@@ -346,10 +357,8 @@ public class GameplayManager : MonoBehaviour
     IEnumerator Cor_AfterAnim(ChessMan chessMan, Vector3 posIndexToMove)
     {
         yield return new WaitUntil(() => isAnimMoving == false);
-        TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
-        levelData.SetTileInfoNoDeep((int)posIndexToMove.x, (int)posIndexToMove.y, (int)posIndexToMove.z, curTileInfo.id, curTileInfo.tileType);
-        levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
-
+        
+        //Debug.Log("AfterAnim");
         if (chessMan.config.chessManType != ChessManType.KNIGHT)
         {
             Vector3 direct = new Vector3(posIndexToMove.x - chessMan.posIndex.x, 0, posIndexToMove.z - chessMan.posIndex.z).normalized;
@@ -360,12 +369,15 @@ public class GameplayManager : MonoBehaviour
                 Vector3 moveDirect = new Vector3(move.x - chessMan.posIndex.x, 0, move.z - chessMan.posIndex.z).normalized;
                 //Debug.Log(direct + " " + moveDirect);
                 if ((int)Mathf.Round(moveDirect.x) != (int)Mathf.Round(direct.x) || (int)Mathf.Round(moveDirect.z) != (int)Mathf.Round(direct.z)) continue;
+                if (Vector3.Distance(chessMan.posIndex, move) > Vector3.Distance(chessMan.posIndex, posIndexToMove)) continue;
 
-                TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)move.x, (int)move.y, (int)move.z);
+                TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(move.x), (int)Mathf.Round(move.y), (int)Mathf.Round(move.z));
+                //Debug.Log("MOVE " + move + "  " + posIndexToMove + tempTileInfo.tileType);
                 if (tempTileInfo.tileType == TileType.BOX || tempTileInfo.tileType == TileType.BOULDER)
                 {
                     towardPos = move;
                     boxTileInfo = tempTileInfo;
+                    //Debug.Log("Find " + boxTileInfo);
                     break;
                 }
             }
@@ -426,7 +438,11 @@ public class GameplayManager : MonoBehaviour
             }
             //}
         }
+        TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
+        levelData.SetTileInfoNoDeep((int)posIndexToMove.x, (int)posIndexToMove.y, (int)posIndexToMove.z, curTileInfo.id, curTileInfo.tileType);
+        levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
         chessMan.posIndex = posIndexToMove;
+        isEndTurn = true;
     }
 
     void Win()
@@ -469,5 +485,12 @@ public class GameplayManager : MonoBehaviour
     {
         yield return new WaitUntil(() => Vector3.Distance(defeatChessMan.transform.position, defeatedChessMan.transform.position) < 1);
         defeatedChessMan.Defeated();
+    }
+    [SerializeField] int x, y, z;
+    [Button]
+    void LogTileInfo()
+    {
+        TileInfo tileInfo = levelData.GetTileInfoNoDeep(x, y, z);
+        Debug.Log(tileInfo.tileType);
     }
 }
