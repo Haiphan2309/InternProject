@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boulder : MonoBehaviour
+public class Boulder : GameplayObject
 {
-    [SerializeField] float defaultSpeed;
-    public void MoveAnim(Vector3 posIndexToMove, float speed) 
+    
+    public override void MoveAnim(Vector3 posIndexToMove, float speed) 
         //posIndexToMove: ở đây không phải vị trí cuối cùng, mà chỉ là vị trí mà chessman đẩy đến (sát bên chessman),
         //sẽ phải tự tính toàn tiếp vị trí tiếp theo nếu dưới chân nó là NONE (thì sẽ rơi) hoặc SLOPE (thì sẽ lăn) với tốc độ defaultSpeed. 
         //speed: là speed của chessMan đẩy boulder, boulder sẽ di chuyển cùng tốc độ với chessman đẩy box,

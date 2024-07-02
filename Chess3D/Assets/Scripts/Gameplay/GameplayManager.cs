@@ -19,6 +19,7 @@ public class GameplayManager : MonoBehaviour
 
     public List<ChessMan> playerArmy, enemyArmy;
     [SerializeField, ReadOnly] List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
+    [SerializeField, ReadOnly] List<GameplayObject> outlineGameplayObj;
     public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     public bool isAnimMoving;
@@ -226,6 +227,7 @@ public class GameplayManager : MonoBehaviour
                         break;
                 }
                 availableMoveTrans.Add(tran);
+                CheckShowOutlineGameplayObject(move);
 
                 foreach(var enemy in enemyArmy)
                 {
@@ -247,6 +249,29 @@ public class GameplayManager : MonoBehaviour
             Debug.LogError("move is null");
         }
     }
+    void CheckShowOutlineGameplayObject(Vector3 pos)
+    {
+        TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(pos.x), (int)Mathf.Round(pos.y), (int)Mathf.Round(pos.z));
+        if (tileInfo.tileType == TileType.BOX || tileInfo.tileType == TileType.BOULDER)
+        {
+            Collider[] colls = Physics.OverlapBox(pos, Vector3.one / 5);
+            foreach (Collider coll in colls) 
+            {
+                GameplayObject gameplayObj = coll.transform.GetComponent<GameplayObject>();
+
+                //Debug.Log(gameplayObj);
+                if (gameplayObj == null) continue;
+
+                gameplayObj.outline.OutlineColor = Color.yellow;
+                gameplayObj.outline.OutlineWidth = 10;
+                if (outlineGameplayObj == null)
+                {
+                    outlineGameplayObj = new List<GameplayObject>();
+                }
+                outlineGameplayObj.Add(gameplayObj);
+            }
+        }
+    }
     void ShowOutlineChessMan(ChessMan chessMan)
     {
         chessMan.outline.OutlineColor = Color.yellow;
@@ -266,6 +291,15 @@ public class GameplayManager : MonoBehaviour
         }
         outlineChessMan.Clear();
     }
+    void HideOutLineAllGameplayObject()
+    {
+        if (outlineGameplayObj == null) return;
+        foreach(var obj in outlineGameplayObj)
+        {
+            obj.outline.OutlineWidth = 0;
+        }
+        outlineGameplayObj.Clear();
+    }
     public void HideAvailableMove()
     {
         if (availableMoveTrans != null)
@@ -276,6 +310,7 @@ public class GameplayManager : MonoBehaviour
             }
             availableMoveTrans.Clear();
         }
+        HideOutLineAllGameplayObject();
     }
     public bool CheckMove(ChessManConfig chessManConfig, Vector3 curPosIndex, Vector3 posIndexToMove)
     {
@@ -310,31 +345,45 @@ public class GameplayManager : MonoBehaviour
                 if (tileInfo.tileType == TileType.BOX || tileInfo.tileType == TileType.BOULDER)
                 {
                     TileInfo boxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
+                    TileInfo underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
                     Vector3 boxPosToMove = posIndexToMove + direct;
-                    while ((int)boxPosToMove.y-1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.NONE) //box/boulder roi xuong
+                    while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
+                        underBoxTileInfo.tileType == TileType.ENEMY_CHESS || underBoxTileInfo.tileType == TileType.PLAYER_CHESS) //box/boulder roi xuong
                     {
+                        levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
                         boxPosToMove.y--;
+                        underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
                     }
 
-                    if (tileInfo.tileType == TileType.BOULDER) //Doi voi boulder thi lan tren mat phang nghieng
+                    while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.WATER) // doi voi Boulder thi tiep tuc chim xuong nuoc
+                    {
+                        boxPosToMove.y--;
+                        underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+                    }
+
+                    if (tileInfo.tileType == TileType.BOULDER) //Doi voi boulder thi lan tren mat phang nghieng (ko co xet dang o trong nuoc)
                     {
                         while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_0)
                         {
+                            levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
                             boxPosToMove.y--;
                             boxPosToMove.z++;
                         }
                         while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_90)
                         {
+                            levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
                             boxPosToMove.y--;
                             boxPosToMove.x--;
                         }
                         while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_180)
                         {
+                            levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
                             boxPosToMove.y--;
                             boxPosToMove.z--;
                         }
                         while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_270)
                         {
+                            levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
                             boxPosToMove.y--;
                             boxPosToMove.x++;
                         }
@@ -345,7 +394,7 @@ public class GameplayManager : MonoBehaviour
                         levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
                     }
 
-                    levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
+                    //levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
                 }
             }
         }

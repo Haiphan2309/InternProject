@@ -7,10 +7,11 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] Transform mouseOver, posIcon;
-    [SerializeField] LayerMask tileLayerMask, chessLayerMask;
+    [SerializeField] LayerMask tileLayerMask, chessLayerMask, gameplayObjectLayerMask;
     [SerializeField, ReadOnly] bool isPicking;
 
     ChessMan preChessMan, curChessMan, hitChessMan;
+    GameplayObject hitObject;
     //bool isHitChessMan = false;
     float timeMouseDown;
     [SerializeField] float deltaTimeToHold;
@@ -96,6 +97,12 @@ public class InputManager : MonoBehaviour
                     HideOulineHitChessMan();
                     HitChessMan(hit);
                 }
+                else if ((gameplayObjectLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+                {
+                    HideOulineHitChessMan();
+                    HitObject(hit);
+                    HitTileToMove(hit);
+                }
                 else
                 {
                     HideMouseOver();
@@ -118,6 +125,11 @@ public class InputManager : MonoBehaviour
                     ShowObjectOver(mouseOver, hit.transform.position);
                     HideOulineHitChessMan();
                 }
+                else if ((gameplayObjectLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
+                {
+                    HideOulineHitChessMan();
+                    HitObject(hit);
+                }
             }
 
             //Debug.Log("hit: " + hit.transform.name);
@@ -129,6 +141,22 @@ public class InputManager : MonoBehaviour
             HideOulineHitChessMan();
             GameplayManager.Instance.HideAvailableMove();
             isPicking = false;
+        }
+    }
+    void HitObject(RaycastHit hit)
+    {
+        hitObject = hit.transform.GetComponent<GameplayObject>();
+        hitObject.outline.OutlineColor = Color.white;
+        hitObject.outline.OutlineWidth = 10;
+
+        if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false || isPicking)
+        {
+            if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, hit.transform.position))
+            {
+                Debug.Log("Object duoc tuong tac");
+                GameplayManager.Instance.MakeMove(curChessMan, hit.transform.position);
+                HideOutlineHitObject();
+            }
         }
     }
     void HitChessMan(RaycastHit hit)
@@ -246,6 +274,16 @@ public class InputManager : MonoBehaviour
         {
             hitChessMan.outline.OutlineWidth = 0;
             hitChessMan = null;
+        }
+        HideOutlineHitObject();
+    }
+    void HideOutlineHitObject()
+    {
+        if (hitObject != null)
+        {
+            hitObject.outline.OutlineWidth = 0;
+            hitObject = null;
+
         }
     }
 }

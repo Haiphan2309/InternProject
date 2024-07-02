@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Box : MonoBehaviour
+public class Box : GameplayObject
 {
-    [SerializeField] float defaultSpeed;
-    public void MoveAnim(Vector3 posIndexToMove, float speed, ChessMan chessManAbove = null)
+    public override void MoveAnim(Vector3 posIndexToMove, float speed, ChessMan chessManAbove = null)
     //posIndexToMove: ở đây không phải vị trí cuối cùng, mà chỉ là vị trí mà chessman đẩy đến (sát bên chessman),
     //sẽ phải tự tính toàn tiếp vị trí tiếp theo nếu dưới chân nó là None (thì sẽ rơi) với tốc độ defaultSpeed.
     //speed: là speed của chessMan đẩy box, box sẽ di chuyển cùng tốc độ với chessman đẩy box,
