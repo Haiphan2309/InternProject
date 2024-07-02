@@ -1,6 +1,8 @@
 using DG.Tweening;
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +10,15 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
     public RectTransform backgroundSystem;
+    public RectTransform textSystem;
     public RectTransform buttonSystem;
     public RectTransform levelSystem;
 
     public UIMainMenu mainMenu;
     public UILevelMenu levelMenu;
+    public UILevelSlot levelSlotPrefab;
+
+    RectTransform content;
 
     private void Awake()
     {
@@ -60,13 +66,19 @@ public class UIManager : MonoBehaviour
 
     private void LevelPreset()
     {
-        levelSystem.anchoredPosition = Vector3.down * 600f * 2;
+        levelSystem.anchoredPosition = Vector3.down * 1200f;
+        content = levelSystem.Find("Scroll View").Find("Viewport").Find("Content") as RectTransform;
+        for(int i = 0; i < 6; ++i)
+        {
+            levelSlotPrefab.Setup(i);
+            Instantiate(levelSlotPrefab, content);
+        }
     }
 
     private void TitlePreset()
     {
-        RectTransform title = backgroundSystem.Find("Title") as RectTransform;
-        title.anchoredPosition = Vector3.left * 500 + Vector3.up * 600f * 2;
+        RectTransform title = textSystem.Find("Title") as RectTransform;
+        title.anchoredPosition = Vector3.right * 400f + Vector3.up * 900f;
     }
 
     private void StartButton()

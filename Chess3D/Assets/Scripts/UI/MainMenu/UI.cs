@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
     public RectTransform title;
@@ -22,7 +22,7 @@ public class UI : MonoBehaviour
 
     public virtual void Preset()
     {
-        title = UIManager.Instance.backgroundSystem.Find("Title") as RectTransform;
+        title = UIManager.Instance.textSystem.Find("Title") as RectTransform;
 
         topSlider = UIManager.Instance.backgroundSystem.Find("TopSlider") as RectTransform;
         topChessHolder = topSlider.Find("ChessHolder") as RectTransform;
@@ -39,6 +39,27 @@ public class UI : MonoBehaviour
 
     public virtual void Anim()
     {
+        Preset();
+        DisableButton();
+        StartCoroutine(Cor_Anim());
+        EnableButton();
+    }
 
+    public virtual IEnumerator Cor_Anim()
+    {
+        yield return null;
+    }
+    public void EnableButton()
+    {
+        startButton.GetComponent<Button>().interactable = true;
+        settingButton.GetComponent<Button>().interactable = true;
+        returnButton.GetComponent<Button>().interactable = true;
+    }
+
+    public void DisableButton()
+    {
+        startButton.GetComponent<Button>().interactable = false;
+        settingButton.GetComponent<Button>().interactable = false;
+        returnButton.GetComponent<Button>().interactable = false;
     }
 }

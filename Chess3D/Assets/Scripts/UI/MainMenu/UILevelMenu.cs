@@ -5,12 +5,7 @@ using UnityEngine;
 
 public class UILevelMenu : UI
 {
-    public override void Anim()
-    {
-        Preset();
-        StartCoroutine(Cor_Anim());
-    }
-    IEnumerator Cor_Anim()
+    public override IEnumerator Cor_Anim()
     {
         SetTitle();
         SetButtonSystem();
@@ -29,13 +24,13 @@ public class UILevelMenu : UI
     {
         RectTransform topBG = topSlider.Find("BG") as RectTransform;
         RectTransform topOverlay = topSlider.Find("Overlay") as RectTransform;
-        topBG.DOAnchorPosY(-500, _timer).SetEase(Ease.OutBack);
-        topOverlay.DOAnchorPosY(-430, _timer).SetEase(Ease.OutBack);
+        topBG.DOAnchorPosY(-400, _timer).SetEase(Ease.OutBack);
+        topOverlay.DOAnchorPosY(-330, _timer).SetEase(Ease.OutBack);
 
         RectTransform bottomBG = bottomSlider.Find("BG") as RectTransform;
         RectTransform bottomOverlay = bottomSlider.Find("Overlay") as RectTransform;
-        bottomBG.DOAnchorPosY(500, _timer);
-        bottomOverlay.DOAnchorPosY(430, _timer);
+        bottomBG.DOAnchorPosY(400, _timer);
+        bottomOverlay.DOAnchorPosY(330, _timer);
     }
 
     private void SetChessHolder()
@@ -57,8 +52,8 @@ public class UILevelMenu : UI
         {
             RectTransform piece2 = container.GetChild(i) as RectTransform;
             piece2.DOAnchorPosY(-425, _timer);
-            yield return new WaitForSeconds(_timer / 10f);
         }
+        yield return null;
     }
 
     private void SetButtonSystem()

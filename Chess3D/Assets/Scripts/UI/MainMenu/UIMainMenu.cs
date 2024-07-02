@@ -7,13 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 public class UIMainMenu : UI
 {
-    public override void Anim()
-    {
-        Preset();
-        StartCoroutine(Cor_Anim());
-    }
-
-    IEnumerator Cor_Anim()
+    public override IEnumerator Cor_Anim()
     {
         SetLevelSystem();
         SetSlider();
@@ -25,7 +19,7 @@ public class UIMainMenu : UI
 
     private void SetTitle()
     {
-        title.DOAnchorPosY(240, _timer * 1.5f).SetEase(Ease.OutBack);
+        title.DOAnchorPosY(-300, _timer * 1.5f).SetEase(Ease.OutBack);
     }
 
     private void SetSlider()
@@ -73,6 +67,6 @@ public class UIMainMenu : UI
 
     private void SetLevelSystem()
     {
-        UIManager.Instance.levelSystem.DOAnchorPosY(-600f * 2, _timer).SetEase(Ease.OutBack);
+        UIManager.Instance.levelSystem.DOAnchorPosY(-1200f, _timer).SetEase(Ease.OutBack);
     }
 }
