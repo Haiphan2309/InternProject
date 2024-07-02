@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   center: {x: 0, y: 0, z: 0}
+  distance: 0
   maxTurn: 0
+  starTurn2: 0
+  starTurn3: 0
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -8209,3 +8212,4 @@ MonoBehaviour:
       tileType: 0
   playerArmies: []
   enemyArmies: []
+  thumbnail: {fileID: 21300000, guid: a8c1b20341cd45e408f66074e8aa21de, type: 3}
