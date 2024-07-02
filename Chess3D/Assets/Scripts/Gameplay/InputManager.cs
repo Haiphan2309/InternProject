@@ -150,7 +150,7 @@ public class InputManager : MonoBehaviour
         hitObject.outline.OutlineColor = Color.white;
         hitObject.outline.OutlineWidth = 10;
 
-        if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false || isPicking)
+        if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false && isPicking)
         {
             if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, hit.transform.position))
             {
