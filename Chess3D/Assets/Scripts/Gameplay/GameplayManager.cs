@@ -337,74 +337,86 @@ public class GameplayManager : MonoBehaviour
         if (chessMan.config.chessManType != ChessManType.KNIGHT)
         {
             Vector3 direct = new Vector3(posIndexToMove.x-chessMan.posIndex.x, 0, posIndexToMove.z - chessMan.posIndex.z).normalized;
-            Vector3 towardPos = chessMan.posIndex + direct;
-            if (towardPos.x < 0 || towardPos.y < 0 || towardPos.z < 0)
+            Vector3 towardPos = Vector3.zero;
+            TileInfo boxTileInfo = null;
+            foreach (var move in chessMan.config.Move(chessMan.posIndex))
             {
-                //hop roi ra khoi map
-            }
-            else
-            {
-                TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
-                Debug.Log("TileInfo: " + tileInfo);
-                Debug.Log("TowardPos: " + towardPos);
-                if (tileInfo.tileType == TileType.BOX || tileInfo.tileType == TileType.BOULDER)
+                Vector3 moveDirect = new Vector3(move.x - chessMan.posIndex.x, 0, move.z - chessMan.posIndex.z).normalized;
+                if (moveDirect != direct) continue;
+
+                TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)move.x, (int)move.y, (int)move.z);
+                if (tempTileInfo.tileType == TileType.BOX || tempTileInfo.tileType == TileType.BOULDER)
                 {
-                    TileInfo boxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
-                    TileInfo underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
-                    Vector3 boxPosToMove = posIndexToMove + direct;
-                    while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
-                        underBoxTileInfo.tileType == TileType.ENEMY_CHESS || underBoxTileInfo.tileType == TileType.PLAYER_CHESS) //box/boulder roi xuong
+                    towardPos = move;
+                    boxTileInfo = tempTileInfo;
+                    break;
+                }
+            }    
+            
+            //if (towardPos.x < 0 || towardPos.y < 0 || towardPos.z < 0)
+            //{
+            //    //hop roi ra khoi map
+            //}
+            //else
+            //{
+            //TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
+            //Debug.Log("BoxTileInfo: " + boxTileInfo);
+            //Debug.Log("TowardPos: " + towardPos);
+            if (boxTileInfo != null)
+            {
+                //TileInfo boxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
+                TileInfo underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+                Vector3 boxPosToMove = posIndexToMove + direct;
+                while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
+                    underBoxTileInfo.tileType == TileType.ENEMY_CHESS || underBoxTileInfo.tileType == TileType.PLAYER_CHESS) //box/boulder roi xuong
+                {
+                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
+                    boxPosToMove.y--;
+                    underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+                }
+
+                while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.WATER) // doi voi Boulder thi tiep tuc chim xuong nuoc
+                {
+                    boxPosToMove.y--;
+                    underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+                }
+
+                if (boxTileInfo.tileType == TileType.BOULDER) //Doi voi boulder thi lan tren mat phang nghieng (ko co xet dang o trong nuoc)
+                {
+                    while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_0)
                     {
                         levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
                         boxPosToMove.y--;
-                        underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+                        boxPosToMove.z++;
                     }
-
-                    while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.WATER) // doi voi Boulder thi tiep tuc chim xuong nuoc
+                    while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_90)
                     {
+                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
                         boxPosToMove.y--;
-                        underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+                        boxPosToMove.x--;
                     }
-
-                    if (tileInfo.tileType == TileType.BOULDER) //Doi voi boulder thi lan tren mat phang nghieng (ko co xet dang o trong nuoc)
+                    while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_180)
                     {
-                        while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_0)
-                        {
-                            levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                            boxPosToMove.y--;
-                            boxPosToMove.z++;
-                        }
-                        while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_90)
-                        {
-                            levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                            boxPosToMove.y--;
-                            boxPosToMove.x--;
-                        }
-                        while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_180)
-                        {
-                            levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                            boxPosToMove.y--;
-                            boxPosToMove.z--;
-                        }
-                        while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_270)
-                        {
-                            levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                            boxPosToMove.y--;
-                            boxPosToMove.x++;
-                        }
+                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
+                        boxPosToMove.y--;
+                        boxPosToMove.z--;
                     }
-
-                    Debug.Log("GetTile: " + new Vector3((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z));
-
-                    if ((int)boxPosToMove.x > 0 && (int)boxPosToMove.y>0 && (int)boxPosToMove.z>0) //box/boulder chua roi ra khoi map
+                    while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_270)
                     {
-                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
-                        Debug.Log("GetTile: " + levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z));
+                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
+                        boxPosToMove.y--;
+                        boxPosToMove.x++;
                     }
-
-                    //levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
                 }
+
+                if ((int)boxPosToMove.x > 0 && (int)boxPosToMove.y>0 && (int)boxPosToMove.z>0) //box/boulder chua roi ra khoi map
+                {
+                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
+                }
+
+                //levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
             }
+            //}
         }
 
         chessMan.Move(posIndexToMove);
