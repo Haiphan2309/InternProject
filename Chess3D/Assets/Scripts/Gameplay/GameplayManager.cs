@@ -27,7 +27,10 @@ public class GameplayManager : MonoBehaviour
     {
         Instance = this;
     }
-
+    private void Start()
+    {
+        LoadLevel();
+    }
     [Button]
     void ResetLevelRef()
     {
