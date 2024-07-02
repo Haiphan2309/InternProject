@@ -328,6 +328,7 @@ public class ChessManConfig : ScriptableObject
             {
                 if (dynamicObjectOnDirection)
                 {
+                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
                     break;
                 }
                 dynamicObjectOnDirection = true;
