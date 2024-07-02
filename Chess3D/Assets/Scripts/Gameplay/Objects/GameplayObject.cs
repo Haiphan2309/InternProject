@@ -9,6 +9,7 @@ public class GameplayObject : MonoBehaviour
 
     public virtual void MoveAnim(Vector3 posIndexToMove, float speed)
     {
+        Debug.Log("A");
     }
     public virtual void MoveAnim(Vector3 posIndexToMove, float speed, ChessMan chessManAbove = null)
     {

@@ -342,6 +342,8 @@ public class GameplayManager : MonoBehaviour
             else
             {
                 TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
+                Debug.Log("TileInfo: " + tileInfo);
+                Debug.Log("TowardPos: " + towardPos);
                 if (tileInfo.tileType == TileType.BOX || tileInfo.tileType == TileType.BOULDER)
                 {
                     TileInfo boxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
@@ -350,7 +352,7 @@ public class GameplayManager : MonoBehaviour
                     while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
                         underBoxTileInfo.tileType == TileType.ENEMY_CHESS || underBoxTileInfo.tileType == TileType.PLAYER_CHESS) //box/boulder roi xuong
                     {
-                        levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
+                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
                         boxPosToMove.y--;
                         underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
                     }
@@ -365,33 +367,36 @@ public class GameplayManager : MonoBehaviour
                     {
                         while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_0)
                         {
-                            levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
+                            levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
                             boxPosToMove.y--;
                             boxPosToMove.z++;
                         }
                         while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_90)
                         {
-                            levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
+                            levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
                             boxPosToMove.y--;
                             boxPosToMove.x--;
                         }
                         while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_180)
                         {
-                            levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
+                            levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
                             boxPosToMove.y--;
                             boxPosToMove.z--;
                         }
                         while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_270)
                         {
-                            levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
+                            levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
                             boxPosToMove.y--;
                             boxPosToMove.x++;
                         }
                     }
 
+                    Debug.Log("GetTile: " + new Vector3((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z));
+
                     if ((int)boxPosToMove.x > 0 && (int)boxPosToMove.y>0 && (int)boxPosToMove.z>0) //box/boulder chua roi ra khoi map
                     {
                         levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
+                        Debug.Log("GetTile: " + levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z));
                     }
 
                     //levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);

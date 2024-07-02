@@ -15,10 +15,16 @@ public class Box : GameplayObject
         Vector3 direction = transform.position - posIndexToMove;
         Debug.Log(direction.normalized);
 
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed);
+
         //Nếu chessManAbove != null (là có chessMan đứng trên box) thi nho cap nhat posIndex cho chessManAbove
         if (chessManAbove != null)
         {
 
         }
+    }
+    public override void MoveAnim(Vector3 posIndexToMove, float speed)
+    {
+        MoveAnim(posIndexToMove, speed, null);
     }
 }
