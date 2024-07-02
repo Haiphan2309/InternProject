@@ -197,14 +197,14 @@ public class ChessMan : MonoBehaviour
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
         RaycastHit hit;
-        if (Physics.Raycast(SnapToGrid(transform.position), transform.forward, out hit, 0.4f, objectLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 0.45f, objectLayer))
         {
             Box gameplayObject = hit.transform.GetComponent<Box>();
+            Debug.Log(hit.transform.name);
 
             if (gameplayObject.isAnim)
             {
-                gameplayObject.MoveAnim(transform.position, 5f * Time.deltaTime);
-                Debug.Log("Detect: " + hit.transform.name);
+                gameplayObject.MoveAnim(SnapToGrid(transform.position), 5f * Time.deltaTime);
             }
             
         }
@@ -236,7 +236,7 @@ public class ChessMan : MonoBehaviour
 
     Vector3 SnapToGrid(Vector3 position)
     {
-        return new Vector3(Mathf.Floor(position.x), Mathf.Floor(position.y), Mathf.Floor(position.z));
+        return new Vector3(Mathf.Round(position.x), Mathf.Round(position.y), Mathf.Round(position.z));
     }
 
     List<Vector3> CalculatePath(Vector3 start, Vector3 end)
