@@ -203,6 +203,7 @@ public class ChessMan : MonoBehaviour
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
+
         if (isRoundInteger)
         {
             transform.position = target;
@@ -219,19 +220,13 @@ public class ChessMan : MonoBehaviour
         {
             Box gameplayObject = hit.transform.GetComponent<Box>();
             Debug.Log(gameplayObject.name);
-            gameplayObject.MoveAnim(newPosition, 5f * Time.deltaTime);
-
+            gameplayObject.MoveAnim(newPosition, 5f * Time.deltaTime, isRoundInteger);
         }
     }
 
     Vector3 SnapToGrid(Vector3 position)
     {
-        return new Vector3(Mathf.Floor(position.x), Mathf.Floor(position.y), Mathf.Floor(position.z));
-    }
-
-    Vector3 SnapToSlope(Vector3 position)
-    {
-        return new Vector3(Mathf.Ceil(position.x), Mathf.Ceil(position.y), Mathf.Ceil(position.z));
+        return new Vector3(Mathf.Round(position.x), Mathf.Round(position.y), Mathf.Round(position.z));
     }
 
     List<Vector3> CalculatePath(Vector3 start, Vector3 end)
