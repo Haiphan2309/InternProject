@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -101,7 +102,7 @@ public class InputManager : MonoBehaviour
                 {
                     HideOulineHitChessMan();
                     HitObject(hit);
-                    HitTileToMove(hit);
+                    //HitTileToMove(hit);
                 }
                 else
                 {
@@ -157,6 +158,7 @@ public class InputManager : MonoBehaviour
                 GameplayManager.Instance.MakeMove(curChessMan, hit.transform.position);
                 HideOutlineHitObject();
             }
+            else HitTileToMove(hit);
         }
     }
     void HitChessMan(RaycastHit hit)

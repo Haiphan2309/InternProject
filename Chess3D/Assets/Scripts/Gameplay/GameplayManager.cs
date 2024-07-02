@@ -330,13 +330,29 @@ public class GameplayManager : MonoBehaviour
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
         isAnimMoving = true;
+
+        chessMan.Move(posIndexToMove);
+        if (defeatedChessMan != null)
+        {
+            StartCoroutine(Cor_DefeatedChessMan(chessMan, defeatedChessMan));
+        }
+
+        StartCoroutine(Cor_AfterAnim(chessMan,posIndexToMove));
+
+        if (enemyTurn == false)
+            SetRemainTurn(remainTurn - 1);
+    }
+
+    IEnumerator Cor_AfterAnim(ChessMan chessMan, Vector3 posIndexToMove)
+    {
+        yield return new WaitUntil(() => isAnimMoving == false);
         TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
         levelData.SetTileInfoNoDeep((int)posIndexToMove.x, (int)posIndexToMove.y, (int)posIndexToMove.z, curTileInfo.id, curTileInfo.tileType);
         levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
 
         if (chessMan.config.chessManType != ChessManType.KNIGHT)
         {
-            Vector3 direct = new Vector3(posIndexToMove.x-chessMan.posIndex.x, 0, posIndexToMove.z - chessMan.posIndex.z).normalized;
+            Vector3 direct = new Vector3(posIndexToMove.x - chessMan.posIndex.x, 0, posIndexToMove.z - chessMan.posIndex.z).normalized;
             Vector3 towardPos = Vector3.zero;
             TileInfo boxTileInfo = null;
             foreach (var move in chessMan.config.Move(chessMan.posIndex))
@@ -351,23 +367,14 @@ public class GameplayManager : MonoBehaviour
                     boxTileInfo = tempTileInfo;
                     break;
                 }
-            }    
-            
-            //if (towardPos.x < 0 || towardPos.y < 0 || towardPos.z < 0)
-            //{
-            //    //hop roi ra khoi map
-            //}
-            //else
-            //{
-            //TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
-            //Debug.Log("BoxTileInfo: " + boxTileInfo);
-            //Debug.Log("TowardPos: " + towardPos);
+            }
+
             if (boxTileInfo != null)
             {
                 //TileInfo boxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
                 TileInfo underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
                 Vector3 boxPosToMove = posIndexToMove + direct;
-                while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
+                while ((int)boxPosToMove.y - 1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
                     underBoxTileInfo.tileType == TileType.ENEMY_CHESS || underBoxTileInfo.tileType == TileType.PLAYER_CHESS) //box/boulder roi xuong
                 {
                     levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
@@ -375,7 +382,7 @@ public class GameplayManager : MonoBehaviour
                     underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
                 }
 
-                while ((int)boxPosToMove.y-1 > 0 && underBoxTileInfo.tileType == TileType.WATER) // doi voi Boulder thi tiep tuc chim xuong nuoc
+                while ((int)boxPosToMove.y - 1 > 0 && underBoxTileInfo.tileType == TileType.WATER) // doi voi Boulder thi tiep tuc chim xuong nuoc
                 {
                     boxPosToMove.y--;
                     underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
@@ -409,7 +416,7 @@ public class GameplayManager : MonoBehaviour
                     }
                 }
 
-                if ((int)boxPosToMove.x > 0 && (int)boxPosToMove.y>0 && (int)boxPosToMove.z>0) //box/boulder chua roi ra khoi map
+                if ((int)boxPosToMove.x > 0 && (int)boxPosToMove.y > 0 && (int)boxPosToMove.z > 0) //box/boulder chua roi ra khoi map
                 {
                     levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
                 }
@@ -418,15 +425,6 @@ public class GameplayManager : MonoBehaviour
             }
             //}
         }
-
-        chessMan.Move(posIndexToMove);
-        if (defeatedChessMan != null)
-        {
-            StartCoroutine(Cor_DefeatedChessMan(chessMan, defeatedChessMan));
-        }
-
-        if (enemyTurn == false)
-            SetRemainTurn(remainTurn - 1);
     }
 
     void Win()
