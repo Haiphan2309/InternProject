@@ -1,14 +1,11 @@
 using DG.Tweening;
+using GDC;
 using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 using UnityEngine.UIElements;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class ChessMan : MonoBehaviour
 {
@@ -25,6 +22,8 @@ public class ChessMan : MonoBehaviour
     public bool isEnemy;
     public int index;
     int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
+
+    public LayerMask objectLayer;
 
     bool isFalling = true;
     bool isOnSlope = false;
@@ -101,13 +100,20 @@ public class ChessMan : MonoBehaviour
     }
     void KnightMoveAnim(Vector3 posIndexToMove)
     {
-        transform.DOJump(posIndexToMove, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
+        StartCoroutine(Cor_KnightMoveAnim(posIndexToMove));
+    }
+
+    IEnumerator Cor_KnightMoveAnim(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        RotateToDirection(direction);
+        
+        yield return new WaitForSeconds(0.5f);
+        transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            AjustPosToGround(transform.position, posIndexToMove, posIndexToMove - transform.position, true);
+            AjustPosToGround(transform.position, target, target - transform.position, true);
             GameplayManager.Instance.ChangeTurn();
         });
-
-
     }
 
     void OtherMoveAnim(Vector3 posIndexToMove)
@@ -151,19 +157,17 @@ public class ChessMan : MonoBehaviour
 
         AjustPosToGround(transform.position, target, direction, true);
         yield return new WaitForSeconds(1);
-        posIndex = target;
         GameplayManager.Instance.ChangeTurn();
-        Debug.Log("ChangeTurn");
     }
 
     void RotateToDirection(Vector3 direction)
     {
-        Debug.Log("Forward: " + Vector3.forward);
-        Debug.Log("Direction: " + direction);
+        //Debug.Log("Forward: " + Vector3.forward);
+        //Debug.Log("Direction: " + direction);
 
         // Calculate the rotation
         Quaternion targetRotation = Quaternion.FromToRotation(Vector3.forward, direction);
-        Debug.Log("Target Rotation: " + Vector3.up * targetRotation.eulerAngles.y);
+        //Debug.Log("Target Rotation: " + Vector3.up * targetRotation.eulerAngles.y);
 
         // Apply the rotation to the GameObject
         transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
@@ -183,12 +187,6 @@ public class ChessMan : MonoBehaviour
                 isOnSlope = true;
                 break;
 
-            case TileType.BOX:
-                break;
-
-            case TileType.BOULDER:
-                break;
-
             default:
                 rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
                 isOnSlope = false;
@@ -197,6 +195,19 @@ public class ChessMan : MonoBehaviour
 
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
+
+        RaycastHit hit;
+        if (Physics.Raycast(SnapToGrid(transform.position), transform.forward, out hit, 0.4f, objectLayer))
+        {
+            Box gameplayObject = hit.transform.GetComponent<Box>();
+
+            if (gameplayObject.isAnim)
+            {
+                gameplayObject.MoveAnim(transform.position, 5f * Time.deltaTime);
+                Debug.Log("Detect: " + hit.transform.name);
+            }
+            
+        }
 
         if (isRoundInteger)
         {
@@ -210,14 +221,22 @@ public class ChessMan : MonoBehaviour
         transform.DORotate(rotation, 0.3f);
     }
 
+    private void OnDrawGizmos()
+    {
+        // Set the color for the Gizmos
+        Gizmos.color = Color.red;
+
+        // Define the Ray origin and direction
+        Vector3 rayOrigin = transform.position;
+        Vector3 rayDirection = transform.forward;
+
+        // Draw the Raycast
+        Gizmos.DrawRay(rayOrigin, rayDirection * 0.51f);
+    }
+
     Vector3 SnapToGrid(Vector3 position)
     {
         return new Vector3(Mathf.Floor(position.x), Mathf.Floor(position.y), Mathf.Floor(position.z));
-    }
-
-    Vector3 SnapToSlope(Vector3 position)
-    {
-        return new Vector3(Mathf.Ceil(position.x), Mathf.Ceil(position.y), Mathf.Ceil(position.z));
     }
 
     List<Vector3> CalculatePath(Vector3 start, Vector3 end)

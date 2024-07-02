@@ -292,7 +292,7 @@ public class ChessManConfig : ScriptableObject
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
         // The Vector3 that stores the current position for the next move
-        int dynamicObjectOnDirection = 0;
+        bool dynamicObjectOnDirection = false;
         Vector3 currentMove = currentPositionIndex;
         Vector3 move = currentMove;
         for (int i = 1; i <= moveRange; ++i)
@@ -326,7 +326,12 @@ public class ChessManConfig : ScriptableObject
             }
             if (IsDynamicObject(move))
             {
-                dynamicObjectOnDirection++;
+                if (dynamicObjectOnDirection)
+                {
+                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+                    break;
+                }
+                dynamicObjectOnDirection = true;
             }
             // Check if the potential move is into slopes up
             if (OnSlopeUp(move, direction))
@@ -363,13 +368,6 @@ public class ChessManConfig : ScriptableObject
         if (!InBound(move))
         {
             return;
-        }
-        // If it is in bound, that means we have faced the STATIC OBJECTS
-        // We pop_back the dynamicObjectOnDirection amount of moves in the list
-        while (dynamicObjectOnDirection > 0)
-        {
-            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-            dynamicObjectOnDirection--;
         }
     }
     public virtual void GenerateMoveList(Vector3 currentPositionIndex)
