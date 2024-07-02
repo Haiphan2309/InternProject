@@ -372,12 +372,12 @@ public class GameplayManager : MonoBehaviour
                 if (Vector3.Distance(chessMan.posIndex, move) > Vector3.Distance(chessMan.posIndex, posIndexToMove)) continue;
 
                 TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(move.x), (int)Mathf.Round(move.y), (int)Mathf.Round(move.z));
-                //Debug.Log("MOVE " + move + "  " + posIndexToMove + tempTileInfo.tileType);
+                Debug.Log("MOVE " + move + "  " + posIndexToMove + tempTileInfo.tileType);
                 if (tempTileInfo.tileType == TileType.BOX || tempTileInfo.tileType == TileType.BOULDER)
                 {
                     towardPos = move;
                     boxTileInfo = tempTileInfo;
-                    //Debug.Log("Find " + boxTileInfo);
+                    Debug.Log("Find " + boxTileInfo);
                     break;
                 }
             }
@@ -429,9 +429,10 @@ public class GameplayManager : MonoBehaviour
                     }
                 }
 
-                if ((int)boxPosToMove.x > 0 && (int)boxPosToMove.y > 0 && (int)boxPosToMove.z > 0) //box/boulder chua roi ra khoi map
+                if ((int)boxPosToMove.x >= 0 && (int)boxPosToMove.y > 0 && (int)boxPosToMove.z >= 0) //box/boulder chua roi ra khoi map
                 {
                     levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
+                    levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
                 }
 
                 //levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
