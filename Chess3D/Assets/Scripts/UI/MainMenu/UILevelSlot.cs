@@ -18,7 +18,7 @@ public class UILevelSlot : MonoBehaviour
     private int levelIndex = 0;
     public void Setup(int index)
     {
-        levelIndex = index;
+        levelIndex = index % 3;
         assetPath = "ScriptableObjects/LevelData" + "/Level_" + levelIndex;
         ButtonSetup();
         SpriteSetup();
