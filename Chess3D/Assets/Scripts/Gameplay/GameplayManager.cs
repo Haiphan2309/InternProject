@@ -358,13 +358,15 @@ public class GameplayManager : MonoBehaviour
             foreach (var move in chessMan.config.Move(chessMan.posIndex))
             {
                 Vector3 moveDirect = new Vector3(move.x - chessMan.posIndex.x, 0, move.z - chessMan.posIndex.z).normalized;
-                if (moveDirect != direct) continue;
+                Debug.Log(direct + " " + moveDirect);
+                if ((int)Mathf.Round(moveDirect.x) != (int)Mathf.Round(direct.x) || (int)Mathf.Round(moveDirect.z) != (int)Mathf.Round(direct.z)) continue;
 
                 TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)move.x, (int)move.y, (int)move.z);
                 if (tempTileInfo.tileType == TileType.BOX || tempTileInfo.tileType == TileType.BOULDER)
                 {
                     towardPos = move;
                     boxTileInfo = tempTileInfo;
+                    Debug.Log("Find!");
                     break;
                 }
             }
@@ -425,6 +427,7 @@ public class GameplayManager : MonoBehaviour
             }
             //}
         }
+        chessMan.posIndex = posIndexToMove;
     }
 
     void Win()
