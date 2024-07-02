@@ -2,7 +2,6 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -146,6 +145,7 @@ public class InputManager : MonoBehaviour
     }
     void HitObject(RaycastHit hit)
     {
+        GameplayManager.Instance.HideAvailableMove();
         hitObject = hit.transform.GetComponent<GameplayObject>();
         hitObject.outline.OutlineColor = Color.white;
         hitObject.outline.OutlineWidth = 10;
