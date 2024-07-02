@@ -116,7 +116,6 @@ public class ChessMan : MonoBehaviour
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             AjustPosToGround(transform.position, target, target - transform.position, true);
-            posIndex = target;
             GameplayManager.Instance.ChangeTurn();
         });
     }
@@ -162,9 +161,7 @@ public class ChessMan : MonoBehaviour
 
         AjustPosToGround(transform.position, target, direction, true);
         yield return new WaitForSeconds(1);
-        posIndex = target;
         GameplayManager.Instance.ChangeTurn();
-        Debug.Log("ChangeTurn");
     }
 
     void RotateToDirection(Vector3 direction)
