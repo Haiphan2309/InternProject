@@ -4,12 +4,8 @@ using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 using UnityEngine.UIElements;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class ChessMan : MonoBehaviour
 {
@@ -116,7 +112,6 @@ public class ChessMan : MonoBehaviour
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             AjustPosToGround(transform.position, target, target - transform.position, true);
-            posIndex = target;
             GameplayManager.Instance.ChangeTurn();
         });
     }
@@ -162,9 +157,7 @@ public class ChessMan : MonoBehaviour
 
         AjustPosToGround(transform.position, target, direction, true);
         yield return new WaitForSeconds(1);
-        posIndex = target;
         GameplayManager.Instance.ChangeTurn();
-        Debug.Log("ChangeTurn");
     }
 
     void RotateToDirection(Vector3 direction)
@@ -203,6 +196,14 @@ public class ChessMan : MonoBehaviour
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 0.6f, objectLayer))
+        {
+            Box gameplayObject = hit.transform.GetComponent<Box>();
+            Debug.Log(gameplayObject.name);
+            gameplayObject.MoveAnim(transform.position, 5f * Time.deltaTime, isRoundInteger);
+        }
+
         if (isRoundInteger)
         {
             transform.position = target;
@@ -213,25 +214,24 @@ public class ChessMan : MonoBehaviour
         }
 
         transform.DORotate(rotation, 0.3f);
+    }
 
-        RaycastHit hit;
-        if (Physics.Raycast(newPosition, Vector3.forward, out hit, 0.5f, objectLayer))
-        {
-            Box gameplayObject = hit.transform.GetComponent<Box>();
-            Debug.Log(gameplayObject.name);
-            gameplayObject.MoveAnim(newPosition, 5f * Time.deltaTime);
+    private void OnDrawGizmos()
+    {
+        // Set the color for the Gizmos
+        Gizmos.color = Color.red;
 
-        }
+        // Define the Ray origin and direction
+        Vector3 rayOrigin = transform.position;
+        Vector3 rayDirection = transform.forward;
+
+        // Draw the Raycast
+        Gizmos.DrawRay(rayOrigin, rayDirection * 0.6f);
     }
 
     Vector3 SnapToGrid(Vector3 position)
     {
-        return new Vector3(Mathf.Floor(position.x), Mathf.Floor(position.y), Mathf.Floor(position.z));
-    }
-
-    Vector3 SnapToSlope(Vector3 position)
-    {
-        return new Vector3(Mathf.Ceil(position.x), Mathf.Ceil(position.y), Mathf.Ceil(position.z));
+        return new Vector3(Mathf.Round(position.x), Mathf.Round(position.y), Mathf.Round(position.z));
     }
 
     List<Vector3> CalculatePath(Vector3 start, Vector3 end)

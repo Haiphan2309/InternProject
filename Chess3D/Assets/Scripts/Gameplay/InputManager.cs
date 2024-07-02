@@ -101,7 +101,7 @@ public class InputManager : MonoBehaviour
                 {
                     HideOulineHitChessMan();
                     HitObject(hit);
-                    HitTileToMove(hit);
+                    //HitTileToMove(hit);
                 }
                 else
                 {
@@ -145,11 +145,12 @@ public class InputManager : MonoBehaviour
     }
     void HitObject(RaycastHit hit)
     {
+        GameplayManager.Instance.HideAvailableMove();
         hitObject = hit.transform.GetComponent<GameplayObject>();
         hitObject.outline.OutlineColor = Color.white;
         hitObject.outline.OutlineWidth = 10;
 
-        if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false || isPicking)
+        if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false && isPicking)
         {
             if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, hit.transform.position))
             {
@@ -157,6 +158,7 @@ public class InputManager : MonoBehaviour
                 GameplayManager.Instance.MakeMove(curChessMan, hit.transform.position);
                 HideOutlineHitObject();
             }
+            else HitTileToMove(hit);
         }
     }
     void HitChessMan(RaycastHit hit)
