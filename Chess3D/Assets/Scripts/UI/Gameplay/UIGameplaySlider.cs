@@ -1,19 +1,26 @@
+using DG.Tweening;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIGameplaySlider : MonoBehaviour
 {
+ 
+    [SerializeField] RectTransform star1;
+    [SerializeField] RectTransform star2;
+    [SerializeField] RectTransform star3;
+
 
     public Sprite starOffSprite;
     public Sprite starOnSprite;
 
     Slider slider;
-    
-    GameObject[] stars;
+
+    RectTransform[] stars;
     bool[] starStatus;
     float maxSliderBar; // Kich thuoc toi da cua bar -> dung de chinh position cho star
     int currentStars;
@@ -21,20 +28,30 @@ public class UIGameplaySlider : MonoBehaviour
     [Button]
     public void Setup()
     {
-        slider = gameObject.GetComponent<Slider>();
-        //
-
-        //
-        stars = new GameObject[3];
-        starStatus = new bool[3] {true, true, true};
+        // setup stat
         currentStars = 3;
         maxSliderBar = 500;
+        //Setup Slider
+        slider = gameObject.GetComponent<Slider>();
+      
+        // Setup star
+        stars = new RectTransform[3] {star1, star2, star3};
+        starStatus = new bool[3] {true, true, true};
+        
         SetStarStatus(starStatus);
     }
     
     void SetStarStatus(int number,bool status)
     {
         starStatus[number] = status;
+        if (status == true)
+        {
+            stars[number].gameObject.GetComponent<Image>().sprite = starOnSprite;
+        }
+        else
+        {
+            stars[number].gameObject.GetComponent<Image>().sprite = starOffSprite;
+        }
     }
     void SetStarStatus(bool[] status)
     {
@@ -54,13 +71,24 @@ public class UIGameplaySlider : MonoBehaviour
         return starStatus[number];
     }
 
-    void SetStartPosition(int index, float pos)
+    void SetStarPosition(int index, float pos)
     {
 
     }
-    public void LoseStar()
+    
+
+    [Button]
+    public void OnValueChanged()
     {
-        SetStarStatus(currentStars-1, false);
-        currentStars--;
+        
+        for(int i = 0; i < stars.Length; i++)
+        {
+            bool status = stars[i].anchoredPosition.x < slider.value * maxSliderBar;
+            if (status != GetStarStatus(i))
+            { 
+                SetStarStatus(i, status);
+            }
+            
+        }
     }
 }
