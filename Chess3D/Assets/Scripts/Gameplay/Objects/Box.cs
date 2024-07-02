@@ -14,8 +14,12 @@ public class Box : MonoBehaviour
     {
         //todo anim
         Vector3 direction = transform.position - posIndexToMove;
-
+        Debug.Log(direction.normalized);
 
         //Nếu chessManAbove != null (là có chessMan đứng trên box) thi nho cap nhat posIndex cho chessManAbove
+        if (chessManAbove != null)
+        {
+
+        }
     }
 }
