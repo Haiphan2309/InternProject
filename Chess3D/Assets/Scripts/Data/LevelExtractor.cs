@@ -6,7 +6,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class LevelExtractor : MonoBehaviour
@@ -118,11 +120,12 @@ public class LevelExtractor : MonoBehaviour
        
         // Store levelData to real file
         string path = $"{levelDataPath}/{storeLevelName}.asset";
-   
+
+#if UNITY_EDITOR
         AssetDatabase.CreateAsset(newLevelData, path);
         AssetDatabase.SaveAssets();
+#endif
 
-        
         //
         Debug.Log("Level Data created successfully: " + path);
 
