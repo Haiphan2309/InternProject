@@ -14,6 +14,8 @@ public class UIMainMenu : UI
         SetChessHolder();
         SetButtonSystem();
         SetTitle();
+        yield return new WaitForSeconds(1.5f);
+        EnableButton();
         yield return null;
     }
 

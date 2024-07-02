@@ -12,6 +12,8 @@ public class UILevelMenu : UI
         SetChessHolder();
         SetSlider();
         SetLevelSystem();
+        yield return new WaitForSeconds(1f);
+        EnableButton();
         yield return null;
     }
 
