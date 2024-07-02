@@ -358,7 +358,7 @@ public class GameplayManager : MonoBehaviour
             foreach (var move in chessMan.config.Move(chessMan.posIndex))
             {
                 Vector3 moveDirect = new Vector3(move.x - chessMan.posIndex.x, 0, move.z - chessMan.posIndex.z).normalized;
-                Debug.Log(direct + " " + moveDirect);
+                //Debug.Log(direct + " " + moveDirect);
                 if ((int)Mathf.Round(moveDirect.x) != (int)Mathf.Round(direct.x) || (int)Mathf.Round(moveDirect.z) != (int)Mathf.Round(direct.z)) continue;
 
                 TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)move.x, (int)move.y, (int)move.z);
@@ -366,7 +366,6 @@ public class GameplayManager : MonoBehaviour
                 {
                     towardPos = move;
                     boxTileInfo = tempTileInfo;
-                    Debug.Log("Find!");
                     break;
                 }
             }
