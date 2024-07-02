@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GDC;
 using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
@@ -25,6 +26,8 @@ public class ChessMan : MonoBehaviour
     public bool isEnemy;
     public int index;
     int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
+
+    public LayerMask objectLayer;
 
     bool isFalling = true;
     bool isOnSlope = false;
@@ -101,13 +104,21 @@ public class ChessMan : MonoBehaviour
     }
     void KnightMoveAnim(Vector3 posIndexToMove)
     {
-        transform.DOJump(posIndexToMove, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
+        StartCoroutine(Cor_KnightMoveAnim(posIndexToMove));
+    }
+
+    IEnumerator Cor_KnightMoveAnim(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        RotateToDirection(direction);
+        
+        yield return new WaitForSeconds(0.5f);
+        transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            AjustPosToGround(transform.position, posIndexToMove, posIndexToMove - transform.position, true);
+            AjustPosToGround(transform.position, target, target - transform.position, true);
+            posIndex = target;
             GameplayManager.Instance.ChangeTurn();
         });
-
-
     }
 
     void OtherMoveAnim(Vector3 posIndexToMove)
@@ -158,12 +169,12 @@ public class ChessMan : MonoBehaviour
 
     void RotateToDirection(Vector3 direction)
     {
-        Debug.Log("Forward: " + Vector3.forward);
-        Debug.Log("Direction: " + direction);
+        //Debug.Log("Forward: " + Vector3.forward);
+        //Debug.Log("Direction: " + direction);
 
         // Calculate the rotation
         Quaternion targetRotation = Quaternion.FromToRotation(Vector3.forward, direction);
-        Debug.Log("Target Rotation: " + Vector3.up * targetRotation.eulerAngles.y);
+        //Debug.Log("Target Rotation: " + Vector3.up * targetRotation.eulerAngles.y);
 
         // Apply the rotation to the GameObject
         transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
@@ -181,12 +192,6 @@ public class ChessMan : MonoBehaviour
             case TileType.SLOPE_270:
                 rotation.x = -45 * direction.normalized.x;
                 isOnSlope = true;
-                break;
-
-            case TileType.BOX:
-                break;
-
-            case TileType.BOULDER:
                 break;
 
             default:
@@ -208,6 +213,15 @@ public class ChessMan : MonoBehaviour
         }
 
         transform.DORotate(rotation, 0.3f);
+
+        RaycastHit hit;
+        if (Physics.Raycast(newPosition, Vector3.forward, out hit, 0.5f, objectLayer))
+        {
+            Box gameplayObject = hit.transform.GetComponent<Box>();
+            Debug.Log(gameplayObject.name);
+            gameplayObject.MoveAnim(newPosition, 5f * Time.deltaTime);
+
+        }
     }
 
     Vector3 SnapToGrid(Vector3 position)

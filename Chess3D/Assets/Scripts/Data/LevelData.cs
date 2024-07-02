@@ -73,7 +73,7 @@ public class LevelData : ScriptableObject
     public List<TileData> tileInfo;
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;
-    
+    public Sprite thumbnail;
 
     public LevelData()
     {
