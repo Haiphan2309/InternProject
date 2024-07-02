@@ -326,7 +326,11 @@ public class ChessManConfig : ScriptableObject
             }
             if (IsDynamicObject(move))
             {
-                if (dynamicObjectOnDirection) break;
+                if (dynamicObjectOnDirection)
+                {
+                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+                    break;
+                }
                 dynamicObjectOnDirection = true;
             }
             // Check if the potential move is into slopes up
@@ -364,12 +368,6 @@ public class ChessManConfig : ScriptableObject
         if (!InBound(move))
         {
             return;
-        }
-        // if it is in bound, that means we have faced the static objects
-        // we pop_back the dynamicobjectondirection amount of moves in the list
-        if (dynamicObjectOnDirection)
-        {
-            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
         }
     }
     public virtual void GenerateMoveList(Vector3 currentPositionIndex)
