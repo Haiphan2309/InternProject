@@ -15,6 +15,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] LevelSpawner levelSpawner;
     [SerializeField] CameraController camController;
     public string levelName;
+    [ReadOnly] public int levelIndex;
     [HideInInspector] public LevelData levelData;
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
@@ -46,11 +47,12 @@ public class GameplayManager : MonoBehaviour
     [Button]
     public void LoadLevel()
     {
-        LoadLevel(levelName);
+        LoadLevel(levelIndex);
     }
-    public void LoadLevel(string levelName)
+    public void LoadLevel(int levelIndex)
     {
-        this.levelName = levelName;
+        this.levelIndex = levelIndex;
+        //this.levelName = "Level_" + levelIndex.ToString();
         levelSpawner.SpawnLevel(levelName);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
         //levelData = levelSpawner.levelData;
@@ -81,6 +83,11 @@ public class GameplayManager : MonoBehaviour
     {
         levelData = new LevelData();
         levelData.SetData(levelDataSO.GetTileInfo(), levelDataSO.GetPlayerArmies(), levelDataSO.GetEnemyArmies());
+        levelData.starTurn2 = levelDataSO.starTurn2;
+        levelData.starTurn3 = levelDataSO.starTurn3;
+        levelData.maxTurn = levelDataSO.maxTurn;
+        levelData.center = levelDataSO.center;
+        levelData.distance = levelDataSO.distance;
     }
     void SetRemainTurn(int value)
     {
@@ -122,9 +129,7 @@ public class GameplayManager : MonoBehaviour
             {
                 foreach (var move in enemy.config.Move(enemy.posIndex))
                 {
-                    if ((int)Mathf.Round(move.x) == (int)Mathf.Round(player.posIndex.x)
-                        && (int)Mathf.Round(move.y) == (int)Mathf.Round(player.posIndex.y)
-                        && (int)Mathf.Round(move.z) == (int)Mathf.Round(player.posIndex.z))
+                    if (GameUtils.CompareVector3(player.posIndex, move))
                     {
                         MakeMove(enemy, move, player);
                         return;
@@ -152,13 +157,10 @@ public class GameplayManager : MonoBehaviour
                             return;
                         }
                     }
-                    Debug.LogError("Khong co enemy nao co the di chuyen theo pattern dinh san ca!");
-                    //Co the dua ra giai phap di chuyen random o day
+                    Vector3 randomMove = enemyArmy[0].config.PatrolState(enemyArmy[0].posIndex);
+                    MakeMove(enemyArmy[0], randomMove);
+                    Debug.Log(enemyArmy[0].name + " di chuyen random");
                 }
-                //else
-                //{
-                //    Win();
-                //}
             }            
         }
         
@@ -214,7 +216,7 @@ public class GameplayManager : MonoBehaviour
             availableMoveTrans.Clear();
             foreach (Vector3 move in moves)
             {
-                TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(move.x), (int)Mathf.Round(move.y) - 1, (int)Mathf.Round(move.z));
+                TileInfo tileInfo = levelData.GetTileInfoNoDeep(move + Vector3.down);
                 Transform tran = Instantiate(availableMovePrefab, move, Quaternion.identity);
                 switch (tileInfo.tileType)
                 {
@@ -269,7 +271,7 @@ public class GameplayManager : MonoBehaviour
     }
     void CheckShowOutlineGameplayObject(Vector3 pos)
     {
-        TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(pos.x), (int)Mathf.Round(pos.y), (int)Mathf.Round(pos.z));
+        TileInfo tileInfo = levelData.GetTileInfoNoDeep(pos);
         if (tileInfo.tileType == TileType.BOX || tileInfo.tileType == TileType.BOULDER)
         {
             Collider[] colls = Physics.OverlapBox(pos, Vector3.one / 5);
@@ -280,8 +282,7 @@ public class GameplayManager : MonoBehaviour
                 //Debug.Log(gameplayObj);
                 if (gameplayObj == null) continue;
 
-                gameplayObj.outline.OutlineColor = Color.yellow;
-                gameplayObj.outline.OutlineWidth = 10;
+                gameplayObj.SetOutline(10, Color.yellow);
                 if (outlineGameplayObj == null)
                 {
                     outlineGameplayObj = new List<GameplayObject>();
@@ -292,8 +293,7 @@ public class GameplayManager : MonoBehaviour
     }
     void ShowOutlineChessMan(ChessMan chessMan)
     {
-        chessMan.outline.OutlineColor = Color.yellow;
-        chessMan.outline.OutlineWidth = 10;
+        chessMan.SetOutline(10, Color.yellow);
         if (outlineChessMan == null)
         {
             outlineChessMan = new List<ChessMan>();
@@ -305,7 +305,7 @@ public class GameplayManager : MonoBehaviour
         if (outlineChessMan == null) return;
         foreach (var chessMan in outlineChessMan)
         {
-            chessMan.outline.OutlineWidth = 0;
+            chessMan.SetOutline(0);
         }
         outlineChessMan.Clear();
     }
@@ -314,7 +314,7 @@ public class GameplayManager : MonoBehaviour
         if (outlineGameplayObj == null) return;
         foreach(var obj in outlineGameplayObj)
         {
-            obj.outline.OutlineWidth = 0;
+            obj.SetOutline(0);
         }
         outlineGameplayObj.Clear();
     }
@@ -335,10 +335,7 @@ public class GameplayManager : MonoBehaviour
         List<Vector3> moves = chessManConfig.Move(curPosIndex);
         foreach (Vector3 move in moves)
         {
-            //if (Vector3Int.FloorToInt(move) == Vector3Int.FloorToInt(posIndexToMove)) return true;
-            if ((int)Mathf.Round(move.x) == (int)Mathf.Round(posIndexToMove.x) 
-                && (int)Mathf.Round(move.y) == (int)Mathf.Round(posIndexToMove.y) 
-                && (int)Mathf.Round(move.z) == (int)Mathf.Round(posIndexToMove.z)) return true;
+            if (GameUtils.CompareVector3(move, posIndexToMove)) return true;
         }
         return false;
     }    
@@ -353,103 +350,119 @@ public class GameplayManager : MonoBehaviour
             StartCoroutine(Cor_DefeatedChessMan(chessMan, defeatedChessMan));
         }
 
-        StartCoroutine(Cor_AfterAnim(chessMan,posIndexToMove));
+        //StartCoroutine(Cor_AfterAnim(chessMan,posIndexToMove));
 
         if (enemyTurn == false)
             SetRemainTurn(remainTurn - 1);
     }
-
-    IEnumerator Cor_AfterAnim(ChessMan chessMan, Vector3 posIndexToMove)
+    public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null) //Cap nhat toa do tile oldPos thanh None, va cap nhat tileInfo cho new pos
     {
-        yield return new WaitUntil(() => isAnimMoving == false);
-        
-        //Debug.Log("AfterAnim");
-        if (chessMan.config.chessManType != ChessManType.KNIGHT)
+        levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
+        if (tileInfo == null)
         {
-            Vector3 direct = new Vector3(posIndexToMove.x - chessMan.posIndex.x, 0, posIndexToMove.z - chessMan.posIndex.z).normalized;
-            Vector3 towardPos = Vector3.zero;
-            TileInfo boxTileInfo = null;
-            foreach (var move in chessMan.config.Move(chessMan.posIndex))
-            {
-                Vector3 moveDirect = new Vector3(move.x - chessMan.posIndex.x, 0, move.z - chessMan.posIndex.z).normalized;
-                //Debug.Log(direct + " " + moveDirect);
-                if ((int)Mathf.Round(moveDirect.x) != (int)Mathf.Round(direct.x) || (int)Mathf.Round(moveDirect.z) != (int)Mathf.Round(direct.z)) continue;
-                if (Vector3.Distance(chessMan.posIndex, move) > Vector3.Distance(chessMan.posIndex, posIndexToMove)) continue;
-
-                TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(move.x), (int)Mathf.Round(move.y), (int)Mathf.Round(move.z));
-                Debug.Log("MOVE " + move + "  " + posIndexToMove + tempTileInfo.tileType);
-                if (tempTileInfo.tileType == TileType.BOX || tempTileInfo.tileType == TileType.BOULDER)
-                {
-                    towardPos = move;
-                    boxTileInfo = tempTileInfo;
-                    Debug.Log("Find " + boxTileInfo);
-                    break;
-                }
-            }
-
-            if (boxTileInfo != null)
-            {
-                //TileInfo boxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
-                TileInfo underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
-                Vector3 boxPosToMove = posIndexToMove + direct;
-                while ((int)boxPosToMove.y - 1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
-                    underBoxTileInfo.tileType == TileType.ENEMY_CHESS || underBoxTileInfo.tileType == TileType.PLAYER_CHESS) //box/boulder roi xuong
-                {
-                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                    boxPosToMove.y--;
-                    underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
-                }
-
-                while ((int)boxPosToMove.y - 1 > 0 && underBoxTileInfo.tileType == TileType.WATER) // doi voi Boulder thi tiep tuc chim xuong nuoc
-                {
-                    boxPosToMove.y--;
-                    underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
-                }
-
-                if (boxTileInfo.tileType == TileType.BOULDER) //Doi voi boulder thi lan tren mat phang nghieng (ko co xet dang o trong nuoc)
-                {
-                    while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_0)
-                    {
-                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                        boxPosToMove.y--;
-                        boxPosToMove.z++;
-                    }
-                    while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_90)
-                    {
-                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                        boxPosToMove.y--;
-                        boxPosToMove.x--;
-                    }
-                    while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_180)
-                    {
-                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                        boxPosToMove.y--;
-                        boxPosToMove.z--;
-                    }
-                    while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_270)
-                    {
-                        levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-                        boxPosToMove.y--;
-                        boxPosToMove.x++;
-                    }
-                }
-
-                if ((int)boxPosToMove.x >= 0 && (int)boxPosToMove.y > 0 && (int)boxPosToMove.z >= 0) //box/boulder chua roi ra khoi map
-                {
-                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
-                    levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
-                }
-
-                //levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
-            }
-            //}
+            levelData.SetTileInfoNoDeep(newPos, 0, TileType.NONE);
         }
-        TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
-        levelData.SetTileInfoNoDeep((int)posIndexToMove.x, (int)posIndexToMove.y, (int)posIndexToMove.z, curTileInfo.id, curTileInfo.tileType);
-        levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
-        chessMan.posIndex = posIndexToMove;
-        isEndTurn = true;
+        else
+        {
+            levelData.SetTileInfoNoDeep(newPos, tileInfo.id, tileInfo.tileType);
+        }
     }
+    public void EndTurn() //Duoc goi sau khi ket thuc luot
+    {
+        isEndTurn = true;
+        ChangeTurn();
+    }
+    //IEnumerator Cor_AfterAnim(ChessMan chessMan, Vector3 posIndexToMove)
+    //{
+    //    yield return new WaitUntil(() => isAnimMoving == false);
+        
+    //    //Debug.Log("AfterAnim");
+    //    if (chessMan.config.chessManType != ChessManType.KNIGHT)
+    //    {
+    //        Vector3 direct = new Vector3(posIndexToMove.x - chessMan.posIndex.x, 0, posIndexToMove.z - chessMan.posIndex.z).normalized;
+    //        Vector3 towardPos = Vector3.zero;
+    //        TileInfo boxTileInfo = null;
+    //        foreach (var move in chessMan.config.Move(chessMan.posIndex))
+    //        {
+    //            Vector3 moveDirect = new Vector3(move.x - chessMan.posIndex.x, 0, move.z - chessMan.posIndex.z).normalized;
+    //            //Debug.Log(direct + " " + moveDirect);
+    //            if ((int)Mathf.Round(moveDirect.x) != (int)Mathf.Round(direct.x) || (int)Mathf.Round(moveDirect.z) != (int)Mathf.Round(direct.z)) continue;
+    //            if (Vector3.Distance(chessMan.posIndex, move) > Vector3.Distance(chessMan.posIndex, posIndexToMove)) continue;
+
+    //            TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(move.x), (int)Mathf.Round(move.y), (int)Mathf.Round(move.z));
+    //            Debug.Log("MOVE " + move + "  " + posIndexToMove + tempTileInfo.tileType);
+    //            if (tempTileInfo.tileType == TileType.BOX || tempTileInfo.tileType == TileType.BOULDER)
+    //            {
+    //                towardPos = move;
+    //                boxTileInfo = tempTileInfo;
+    //                Debug.Log("Find " + boxTileInfo);
+    //                break;
+    //            }
+    //        }
+
+    //        if (boxTileInfo != null)
+    //        {
+    //            //TileInfo boxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
+    //            TileInfo underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+    //            Vector3 boxPosToMove = posIndexToMove + direct;
+    //            while ((int)boxPosToMove.y - 1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
+    //                underBoxTileInfo.tileType == TileType.ENEMY_CHESS || underBoxTileInfo.tileType == TileType.PLAYER_CHESS) //box/boulder roi xuong
+    //            {
+    //                levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
+    //                boxPosToMove.y--;
+    //                underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+    //            }
+
+    //            while ((int)boxPosToMove.y - 1 > 0 && underBoxTileInfo.tileType == TileType.WATER) // doi voi Boulder thi tiep tuc chim xuong nuoc
+    //            {
+    //                boxPosToMove.y--;
+    //                underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
+    //            }
+
+    //            if (boxTileInfo.tileType == TileType.BOULDER) //Doi voi boulder thi lan tren mat phang nghieng (ko co xet dang o trong nuoc)
+    //            {
+    //                while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_0)
+    //                {
+    //                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
+    //                    boxPosToMove.y--;
+    //                    boxPosToMove.z++;
+    //                }
+    //                while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_90)
+    //                {
+    //                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
+    //                    boxPosToMove.y--;
+    //                    boxPosToMove.x--;
+    //                }
+    //                while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_180)
+    //                {
+    //                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
+    //                    boxPosToMove.y--;
+    //                    boxPosToMove.z--;
+    //                }
+    //                while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_270)
+    //                {
+    //                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
+    //                    boxPosToMove.y--;
+    //                    boxPosToMove.x++;
+    //                }
+    //            }
+
+    //            if ((int)boxPosToMove.x >= 0 && (int)boxPosToMove.y > 0 && (int)boxPosToMove.z >= 0) //box/boulder chua roi ra khoi map
+    //            {
+    //                levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
+    //                levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
+    //            }
+
+    //            //levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
+    //        }
+    //        //}
+    //    }
+    //    TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
+    //    levelData.SetTileInfoNoDeep((int)posIndexToMove.x, (int)posIndexToMove.y, (int)posIndexToMove.z, curTileInfo.id, curTileInfo.tileType);
+    //    levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
+    //    chessMan.posIndex = posIndexToMove;
+    //    isEndTurn = true;
+    //}
 
     void Win()
     {
@@ -492,11 +505,11 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitUntil(() => Vector3.Distance(defeatChessMan.transform.position, defeatedChessMan.transform.position) < 1);
         defeatedChessMan.Defeated();
     }
-    [SerializeField] int x, y, z;
+    [SerializeField] Vector3 logTestPos;
     [Button]
     void LogTileInfo()
     {
-        TileInfo tileInfo = levelData.GetTileInfoNoDeep(x, y, z);
+        TileInfo tileInfo = levelData.GetTileInfoNoDeep(logTestPos);
         Debug.Log(tileInfo.tileType);
     }
 }

@@ -328,7 +328,6 @@ public class ChessManConfig : ScriptableObject
             {
                 if (dynamicObjectOnDirection)
                 {
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
                     break;
                 }
                 dynamicObjectOnDirection = true;
@@ -368,6 +367,10 @@ public class ChessManConfig : ScriptableObject
         if (!InBound(move))
         {
             return;
+        }
+        if (dynamicObjectOnDirection)
+        {
+            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
         }
     }
     public virtual void GenerateMoveList(Vector3 currentPositionIndex)
@@ -490,7 +493,7 @@ public class ChessManConfig : ScriptableObject
     }
 
     // PatrolState: Default
-    public virtual Vector3 PatrolState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority)
+    public virtual Vector3 PatrolState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority = null)
     {
         return possibleMoveList[UnityEngine.Random.Range(0, possibleMoveList.Count)];
     }

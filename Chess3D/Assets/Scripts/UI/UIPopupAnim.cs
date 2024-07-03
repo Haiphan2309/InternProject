@@ -10,7 +10,7 @@ public class UIPopupAnim : MonoBehaviour
 {
     [SerializeField] RectTransform panelRect;
     //[SerializeField] List<Image> images = new List<Image>();
-    [SerializeField, ReadOnly] List<Color> imageOriginColor, textOriginColor, tmpTextOriginColor;
+    [SerializeField] List<Color> imageOriginColor, textOriginColor, tmpTextOriginColor;
 
     [Button]
     public void Show()
