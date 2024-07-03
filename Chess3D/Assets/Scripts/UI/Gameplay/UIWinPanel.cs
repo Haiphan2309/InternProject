@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,11 +13,17 @@ public class UIWinPanel : MonoBehaviour
     [SerializeField] List<Image> stars, halos;
     [SerializeField] Slider turnSlider;
     [SerializeField] TMP_Text turnText;
+    [SerializeField] Button menuBtn, replayBtn, nextBtn;
     Color haloColor;
 
     [Button]
     void Show()
     {
+        gameObject.SetActive(true);
+        menuBtn.onClick.AddListener(OnMenu);
+        replayBtn.onClick.AddListener(OnReplay);
+        nextBtn.onClick.AddListener(OnNextLevel);
+
         haloColor = halos[0].color;
         uiPopupAnim.Show();
         //Debug.Log(GameplayManager.Instance.levelData.maxTurn);
@@ -44,12 +51,41 @@ public class UIWinPanel : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         turnSlider.DOValue(GameplayManager.Instance.remainTurn, 3);
-        for (int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            stars[i].DOColor(Color.white,0.2f);
+            stars[i].DOColor(Color.white, 0.2f);
             stars[i].rectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
             halos[i].rectTransform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
             yield return new WaitForSeconds(1);
         }
+    }
+    void OnMenu()
+    {
+        GameManager.Instance.LoadSceneManually(
+            GDC.Enums.SceneType.MAINMENU,
+            GDC.Enums.TransitionType.IN,
+            SoundType.NONE,
+            cb: () =>
+            {
+                //    //GDC.Managers.GameManager.Instance.SetInitData(levelIndex);
+            },
+            true);
+    }
+    void OnReplay()
+    {
+        int currentLevelIndex = GameplayManager.Instance.levelIndex;
+        GameManager.Instance.LoadSceneManually(
+            GDC.Enums.SceneType.GAMEPLAY,
+            GDC.Enums.TransitionType.IN,
+            SoundType.NONE,
+            cb: () =>
+            {
+                GDC.Managers.GameManager.Instance.SetInitData(currentLevelIndex);
+            },
+            true);
+    }
+    void OnNextLevel()
+    {
+        Debug.Log("NextLevel");
     }
 }

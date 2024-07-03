@@ -191,8 +191,9 @@ namespace GDC.Managers
         IEnumerator Cor_InitData(int levelIndex)
         {
             yield return new WaitUntil(() => GameplayManager.Instance != null);
-            string levelName = "Level_" + (levelIndex+1).ToString();
-            //GameplayManager.Instance.LoadLevel(levelName);
+            //string levelName = "Level_" + (levelIndex+1).ToString();
+
+            //GameplayManager.Instance.LoadLevel(levelIndex);
             GameplayManager.Instance.LoadLevel();
         }
     }
