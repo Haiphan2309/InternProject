@@ -32,15 +32,8 @@ public class UIMainMenu : UI
 
     private void SetChessHolder()
     {
-        RectTransform topHolderCircle = topChessHolder.Find("Circle") as RectTransform;
-        topHolderCircle.DOAnchorPosY(-500, _timer);
-        topHolderCircle.DOScale(Vector3.right * 20 + Vector3.up * 20, _timer).SetEase(Ease.OutBack);
-        StartCoroutine(Cor_AnimChessPieces(topChessContainer));
-
-        RectTransform bottomHolderCircle = bottomChessHolder.Find("Circle") as RectTransform;
-        bottomHolderCircle.DOAnchorPosY(500, _timer);
-        bottomHolderCircle.DOScale(Vector3.right * 20 + Vector3.up * 20, _timer).SetEase(Ease.OutBack);
-        StartCoroutine(Cor_AnimChessPieces(bottomChessContainer));
+        ShowChessHolder(topChessHolder);
+        ShowChessHolder(bottomChessHolder);
     }
 
     IEnumerator Cor_AnimChessPieces(RectTransform container)
