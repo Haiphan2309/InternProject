@@ -18,11 +18,23 @@ public class UILevelSlot : MonoBehaviour
 
     private int maxStarCount = 3;
     private bool isAvailable = true;
+    private LevelData levelData; 
     public void Setup(int index)
     {
         levelIndex = index;
         assetPath = "ScriptableObjects/LevelData" + "/Level_" + levelIndex;
         defaultPath = "UI/DefaultAsset/LoadingScreenGradient";
+        levelData = Resources.Load<LevelData>(assetPath);
+        if (levelData == null)
+        {
+            isAvailable = false;
+            transform.GetComponent<Image>().color = Color.black;
+        }
+        else
+        {
+            isAvailable = true;
+            transform.GetComponent<Image>().color = Color.white;
+        }
         SpriteSetup();
         TextSetup();
         StarSetup();
@@ -30,34 +42,45 @@ public class UILevelSlot : MonoBehaviour
 
     private void SpriteSetup()
     {
-        LevelData levelData = Resources.Load<LevelData>(assetPath);
         Sprite sprite;
-        if (levelData == null)
+        if (isAvailable)
+        {
+            sprite = levelData.thumbnail;
+            isAvailable = true;
+            transform.GetComponent<Image>().color = Color.white;
+        }
+        else
         {
             sprite = Resources.Load<Sprite>(defaultPath);
             isAvailable = false;
             transform.GetComponent<Image>().color = Color.black;
         }
-        else
-        {
-            sprite = levelData.thumbnail;
-            isAvailable = true;
-        }
         levelImage.sprite = sprite;
+        Debug.Log("Level " + levelIndex + " is available " + isAvailable);
     }
 
     public void ButtonSetup()
     {
-        // Debug.Log("Level " + levelIndex + " Add Button");
         if (isAvailable)
         {
             LoadLevel(levelIndex);
+        }
+        else
+        {
+
         }
     }
 
     private void TextSetup()
     {
-        levelText.text = "Level " + (levelIndex + 1).ToString();
+        if (isAvailable)
+        {
+            levelText.text = "Level " + (levelIndex + 1).ToString();
+        }
+        else
+        {
+            levelText.text = "Unavailable";
+        }
     }
 
     public void LoadLevel(int levelIndex)
