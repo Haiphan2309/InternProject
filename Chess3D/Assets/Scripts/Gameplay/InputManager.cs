@@ -147,8 +147,7 @@ public class InputManager : MonoBehaviour
     {
         GameplayManager.Instance.HideAvailableMove();
         hitObject = hit.transform.GetComponent<GameplayObject>();
-        hitObject.outline.OutlineColor = Color.white;
-        hitObject.outline.OutlineWidth = 10;
+        hitObject.SetOutline(10, Color.white);
 
         if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false && isPicking)
         {
@@ -227,7 +226,7 @@ public class InputManager : MonoBehaviour
     {
         obj.gameObject.SetActive(true);
         
-        switch (GameplayManager.Instance.levelData.GetTileInfo()[(int)Mathf.Round(pos.x), (int)Mathf.Round(pos.y), (int)Mathf.Round(pos.z)].tileType)
+        switch (GameplayManager.Instance.levelData.GetTileInfoNoDeep(pos).tileType)
         {
             case GDC.Enums.TileType.SLOPE_0:
                 obj.transform.position = pos + new Vector3(0, 0.55f, 0.1f);
@@ -265,8 +264,7 @@ public class InputManager : MonoBehaviour
         if (hitChessMan == null || (hitChessMan != null && hitChessMan.posIndex != curChessMan.posIndex))
         {
             hitChessMan = curChessMan;
-            hitChessMan.outline.OutlineColor = Color.white;
-            hitChessMan.outline.OutlineWidth = 10;
+            hitChessMan.SetOutline(10, Color.white);
         }
     }
     void HideOulineHitChessMan()
@@ -274,7 +272,7 @@ public class InputManager : MonoBehaviour
         GameplayManager.Instance.HideOutLineAllChessMan();
         if (hitChessMan != null)
         {
-            hitChessMan.outline.OutlineWidth = 0;
+            hitChessMan.SetOutline(0);
             hitChessMan = null;
         }
         HideOutlineHitObject();
@@ -283,9 +281,8 @@ public class InputManager : MonoBehaviour
     {
         if (hitObject != null)
         {
-            hitObject.outline.OutlineWidth = 0;
+            hitObject.SetOutline(0);
             hitObject = null;
-
         }
     }
 }
