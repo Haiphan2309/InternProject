@@ -7611,6 +7611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSpawner: {fileID: 1220447863}
   camController: {fileID: 1349836853}
+  levelName: Level_Test_AI
   levelData: {fileID: 11400000, guid: 2eac02057220f5b4cb14ff5b3a3058e9, type: 2}
   availableMovePrefab: {fileID: 7245618113376876351, guid: 84568a093dba36641903864ef114cacc, type: 3}
   playerArmy: []
@@ -7621,6 +7622,10 @@ MonoBehaviour:
   remainTurn: 0
   enemyTurn: 0
   isAnimMoving: 0
+  isEndTurn: 0
+  x: 0
+  y: 0
+  z: 0
 --- !u!4 &386281600
 Transform:
   m_ObjectHideFlags: 0
@@ -31845,7 +31850,7 @@ RectTransform:
   - {fileID: 1973485526}
   - {fileID: 444564390}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
