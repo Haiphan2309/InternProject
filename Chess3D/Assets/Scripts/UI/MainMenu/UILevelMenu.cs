@@ -26,15 +26,8 @@ public class UILevelMenu : UI
 
     private void SetSlider()
     {
-        RectTransform topBG = topSlider.Find("BG") as RectTransform;
-        RectTransform topOverlay = topSlider.Find("Overlay") as RectTransform;
-        topBG.DOAnchorPosY(-400, _timer).SetEase(Ease.OutBack);
-        topOverlay.DOAnchorPosY(-330, _timer).SetEase(Ease.OutBack);
-
-        RectTransform bottomBG = bottomSlider.Find("BG") as RectTransform;
-        RectTransform bottomOverlay = bottomSlider.Find("Overlay") as RectTransform;
-        bottomBG.DOAnchorPosY(400, _timer);
-        bottomOverlay.DOAnchorPosY(330, _timer);
+        ShowSliderHalfHeight(topSlider);
+        ShowSliderHalfHeight(bottomSlider);
     }
 
     private void SetChessHolder()
