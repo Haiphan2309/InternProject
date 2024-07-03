@@ -12,10 +12,12 @@ public class UIWinPanel : MonoBehaviour
     [SerializeField] List<Image> stars, halos;
     [SerializeField] Slider turnSlider;
     [SerializeField] TMP_Text turnText;
+    Color haloColor;
 
     [Button]
     void Show()
     {
+        haloColor = halos[0].color;
         uiPopupAnim.Show();
         //Debug.Log(GameplayManager.Instance.levelData.maxTurn);
         turnSlider.maxValue = GameplayManager.Instance.levelData.maxTurn;
@@ -32,6 +34,7 @@ public class UIWinPanel : MonoBehaviour
         foreach (var item in halos)
         {
             DOTween.Kill(item);
+            item.color = haloColor;
             item.rectTransform.localScale = Vector2.zero;
         }
         StartCoroutine(Cor_Show());
