@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,10 @@ public class UI : MonoBehaviour
 
     public float _timer = 1f;
     public bool isLoaded = false;
+
+    private float sliderPositionFullHeight = 550f;
+    private float sliderPositionHalfHeight = 350f;
+    private float sliderOffset = -50f;
 
     public virtual void Preset()
     {
@@ -61,5 +66,21 @@ public class UI : MonoBehaviour
         startButton.GetComponent<Button>().interactable = false;
         settingButton.GetComponent<Button>().interactable = false;
         returnButton.GetComponent<Button>().interactable = false;
+    }
+
+    public void ShowSliderFullHeight(RectTransform slider)
+    {
+        RectTransform topBG = slider.Find("BG") as RectTransform;
+        RectTransform topOverlay = slider.Find("Overlay") as RectTransform;
+        topBG.DOAnchorPosY(sliderPositionFullHeight, _timer).SetEase(Ease.OutBack);
+        topOverlay.DOAnchorPosY(sliderPositionFullHeight + sliderOffset, _timer).SetEase(Ease.OutBack);
+    }
+
+    public void ShowSliderHalfHeight(RectTransform slider)
+    {
+        RectTransform topBG = slider.Find("BG") as RectTransform;
+        RectTransform topOverlay = slider.Find("Overlay") as RectTransform;
+        topBG.DOAnchorPosY(sliderPositionFullHeight, _timer).SetEase(Ease.OutBack);
+        topOverlay.DOAnchorPosY(sliderPosition + sliderOffset, _timer).SetEase(Ease.OutBack);
     }
 }

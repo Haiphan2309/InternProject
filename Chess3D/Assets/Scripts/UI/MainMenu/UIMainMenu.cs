@@ -26,15 +26,8 @@ public class UIMainMenu : UI
 
     private void SetSlider()
     {
-        RectTransform topBG = topSlider.Find("BG") as RectTransform;
-        RectTransform topOverlay = topSlider.Find("Overlay") as RectTransform;
-        topBG.DOAnchorPosY(-600, _timer).SetEase(Ease.OutBack);
-        topOverlay.DOAnchorPosY(-530, _timer).SetEase(Ease.OutBack);
-
-        RectTransform bottomBG = bottomSlider.Find("BG") as RectTransform;
-        RectTransform bottomOverlay = bottomSlider.Find("Overlay") as RectTransform;
-        bottomBG.DOAnchorPosY(600, _timer);
-        bottomOverlay.DOAnchorPosY(530, _timer);
+        ShowSliderFullHeight(topSlider);
+        ShowSliderFullHeight(bottomSlider);
     }
 
     private void SetChessHolder()
@@ -54,8 +47,8 @@ public class UIMainMenu : UI
     {
         for (int i = 0; i < container.childCount; ++i)
         {
-            RectTransform piece2 = container.GetChild(i) as RectTransform;
-            piece2.DOAnchorPosY(425, _timer);
+            RectTransform piece = container.GetChild(i) as RectTransform;
+            piece.DOAnchorPosY(425, _timer);
             yield return new WaitForSeconds(_timer / 10f);
         }
     }
