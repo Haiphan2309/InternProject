@@ -23,19 +23,19 @@ public class UI : MonoBehaviour
 
     public virtual void Preset()
     {
-        title = UIManager.Instance.textSystem.Find("Title") as RectTransform;
+        title = UIManager.Instance.textSystem.GetChild(0).GetComponent<RectTransform>();
 
-        topSlider = UIManager.Instance.backgroundSystem.Find("TopSlider") as RectTransform;
-        topChessHolder = topSlider.Find("ChessHolder") as RectTransform;
-        topChessContainer = topChessHolder.Find("ChessContainer") as RectTransform;
+        topSlider = UIManager.Instance.backgroundSystem.GetChild(1).GetComponent<RectTransform>();
+        topChessHolder = topSlider.GetChild(0).GetComponent<RectTransform>();
+        topChessContainer = topChessHolder.GetChild(1).GetComponent<RectTransform>();
 
-        bottomSlider = UIManager.Instance.backgroundSystem.Find("BottomSlider") as RectTransform;
-        bottomChessHolder = bottomSlider.Find("ChessHolder") as RectTransform;
-        bottomChessContainer = bottomChessHolder.Find("ChessContainer") as RectTransform;
+        bottomSlider = UIManager.Instance.backgroundSystem.GetChild(2).GetComponent<RectTransform>();
+        bottomChessHolder = bottomSlider.GetChild(0).GetComponent<RectTransform>();
+        bottomChessContainer = bottomChessHolder.GetChild(1).GetComponent<RectTransform>();
 
-        startButton = UIManager.Instance.buttonSystem.Find("StartButton") as RectTransform;
-        settingButton = UIManager.Instance.buttonSystem.Find("SettingButton") as RectTransform;
-        returnButton = UIManager.Instance.buttonSystem.Find("ReturnButton") as RectTransform;
+        startButton = UIManager.Instance.buttonSystem.GetChild(0).GetComponent<RectTransform>();
+        settingButton = UIManager.Instance.buttonSystem.GetChild(1).GetComponent<RectTransform>();
+        returnButton = UIManager.Instance.buttonSystem.GetChild(2).GetComponent<RectTransform>();
     }
 
     public virtual void Anim()

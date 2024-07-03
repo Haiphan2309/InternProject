@@ -21,7 +21,7 @@ public class UILevelMenu : UI
 
     private void SetTitle()
     {
-        title.DOAnchorPosY(1200, _timer * 1.5f).SetEase(Ease.OutBack);
+        title.DOAnchorPosY(300f, _timer * 1.5f).SetEase(Ease.OutBack);
     }
 
     private void SetSlider()
