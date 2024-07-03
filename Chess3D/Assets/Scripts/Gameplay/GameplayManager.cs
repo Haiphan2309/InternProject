@@ -365,11 +365,19 @@ public class GameplayManager : MonoBehaviour
         if (enemyTurn == false)
             SetRemainTurn(remainTurn - 1);
     }
-    public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo)
+    public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null)
     {
+        
         //TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
-        levelData.SetTileInfoNoDeep((int)oldPos.x, (int)oldPos.y, (int)oldPos.z, tileInfo.id, tileInfo.tileType);
-        levelData.SetTileInfoNoDeep((int)newPos.x, (int)newPos.y, (int)newPos.z, 0, TileType.NONE);
+        levelData.SetTileInfoNoDeep((int)oldPos.x, (int)oldPos.y, (int)oldPos.z, 0, TileType.NONE);
+        if (tileInfo == null)
+        {
+            levelData.SetTileInfoNoDeep((int)newPos.x, (int)newPos.y, (int)newPos.z, 0, TileType.NONE);
+        }
+        else
+        {
+            levelData.SetTileInfoNoDeep((int)newPos.x, (int)newPos.y, (int)newPos.z, tileInfo.id, tileInfo.tileType);
+        }
     }
     public void EndTurn()
     {
