@@ -109,7 +109,11 @@ public class ChessMan : GameplayObject
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             AjustPosToGround(transform.position, target, target - transform.position, true, true);
-            GameplayManager.Instance.ChangeTurn();
+            TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+
+            GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
+            posIndex = target;
+            GameplayManager.Instance.EndTurn();
         });
     }
 
@@ -180,9 +184,16 @@ public class ChessMan : GameplayObject
 
         AjustPosToGround(transform.position, target, direction, true, true);
         yield return new WaitForSeconds(0.1f);
+
+        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+
+        GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
+        posIndex = target;
+
         isTouchBox = false;
         isTouchBoulder = false;
-        GameplayManager.Instance.ChangeTurn();
+
+        GameplayManager.Instance.EndTurn();
     }
 
     void RotateToDirection(Vector3 direction)

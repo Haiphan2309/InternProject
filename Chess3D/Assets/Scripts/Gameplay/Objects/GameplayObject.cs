@@ -25,6 +25,17 @@ public class GameplayObject : MonoBehaviour
 
     }
 
+    public void SetOutline(float width)
+    {
+        //outline.OutlineColor = color;
+        outline.OutlineWidth = width;
+    }
+    public void SetOutline(float width, Color color)
+    {
+        outline.OutlineColor = color;
+        outline.OutlineWidth = width;
+    }
+
     protected Vector3 SnapToGrid(Vector3 position)
     {
         return new Vector3(Mathf.Round(position.x), Mathf.Round(position.y), Mathf.Round(position.z));
