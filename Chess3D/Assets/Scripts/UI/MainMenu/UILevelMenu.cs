@@ -21,7 +21,7 @@ public class UILevelMenu : UI
 
     private void SetTitle()
     {
-        title.DOAnchorPosY(1200, _timer * 1.5f).SetEase(Ease.OutBack);
+        title.DOAnchorPosY(300f, _timer * 1.5f).SetEase(Ease.OutBack);
     }
 
     private void SetSlider()
@@ -68,23 +68,5 @@ public class UILevelMenu : UI
     private void SetLevelSystem()
     {
         UIManager.Instance.levelSystem.DOAnchorPosY(0, _timer).SetEase(Ease.OutBack);
-    }
-
-    [Button]
-    void LoadLevelTest()
-    {
-        LoadLevel(0);
-    }
-    public void LoadLevel(int levelIndex)
-    {
-        GameManager.Instance.LoadSceneManually(
-            GDC.Enums.SceneType.GAMEPLAY,
-            GDC.Enums.TransitionType.IN,
-            SoundType.NONE,
-            cb: () =>
-            {
-                GameManager.Instance.SetInitData(levelIndex);
-            }, 
-            true);
     }
 }

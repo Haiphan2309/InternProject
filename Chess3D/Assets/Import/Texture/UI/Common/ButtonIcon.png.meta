@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 21021717b11b7f049ae0c44603633a09
+guid: 2db46e1de7e6ff347bdad78a00f176e4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StarWin_0
+      name: ButtonIcon_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 233
-        height: 240
+        x: 18
+        y: 29
+        width: 81
+        height: 74
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df48b8df52f30db448f047b9dad25253
-      internalID: 1217483653
+      spriteID: 3890ac872f9b00c4aaba1bdec2e4649c
+      internalID: -1291471085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StarWin_1
+      name: ButtonIcon_1
       rect:
         serializedVersion: 2
-        x: 272
-        y: 0
-        width: 229
-        height: 245
+        x: 110
+        y: 30
+        width: 73
+        height: 72
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +164,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d89a33c632425b41aaf483503154a16
-      internalID: 1079659918
+      spriteID: 7e319d8680369e84a868102e6aeeb263
+      internalID: 1629725919
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StarWin_2
+      name: ButtonIcon_2
       rect:
         serializedVersion: 2
-        x: 518
-        y: 0
-        width: 272
-        height: 246
+        x: 184
+        y: 34
+        width: 70
+        height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,8 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa116d8e3e2a3d34b93ab342a3c58cbc
-      internalID: 1127473381
+      spriteID: b0b71dfde02a22249b38cf934e616fca
+      internalID: 250801728
       vertices: []
       indices: 
       edges: []
@@ -202,9 +202,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      StarWin_0: 1217483653
-      StarWin_1: 1079659918
-      StarWin_2: 1127473381
+      ButtonIcon_0: -1291471085
+      ButtonIcon_1: 1629725919
+      ButtonIcon_2: 250801728
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

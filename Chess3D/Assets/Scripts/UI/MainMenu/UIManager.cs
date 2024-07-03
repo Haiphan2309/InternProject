@@ -18,8 +18,6 @@ public class UIManager : MonoBehaviour
     public UILevelMenu levelMenu;
     public UILevelSlot levelSlotPrefab;
 
-    RectTransform content;
-
     private void Awake()
     {
         Instance = this;
@@ -38,47 +36,48 @@ public class UIManager : MonoBehaviour
         SliderPreset();
         ButtonPreset();
         LevelPreset();
-        TitlePreset();
+        TextPreset();
     }
 
     private void SliderPreset()
     {
-        RectTransform topSlider = backgroundSystem.Find("TopSlider") as RectTransform;
-        topSlider.anchoredPosition = Vector3.up * 600f;
-        RectTransform bottomSlider = backgroundSystem.Find("BottomSlider") as RectTransform;
-        bottomSlider.anchoredPosition = Vector3.down * 600f;
+        Transform topSlider = backgroundSystem.GetChild(1);
+        topSlider.GetComponent<RectTransform>().anchoredPosition = Vector3.up * 600f;
+
+        Transform bottomSlider = backgroundSystem.GetChild(2);
+        bottomSlider.GetComponent<RectTransform>().anchoredPosition = Vector3.down * 600f;
     }
 
     private void ButtonPreset()
     {
-        RectTransform startButton = buttonSystem.Find("StartButton") as RectTransform;
-        startButton.anchoredPosition = Vector3.right * 600f + Vector3.up * 25;
+        Transform startButton = buttonSystem.GetChild(0);
+        startButton.GetComponent<RectTransform>().anchoredPosition = Vector3.right * 600f + Vector3.up * 25;
         startButton.GetComponent<Button>().onClick.AddListener(StartButton);
 
-        RectTransform settingButton = buttonSystem.Find("SettingButton") as RectTransform;
-        settingButton.anchoredPosition = Vector3.left * 600f + Vector3.down * 50;
+        Transform settingButton = buttonSystem.GetChild(1);
+        settingButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * 600f + Vector3.down * 50;
         settingButton.GetComponent<Button>().onClick.AddListener(SettingButton);
 
-        RectTransform returnButton = buttonSystem.Find("ReturnButton") as RectTransform;
-        returnButton.anchoredPosition = Vector3.left * 600f + Vector3.up * 100;
+        Transform returnButton = buttonSystem.GetChild(2);
+        returnButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * 600f + Vector3.up * 100;
         returnButton.GetComponent<Button>().onClick.AddListener(ReturnButton);
     }
 
     private void LevelPreset()
     {
         levelSystem.anchoredPosition = Vector3.down * 1200f;
-        content = levelSystem.Find("Scroll View").Find("Viewport").Find("Content") as RectTransform;
-        for(int i = 0; i < 6; ++i)
+        Transform content = levelSystem.GetChild(0).GetChild(0).GetChild(0);
+        for(int i = 0; i < 20; ++i)
         {
             levelSlotPrefab.Setup(i);
             Instantiate(levelSlotPrefab, content);
         }
     }
 
-    private void TitlePreset()
+    private void TextPreset()
     {
-        RectTransform title = textSystem.Find("Title") as RectTransform;
-        title.anchoredPosition = Vector3.right * 400f + Vector3.up * 900f;
+        Transform title = textSystem.GetChild(0);
+        title.GetComponent<RectTransform>().anchoredPosition = Vector3.right * 400f + Vector3.up * 300f;
     }
 
     private void StartButton()

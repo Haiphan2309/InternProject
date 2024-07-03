@@ -81,6 +81,11 @@ public class GameplayManager : MonoBehaviour
     {
         levelData = new LevelData();
         levelData.SetData(levelDataSO.GetTileInfo(), levelDataSO.GetPlayerArmies(), levelDataSO.GetEnemyArmies());
+        levelData.starTurn2 = levelDataSO.starTurn2;
+        levelData.starTurn3 = levelDataSO.starTurn3;
+        levelData.maxTurn = levelDataSO.maxTurn;
+        levelData.center = levelDataSO.center;
+        levelData.distance = levelDataSO.distance;
     }
     void SetRemainTurn(int value)
     {
