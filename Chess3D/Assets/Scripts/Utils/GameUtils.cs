@@ -1,7 +1,9 @@
 using GDC.Enums;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public static class GameUtils
 {
@@ -52,5 +54,35 @@ public static class GameUtils
                (int)Mathf.Round(Ypos),
                (int)Mathf.Round(Zpos)
                ].tileType;
+    }
+
+    public static GameObject GetObjectByPosition(Vector3 position, LayerMask layerMask)
+    {
+        GameObject foundObject = null;
+        foreach (GameObject obj in Object.FindObjectsOfType<GameObject>())
+        {
+            if (CompareVector3(obj.transform.position, position) && obj.layer.CompareTo(layerMask.value) == 1)
+            {
+                foundObject = obj;
+                break;
+            }
+        }
+
+        return foundObject;
+    }
+
+    public static GameplayObject GetGameplayObjectByPosition(Vector3 position)
+    {
+        GameplayObject foundObject = null;
+        foreach (GameplayObject obj in Object.FindObjectsOfType<GameplayObject>())
+        {
+            if (CompareVector3(obj.transform.position, position))
+            {
+                foundObject = obj.GetComponent<GameplayObject>();
+                break;
+            }
+        }
+
+        return foundObject;
     }
 }

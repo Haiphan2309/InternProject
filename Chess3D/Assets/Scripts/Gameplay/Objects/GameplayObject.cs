@@ -191,19 +191,13 @@ public class GameplayObject : MonoBehaviour
 
             if (isChessMan && GetTileBelowObject(SnapToGrid(transform.position)) == TileType.BOX)
             {
-                GameplayObject foundObject = null;
-                foreach (GameplayObject obj in Object.FindObjectsOfType<GameplayObject>())
-                {
-                    if (GetTile(SnapToGrid(obj.transform.position)) == TileType.BOX)
-                    {
-                        foundObject = obj;
-                        transform.SetParent(foundObject.transform);
-                        Debug.Log(foundObject.transform.name);
-                        Debug.Log(transform.parent);
-                        Debug.Log("ON BOX");
-                        break;
-                    }
-                }
+                Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(transform.position) + Vector3.down;
+
+                GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+
+                Debug.Log("Stay on GamplayObject: " + gameplayObject.transform.name);
+
+                transform.SetParent(gameplayObject.transform);
             }
         }
 
