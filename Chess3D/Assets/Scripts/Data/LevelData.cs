@@ -126,11 +126,11 @@ public class LevelData : ScriptableObject
 
     }
 
-    public void SetTileInfoNoDeep(int x, int y, int z, int idValue, TileType tileTypeValue) //Not for scriptable object
+    public void SetTileInfoNoDeep(Vector3 posIndex, int idValue, TileType tileTypeValue) //Not for scriptable object
     {
         foreach (TileData data in this.tileInfo)
         {
-            if (x == (int)data.pos.x && y == (int)data.pos.y && z == (int)data.pos.z)
+            if (GameUtils.CompareVector3(posIndex, data.pos))
             {
                 data.tileInfo.id = idValue;
                 data.tileInfo.tileType = tileTypeValue;
@@ -147,11 +147,11 @@ public class LevelData : ScriptableObject
     //        }
     //    }
     //}
-    public TileInfo GetTileInfoNoDeep(int x, int y, int z) //Not for scriptable object
+    public TileInfo GetTileInfoNoDeep(Vector3 posIndex) //Not for scriptable object
     {
         foreach (TileData data in this.tileInfo)
         {
-            if (x == (int)data.pos.x && y == (int)data.pos.y && z == (int)data.pos.z)
+            if (GameUtils.CompareVector3(posIndex,data.pos))
             {
                 return data.tileInfo;
             }

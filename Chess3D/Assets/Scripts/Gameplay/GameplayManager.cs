@@ -221,7 +221,7 @@ public class GameplayManager : MonoBehaviour
             availableMoveTrans.Clear();
             foreach (Vector3 move in moves)
             {
-                TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(move.x), (int)Mathf.Round(move.y) - 1, (int)Mathf.Round(move.z));
+                TileInfo tileInfo = levelData.GetTileInfoNoDeep(move + Vector3.down);
                 Transform tran = Instantiate(availableMovePrefab, move, Quaternion.identity);
                 switch (tileInfo.tileType)
                 {
@@ -276,7 +276,7 @@ public class GameplayManager : MonoBehaviour
     }
     void CheckShowOutlineGameplayObject(Vector3 pos)
     {
-        TileInfo tileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(pos.x), (int)Mathf.Round(pos.y), (int)Mathf.Round(pos.z));
+        TileInfo tileInfo = levelData.GetTileInfoNoDeep(pos);
         if (tileInfo.tileType == TileType.BOX || tileInfo.tileType == TileType.BOULDER)
         {
             Collider[] colls = Physics.OverlapBox(pos, Vector3.one / 5);
@@ -365,21 +365,19 @@ public class GameplayManager : MonoBehaviour
         if (enemyTurn == false)
             SetRemainTurn(remainTurn - 1);
     }
-    public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null)
+    public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null) //Cap nhat toa do tile oldPos thanh None, va cap nhat tileInfo cho new pos
     {
-        
-        //TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
-        levelData.SetTileInfoNoDeep((int)oldPos.x, (int)oldPos.y, (int)oldPos.z, 0, TileType.NONE);
+        levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
         if (tileInfo == null)
         {
-            levelData.SetTileInfoNoDeep((int)newPos.x, (int)newPos.y, (int)newPos.z, 0, TileType.NONE);
+            levelData.SetTileInfoNoDeep(newPos, 0, TileType.NONE);
         }
         else
         {
-            levelData.SetTileInfoNoDeep((int)newPos.x, (int)newPos.y, (int)newPos.z, tileInfo.id, tileInfo.tileType);
+            levelData.SetTileInfoNoDeep(newPos, tileInfo.id, tileInfo.tileType);
         }
     }
-    public void EndTurn()
+    public void EndTurn() //Duoc goi sau khi ket thuc luot
     {
         isEndTurn = true;
         ChangeTurn();
@@ -517,11 +515,11 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitUntil(() => Vector3.Distance(defeatChessMan.transform.position, defeatedChessMan.transform.position) < 1);
         defeatedChessMan.Defeated();
     }
-    [SerializeField] int x, y, z;
+    [SerializeField] Vector3 logTestPos;
     [Button]
     void LogTileInfo()
     {
-        TileInfo tileInfo = levelData.GetTileInfoNoDeep(x, y, z);
+        TileInfo tileInfo = levelData.GetTileInfoNoDeep(logTestPos);
         Debug.Log(tileInfo.tileType);
     }
 }
