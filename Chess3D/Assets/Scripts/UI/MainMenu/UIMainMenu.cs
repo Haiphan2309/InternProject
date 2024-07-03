@@ -21,36 +21,26 @@ public class UIMainMenu : UI
 
     private void SetTitle()
     {
-        title.DOAnchorPosY(-300, _timer * 1.5f).SetEase(Ease.OutBack);
+        UIManager.Instance.title.DOAnchorPosY(-300, _timer * 1.5f).SetEase(Ease.OutBack);
     }
 
     private void SetSlider()
     {
-        ShowSliderFullHeight(topSlider);
-        ShowSliderFullHeight(bottomSlider);
+        ShowSliderFullHeight(UIManager.Instance.topSlider);
+        ShowSliderFullHeight(UIManager.Instance.bottomSlider);
     }
 
     private void SetChessHolder()
     {
-        ShowChessHolder(topChessHolder);
-        ShowChessHolder(bottomChessHolder);
-    }
-
-    IEnumerator Cor_AnimChessPieces(RectTransform container)
-    {
-        for (int i = 0; i < container.childCount; ++i)
-        {
-            RectTransform piece = container.GetChild(i) as RectTransform;
-            piece.DOAnchorPosY(425, _timer);
-            yield return new WaitForSeconds(_timer / 10f);
-        }
+        ShowChessHolder(UIManager.Instance.topChessHolder);
+        ShowChessHolder(UIManager.Instance.bottomChessHolder);
     }
 
     private void SetButtonSystem()
     {
-        startButton.DOAnchorPosX(-50, _timer);
-        settingButton.DOAnchorPosX(50, _timer);
-        returnButton.DOAnchorPosX(-600, _timer);
+        UIManager.Instance.startButton.GetComponent<RectTransform>().DOAnchorPosX(-50, _timer);
+        UIManager.Instance.settingButton.GetComponent<RectTransform>().DOAnchorPosX(50, _timer);
+        UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
     }
 
     private void SetLevelSystem()
