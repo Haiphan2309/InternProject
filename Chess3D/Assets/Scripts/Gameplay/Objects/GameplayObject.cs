@@ -11,9 +11,6 @@ public class GameplayObject : MonoBehaviour
     {
         Debug.Log("A");
     }
-    public virtual void MoveAnim(Vector3 posIndexToMove, float speed, ChessMan chessManAbove = null)
-    {
-    }
 
     public virtual void DestroyAnim()
     {

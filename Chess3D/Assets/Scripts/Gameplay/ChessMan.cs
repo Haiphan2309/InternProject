@@ -132,9 +132,21 @@ public class ChessMan : MonoBehaviour
                (int)Mathf.Round(Zpos)
                ].tileType;
     }
+    private TileType GetChessAboveBox(Vector3 position)
+    {
+        float Xpos = position.x;
+        float Ypos = position.y + 1f;
+        float Zpos = position.z;
+        return GameplayManager.Instance.levelData.GetTileInfo()[
+               (int)Mathf.Round(Xpos),
+               (int)Mathf.Round(Ypos),
+               (int)Mathf.Round(Zpos)
+               ].tileType;
+    }
 
     IEnumerator Cor_OtherMoveAnim(Vector3 target)
     {
+        SetParentDefault();
         Vector3 currPos = transform.position;
         Vector3 currPosIdx = posIndex;
 
@@ -156,8 +168,13 @@ public class ChessMan : MonoBehaviour
         }
 
         AjustPosToGround(transform.position, target, direction, true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         GameplayManager.Instance.ChangeTurn();
+    }
+
+    private void SetParentDefault()
+    {
+        transform.parent = null;
     }
 
     void RotateToDirection(Vector3 direction)
@@ -196,8 +213,8 @@ public class ChessMan : MonoBehaviour
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 0.45f, objectLayer))
+        Vector3 raycastPos = transform.position + Vector3.up * 0.4f;
+        if (Physics.Raycast(raycastPos, transform.forward, out RaycastHit hit, 0.45f, objectLayer))
         {
             Box gameplayObject = hit.transform.GetComponent<Box>();
             Debug.Log(hit.transform.name);
@@ -212,6 +229,15 @@ public class ChessMan : MonoBehaviour
         if (isRoundInteger)
         {
             transform.position = target;
+            if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hitRaycast, 0.8f, objectLayer))
+            {
+                Debug.Log("Hit: " + hitRaycast.transform.name);
+                transform.SetParent(hitRaycast.transform);
+            }
+            else
+            {
+                Debug.Log("Raycast did not hit anything.");
+            }
         }
         else
         {
@@ -227,11 +253,13 @@ public class ChessMan : MonoBehaviour
         Gizmos.color = Color.red;
 
         // Define the Ray origin and direction
-        Vector3 rayOrigin = transform.position;
+        Vector3 rayOrigin = transform.position + Vector3.up * 0.4f;
         Vector3 rayDirection = transform.forward;
 
         // Draw the Raycast
-        Gizmos.DrawRay(rayOrigin, rayDirection * 0.51f);
+        Gizmos.DrawRay(rayOrigin, rayDirection * 0.45f);
+
+        Gizmos.DrawRay(transform.position, -transform.up * 1f);
     }
 
     Vector3 SnapToGrid(Vector3 position)

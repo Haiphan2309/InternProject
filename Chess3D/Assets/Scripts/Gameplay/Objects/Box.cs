@@ -21,7 +21,7 @@ public class Box : GameplayObject
                ].tileType;
     }
 
-    public override void MoveAnim(Vector3 posIndexToMove, float speed, ChessMan chessManAbove = null)
+    public override void MoveAnim(Vector3 posIndexToMove, float speed)
     //posIndexToMove: ở đây không phải vị trí cuối cùng, mà chỉ là vị trí mà chessman đẩy đến (sát bên chessman),
     //sẽ phải tự tính toàn tiếp vị trí tiếp theo nếu dưới chân nó là None (thì sẽ rơi) với tốc độ defaultSpeed.
     //speed: là speed của chessMan đẩy box, box sẽ di chuyển cùng tốc độ với chessman đẩy box,
@@ -34,11 +34,7 @@ public class Box : GameplayObject
 
         StartCoroutine(Cor_BoxMoveAnim(direction));
 
-        //Nếu chessManAbove != null (là có chessMan đứng trên box) thi nho cap nhat posIndex cho chessManAbove
-        if (chessManAbove != null)
-        {
-
-        }
+        
     }
 
     IEnumerator Cor_BoxMoveAnim(Vector3 direction)
@@ -101,10 +97,5 @@ public class Box : GameplayObject
     Vector3 SnapToGrid(Vector3 position)
     {
         return new Vector3(Mathf.Round(position.x), Mathf.Round(position.y), Mathf.Round(position.z));
-    }
-
-    public override void MoveAnim(Vector3 posIndexToMove, float speed)
-    {
-        MoveAnim(posIndexToMove, speed, null);
     }
 }
