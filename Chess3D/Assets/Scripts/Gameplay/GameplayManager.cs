@@ -374,6 +374,7 @@ public class GameplayManager : MonoBehaviour
     public void EndTurn()
     {
         isEndTurn = true;
+        ChangeTurn();
     }
     //IEnumerator Cor_AfterAnim(ChessMan chessMan, Vector3 posIndexToMove)
     //{
