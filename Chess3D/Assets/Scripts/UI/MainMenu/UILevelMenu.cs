@@ -69,22 +69,4 @@ public class UILevelMenu : UI
     {
         UIManager.Instance.levelSystem.DOAnchorPosY(0, _timer).SetEase(Ease.OutBack);
     }
-
-    [Button]
-    void LoadLevelTest()
-    {
-        LoadLevel(0);
-    }
-    public void LoadLevel(int levelIndex)
-    {
-        GameManager.Instance.LoadSceneManually(
-            GDC.Enums.SceneType.GAMEPLAY,
-            GDC.Enums.TransitionType.IN,
-            SoundType.NONE,
-            cb: () =>
-            {
-                GameManager.Instance.SetInitData(levelIndex);
-            }, 
-            true);
-    }
 }

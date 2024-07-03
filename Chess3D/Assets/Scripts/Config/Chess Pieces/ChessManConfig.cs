@@ -328,7 +328,6 @@ public class ChessManConfig : ScriptableObject
             {
                 if (dynamicObjectOnDirection)
                 {
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
                     break;
                 }
                 dynamicObjectOnDirection = true;
@@ -368,6 +367,10 @@ public class ChessManConfig : ScriptableObject
         if (!InBound(move))
         {
             return;
+        }
+        if (dynamicObjectOnDirection)
+        {
+            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
         }
     }
     public virtual void GenerateMoveList(Vector3 currentPositionIndex)
