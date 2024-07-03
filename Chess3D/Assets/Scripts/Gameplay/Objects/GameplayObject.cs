@@ -39,7 +39,7 @@ public class GameplayObject : MonoBehaviour
     {
         float Xpos = position.x;
         float Ypos = position.y - 1f;
-        float Zpos = position.z;
+        float Zpos = position.z;        
         return GameplayManager.Instance.levelData.GetTileInfo()[
                (int)Mathf.Round(Xpos),
                (int)Mathf.Round(Ypos),

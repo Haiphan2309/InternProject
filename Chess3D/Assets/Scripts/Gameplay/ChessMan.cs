@@ -24,6 +24,7 @@ public class ChessMan : GameplayObject
     int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
 
     public bool isTouchBox = false;
+    public bool isTouchBoulder = false;
 
     public void Setup(PlayerArmy playerArmy, int index, Vector3 posIndex)
     {
@@ -151,6 +152,25 @@ public class ChessMan : GameplayObject
 
                     gameplayObject.MoveAnim(SnapToGrid(target), 5f * Time.deltaTime);
                 }
+
+                if (GetTile(gridCell) == TileType.BOULDER && !isTouchBoulder)
+                {
+                    isTouchBoulder = true;
+                    GameObject foundObject = null;
+                    foreach (GameObject obj in Object.FindObjectsOfType<GameObject>())
+                    {
+                        if (Vector3.Distance(obj.transform.position, gridCell) < 0.1f)
+                        {
+                            foundObject = obj;
+                            break;
+                        }
+                    }
+
+                    Boulder gameplayObject = foundObject.transform.GetComponent<Boulder>();
+                    Debug.Log(foundObject.transform.name);
+
+                    gameplayObject.MoveAnim(SnapToGrid(target), 5f * Time.deltaTime);
+                }
                 AjustPosToGround(transform.position, gridCell, direction, true);
                 if (!isOnSlope) currPos = transform.position;
                 else currPos = transform.position + Vector3.up * 0.4f;
@@ -161,6 +181,7 @@ public class ChessMan : GameplayObject
         AjustPosToGround(transform.position, target, direction, true, true);
         yield return new WaitForSeconds(0.1f);
         isTouchBox = false;
+        isTouchBoulder = false;
         GameplayManager.Instance.ChangeTurn();
     }
 
