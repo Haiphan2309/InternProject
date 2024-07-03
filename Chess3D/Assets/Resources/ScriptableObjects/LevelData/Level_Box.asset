@@ -16,6 +16,7 @@ MonoBehaviour:
   distance: 0
   maxTurn: 0
   starTurn2: 0
+  starTurn3: 0
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -8225,3 +8226,4 @@ MonoBehaviour:
     isAI: 1
     priority: 0
     movePosIndexs: []
+  thumbnail: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}

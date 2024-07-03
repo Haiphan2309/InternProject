@@ -19,6 +19,7 @@ public class UI : MonoBehaviour
     public RectTransform returnButton;
 
     public float _timer = 1f;
+    public bool isLoaded = false;
 
     public virtual void Preset()
     {
@@ -42,7 +43,6 @@ public class UI : MonoBehaviour
         Preset();
         DisableButton();
         StartCoroutine(Cor_Anim());
-        EnableButton();
     }
 
     public virtual IEnumerator Cor_Anim()

@@ -52,7 +52,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -132,19 +132,19 @@ TextureImporter:
       name: Star_0
       rect:
         serializedVersion: 2
-        x: 84
-        y: 80
-        width: 363
-        height: 349
+        x: 0
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d802cfe59d7c0c46837b5a10e40694a
-      internalID: 97614122
+      spriteID: e626cc002a3feba49a05457789a62591
+      internalID: 1657629105
       vertices: []
       indices: 
       edges: []
@@ -153,53 +153,36 @@ TextureImporter:
       name: Star_1
       rect:
         serializedVersion: 2
-        x: 542
-        y: 78
-        width: 363
-        height: 349
+        x: 256
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68c5aa4eacf309843ba35bf367094b12
-      internalID: 731873581
+      spriteID: f5df92442d704b641ac7bd2cd03a5257
+      internalID: -2090861903
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline:
-    - - {x: 104, y: 173}
-      - {x: 28, y: 95}
-      - {x: 28, y: -46}
-      - {x: 60, y: -148}
-      - {x: 74, y: -180}
-      - {x: 370, y: -180}
-      - {x: 395, y: -109}
-      - {x: 395, y: 115}
-      - {x: 270, y: 173}
-    - - {x: -322, y: 175}
-      - {x: -430, y: 95}
-      - {x: -430, y: -62}
-      - {x: -406, y: -178}
-      - {x: -93, y: -178}
-      - {x: -63, y: -116}
-      - {x: -63, y: 69}
-      - {x: -162, y: 175}
+    outline: []
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Star_0: 97614122
-      Star_1: 731873581
+      Star_0: 1657629105
+      Star_1: -2090861903
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
