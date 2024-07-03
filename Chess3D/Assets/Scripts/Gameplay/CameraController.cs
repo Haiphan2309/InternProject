@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_camera != null)
+        if (_camera != null )
         {
             HandleZoomCamera();
             HandleSwipeCamera();
@@ -74,7 +75,7 @@ public class CameraController : MonoBehaviour
 
     protected void HandleSwipeCamera()
     {
-        if (Input.GetMouseButton(0)) // Kiểm tra xem nút chuột trái có được nhấn không
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
             targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
             targetY -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
@@ -93,7 +94,7 @@ public class CameraController : MonoBehaviour
     }
     protected void HandleZoomCamera()
     {
-        if (Input.touchCount == 2)
+        if (Input.touchCount == 2 && !EventSystem.current.IsPointerOverGameObject())
         {
             Debug.Log("Zoom");
             Touch touchFirst = Input.GetTouch(0);
