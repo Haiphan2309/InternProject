@@ -32,7 +32,7 @@ public class UILevelMenu : UI
 
     private void SetChessHolder()
     {
-        StartCoroutine(Cor_AnimChessPieces(topChessContainer));
+/*        StartCoroutine(Cor_AnimChessPieces(topChessContainer));
         RectTransform topHolderCircle = topChessHolder.Find("Circle") as RectTransform;
         topHolderCircle.DOAnchorPosY(500, _timer);
         topHolderCircle.DOScale(Vector3.right + Vector3.up, _timer).SetEase(Ease.OutBack);
@@ -40,7 +40,7 @@ public class UILevelMenu : UI
         StartCoroutine(Cor_AnimChessPieces(bottomChessContainer));
         RectTransform bottomHolderCircle = bottomChessHolder.Find("Circle") as RectTransform;
         bottomHolderCircle.DOAnchorPosY(-500, _timer);
-        bottomHolderCircle.DOScale(Vector3.right + Vector3.up, _timer).SetEase(Ease.OutBack);
+        bottomHolderCircle.DOScale(Vector3.right + Vector3.up, _timer).SetEase(Ease.OutBack);*/
     }
 
     IEnumerator Cor_AnimChessPieces(RectTransform container)
