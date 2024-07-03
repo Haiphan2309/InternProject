@@ -1,4 +1,6 @@
 using DG.Tweening;
+using GDC.Managers;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,5 +68,23 @@ public class UILevelMenu : UI
     private void SetLevelSystem()
     {
         UIManager.Instance.levelSystem.DOAnchorPosY(0, _timer).SetEase(Ease.OutBack);
+    }
+
+    [Button]
+    void LoadLevelTest()
+    {
+        LoadLevel(0);
+    }
+    public void LoadLevel(int levelIndex)
+    {
+        GameManager.Instance.LoadSceneManually(
+            GDC.Enums.SceneType.GAMEPLAY,
+            GDC.Enums.TransitionType.IN,
+            SoundType.NONE,
+            cb: () =>
+            {
+                GameManager.Instance.SetInitData(levelIndex);
+            }, 
+            true);
     }
 }

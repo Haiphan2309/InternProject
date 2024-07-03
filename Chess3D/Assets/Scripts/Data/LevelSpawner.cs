@@ -11,7 +11,7 @@ public class LevelSpawner : MonoBehaviour
     // 
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public List<ChessMan> playerArmy, enemyArmy;
-    public string spawnLevelName = "";
+    [HideInInspector] public string spawnLevelName = "";
     
     //
     string levelDataPath = "Assets/Resources/ScriptableObjects/LevelData";
@@ -36,9 +36,10 @@ public class LevelSpawner : MonoBehaviour
     }
 
     [Button]
-    public void SpawnLevel()
+    public void SpawnLevel(string levelName)
     {
         Setup();
+        spawnLevelName = levelName;
         GetLevelData();
         GetPrefabs();
         SpawnTile();

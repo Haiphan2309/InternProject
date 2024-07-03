@@ -122,7 +122,8 @@ namespace GDC.Managers
         public void LoadSceneManually(SceneType sceneType, TransitionType transitionType, SoundType soundType = SoundType.NONE, System.Action cb = null, bool isStopAllMusicPlaying = false)
         {
             isLoadSceneComplete = false;
-            if (isStopAllMusicPlaying || soundType != SoundType.NONE) 
+            //if (isStopAllMusicPlaying || soundType != SoundType.NONE) 
+            if (isStopAllMusicPlaying && soundType != SoundType.NONE) 
                 SoundManager.Instance.StopAllMusicPlaying();
             LoadSceneWithTransition(sceneType, true, transitionType, soundType, cb);
         }
@@ -183,13 +184,16 @@ namespace GDC.Managers
             yield return new WaitForSeconds(0.6f);
             isLoadSceneComplete = true;
         }
-        public void SetInitData()
+        public void SetInitData(int levelIndex)
         {
-            StartCoroutine(Cor_InitData());
+            StartCoroutine(Cor_InitData(levelIndex));
         }
-        IEnumerator Cor_InitData()
+        IEnumerator Cor_InitData(int levelIndex)
         {
-            yield return null;
+            yield return new WaitUntil(() => GameplayManager.Instance != null);
+            string levelName = "Level_" + levelIndex;
+            //GameplayManager.Instance.LoadLevel(levelName);
+            GameplayManager.Instance.LoadLevel();
         }
     }
 }

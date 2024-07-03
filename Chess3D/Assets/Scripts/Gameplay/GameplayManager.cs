@@ -14,24 +14,25 @@ public class GameplayManager : MonoBehaviour
 
     [SerializeField] LevelSpawner levelSpawner;
     [SerializeField] CameraController camController;
-    public LevelData levelData;
+    public string levelName;
+    [HideInInspector] public LevelData levelData;
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
 
     public List<ChessMan> playerArmy, enemyArmy;
     [SerializeField, ReadOnly] List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
     [SerializeField, ReadOnly] List<GameplayObject> outlineGameplayObj;
-    public int remainTurn;
+    [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
-    public bool isAnimMoving, isEndTurn;
+    [HideInInspector] public bool isAnimMoving, isEndTurn;
     private void Awake()
     {
         Instance = this;
     }
-    private void Start()
-    {
-        LoadLevel();
-    }
+    //private void Start()
+    //{
+    //    LoadLevel(levelName);
+    //}
     [Button]
     void ResetLevelRef()
     {
@@ -45,8 +46,12 @@ public class GameplayManager : MonoBehaviour
     [Button]
     public void LoadLevel()
     {
-        levelSpawner.Setup();
-        levelSpawner.SpawnLevel();
+        LoadLevel(levelName);
+    }
+    public void LoadLevel(string levelName)
+    {
+        this.levelName = levelName;
+        levelSpawner.SpawnLevel(levelName);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
         //levelData = levelSpawner.levelData;
         playerArmy = levelSpawner.playerArmy;
