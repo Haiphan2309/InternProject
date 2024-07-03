@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
     {
         levelSystem.anchoredPosition = Vector3.down * 1200f;
         Transform content = levelSystem.GetChild(0).GetChild(0).GetChild(0);
-        for(int i = 0; i < 6; ++i)
+        for(int i = 0; i < 20; ++i)
         {
             levelSlotPrefab.Setup(i);
             Instantiate(levelSlotPrefab, content);
