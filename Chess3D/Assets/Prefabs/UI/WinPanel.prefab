@@ -3878,6 +3878,9 @@ MonoBehaviour:
   - {fileID: 591612686967823730}
   turnSlider: {fileID: 4236088468013341584}
   turnText: {fileID: 4236088469800485328}
+  menuBtn: {fileID: 1988107541499370032}
+  replayBtn: {fileID: 4236088468780993846}
+  nextBtn: {fileID: 444114163827832685}
 --- !u!1 &4236088469770997794
 GameObject:
   m_ObjectHideFlags: 0
