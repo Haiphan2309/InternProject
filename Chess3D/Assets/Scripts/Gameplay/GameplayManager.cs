@@ -129,9 +129,7 @@ public class GameplayManager : MonoBehaviour
             {
                 foreach (var move in enemy.config.Move(enemy.posIndex))
                 {
-                    if ((int)Mathf.Round(move.x) == (int)Mathf.Round(player.posIndex.x)
-                        && (int)Mathf.Round(move.y) == (int)Mathf.Round(player.posIndex.y)
-                        && (int)Mathf.Round(move.z) == (int)Mathf.Round(player.posIndex.z))
+                    if (GameUtils.CompareVector3(player.posIndex, move))
                     {
                         MakeMove(enemy, move, player);
                         return;
@@ -159,13 +157,10 @@ public class GameplayManager : MonoBehaviour
                             return;
                         }
                     }
-                    Debug.LogError("Khong co enemy nao co the di chuyen theo pattern dinh san ca!");
-                    //Co the dua ra giai phap di chuyen random o day
+                    Vector3 randomMove = enemyArmy[0].config.PatrolState(enemyArmy[0].posIndex);
+                    MakeMove(enemyArmy[0], randomMove);
+                    Debug.Log(enemyArmy[0].name + " di chuyen random");
                 }
-                //else
-                //{
-                //    Win();
-                //}
             }            
         }
         
@@ -287,8 +282,7 @@ public class GameplayManager : MonoBehaviour
                 //Debug.Log(gameplayObj);
                 if (gameplayObj == null) continue;
 
-                gameplayObj.outline.OutlineColor = Color.yellow;
-                gameplayObj.outline.OutlineWidth = 10;
+                gameplayObj.SetOutline(10, Color.yellow);
                 if (outlineGameplayObj == null)
                 {
                     outlineGameplayObj = new List<GameplayObject>();
@@ -299,8 +293,7 @@ public class GameplayManager : MonoBehaviour
     }
     void ShowOutlineChessMan(ChessMan chessMan)
     {
-        chessMan.outline.OutlineColor = Color.yellow;
-        chessMan.outline.OutlineWidth = 10;
+        chessMan.SetOutline(10, Color.yellow);
         if (outlineChessMan == null)
         {
             outlineChessMan = new List<ChessMan>();
@@ -312,7 +305,7 @@ public class GameplayManager : MonoBehaviour
         if (outlineChessMan == null) return;
         foreach (var chessMan in outlineChessMan)
         {
-            chessMan.outline.OutlineWidth = 0;
+            chessMan.SetOutline(0);
         }
         outlineChessMan.Clear();
     }
@@ -321,7 +314,7 @@ public class GameplayManager : MonoBehaviour
         if (outlineGameplayObj == null) return;
         foreach(var obj in outlineGameplayObj)
         {
-            obj.outline.OutlineWidth = 0;
+            obj.SetOutline(0);
         }
         outlineGameplayObj.Clear();
     }
@@ -342,10 +335,7 @@ public class GameplayManager : MonoBehaviour
         List<Vector3> moves = chessManConfig.Move(curPosIndex);
         foreach (Vector3 move in moves)
         {
-            //if (Vector3Int.FloorToInt(move) == Vector3Int.FloorToInt(posIndexToMove)) return true;
-            if ((int)Mathf.Round(move.x) == (int)Mathf.Round(posIndexToMove.x) 
-                && (int)Mathf.Round(move.y) == (int)Mathf.Round(posIndexToMove.y) 
-                && (int)Mathf.Round(move.z) == (int)Mathf.Round(posIndexToMove.z)) return true;
+            if (GameUtils.CompareVector3(move, posIndexToMove)) return true;
         }
         return false;
     }    

@@ -21,50 +21,26 @@ public class UIMainMenu : UI
 
     private void SetTitle()
     {
-        title.DOAnchorPosY(-300, _timer * 1.5f).SetEase(Ease.OutBack);
+        UIManager.Instance.title.DOAnchorPosY(-300, _timer * 1.5f).SetEase(Ease.OutBack);
     }
 
     private void SetSlider()
     {
-        RectTransform topBG = topSlider.Find("BG") as RectTransform;
-        RectTransform topOverlay = topSlider.Find("Overlay") as RectTransform;
-        topBG.DOAnchorPosY(-600, _timer).SetEase(Ease.OutBack);
-        topOverlay.DOAnchorPosY(-530, _timer).SetEase(Ease.OutBack);
-
-        RectTransform bottomBG = bottomSlider.Find("BG") as RectTransform;
-        RectTransform bottomOverlay = bottomSlider.Find("Overlay") as RectTransform;
-        bottomBG.DOAnchorPosY(600, _timer);
-        bottomOverlay.DOAnchorPosY(530, _timer);
+        ShowSliderFullHeight(UIManager.Instance.topSlider);
+        ShowSliderFullHeight(UIManager.Instance.bottomSlider);
     }
 
     private void SetChessHolder()
     {
-        RectTransform topHolderCircle = topChessHolder.Find("Circle") as RectTransform;
-        topHolderCircle.DOAnchorPosY(-500, _timer);
-        topHolderCircle.DOScale(Vector3.right * 20 + Vector3.up * 20, _timer).SetEase(Ease.OutBack);
-        StartCoroutine(Cor_AnimChessPieces(topChessContainer));
-
-        RectTransform bottomHolderCircle = bottomChessHolder.Find("Circle") as RectTransform;
-        bottomHolderCircle.DOAnchorPosY(500, _timer);
-        bottomHolderCircle.DOScale(Vector3.right * 20 + Vector3.up * 20, _timer).SetEase(Ease.OutBack);
-        StartCoroutine(Cor_AnimChessPieces(bottomChessContainer));
-    }
-
-    IEnumerator Cor_AnimChessPieces(RectTransform container)
-    {
-        for (int i = 0; i < container.childCount; ++i)
-        {
-            RectTransform piece2 = container.GetChild(i) as RectTransform;
-            piece2.DOAnchorPosY(425, _timer);
-            yield return new WaitForSeconds(_timer / 10f);
-        }
+        ShowChessHolder(UIManager.Instance.topChessHolder);
+        ShowChessHolder(UIManager.Instance.bottomChessHolder);
     }
 
     private void SetButtonSystem()
     {
-        startButton.DOAnchorPosX(-50, _timer);
-        settingButton.DOAnchorPosX(50, _timer);
-        returnButton.DOAnchorPosX(-600, _timer);
+        UIManager.Instance.startButton.GetComponent<RectTransform>().DOAnchorPosX(-50, _timer);
+        UIManager.Instance.settingButton.GetComponent<RectTransform>().DOAnchorPosX(50, _timer);
+        UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
     }
 
     private void SetLevelSystem()
