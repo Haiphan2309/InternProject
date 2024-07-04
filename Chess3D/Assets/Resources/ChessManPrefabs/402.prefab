@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1784069761}
   - component: {fileID: 1652286005729679838}
   m_Layer: 6
-  m_Name: 401
+  m_Name: 402
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
-  config: {fileID: 11400000, guid: 7ac94aed580bed84a82e33cb11e2aa70, type: 2}
+  config: {fileID: 11400000, guid: 99a5b448e7ea9e647939ee37a647ec42, type: 2}
   posIndex: {x: 6, y: 3, z: 4}
   speed: 0.05
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
@@ -133,9 +133,13 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 16d544b158ca666459e518a2dc7c0cdf, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8319465574948283117, guid: b15cd8778c16a80459b95ef049400331, type: 3}
     - target: {fileID: 919132149155446097, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}
       propertyPath: m_Name
-      value: rook
+      value: knight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}
