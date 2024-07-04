@@ -26,8 +26,9 @@ public class UISetting : MonoBehaviour
 
         uiPopupAnim.Show();
     }
-    void Hide()
+    public void Hide()
     {
+        UIManager.Instance.ShowAllButtons();
         uiPopupAnim.Hide();
         hideCor = StartCoroutine(Cor_Hide());
     }
@@ -36,7 +37,7 @@ public class UISetting : MonoBehaviour
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }
-    void OnMenu()
+    public void OnMenu()
     {
         GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.MAINMENU,
@@ -48,7 +49,7 @@ public class UISetting : MonoBehaviour
             },
             true);
     }
-    void OnReplay()
+    public void OnReplay()
     {
         int currentChapterIndex = GameplayManager.Instance.chapterData.id;
         int currentLevelIndex = GameplayManager.Instance.levelData.id;
