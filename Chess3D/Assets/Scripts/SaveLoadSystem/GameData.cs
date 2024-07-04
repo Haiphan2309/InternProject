@@ -12,14 +12,15 @@ namespace GDC.Managers
     public class PlayerLevelData
     {
         public int star;
-        public int turn;
+        public int highScore;
 
-        public PlayerLevelData(int star, int turn)
+        public PlayerLevelData(int star, int highScore)
         {
             this.star = star;
-            this.turn = turn;
+            this.highScore = highScore;
         }
     }
+
     [Serializable]
     public struct GameData
     {
@@ -40,14 +41,14 @@ namespace GDC.Managers
             if (gameDataOrigin.playerLevelStars == null)
             {
                 gameDataOrigin.playerLevelStars = new List<int>();
-                gameDataOrigin.playerLevelTurns = new List<int>();
+                gameDataOrigin.playerLevelHighScores = new List<int>();
             }
             if (gameDataOrigin.playerLevelStars.Count == 0) 
             {
                 for (int i=0; i<GameConstants.MAX_LEVEL; i++)
                 {
                     gameDataOrigin.playerLevelStars.Add(0);
-                    gameDataOrigin.playerLevelTurns.Add(99);
+                    gameDataOrigin.playerLevelHighScores.Add(99);
                 }
             }
 
@@ -55,7 +56,7 @@ namespace GDC.Managers
                 playerLevelDatas = new List<PlayerLevelData>();
             for(int i=0; i<GameConstants.MAX_LEVEL; i++)
             {
-                playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelTurns[i]));
+                playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i]));
             }
             currentLevel = gameDataOrigin.currentLevel;
 
@@ -70,13 +71,13 @@ namespace GDC.Managers
             //gameDataOrigin.coin = coin;
             //gameDataOrigin.playerName = playerName;
             gameDataOrigin.playerLevelStars = new List<int>();
-            gameDataOrigin.playerLevelTurns = new List<int>();
+            gameDataOrigin.playerLevelHighScores = new List<int>();
             if (playerLevelDatas != null)
             {
                 foreach(var playerLevelData in playerLevelDatas)
                 {
                     gameDataOrigin.playerLevelStars.Add(playerLevelData.star);
-                    gameDataOrigin.playerLevelTurns.Add(playerLevelData.turn);
+                    gameDataOrigin.playerLevelHighScores.Add(playerLevelData.highScore);
                 }
             }
             gameDataOrigin.currentLevel = currentLevel;
@@ -85,6 +86,28 @@ namespace GDC.Managers
             return gameDataOrigin;
         }
 
+        #region support function
+        public int GetLevelStar(int chapterId, int levelId)
+        {
+            return playerLevelDatas[chapterId * GameConstants.MAX_LEVEL + levelId].star;
+        }
+        public int GetLevelHighScore(int chapterId, int levelId)
+        {
+            return playerLevelDatas[chapterId * GameConstants.MAX_LEVEL + levelId].highScore;
+        }
+        public int GetAllStar()
+        {
+            int t = 0;
+            for (int i = 0; i < GameConstants.MAX_CHAPTER; i++) 
+            {
+                for (int j = 0; j < GameConstants.MAX_LEVEL; j++)
+                {
+                    t += GetLevelStar(i, j);
+                }
+            }
+            return t;
+        }
+        #endregion
     }
 
     [Serializable]
@@ -93,7 +116,7 @@ namespace GDC.Managers
         public bool IsHaveSaveData;
         //public int coin;
         //public string playerName;
-        public List<int> playerLevelTurns;
+        public List<int> playerLevelHighScores;
         public List<int> playerLevelStars;
         public int currentLevel;
     }
