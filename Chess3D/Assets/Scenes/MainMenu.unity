@@ -6096,7 +6096,8 @@ MonoBehaviour:
   startButton: {fileID: 873685889}
   settingButton: {fileID: 1878830037}
   returnButton: {fileID: 215567930}
-  levelHolder: {fileID: 0}
+  creditButton: {fileID: 962742786}
+  levelHolder: {fileID: 1322952882}
   content: {fileID: 1708460509}
   mainMenu: {fileID: 389271549}
   levelMenu: {fileID: 1007225132}
