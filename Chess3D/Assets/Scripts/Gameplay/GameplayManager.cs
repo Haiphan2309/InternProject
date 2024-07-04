@@ -58,7 +58,8 @@ public class GameplayManager : MonoBehaviour
     {
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
-        //levelData = levelSpawner.levelData;
+        chapterData = levelSpawner.GetChapterData(chapterIndex);
+
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
         SetRemainTurn(levelSpawner.levelData.maxTurn);
@@ -76,6 +77,7 @@ public class GameplayManager : MonoBehaviour
                 }
             }
         }
+        RenderSettings.skybox = chapterData.skyBox;
 
         isAnimMoving = false;
         isEndTurn = true;
