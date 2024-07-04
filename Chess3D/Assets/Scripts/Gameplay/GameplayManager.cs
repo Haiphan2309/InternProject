@@ -15,6 +15,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] LevelSpawner levelSpawner;
     public CameraController camController;
     [SerializeField] UIGameplayManager uiGameplayManager;
+    [SerializeField] TutorialConfig tutorialConfig;
 
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
@@ -85,7 +86,20 @@ public class GameplayManager : MonoBehaviour
         enemyTurn = false;
 
         uiGameplayManager.Setup();
+        CheckShowTutorial();
     }
+
+    void CheckShowTutorial()
+    {
+        foreach(var tutorialData in tutorialConfig.tutorialDatas)
+        {
+            if (chapterData.id == tutorialData.chapterIndex && levelData.id == tutorialData.levelIndex)
+            {
+                uiGameplayManager.ShowTutorial(tutorialData.tutorialSprite);
+            }
+        }
+    }
+
 
     void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
     {
@@ -96,6 +110,7 @@ public class GameplayManager : MonoBehaviour
         levelData.maxTurn = levelDataSO.maxTurn;
         levelData.center = levelDataSO.center;
         levelData.distance = levelDataSO.distance;
+        levelData.id = levelDataSO.id;
     }
     void SetRemainTurn(int value)
     {

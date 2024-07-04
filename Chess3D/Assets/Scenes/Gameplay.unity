@@ -7612,6 +7612,7 @@ MonoBehaviour:
   levelSpawner: {fileID: 1220447863}
   camController: {fileID: 1349836853}
   uiGameplayManager: {fileID: 1795535539038971835}
+  tutorialConfig: {fileID: 11400000, guid: 967c3572c815c7b4e950d2bfa3aaa069, type: 2}
   availableMovePrefab: {fileID: 7245618113376876351, guid: 84568a093dba36641903864ef114cacc, type: 3}
   levelData: {fileID: 11400000, guid: 2eac02057220f5b4cb14ff5b3a3058e9, type: 2}
   chapterData: {fileID: 0}

@@ -16,6 +16,7 @@ public class UIGameplayManager : MonoBehaviour
     [SerializeField] UIWinPanel uiWinPanel;
     [SerializeField] UILosePanel uiLosePanel;
     [SerializeField] UISetting uiSetting;
+    [SerializeField] UITutorial uiTutorial;
     
 
     bool isChessManPanelOn;
@@ -44,6 +45,11 @@ public class UIGameplayManager : MonoBehaviour
         
     }
 
+    public void ShowTutorial(Sprite tutorialSprite)
+    {
+        uiTutorial.Show(tutorialSprite);
+
+    }
     public void ShowWin()
     {
         uiWinPanel.Show();

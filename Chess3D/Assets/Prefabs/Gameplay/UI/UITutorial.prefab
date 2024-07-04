@@ -155,14 +155,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9745953, g: 1, b: 0.7490566, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 952274f5b34c0e24bba972ae030da6ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 5623621258815963855}
   - component: {fileID: 5623621258815963848}
   - component: {fileID: 5882752389153505052}
+  - component: {fileID: 5741044671514739951}
   m_Layer: 5
   m_Name: UITutorial
   m_TagString: Untagged
@@ -464,16 +465,26 @@ MonoBehaviour:
   imageOriginColor:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0.9745953, g: 1, b: 0.7490566, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   textOriginColor:
   - {r: 1, g: 1, b: 1, a: 1}
   tmpTextOriginColor:
   - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &5741044671514739951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5623621258815963854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7a6e34467c93f47897a3fb32d403a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPopupAnim: {fileID: 5882752389153505052}
+  tutorialImage: {fileID: 7733284349043958508}
 --- !u!1 &6318971357075724317
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,8 +522,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -35.668945}
-  m_SizeDelta: {x: -1120, y: -284.51727}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -1028.996, y: -431.0833}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6318971357075724304
 CanvasRenderer:
