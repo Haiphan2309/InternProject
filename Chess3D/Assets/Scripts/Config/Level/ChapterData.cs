@@ -6,6 +6,7 @@ using UnityEngine;
 public class ChapterData : ScriptableObject
 {
     public int id;
+    public string chapterName;
     List<LevelData> levelDatas;
     Sprite background;
     int starRequire;
