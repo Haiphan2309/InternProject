@@ -13,7 +13,8 @@ public class GameplayManager : MonoBehaviour
     public static GameplayManager Instance { get; private set; }
 
     [SerializeField] LevelSpawner levelSpawner;
-    [SerializeField] CameraController camController;
+    public CameraController camController;
+    [SerializeField] UIGameplayManager uiGameplayManager;
 
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
@@ -58,7 +59,8 @@ public class GameplayManager : MonoBehaviour
     {
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
-        //levelData = levelSpawner.levelData;
+        chapterData = levelSpawner.GetChapterData(chapterIndex);
+
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
         SetRemainTurn(levelSpawner.levelData.maxTurn);
@@ -76,10 +78,13 @@ public class GameplayManager : MonoBehaviour
                 }
             }
         }
+        RenderSettings.skybox = chapterData.skyBox;
 
         isAnimMoving = false;
         isEndTurn = true;
         enemyTurn = false;
+
+        uiGameplayManager.Setup();
     }
 
     void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
@@ -108,8 +113,16 @@ public class GameplayManager : MonoBehaviour
     }
     void ChangeTurn(bool enemyTurn)
     {
-        if (CheckWin()) Win();
-        else if (CheckLose()) Lose();
+        if (CheckWin())
+        {
+            Win();
+            return;
+        }
+        else if (CheckLose())
+        {
+            Lose();
+            return;
+        }
 
         this.enemyTurn = enemyTurn;
         if (enemyTurn)
@@ -470,10 +483,12 @@ public class GameplayManager : MonoBehaviour
     void Win()
     {
         Debug.Log("Win");
+        uiGameplayManager.ShowWin();
     }
     void Lose()
     {
         Debug.Log("Lose");
+        uiGameplayManager.ShowLose();
     }
     bool CheckLose()
     {

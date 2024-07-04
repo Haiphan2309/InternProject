@@ -11,7 +11,7 @@ public class UILosePanel : MonoBehaviour
     [SerializeField] Button menuBtn, replayBtn;
 
     [Button]
-    void Show()
+    public void Show()
     {
         gameObject.SetActive(true);
         menuBtn.onClick.AddListener(OnMenu);
