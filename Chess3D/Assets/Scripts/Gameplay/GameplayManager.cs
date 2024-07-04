@@ -14,18 +14,22 @@ public class GameplayManager : MonoBehaviour
 
     [SerializeField] LevelSpawner levelSpawner;
     [SerializeField] CameraController camController;
-    public string levelName;
-    [ReadOnly] public int levelIndex;
-    [HideInInspector] public LevelData levelData;
+
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
 
-    public List<ChessMan> playerArmy, enemyArmy;
+    [HideInInspector] public LevelData levelData;
+    [HideInInspector] public ChapterData chapterData;
+
+    [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy;
     [SerializeField, ReadOnly] List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
     [SerializeField, ReadOnly] List<GameplayObject> outlineGameplayObj;
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     [HideInInspector] public bool isAnimMoving, isEndTurn;
+
+    [Header("Test only")]
+    public int levelIndex, chapterIndex;
     private void Awake()
     {
         Instance = this;
@@ -42,20 +46,20 @@ public class GameplayManager : MonoBehaviour
         listEnemyPriorityLowest.Clear();
         outlineChessMan.Clear();
         levelData = null;
+        chapterData = null;
         enemyTurn = false;
     }
     [Button]
     public void LoadLevel()
     {
-        LoadLevel(levelIndex);
+        LoadLevel(chapterIndex ,levelIndex);
     }
-    public void LoadLevel(int levelIndex)
+    public void LoadLevel(int chapterIndex, int levelIndex)
     {
-        this.levelIndex = levelIndex;
-        //this.levelName = "Level_" + levelIndex.ToString();
-        levelSpawner.SpawnLevel(levelName);
+        levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
-        //levelData = levelSpawner.levelData;
+        chapterData = levelSpawner.GetChapterData(chapterIndex);
+
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
         SetRemainTurn(levelSpawner.levelData.maxTurn);
@@ -73,6 +77,7 @@ public class GameplayManager : MonoBehaviour
                 }
             }
         }
+        RenderSettings.skybox = chapterData.skyBox;
 
         isAnimMoving = false;
         isEndTurn = true;

@@ -8,11 +8,11 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-    public RectTransform holderSystem;
+/*    public RectTransform holderSystem;
     public RectTransform sliderSystem;
     public RectTransform textSystem;
     public RectTransform buttonSystem;
-    public RectTransform levelSystem;
+*/
 
     public RectTransform title;
 
@@ -25,6 +25,10 @@ public class UIManager : MonoBehaviour
     public Transform startButton;
     public Transform settingButton;
     public Transform returnButton;
+    public Transform creditButton;
+
+    public RectTransform levelHolder;
+    public Transform content;
 
     public UIMainMenu mainMenu;
     public UILevelMenu levelMenu;
@@ -62,17 +66,12 @@ public class UIManager : MonoBehaviour
 
     private void SliderPreset()
     {
-        topSlider = sliderSystem.GetChild(0).GetComponent<RectTransform>();
         topSlider.anchoredPosition = Vector3.up * hidePosition;
-
-
-        bottomSlider = sliderSystem.GetChild(1).GetComponent<RectTransform>();
         bottomSlider.anchoredPosition = Vector3.down * hidePosition;
     }
 
     private void HolderPreset()
     {
-        topChessHolder = holderSystem.GetChild(0).GetComponent<RectTransform>();
         topChessHolder.GetChild(0).GetComponent<Image>().color = rightCircleColor;
         RectTransform topChessContainer = topChessHolder.GetChild(1).GetComponent<RectTransform>();
         for (int idx = 0; idx < topChessContainer.childCount; ++idx)
@@ -81,7 +80,6 @@ public class UIManager : MonoBehaviour
         }
         topChessHolder.anchoredPosition = Vector3.one * hidePosition;
 
-        bottomChessHolder = holderSystem.GetChild(1).GetComponent<RectTransform>();
         bottomChessHolder.GetChild(0).GetComponent<Image>().color = leftCircleColor;
         RectTransform bottomChessContainer = bottomChessHolder.GetChild(1).GetComponent<RectTransform>();
         for (int idx = 0; idx < bottomChessContainer.childCount; ++idx)
@@ -93,14 +91,10 @@ public class UIManager : MonoBehaviour
 
     private void ButtonPreset()
     {
-        startButton = buttonSystem.GetChild(0);
         startButton.GetComponent<Button>().onClick.AddListener(StartButton);
-
-        settingButton = buttonSystem.GetChild(1);
         settingButton.GetComponent<Button>().onClick.AddListener(SettingButton);
-
-        returnButton = buttonSystem.GetChild(2);
         returnButton.GetComponent<Button>().onClick.AddListener(ReturnButton);
+        creditButton.GetComponent<Button>().onClick.AddListener(() => Debug.Log("Fuck you"));
 
         // POSITION SETTTER
         startButton.GetComponent<RectTransform>().anchoredPosition = Vector3.right * 600f + Vector3.up * 25;
@@ -110,9 +104,8 @@ public class UIManager : MonoBehaviour
 
     private void LevelPreset()
     {
-        levelSystem.anchoredPosition = Vector3.down * 1200f;
-        Transform content = levelSystem.GetChild(0).GetChild(0).GetChild(0);
-        for(int i = 0; i < 20; ++i)
+        levelHolder.anchoredPosition = Vector3.down * 1200f;
+        for (int i = 0; i < 20; ++i)
         {
             levelSlotPrefab.Setup(i);
             Instantiate(levelSlotPrefab, content);
@@ -121,7 +114,6 @@ public class UIManager : MonoBehaviour
 
     private void TextPreset()
     {
-        title = textSystem.GetChild(0).GetComponent<RectTransform>();
         title.anchoredPosition = Vector3.right * 400f + Vector3.up * 300f;
     }
 

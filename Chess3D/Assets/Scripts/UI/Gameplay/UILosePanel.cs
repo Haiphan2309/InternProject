@@ -34,14 +34,15 @@ public class UILosePanel : MonoBehaviour
     }
     void OnReplay()
     {
-        int currentLevelIndex = GameplayManager.Instance.levelIndex;
+        int currentChapterIndex = GameplayManager.Instance.chapterData.id;
+        int currentLevelIndex = GameplayManager.Instance.levelData.id;
         GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.GAMEPLAY,
             GDC.Enums.TransitionType.IN,
             SoundType.NONE,
             cb: () =>
             {
-                GDC.Managers.GameManager.Instance.SetInitData(currentLevelIndex);
+                GDC.Managers.GameManager.Instance.SetInitData(currentChapterIndex, currentLevelIndex);
             },
             true);
     }

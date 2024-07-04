@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera _camera;
-
+    [SerializeField] private Transform worldTarget;
     public Vector3 target; // Đối tượng mà camera sẽ xoay quanh
     public float distance = 10.0f; // Khoảng cách từ camera đến đối tượng
     public float xSpeed = 250.0f; // Tốc độ xoay theo trục x
@@ -23,10 +24,13 @@ public class CameraController : MonoBehaviour
     private float x = 0.0f;
     private float y = 0.0f;
 
+    
     private float targetX;
     private float targetY;
     private float targetDistance;
+    
 
+    [SerializeField] Transform chess;
     [SerializeField] float zoomSpeed = 50f;
 
     //For zoom
@@ -36,8 +40,21 @@ public class CameraController : MonoBehaviour
     private float zoomVelocity = 0f;
     private float smoothZoomTime = 0.25f;
 
+   
     public void Setup(Vector3 center, float distance)
     {
+        
+        _camera = GetComponent<CinemachineVirtualCamera>();
+        
+        worldTarget.position = center;
+        ChangeFollow(worldTarget, distance);
+
+    }
+    // Method to change camera follower
+    public void ChangeFollow(Transform followTarget, float distance)
+    {
+        _camera.Follow = followTarget;
+        Vector3 center = followTarget.transform.position;
         this.distance = distance;
         target = center;
         Vector3 angles = transform.eulerAngles;
@@ -47,7 +64,7 @@ public class CameraController : MonoBehaviour
         targetY = y;
         targetDistance = distance;
 
-        // Đảm bảo rằng con trỏ chuột không bị khóa (tùy chọn)
+        // 
         Cursor.lockState = CursorLockMode.None;
         //
         zoom = Camera.main.fieldOfView;

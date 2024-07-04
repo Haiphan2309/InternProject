@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -15,10 +13,11 @@ public class UILevelSlot : MonoBehaviour
     public string assetPath;
     public string defaultPath;
     public int levelIndex = 0;
+    public int chapterIndex = 0;
 
     private int maxStarCount = 3;
     private bool isAvailable = true;
-    private LevelData levelData; 
+    private LevelData levelData;
     public void Setup(int index)
     {
         levelIndex = index;
@@ -63,7 +62,7 @@ public class UILevelSlot : MonoBehaviour
     {
         if (isAvailable)
         {
-            LoadLevel(levelIndex);
+            LoadLevel(chapterIndex, levelIndex);
         }
         else
         {
@@ -83,7 +82,7 @@ public class UILevelSlot : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int levelIndex)
+    public void LoadLevel(int chapterIndex, int levelIndex)
     {
         GDC.Managers.GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.GAMEPLAY,
@@ -91,7 +90,7 @@ public class UILevelSlot : MonoBehaviour
             SoundType.NONE,
             cb: () =>
             {
-                GDC.Managers.GameManager.Instance.SetInitData(levelIndex);
+                GDC.Managers.GameManager.Instance.SetInitData(chapterIndex, levelIndex);
             },
             true);
     }

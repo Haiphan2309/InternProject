@@ -775,7 +775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameDataOrigin:
     IsHaveSaveData: 1
-    playerLevelTurns: 
+    playerLevelHighScores: 
     playerLevelStars: 
     currentLevel: 0
   GameData:

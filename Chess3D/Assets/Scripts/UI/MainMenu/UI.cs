@@ -18,6 +18,8 @@ public class UI : MonoBehaviour
     private float chessPiecePosition = 250f;
     private float chessPieceOffset = 20f;
 
+    private float levelHolderPosition = 1200f;
+
     public virtual void Anim()
     {
         DisableButton();
@@ -92,5 +94,15 @@ public class UI : MonoBehaviour
             piece2.DOAnchorPosY(-chessPiecePosition - chessPieceOffset * i, _timer);
         }
         yield return null;
+    }
+
+    public void ShowLevelHolder()
+    {
+        UIManager.Instance.levelHolder.DOAnchorPosY(0, _timer).SetEase(Ease.OutBack);
+    }
+
+    public void HideLevelHolder()
+    {
+        UIManager.Instance.levelHolder.DOAnchorPosY(-levelHolderPosition, _timer).SetEase(Ease.OutBack);
     }
 }

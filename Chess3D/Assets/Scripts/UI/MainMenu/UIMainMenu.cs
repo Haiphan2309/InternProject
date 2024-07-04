@@ -45,6 +45,6 @@ public class UIMainMenu : UI
 
     private void SetLevelSystem()
     {
-        UIManager.Instance.levelSystem.DOAnchorPosY(-1200f, _timer).SetEase(Ease.OutBack);
+        HideLevelHolder();
     }
 }
