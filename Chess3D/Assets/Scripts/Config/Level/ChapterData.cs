@@ -8,8 +8,8 @@ using UnityEngine;
 public class ChapterData : ScriptableObject
 {
     public int id;
-    public string chapterName;
+    //public string chapterName;
     public List<LevelData> levelDatas;
-    public Sprite background;
+    public Sprite background, thumbnail;
     public int starRequire;
 }
