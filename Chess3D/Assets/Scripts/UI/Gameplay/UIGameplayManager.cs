@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIGameplayManager : MonoBehaviour
 {
+    public static UIGameplayManager Instance { get; private set; }
 
     [SerializeField] Button settingBtn;
     [SerializeField] Button toggleChessManBtn;
@@ -12,9 +13,15 @@ public class UIGameplayManager : MonoBehaviour
     [SerializeField] UIChessManPanel uIChessManPanel;
     [SerializeField] UIGameplaySlider uIGameplaySlider;
 
+    
 
     bool isChessManPanelOn;
 
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         
@@ -37,11 +44,11 @@ public class UIGameplayManager : MonoBehaviour
    
         if (!isChessManPanelOn)
         {
-            uIChessManPanel.TurnOn();
+            uIChessManPanel.TurnOnPanel();
         }
         else
         {
-            uIChessManPanel.TurnOff();
+            uIChessManPanel.TurnOffPanel();
         }
         isChessManPanelOn = !isChessManPanelOn;
         
