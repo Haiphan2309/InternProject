@@ -43,6 +43,6 @@ public class UILevelMenu : UI
     }
     private void SetLevelSystem()
     {
-        UIManager.Instance.levelSystem.DOAnchorPosY(0, _timer).SetEase(Ease.OutBack);
+        ShowLevelHolder();
     }
 }
