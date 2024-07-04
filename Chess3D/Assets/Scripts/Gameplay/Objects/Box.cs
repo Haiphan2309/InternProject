@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using GDC.Enums;
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,6 @@ using UnityEngine.UIElements;
 
 public class Box : GameplayObject
 {
-
     public override void MoveAnim(Vector3 posIndexToMove, float speed)
     //posIndexToMove: ở đây không phải vị trí cuối cùng, mà chỉ là vị trí mà chessman đẩy đến (sát bên chessman),
     //sẽ phải tự tính toàn tiếp vị trí tiếp theo nếu dưới chân nó là None (thì sẽ rơi) với tốc độ defaultSpeed.
@@ -20,11 +20,12 @@ public class Box : GameplayObject
 
     IEnumerator Cor_BoxMoveAnim(Vector3 target)
     {
-        Vector3 currPos = SnapToGrid(transform.position);
+        Vector3 startPos = GameUtils.SnapToGrid(transform.position);
+        Vector3 currPos = startPos;
 
         Vector3 direction = (target - currPos).normalized;
 
-        List<Vector3> path = CalculatePath(currPos, target + direction);
+        List<Vector3> path = CalculatePath(currPos, target);
 
         foreach (var gridCell in path)
         {
@@ -37,6 +38,11 @@ public class Box : GameplayObject
             }
         }
 
-        AjustPosToGround(transform.position, target + direction, direction, true, true);
+        AjustPosToGround(transform.position, target, direction, true, true);
+
+        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(startPos);
+        Debug.Log(tileInfo.tileType);
+        GameplayManager.Instance.UpdateTile(startPos, GameUtils.SnapToGrid(target), tileInfo);
+        
     }
 }

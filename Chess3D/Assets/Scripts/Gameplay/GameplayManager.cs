@@ -367,7 +367,6 @@ public class GameplayManager : MonoBehaviour
     }
     public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null) //Cap nhat toa do tile oldPos thanh None, va cap nhat tileInfo cho new pos
     {
-        levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
         if (tileInfo == null)
         {
             levelData.SetTileInfoNoDeep(newPos, 0, TileType.NONE);
@@ -376,6 +375,7 @@ public class GameplayManager : MonoBehaviour
         {
             levelData.SetTileInfoNoDeep(newPos, tileInfo.id, tileInfo.tileType);
         }
+        levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
     }
     public void EndTurn() //Duoc goi sau khi ket thuc luot
     {

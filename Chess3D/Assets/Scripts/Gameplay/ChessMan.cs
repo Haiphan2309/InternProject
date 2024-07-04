@@ -38,16 +38,7 @@ public class ChessMan : GameplayObject
         this.index = index;
         this.posIndex = posIndex;
     }
-    //[Button]
-    //void TestOtherMove()
-    //{
-    //    OtherMoveAnim(posIndexToMove);
-    //}
-    //[Button]
-    //void TestKnightMove()
-    //{
-    //    KnightMoveAnim(posIndexToMove);
-    //}
+    
     public bool EnemyMove()
     {
         EnemyArmy enemy = GameplayManager.Instance.levelData.GetEnemyArmies()[index];
@@ -141,20 +132,11 @@ public class ChessMan : GameplayObject
                 if (GetTile(gridCell) == TileType.BOX && !isTouchBox)
                 {
                     isTouchBox = true;
-                    GameObject foundObject = null;
-                    foreach (GameObject obj in Object.FindObjectsOfType<GameObject>())
-                    {
-                        if (Vector3.Distance(obj.transform.position, gridCell) < 0.1f)
-                        {
-                            foundObject = obj;
-                            break;
-                        }
-                    }
 
-                    Box gameplayObject = foundObject.transform.GetComponent<Box>();
-                    Debug.Log(foundObject.transform.name);
+                    Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(transform.position) + direction;
+                    GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
 
-                    gameplayObject.MoveAnim(SnapToGrid(target), 5f * Time.deltaTime);
+                    gameplayObject.MoveAnim(SnapToGrid(target + direction), 5f * Time.deltaTime);
                 }
 
                 if (GetTile(gridCell) == TileType.BOULDER && !isTouchBoulder)
