@@ -65,6 +65,7 @@ public class EnemyArmy : Army
 [Serializable]
 public class LevelData : ScriptableObject
 {
+    public int id;
     public Vector3 center;
     public float distance;
     public int maxTurn;
