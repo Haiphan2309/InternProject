@@ -18,6 +18,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1febb222263bf94ead4326600e7770c, type: 2}
   - {fileID: 11400000, guid: d2e118bf063527e408841585826d87e0, type: 2}
   - {fileID: 11400000, guid: 9f08f85719b1312479fee4740f9d2f58, type: 2}
-  background: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
   thumbnail: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+  skyBox: {fileID: 2100000, guid: 115073f3de5c0d6458173c73af997bc0, type: 2}
   starRequire: 0

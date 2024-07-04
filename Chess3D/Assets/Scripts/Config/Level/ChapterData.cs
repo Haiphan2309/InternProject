@@ -10,6 +10,7 @@ public class ChapterData : ScriptableObject
     public int id;
     //public string chapterName;
     public List<LevelData> levelDatas;
-    public Sprite background, thumbnail;
+    public Sprite thumbnail;
+    public Material skyBox;
     public int starRequire;
 }

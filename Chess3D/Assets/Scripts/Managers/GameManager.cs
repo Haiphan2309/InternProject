@@ -184,17 +184,16 @@ namespace GDC.Managers
             yield return new WaitForSeconds(0.6f);
             isLoadSceneComplete = true;
         }
-        public void SetInitData(int levelIndex)
+        public void SetInitData(int chapterIndex, int levelIndex)
         {
-            StartCoroutine(Cor_InitData(levelIndex));
+            StartCoroutine(Cor_InitData(chapterIndex, levelIndex));
         }
-        IEnumerator Cor_InitData(int levelIndex)
+        IEnumerator Cor_InitData(int chapterIndex, int levelIndex)
         {
             yield return new WaitUntil(() => GameplayManager.Instance != null);
             //string levelName = "Level_" + (levelIndex+1).ToString();
 
-            //GameplayManager.Instance.LoadLevel(levelIndex);
-            GameplayManager.Instance.LoadLevel();
+            GameplayManager.Instance.LoadLevel(chapterIndex, levelIndex);
         }
     }
 }

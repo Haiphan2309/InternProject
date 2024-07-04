@@ -29,6 +29,7 @@ namespace GDC.Managers
         //public int coin;
         //public string playerName;
         public List<PlayerLevelData> playerLevelDatas;
+        public int currentChapter;
         public int currentLevel; //start with 0
         public void SetupData() //load
         {
@@ -59,6 +60,7 @@ namespace GDC.Managers
                 playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i]));
             }
             currentLevel = gameDataOrigin.currentLevel;
+            currentChapter = gameDataOrigin.currentChapter;
 
             SaveLoadManager.Instance.GameDataOrigin = gameDataOrigin;
             IsSaveLoadProcessing = false;
@@ -81,6 +83,7 @@ namespace GDC.Managers
                 }
             }
             gameDataOrigin.currentLevel = currentLevel;
+            gameDataOrigin.currentChapter = currentChapter;
 
             IsSaveLoadProcessing = false;
             return gameDataOrigin;
@@ -119,6 +122,7 @@ namespace GDC.Managers
         public List<int> playerLevelHighScores;
         public List<int> playerLevelStars;
         public int currentLevel;
+        public int currentChapter;
     }
 
     [Serializable]

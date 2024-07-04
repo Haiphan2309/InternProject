@@ -14,18 +14,22 @@ public class GameplayManager : MonoBehaviour
 
     [SerializeField] LevelSpawner levelSpawner;
     [SerializeField] CameraController camController;
-    //public string levelName;
-    public int levelIndex, chapterIndex;
-    [HideInInspector] public LevelData levelData;
+
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
 
-    public List<ChessMan> playerArmy, enemyArmy;
+    [HideInInspector] public LevelData levelData;
+    [HideInInspector] public ChapterData chapterData;
+
+    [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy;
     [SerializeField, ReadOnly] List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
     [SerializeField, ReadOnly] List<GameplayObject> outlineGameplayObj;
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     [HideInInspector] public bool isAnimMoving, isEndTurn;
+
+    [Header("Test only")]
+    public int levelIndex, chapterIndex;
     private void Awake()
     {
         Instance = this;
@@ -42,17 +46,16 @@ public class GameplayManager : MonoBehaviour
         listEnemyPriorityLowest.Clear();
         outlineChessMan.Clear();
         levelData = null;
+        chapterData = null;
         enemyTurn = false;
     }
     [Button]
     public void LoadLevel()
     {
-        LoadLevel(chapterIndex, levelIndex);
+        LoadLevel(chapterIndex ,levelIndex);
     }
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
-        this.levelIndex = levelIndex;
-        //this.levelName = "Level_" + levelIndex.ToString();
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
         //levelData = levelSpawner.levelData;
@@ -157,13 +160,9 @@ public class GameplayManager : MonoBehaviour
                             return;
                         }
                     }
-                    foreach (var enemy in enemyArmy)
-                    {
-                        Vector3 randomMove = enemy.config.PatrolState(enemy.posIndex);
-                        MakeMove(enemy, randomMove);
-                        Debug.Log(enemy.name + " di chuyen random");
-                        return;
-                    }        
+                    Vector3 randomMove = enemyArmy[0].config.PatrolState(enemyArmy[0].posIndex);
+                    MakeMove(enemyArmy[0], randomMove);
+                    Debug.Log(enemyArmy[0].name + " di chuyen random");
                 }
             }            
         }
