@@ -9,12 +9,17 @@ using GDC.Constants;
 public class LevelSpawner : MonoBehaviour
 {
     // 
+    public int chapterId, levelId;
+    //
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public List<ChessMan> playerArmy, enemyArmy;
     [HideInInspector] public string spawnLevelName = "";
     
+    // chapter x, level y -> Level_x_y 
+    //load chapter x -> level[y] -> id -> Level_x_id 
     //
-    string levelDataPath = "Assets/Resources/ScriptableObjects/LevelData";
+    string chapterDataPath = "Assets/Resources/ScriptableObjects/ChapterData";
+    string levelDataPath;
     string objectPrefabPath = "ObjectPrefabs";
     string chessPrefabPath = "ChessManPrefabs";
 
@@ -33,6 +38,7 @@ public class LevelSpawner : MonoBehaviour
             { ChessManType.KING,    5 }
 
         };
+        levelData = GetLevelData(chapterId, levelId);
     }
 
     [Button]
@@ -40,7 +46,6 @@ public class LevelSpawner : MonoBehaviour
     {
         Setup();
         spawnLevelName = levelName;
-        GetLevelData();
         GetPrefabs();
         SpawnTile();
         SpawnPlayerChess();
@@ -49,8 +54,8 @@ public class LevelSpawner : MonoBehaviour
     private void SpawnTile()
     {
         GameObject levelObject = new GameObject("Level");
+        
         //
-
         TileInfo[,,] map = levelData.GetTileInfo();
         
         List<EnemyArmy> enemyArmies = levelData.GetEnemyArmies();
@@ -129,11 +134,29 @@ public class LevelSpawner : MonoBehaviour
             index++;
         }
     }
-    private void GetLevelData()
+    public ChapterData GetChapterData(int chapterId)
     {
-        string loadPath = "ScriptableObjects/LevelData/" + spawnLevelName;
-        levelData = Resources.Load<LevelData>(loadPath);
-        
+        string chapterName = "Chapter_" + chapterId.ToString();
+        string loadPath = "ScriptableObjects/ChapterData/" + chapterName;
+        ChapterData chapterData = Resources.Load<ChapterData>(loadPath);
+
+        if (chapterData == null)
+        {
+            Debug.LogError($"Failed to load chapter: " + chapterName);
+
+        }
+        else
+        {
+            Debug.Log($"Loading chapter {chapterName} successfully");
+        }
+        return chapterData;
+    }
+    private LevelData GetLevelData(int chapterID, int levelID)
+    {
+        //spawnLevelName = $"Level_{chapterId+1}_{levelId+1}";
+        ChapterData chapterData = GetChapterData(chapterID);
+        LevelData levelData = chapterData.levelDatas[levelID];
+
         if (levelData == null)
         {
             Debug.LogError($"Failed to load level: " + spawnLevelName);
@@ -143,7 +166,7 @@ public class LevelSpawner : MonoBehaviour
         {
             Debug.Log($"Loading level {spawnLevelName} successfully");
         }
-
+        return levelData;
     }
     private void GetPrefabs()
     {
