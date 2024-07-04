@@ -47,15 +47,21 @@ public class CameraController : MonoBehaviour
         _camera = GetComponent<CinemachineVirtualCamera>();
         
         worldTarget.position = center;
-        ChangeFollow(worldTarget, distance);
+        this.distance = distance;
+        ChangeToDefaultCamera();
 
     }
+
+    public void ChangeToDefaultCamera()
+    {
+        ChangeFollow(worldTarget);
+    }
     // Method to change camera follower
-    public void ChangeFollow(Transform followTarget, float distance)
+    public void ChangeFollow(Transform followTarget)
     {
         _camera.Follow = followTarget;
         Vector3 center = followTarget.transform.position;
-        this.distance = distance;
+        
         target = center;
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
