@@ -14,6 +14,7 @@ public class GameplayManager : MonoBehaviour
 
     [SerializeField] LevelSpawner levelSpawner;
     public CameraController camController;
+    [SerializeField] UIGameplayManager uiGameplayManager;
 
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
@@ -82,6 +83,8 @@ public class GameplayManager : MonoBehaviour
         isAnimMoving = false;
         isEndTurn = true;
         enemyTurn = false;
+
+        uiGameplayManager.Setup();
     }
 
     void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
@@ -110,8 +113,16 @@ public class GameplayManager : MonoBehaviour
     }
     void ChangeTurn(bool enemyTurn)
     {
-        if (CheckWin()) Win();
-        else if (CheckLose()) Lose();
+        if (CheckWin())
+        {
+            Win();
+            return;
+        }
+        else if (CheckLose())
+        {
+            Lose();
+            return;
+        }
 
         this.enemyTurn = enemyTurn;
         if (enemyTurn)
@@ -472,10 +483,12 @@ public class GameplayManager : MonoBehaviour
     void Win()
     {
         Debug.Log("Win");
+        uiGameplayManager.ShowWin();
     }
     void Lose()
     {
         Debug.Log("Lose");
+        uiGameplayManager.ShowLose();
     }
     bool CheckLose()
     {

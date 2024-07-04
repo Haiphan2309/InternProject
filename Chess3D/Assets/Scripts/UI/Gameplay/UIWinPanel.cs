@@ -17,7 +17,7 @@ public class UIWinPanel : MonoBehaviour
     Color haloColor;
 
     [Button]
-    void Show()
+    public void Show()
     {
         gameObject.SetActive(true);
         menuBtn.onClick.AddListener(OnMenu);
