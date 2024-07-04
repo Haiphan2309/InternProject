@@ -23,6 +23,7 @@ public class UIMainMenu : UI
     private void SetText()
     {
         ShowTitleText();
+        UIManager.Instance.chapter.GetComponent<RectTransform>().DOAnchorPosY(600, _timer);
     }
 
     private void SetSlider()
@@ -44,6 +45,7 @@ public class UIMainMenu : UI
         UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
         UIManager.Instance.creditButton.GetComponent<RectTransform>().DOAnchorPosX(225, _timer);
     }
+
     private void SetChapterSystem()
     {
         UIManager.Instance.chapterHolder.DOAnchorPosY(-2000, _timer);

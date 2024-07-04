@@ -2,6 +2,7 @@ using DG.Tweening;
 using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -130,6 +131,8 @@ public class UIManager : MonoBehaviour
 
     public void LevelPreset(int chapterIndex)
     {
+        chapter.GetChild(0).GetComponent<TMP_Text>().text = "Chapter " + chapterIndex.ToString();
+        chapter.GetChild(1).GetComponent<TMP_Text>().text = "Chapter " + chapterIndex.ToString();
         UIStack.Push(chapterMenu);
         levelHolder.anchoredPosition = Vector3.down * 2000f;
         for (int idx = 0; idx < 3; ++idx)

@@ -23,6 +23,7 @@ public class UILevelMenu : UI
     private void SetText()
     {
         HideTitleText();
+        UIManager.Instance.chapter.GetComponent<RectTransform>().DOAnchorPosY(-50, _timer);
     }
 
     private void SetSlider()
@@ -43,6 +44,7 @@ public class UILevelMenu : UI
         UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
         UIManager.Instance.creditButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
     }
+
     private void SetChapterSystem()
     {
         UIManager.Instance.chapterHolder.DOAnchorPosY(-2000, _timer);
