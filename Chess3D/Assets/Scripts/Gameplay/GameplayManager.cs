@@ -13,7 +13,7 @@ public class GameplayManager : MonoBehaviour
     public static GameplayManager Instance { get; private set; }
 
     [SerializeField] LevelSpawner levelSpawner;
-    [SerializeField] CameraController camController;
+    public CameraController camController;
 
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();

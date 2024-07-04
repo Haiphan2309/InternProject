@@ -52,7 +52,7 @@ public class UIChessManPanel : MonoBehaviour
 
         LoadChessIcon();
         UpdateChessPanel();
-        //Testing
+        UpdateOnClickEvent();
         
         
     }
@@ -95,8 +95,6 @@ public class UIChessManPanel : MonoBehaviour
             }
         }   
         
-
-        
     }
     private void UpdateChessPanel()
     {
@@ -134,18 +132,31 @@ public class UIChessManPanel : MonoBehaviour
             foreground.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.defaultBackground;
             
             //
-            
-    
+
             enemyHolderList.Add(holder);
         }
     }
 
+
+    private void UpdateOnClickEvent()
+    {
+        foreach(var holder in playerHolderList) 
+        {
+            holder.holderObject.GetComponent<Button>().onClick.AddListener(
+                () => OnHolderClicked(holder)
+            );
+        }
+        foreach (var holder in enemyHolderList)
+        {
+            holder.holderObject.GetComponent<Button>().onClick.AddListener(
+                () => OnHolderClicked(holder)
+            );
+        }
+    }
     [Button]
     public void TurnOnPanel()
     {
-        //
- 
-        // Move Panel to Game View
+
         rectTransform.DOAnchorPosX(turnOnPos, duration).SetEase(Ease.OutBack);
 
     }
@@ -153,13 +164,22 @@ public class UIChessManPanel : MonoBehaviour
     [Button]
     public void TurnOffPanel()
     {
-        //
-       
-        // Move Panel out of Game View
+
         rectTransform.DOAnchorPosX(turnOffPos, duration).SetEase(Ease.InBack);
 
     }
 
-    
+    private void OnHolderClicked(ChessHolder holder)
+    {
+        if (activatingHolder != null && activatingHolder == holder)
+        {
+            activatingHolder = null;
+            GameplayManager.Instance.camController.ChangeToDefaultCamera();
+            return;
+        } 
+        Transform target = holder.chessMan.gameObject.transform;
+        GameplayManager.Instance.camController.ChangeFollow(target);
+        activatingHolder = holder;
+    }
 
 }
