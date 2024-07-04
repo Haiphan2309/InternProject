@@ -15,6 +15,7 @@ namespace GDC.Constants
         public static readonly Vector2 playerChessIdBoundary = new Vector2(300, 305);
         public static readonly Vector2 enemyChessIdBoundary = new Vector2(400, 410);
 
-        public const int MAX_LEVEL = 10;
+        public const int MAX_LEVEL = 8;
+        public const int MAX_CHAPTER = 4;
     }
 }

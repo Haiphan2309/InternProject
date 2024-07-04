@@ -302,17 +302,21 @@ public class ChessManConfig : ScriptableObject
             // We find the first tile below the next move
             while (move.y >= 1f && InBound(move) && !IsTile(move))
             {
+                if (dynamicObjectOnDirection)
+                {
+                    return;
+                }
                 move += Vector3.down;
             }
             // Check if the potential move is in bound
             if (!InBound(move))
             {
-                break;
+                return;
             }
             // Check if the potential move is standable
             if (!CanStandOn(move))
             {
-                break;
+                return;
             }
             // Check if the potential move is jumpable
             if (!ValidateJump(move, direction))
@@ -322,13 +326,14 @@ public class ChessManConfig : ScriptableObject
             // Check if the potential move is movable
             if (!ValidateMove(move, direction))
             {
-                break;
+                return;
             }
             if (IsDynamicObject(move))
             {
                 if (dynamicObjectOnDirection)
                 {
-                    break;
+                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+                    return;
                 }
                 dynamicObjectOnDirection = true;
             }
@@ -341,8 +346,11 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsSameTeam(currentPositionIndex, move))
             {
-                // Debug.Log("Same team spotted");
-                break;
+                if (dynamicObjectOnDirection)
+                {
+                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+                    return;
+                }
             }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
@@ -350,8 +358,12 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsDifferentTeam(currentPositionIndex, move))
             {
-                // Debug.Log("Different team spotted");
-                break;
+                if (dynamicObjectOnDirection)
+                {
+                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+                    return;
+                }
             }
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
@@ -361,18 +373,8 @@ public class ChessManConfig : ScriptableObject
             // Update the currentMove
             currentMove = move;
         }
-
-        // Dynamic Object check
-        // If the last move is out of bound, we don't care about the dynamic objects
-        if (!InBound(move))
-        {
-            return;
-        }
-        if (dynamicObjectOnDirection)
-        {
-            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-        }
     }
+
     public virtual void GenerateMoveList(Vector3 currentPositionIndex)
     {
         return;
@@ -391,6 +393,7 @@ public class ChessManConfig : ScriptableObject
     // There will be 3 states: PatrolState, RetreatState, KillState (the KING will not have this)
     // The priority queue is as follows: KillState -> RetreatState -> PatrolState
     // The pieces' priority on states: KING -> QUEEN -> CASTLE -> KNIGHT -> BISHOP -> PAWN
+    // MAYBE AIManager
     public Vector3 MoveByDefault(Vector3 currentPositionIndex)
     {
         // Debug.Log("AI CHECK");
@@ -408,7 +411,7 @@ public class ChessManConfig : ScriptableObject
         Vector3 killState = KillState(chessManPriority);
 
         // Debug.Log("Decision");
-        if (killState != Vector3.zero)
+/*        if (killState != Vector3.zero)
         {
             Debug.Log("Kill State" + killState);
             return killState;
@@ -417,7 +420,7 @@ public class ChessManConfig : ScriptableObject
         {
             Debug.Log("Retreat State" + retreatState);
             return retreatState;
-        }
+        }*/
         Debug.Log("Patrol State" + patrolState);
         return patrolState;
     }
@@ -495,6 +498,7 @@ public class ChessManConfig : ScriptableObject
     // PatrolState: Default
     public virtual Vector3 PatrolState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority = null)
     {
-        return possibleMoveList[UnityEngine.Random.Range(0, possibleMoveList.Count)];
+        return currentPositionIndex;
+        // return possibleMoveList[UnityEngine.Random.Range(0, possibleMoveList.Count)];
     }
 }
