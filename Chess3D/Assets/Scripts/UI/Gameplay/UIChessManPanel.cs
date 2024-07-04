@@ -3,6 +3,7 @@ using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,10 +14,13 @@ public class ChessHolder
     public ChessMan chessMan;
     
     public GameObject holderObject;
+
+    public bool isEnemy;
     
     public ChessHolder(ChessMan chessMan)
     {
         this.chessMan = chessMan;
+        
     }
 
 }
@@ -107,10 +111,7 @@ public class UIChessManPanel : MonoBehaviour
             chessImg.gameObject.GetComponent<Image>().sprite = chessSpriteDic[army.config.chessManType];
             chessImg.gameObject.GetComponent<Image>().color = playerChessHolderConfig.chessColor;
             // Assign default Color to border and background
-            Transform background = holder.holderObject.transform.Find("Background");
-            Transform foreground = background.GetChild(0);
-            background.gameObject.GetComponent<Image>().color = playerChessHolderConfig.defaultBorder;
-            foreground.gameObject.GetComponent<Image>().color = playerChessHolderConfig.defaultBackground;
+            ChangeHolderColor(holder, false);
 
             // Create Object
          
@@ -126,11 +127,11 @@ public class UIChessManPanel : MonoBehaviour
             chessImg.gameObject.GetComponent<Image>().sprite = chessSpriteDic[army.config.chessManType];
             chessImg.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.chessColor;
             // Assign default Color to border and background
-            Transform background = holder.holderObject.transform.Find("Background");
-            Transform foreground = background.GetChild(0);
-            background.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.defaultBorder;
-            foreground.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.defaultBackground;
-            
+            //Transform background = holder.holderObject.transform.Find("Background");
+            //Transform foreground = background.GetChild(0);
+            //background.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.defaultBorder;
+            //foreground.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.defaultBackground;
+            ChangeHolderColor(holder, false);
             //
 
             enemyHolderList.Add(holder);
@@ -171,15 +172,49 @@ public class UIChessManPanel : MonoBehaviour
 
     private void OnHolderClicked(ChessHolder holder)
     {
+        
         if (activatingHolder != null && activatingHolder == holder)
         {
+            ChangeHolderColor(activatingHolder, false);
             activatingHolder = null;
             GameplayManager.Instance.camController.ChangeToDefaultCamera();
             return;
         } 
         Transform target = holder.chessMan.gameObject.transform;
         GameplayManager.Instance.camController.ChangeFollow(target);
+        
+        //
+        ChangeHolderColor(activatingHolder, false);
+        activatingHolder?.chessMan.SetOutline(0);
+ 
+        //
         activatingHolder = holder;
+        ChangeHolderColor(activatingHolder, true);
+        activatingHolder?.chessMan.SetOutline(10, Color.white);
+        
+    }
+    private void ChangeHolderColor(ChessHolder holder, bool isOn)
+    {
+        if (holder == null) return;
+        bool isEnemy = holder.chessMan.isEnemy;
+        Color backgroundColor, foregroundColor;
+        ChessHolderConfig holderConfig = isEnemy ? enemyChessHolderConfig : playerChessHolderConfig;
+        if (isOn)
+        {
+            backgroundColor = holderConfig.activeBorder;
+            foregroundColor = holderConfig.activeBackground;
+        }
+        else
+        {
+            backgroundColor = holderConfig.defaultBorder;
+            foregroundColor = holderConfig.defaultBackground;
+        }
+        //Assign default Color to border and background
+        Transform background = holder.holderObject.transform.Find("Background");
+        Transform foreground = background.GetChild(0);
+        background.gameObject.GetComponent<Image>().color = backgroundColor;
+        foreground.gameObject.GetComponent<Image>().color = foregroundColor;
+
     }
 
 }
