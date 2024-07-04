@@ -8,12 +8,9 @@ using System;
 using GDC.Constants;
 public class LevelSpawner : MonoBehaviour
 {
-    // 
-    public int chapterId, levelId;
-    //
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public List<ChessMan> playerArmy, enemyArmy;
-    [HideInInspector] public string spawnLevelName = "";
+    //[HideInInspector] public string spawnLevelName = "";
     
     // chapter x, level y -> Level_x_y 
     //load chapter x -> level[y] -> id -> Level_x_id 
@@ -26,7 +23,7 @@ public class LevelSpawner : MonoBehaviour
     Dictionary<int, GameObject> tilePrefabDic = new Dictionary<int, GameObject>();
     Dictionary<int, GameObject> chessPrefabDic = new Dictionary<int, GameObject>();
     Dictionary<ChessManType, int> chessDic;
-    public void Setup()
+    void Setup(int chapterId, int levelId)
     {
         chessDic = new Dictionary<ChessManType, int> 
         {
@@ -42,10 +39,10 @@ public class LevelSpawner : MonoBehaviour
     }
 
     [Button]
-    public void SpawnLevel(string levelName)
+    public void SpawnLevel(int chapterId, int levelId)
     {
-        Setup();
-        spawnLevelName = levelName;
+        Setup(chapterId, levelId);
+        //spawnLevelName = levelName;
         GetPrefabs();
         SpawnTile();
         SpawnPlayerChess();
@@ -136,7 +133,7 @@ public class LevelSpawner : MonoBehaviour
     }
     public ChapterData GetChapterData(int chapterId)
     {
-        string chapterName = "Chapter_" + chapterId.ToString();
+        string chapterName = "Chapter_" + (chapterId+1).ToString();
         string loadPath = "ScriptableObjects/ChapterData/" + chapterName;
         ChapterData chapterData = Resources.Load<ChapterData>(loadPath);
 
@@ -157,14 +154,15 @@ public class LevelSpawner : MonoBehaviour
         ChapterData chapterData = GetChapterData(chapterID);
         LevelData levelData = chapterData.levelDatas[levelID];
 
+        string levelName = chapterID.ToString() + "_" + levelID.ToString();
         if (levelData == null)
         {
-            Debug.LogError($"Failed to load level: " + spawnLevelName);
+            Debug.LogError($"Failed to load level: " + "Level_"+levelName);
 
         }
         else
         {
-            Debug.Log($"Loading level {spawnLevelName} successfully");
+            Debug.Log($"Loading level {levelName} successfully");
         }
         return levelData;
     }

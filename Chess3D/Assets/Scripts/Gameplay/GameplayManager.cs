@@ -14,8 +14,8 @@ public class GameplayManager : MonoBehaviour
 
     [SerializeField] LevelSpawner levelSpawner;
     [SerializeField] CameraController camController;
-    public string levelName;
-    [ReadOnly] public int levelIndex;
+    //public string levelName;
+    public int levelIndex, chapterIndex;
     [HideInInspector] public LevelData levelData;
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
@@ -47,13 +47,13 @@ public class GameplayManager : MonoBehaviour
     [Button]
     public void LoadLevel()
     {
-        LoadLevel(levelIndex);
+        LoadLevel(chapterIndex, levelIndex);
     }
-    public void LoadLevel(int levelIndex)
+    public void LoadLevel(int chapterIndex, int levelIndex)
     {
         this.levelIndex = levelIndex;
         //this.levelName = "Level_" + levelIndex.ToString();
-        levelSpawner.SpawnLevel(levelName);
+        levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
         //levelData = levelSpawner.levelData;
         playerArmy = levelSpawner.playerArmy;
