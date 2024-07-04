@@ -157,9 +157,13 @@ public class GameplayManager : MonoBehaviour
                             return;
                         }
                     }
-                    Vector3 randomMove = enemyArmy[0].config.PatrolState(enemyArmy[0].posIndex);
-                    MakeMove(enemyArmy[0], randomMove);
-                    Debug.Log(enemyArmy[0].name + " di chuyen random");
+                    foreach (var enemy in enemyArmy)
+                    {
+                        Vector3 randomMove = enemy.config.PatrolState(enemy.posIndex);
+                        MakeMove(enemy, randomMove);
+                        Debug.Log(enemy.name + " di chuyen random");
+                        return;
+                    }        
                 }
             }            
         }
