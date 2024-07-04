@@ -900,6 +900,10 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   tmpTextOriginColor:
   - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6220935930819305873
 GameObject:
   m_ObjectHideFlags: 0

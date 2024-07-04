@@ -658,9 +658,9 @@ GameObject:
   - component: {fileID: 9185703026718325715}
   - component: {fileID: 9185703026718325714}
   - component: {fileID: 9185703026718325713}
-  - component: {fileID: 8580983313438417203}
+  - component: {fileID: -5366115003194688126}
   m_Layer: 5
-  m_Name: LevelSlot
+  m_Name: ChapterSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -771,7 +771,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8580983313438417203
+--- !u!114 &-5366115003194688126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -780,14 +780,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9185703026718325719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f503fa91f0c32d044a2c58d2a96d3f37, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e5ab44129ae42743aced47223359386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelImage: {fileID: 1176424890}
-  levelStar: {fileID: 853235002}
-  levelText: {fileID: 1620225402}
-  levelPath: 
-  assetPath: ScriptableObjects/LevelData/Level_2
-  defaultPath: 
+  chapterText: {fileID: 1620225402}
   chapterIndex: 0
-  levelIndex: 2

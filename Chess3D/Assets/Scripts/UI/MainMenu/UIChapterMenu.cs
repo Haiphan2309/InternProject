@@ -1,11 +1,9 @@
 using DG.Tweening;
-using GDC.Managers;
-using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UILevelMenu : UI
+public class UIChapterMenu : UI
 {
     public override IEnumerator Cor_Anim()
     {
@@ -45,11 +43,12 @@ public class UILevelMenu : UI
     }
     private void SetChapterSystem()
     {
-        UIManager.Instance.chapterHolder.DOAnchorPosY(-2000, _timer);
+        UIManager.Instance.chapterHolder.DOAnchorPosY(0, _timer);
+        //ShowLevelHolder();
     }
 
     private void SetLevelSystem()
     {
-        ShowLevelHolder();
+        HideLevelHolder();
     }
 }

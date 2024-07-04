@@ -1,6 +1,8 @@
 using DG.Tweening;
+using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,13 +10,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-/*    public RectTransform holderSystem;
-    public RectTransform sliderSystem;
-    public RectTransform textSystem;
-    public RectTransform buttonSystem;
-*/
-
-    public RectTransform title;
 
     public RectTransform topSlider;
     public RectTransform topChessHolder;
@@ -22,17 +17,29 @@ public class UIManager : MonoBehaviour
     public RectTransform bottomSlider;
     public RectTransform bottomChessHolder;
 
+    public RectTransform title;
+    public RectTransform chapter;
+
     public Transform startButton;
     public Transform settingButton;
     public Transform returnButton;
     public Transform creditButton;
 
+    public Transform pageSystem;
+
+    public RectTransform chapterHolder;
+    public Transform chapterContent;
+
     public RectTransform levelHolder;
-    public Transform content;
+    public Transform levelContent;
 
     public UIMainMenu mainMenu;
+    public UIChapterMenu chapterMenu;
     public UILevelMenu levelMenu;
+    public UIChapterSlot chapterSlotPrefab;
     public UILevelSlot levelSlotPrefab;
+    public UIPopupAnim creditPagePrefab;
+    public UISetting settingPagePrefab;
 
     private float hidePosition = 600f;
 
@@ -41,6 +48,10 @@ public class UIManager : MonoBehaviour
 
     private Color leftChessPieceColor = new Color(0f, 0.5f, 1f);
     private Color rightChessPieceColor = new Color(1f, 0.5f, 0f);
+
+    private Stack<UI> UIStack = new Stack<UI>();
+    private List<Button> chapterButton = new List<Button>();
+    private List<Button> levelButton = new List<Button>();
 
     private void Awake()
     {
@@ -60,7 +71,7 @@ public class UIManager : MonoBehaviour
         SliderPreset();
         HolderPreset();
         ButtonPreset();
-        LevelPreset();
+        ChapterPreset();
         TextPreset();
     }
 
@@ -94,45 +105,120 @@ public class UIManager : MonoBehaviour
         startButton.GetComponent<Button>().onClick.AddListener(StartButton);
         settingButton.GetComponent<Button>().onClick.AddListener(SettingButton);
         returnButton.GetComponent<Button>().onClick.AddListener(ReturnButton);
-        creditButton.GetComponent<Button>().onClick.AddListener(() => Debug.Log("Fuck you"));
+        creditButton.GetComponent<Button>().onClick.AddListener(CreditButton);
 
         // POSITION SETTTER
-        startButton.GetComponent<RectTransform>().anchoredPosition = Vector3.right * 600f + Vector3.up * 25;
-        settingButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * 600f + Vector3.down * 50;
-        returnButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * 600f + Vector3.up * 100;
+        startButton.GetComponent<RectTransform>().anchoredPosition = Vector3.right * hidePosition + Vector3.up * 25f;
+        settingButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
+        returnButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.up * 25f;
+        creditButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
     }
 
-    private void LevelPreset()
+    private void ChapterPreset()
     {
-        levelHolder.anchoredPosition = Vector3.down * 1200f;
-        for (int i = 0; i < 20; ++i)
+        chapterHolder.anchoredPosition = Vector3.down * 2000f;
+        for (int idx = 0; idx < GDC.Constants.GameConstants.MAX_CHAPTER; ++idx)
         {
-            levelSlotPrefab.Setup(i);
-            Instantiate(levelSlotPrefab, content);
+            int chapterIndex = idx;
+            UIChapterSlot chapterSlot = Instantiate(chapterSlotPrefab, chapterContent);
+            chapterSlot.ChapterSetup(
+                chapterIndex
+                );
+            chapterButton.Add(chapterSlot.GetComponent<Button>());
         }
+    }
+
+    public void LevelPreset(int chapterIndex)
+    {
+        UIStack.Push(chapterMenu);
+        levelHolder.anchoredPosition = Vector3.down * 2000f;
+        for (int idx = 0; idx < 3; ++idx)
+        {
+            int levelIndex = idx;
+            UILevelSlot levelSlot = Instantiate(levelSlotPrefab, levelContent);
+            levelSlot.LevelSetup(
+                chapterIndex,
+                levelIndex, 
+                1
+                );
+            levelButton.Add(levelSlot.GetComponent<Button>());
+        }
+        levelMenu.Anim();
     }
 
     private void TextPreset()
     {
-        title.anchoredPosition = Vector3.right * 400f + Vector3.up * 300f;
+        title.anchoredPosition = Vector3.right * 500f + Vector3.up * 600;
+        chapter.anchoredPosition = Vector3.left * 300f + Vector3.up * 600;
     }
 
     private void StartButton()
     {
         Debug.Log("Start");
-        levelMenu.Anim();
+        UIStack.Push(mainMenu);
+        chapterMenu.Anim();
     }
 
     private void SettingButton()
     {
+        HideAllButtons();
         Debug.Log("Settings");
+        UISetting settingPage = Instantiate(settingPagePrefab, pageSystem);
+        settingPage.Show();
     }
 
     private void ReturnButton()
     {
         Debug.Log("Return");
-        mainMenu.Anim();
+        UI lastUI = UIStack.Peek();
+        if (lastUI.GetType() == typeof(UILevelMenu))
+        {
+            levelButton.Clear();
+        }
+        else if (lastUI.GetType() == typeof(UIChapterMenu))
+        {
+            chapterButton.Clear();
+        }
+        UIStack.Pop().Anim();
     }
 
+    private void CreditButton()
+    {
+        HideAllButtons();
+        Debug.Log("Credit");
+        UIPopupAnim creditPage = Instantiate(creditPagePrefab, pageSystem);
+        creditPage.Show();
+    }
 
+    public void HideAllButtons()
+    {
+        for(int i = 0; i < levelButton.Count; ++i)
+        {
+            levelButton[i].interactable = false;
+        }
+        for(int i = 0; i < chapterButton.Count; ++i)
+        {
+            chapterButton[i].interactable = false;
+        }
+        startButton.GetComponent<Button>().interactable = false;
+        settingButton.GetComponent<Button>().interactable = false;
+        returnButton.GetComponent<Button>().interactable = false;
+        creditButton.GetComponent<Button>().interactable = false;
+    }
+
+    public void ShowAllButtons()
+    {
+        for (int i = 0; i < levelButton.Count; ++i)
+        {
+            levelButton[i].interactable = true;
+        }
+        for (int i = 0; i < chapterButton.Count; ++i)
+        {
+            chapterButton[i].interactable = true;
+        }
+        startButton.GetComponent<Button>().interactable = true;
+        settingButton.GetComponent<Button>().interactable = true;
+        returnButton.GetComponent<Button>().interactable = true;
+        creditButton.GetComponent<Button>().interactable = true;
+    }
 }
