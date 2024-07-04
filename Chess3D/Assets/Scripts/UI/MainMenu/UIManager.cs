@@ -8,14 +8,35 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-    public RectTransform backgroundSystem;
+    public RectTransform holderSystem;
+    public RectTransform sliderSystem;
     public RectTransform textSystem;
     public RectTransform buttonSystem;
     public RectTransform levelSystem;
 
+    public RectTransform title;
+
+    public RectTransform topSlider;
+    public RectTransform topChessHolder;
+
+    public RectTransform bottomSlider;
+    public RectTransform bottomChessHolder;
+
+    public Transform startButton;
+    public Transform settingButton;
+    public Transform returnButton;
+
     public UIMainMenu mainMenu;
     public UILevelMenu levelMenu;
     public UILevelSlot levelSlotPrefab;
+
+    private float hidePosition = 600f;
+
+    private Color leftCircleColor = new Color(200f / 255f, 150f / 255f, 1f);
+    private Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
+
+    private Color leftChessPieceColor = new Color(0f, 0.5f, 1f);
+    private Color rightChessPieceColor = new Color(1f, 0.5f, 0f);
 
     private void Awake()
     {
@@ -33,6 +54,7 @@ public class UIManager : MonoBehaviour
     private void Preset()
     {
         SliderPreset();
+        HolderPreset();
         ButtonPreset();
         LevelPreset();
         TextPreset();
@@ -40,26 +62,50 @@ public class UIManager : MonoBehaviour
 
     private void SliderPreset()
     {
-        Transform topSlider = backgroundSystem.GetChild(1);
-        topSlider.GetComponent<RectTransform>().anchoredPosition = Vector3.up * 600f;
+        topSlider = sliderSystem.GetChild(0).GetComponent<RectTransform>();
+        topSlider.anchoredPosition = Vector3.up * hidePosition;
 
-        Transform bottomSlider = backgroundSystem.GetChild(2);
-        bottomSlider.GetComponent<RectTransform>().anchoredPosition = Vector3.down * 600f;
+
+        bottomSlider = sliderSystem.GetChild(1).GetComponent<RectTransform>();
+        bottomSlider.anchoredPosition = Vector3.down * hidePosition;
+    }
+
+    private void HolderPreset()
+    {
+        topChessHolder = holderSystem.GetChild(0).GetComponent<RectTransform>();
+        topChessHolder.GetChild(0).GetComponent<Image>().color = rightCircleColor;
+        RectTransform topChessContainer = topChessHolder.GetChild(1).GetComponent<RectTransform>();
+        for (int idx = 0; idx < topChessContainer.childCount; ++idx)
+        {
+            topChessContainer.GetChild(idx).GetComponent<Image>().color = rightChessPieceColor;
+        }
+        topChessHolder.anchoredPosition = Vector3.one * hidePosition;
+
+        bottomChessHolder = holderSystem.GetChild(1).GetComponent<RectTransform>();
+        bottomChessHolder.GetChild(0).GetComponent<Image>().color = leftCircleColor;
+        RectTransform bottomChessContainer = bottomChessHolder.GetChild(1).GetComponent<RectTransform>();
+        for (int idx = 0; idx < bottomChessContainer.childCount; ++idx)
+        {
+            bottomChessContainer.GetChild(idx).GetComponent<Image>().color = leftChessPieceColor;
+        }
+        bottomChessHolder.anchoredPosition = -Vector3.one * hidePosition;
     }
 
     private void ButtonPreset()
     {
-        Transform startButton = buttonSystem.GetChild(0);
-        startButton.GetComponent<RectTransform>().anchoredPosition = Vector3.right * 600f + Vector3.up * 25;
+        startButton = buttonSystem.GetChild(0);
         startButton.GetComponent<Button>().onClick.AddListener(StartButton);
 
-        Transform settingButton = buttonSystem.GetChild(1);
-        settingButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * 600f + Vector3.down * 50;
+        settingButton = buttonSystem.GetChild(1);
         settingButton.GetComponent<Button>().onClick.AddListener(SettingButton);
 
-        Transform returnButton = buttonSystem.GetChild(2);
-        returnButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * 600f + Vector3.up * 100;
+        returnButton = buttonSystem.GetChild(2);
         returnButton.GetComponent<Button>().onClick.AddListener(ReturnButton);
+
+        // POSITION SETTTER
+        startButton.GetComponent<RectTransform>().anchoredPosition = Vector3.right * 600f + Vector3.up * 25;
+        settingButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * 600f + Vector3.down * 50;
+        returnButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * 600f + Vector3.up * 100;
     }
 
     private void LevelPreset()
@@ -75,8 +121,8 @@ public class UIManager : MonoBehaviour
 
     private void TextPreset()
     {
-        Transform title = textSystem.GetChild(0);
-        title.GetComponent<RectTransform>().anchoredPosition = Vector3.right * 400f + Vector3.up * 300f;
+        title = textSystem.GetChild(0).GetComponent<RectTransform>();
+        title.anchoredPosition = Vector3.right * 400f + Vector3.up * 300f;
     }
 
     private void StartButton()
@@ -95,4 +141,6 @@ public class UIManager : MonoBehaviour
         Debug.Log("Return");
         mainMenu.Anim();
     }
+
+
 }
