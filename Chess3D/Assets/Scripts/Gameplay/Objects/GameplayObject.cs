@@ -75,7 +75,7 @@ public class GameplayObject : MonoBehaviour
         transform.SetParent(null);
     }
 
-    protected List<Vector3> CalculatePath(Vector3 start, Vector3 end)
+    protected List<Vector3> CalculatePath(Vector3 start, Vector3 end, bool isBox = false)
     {
         List<Vector3> path = new List<Vector3>();
         Vector3 current = start;
@@ -107,6 +107,7 @@ public class GameplayObject : MonoBehaviour
                     path.Add(new Vector3(current.x, current.y, current.z));
                     continue;
                 }
+                
             }
 
             // Check the tile above
@@ -117,15 +118,12 @@ public class GameplayObject : MonoBehaviour
             {
                 current.y += 1;
                 path.Add(new Vector3(current.x, current.y, current.z));
-
-
-
                 continue;
             }
 
             // Check the tile
             tileType = GetTileBelowObject(current);
-            if (tileType == TileType.NONE || tileType == TileType.PLAYER_CHESS || tileType == TileType.ENEMY_CHESS)
+            if (tileType == TileType.NONE && !isBox)
             {
                 if (isOnPathSlope)
                 {
@@ -135,6 +133,29 @@ public class GameplayObject : MonoBehaviour
 
                 path.Add(new Vector3(current.x, current.y, current.z));
                 current.y -= 1;
+
+                continue;
+            }
+
+            else if ((tileType == TileType.NONE || tileType == TileType.BOX) && isBox)
+            {
+                if (tileType == TileType.GROUND)
+                    break;
+
+                if (isOnPathSlope)
+                {
+                    isFalling = false;
+                }
+
+                else isFalling = true;
+
+                path.Add(new Vector3(current.x, current.y, current.z));
+                current.y -= 1;
+
+                if (current.y <= -5)
+                {
+                    break;
+                }
 
                 continue;
             }
@@ -161,7 +182,7 @@ public class GameplayObject : MonoBehaviour
         return path;
     }
 
-    protected void AjustPosToGround(Vector3 newPosition, Vector3 target, Vector3 direction, bool isChessMan = false, bool isRoundInteger = false)
+    protected virtual void AjustPosToGround(Vector3 newPosition, Vector3 target, Vector3 direction, bool isChessMan = false, bool isRoundInteger = false)
     {
         Vector3 rotation = transform.rotation.eulerAngles;
 
@@ -185,6 +206,11 @@ public class GameplayObject : MonoBehaviour
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
+        //transform.DOMove(target, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
+        //{
+            
+        //});
+
         if (isRoundInteger)
         {
             transform.position = target;
@@ -207,5 +233,7 @@ public class GameplayObject : MonoBehaviour
         }
 
         transform.DORotate(rotation, 0.3f);
+
+
     }
 }

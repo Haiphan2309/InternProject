@@ -1,6 +1,7 @@
 using DG.Tweening;
 using GDC;
 using GDC.Enums;
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,8 +14,6 @@ public class ChessMan : GameplayObject
     public ChessManConfig config;
     public Vector3 posIndex;
     [SerializeField] float speed;
-    //[SerializeField] Vector3 posIndexToMove;
-    Vector3 oldPosIndex;
 
     [SerializeField] GameObject vfxDefeated;
     [SerializeField] LayerMask groundLayerMask;
@@ -115,56 +114,43 @@ public class ChessMan : GameplayObject
 
     IEnumerator Cor_OtherMoveAnim(Vector3 target)
     {
+        // Unset Parent for chess piece
         SetParentDefault();
+
+        // Store current position and current index
         Vector3 currPos = transform.position;
         Vector3 currPosIdx = posIndex;
 
+        // Find the direction to move and rotate to the target
         Vector3 direction = (target - currPos).normalized;
         RotateToDirection(direction);
         yield return new WaitForSeconds(0.5f);
 
+        // Calculate Path
         List<Vector3> path = CalculatePath(currPosIdx, target);
 
+        // Move
         foreach (var gridCell in path)
         {
+            Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(gridCell);
+            GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+            Vector3 boxDirection = direction;
+            boxDirection.y = 0;
+            if (gameplayObject != null) gameplayObject.MoveAnim(SnapToGrid(gridCell + boxDirection), 5f * Time.deltaTime);
+
             while (currPos != gridCell)
             {
-                if (GetTile(gridCell) == TileType.BOX && !isTouchBox)
-                {
-                    isTouchBox = true;
-
-                    Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(transform.position) + direction;
-                    GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
-
-                    gameplayObject.MoveAnim(SnapToGrid(target + direction), 5f * Time.deltaTime);
-                }
-
-                if (GetTile(gridCell) == TileType.BOULDER && !isTouchBoulder)
-                {
-                    isTouchBoulder = true;
-                    GameObject foundObject = null;
-                    foreach (GameObject obj in Object.FindObjectsOfType<GameObject>())
-                    {
-                        if (Vector3.Distance(obj.transform.position, gridCell) < 0.1f)
-                        {
-                            foundObject = obj;
-                            break;
-                        }
-                    }
-
-                    Boulder gameplayObject = foundObject.transform.GetComponent<Boulder>();
-                    Debug.Log(foundObject.transform.name);
-
-                    gameplayObject.MoveAnim(SnapToGrid(target), 5f * Time.deltaTime);
-                }
                 AjustPosToGround(transform.position, gridCell, direction, true);
+
                 if (!isOnSlope) currPos = transform.position;
                 else currPos = transform.position + Vector3.up * 0.4f;
+
                 yield return null;
             }
         }
 
         AjustPosToGround(transform.position, target, direction, true, true);
+
         yield return new WaitForSeconds(0.1f);
 
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);

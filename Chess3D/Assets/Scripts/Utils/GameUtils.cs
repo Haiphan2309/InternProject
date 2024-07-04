@@ -33,27 +33,13 @@ public static class GameUtils
     }
 
     public static TileType GetTileBelowObject(Vector3 position)
-    {
-        float Xpos = position.x;
-        float Ypos = position.y - 1f;
-        float Zpos = position.z;
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
+    {;
+        return GameplayManager.Instance.levelData.GetTileInfoNoDeep(position + Vector3.down).tileType;
     }
 
     public static TileType GetTile(Vector3 position)
     {
-        float Xpos = position.x;
-        float Ypos = position.y;
-        float Zpos = position.z;
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
+        return GameplayManager.Instance.levelData.GetTileInfoNoDeep(position).tileType;
     }
 
     public static GameObject GetObjectByPosition(Vector3 position, LayerMask layerMask)
