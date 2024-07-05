@@ -150,8 +150,8 @@ public class Box : GameplayObject
     {
         if (GameUtils.SnapToGrid(transform.position).y <= -3)
         {
-            GameplayManager.Instance.UpdateTile(posIndex, target, TileType.NONE);
-            CheckChessman(this.posIndex, target);
+            GameplayManager.Instance.UpdateTile(posIndex);
+            //CheckChessman(this.posIndex, target);
             Destroy(this.gameObject);
         }
     }
