@@ -341,7 +341,7 @@ public class GameplayManager : MonoBehaviour
     }
     void ShowOutlineChessMan(ChessMan chessMan)
     {
-        chessMan.SetOutline(10, Color.yellow);
+        chessMan.SetOutline(10, Color.cyan);
         if (outlineChessMan == null)
         {
             outlineChessMan = new List<ChessMan>();
