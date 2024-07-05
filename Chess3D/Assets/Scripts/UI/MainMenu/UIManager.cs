@@ -122,9 +122,7 @@ public class UIManager : MonoBehaviour
         {
             int chapterIndex = idx;
             UIChapterSlot chapterSlot = Instantiate(chapterSlotPrefab, chapterContent);
-            chapterSlot.ChapterSetup(
-                chapterIndex
-                );
+            chapterSlot.ChapterSetup(chapterIndex);
             chapterButton.Add(chapterSlot.GetComponent<Button>());
         }
     }
@@ -139,11 +137,7 @@ public class UIManager : MonoBehaviour
         {
             int levelIndex = idx;
             UILevelSlot levelSlot = Instantiate(levelSlotPrefab, levelContent);
-            levelSlot.LevelSetup(
-                chapterIndex,
-                levelIndex, 
-                1
-                );
+            levelSlot.LevelSetup(chapterIndex,levelIndex,1);
             levelButton.Add(levelSlot.GetComponent<Button>());
         }
         levelMenu.Anim();

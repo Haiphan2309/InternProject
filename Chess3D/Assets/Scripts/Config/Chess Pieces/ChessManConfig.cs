@@ -310,7 +310,7 @@ public class ChessManConfig : ScriptableObject
             currentMove = move;
         }
 
-        if (dynamicObjectOnDirection)
+        if (dynamicObjectOnDirection && moveRange > 1)
         {
             if (isEnemy)
             {
@@ -410,7 +410,7 @@ public class ChessManConfig : ScriptableObject
     // RetreatState: Move the piece away from the danger tiles
     public virtual Vector3 RetreatState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority)
     {
-        int[,,] scores = new int[GameConstants.MAX_X_SIZE, GameConstants.MAX_Y_SIZE, GameConstants.MAX_Z_SIZE];
+        int[,,] scores = new int[(int)Xlimit, (int)Ylimit, (int)Zlimit];
 
         List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
         for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
