@@ -15,6 +15,6 @@ MonoBehaviour:
   id: 1
   levelDatas:
   - {fileID: 11400000, guid: 232407555f754a74ba4939ff549150a9, type: 2}
-  thumbnail: {fileID: 21300000, guid: 317709f2e39c098489afc502a63e7e6e, type: 3}
-  skyBox: {fileID: 2100000, guid: d25224a74278ca24ba4c4a5d9da29a9f, type: 2}
+  thumbnail: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+  skyBox: {fileID: 2100000, guid: 115073f3de5c0d6458173c73af997bc0, type: 2}
   starRequire: 2
