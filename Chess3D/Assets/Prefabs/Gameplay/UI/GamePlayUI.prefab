@@ -1570,6 +1570,7 @@ MonoBehaviour:
   enemyHolderContent: {fileID: 5807779188067727158}
   playerChessHolderConfig: {fileID: 11400000, guid: e4f4ae93ceef1cd4c879390ef8cc33c7, type: 2}
   enemyChessHolderConfig: {fileID: 11400000, guid: a3164da2ae7885c4db6b692440cddacf, type: 2}
+  disableHolderConfig: {fileID: 11400000, guid: 5d40df9b75c72a44b99cf468fde4f083, type: 2}
   duration: 1
 --- !u!1 &5807779189153348963
 GameObject:
