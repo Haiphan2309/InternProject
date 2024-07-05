@@ -28,7 +28,10 @@ public class UISetting : MonoBehaviour
     }
     public void Hide()
     {
-        UIManager.Instance.ShowAllButtons();
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.ShowAllButtons();
+        }
         uiPopupAnim.Hide();
         hideCor = StartCoroutine(Cor_Hide());
     }
