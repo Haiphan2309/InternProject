@@ -23,6 +23,9 @@ MonoBehaviour:
   - {fileID: 8998501177938085803, guid: 4048d3ac55ca89a4bb4ab044a935e879, type: 3}
   - {fileID: 4051196245707785669, guid: 1a4ef538579404a4ebe1d1380980d1a0, type: 3}
   - {fileID: 5213880191220909169, guid: 66614f3fc2a21be4d88294c6a39ba04e, type: 3}
-  selectedIndex: 8
+  - {fileID: 5213880191220909169, guid: aae60704497e0974db73d5f264d910e4, type: 3}
+  - {fileID: 8998501177938085803, guid: 7085031b87598a6459b61e2eadf9d165, type: 3}
+  - {fileID: 8998501177938085803, guid: 9863d08633846e943b2e82b4063cc414, type: 3}
+  selectedIndex: 5
   manualOffset: 0
   manualOffsetValue: 0
