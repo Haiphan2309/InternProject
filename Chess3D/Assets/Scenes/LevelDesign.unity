@@ -9344,6 +9344,7 @@ MonoBehaviour:
   levelSpawner: {fileID: 1220447863}
   camController: {fileID: 1349836853}
   uiGameplayManager: {fileID: 547828258}
+  tutorialConfig: {fileID: 0}
   availableMovePrefab: {fileID: 7245618113376876351, guid: 84568a093dba36641903864ef114cacc, type: 3}
   levelData: {fileID: 11400000, guid: 2eac02057220f5b4cb14ff5b3a3058e9, type: 2}
   chapterData: {fileID: 0}
@@ -54712,6 +54713,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5807779188191332187, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: uIInformationPanel
+      value: 
+      objectReference: {fileID: 5807779188393946438}
+    - target: {fileID: 5807779188871321043, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_Name
+      value: Turn
+      objectReference: {fileID: 0}
     - target: {fileID: 5807779189582467139, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -54760,5 +54769,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: GamePlayUI
       objectReference: {fileID: 0}
+    - target: {fileID: 7302575713777313259, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+--- !u!114 &5807779188393946438 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 485379528265180661, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+  m_PrefabInstance: {fileID: 5807779188393946435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5aec843ffd0c154bbe344318227c7cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

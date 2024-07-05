@@ -15,6 +15,7 @@ public class UIGameplaySlider : MonoBehaviour
     [SerializeField] RectTransform star3;
 
 
+
     public Sprite starOffSprite;
     public Sprite starOnSprite;
 
