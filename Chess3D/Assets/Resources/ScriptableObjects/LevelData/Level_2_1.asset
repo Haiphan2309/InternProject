@@ -8235,8 +8235,8 @@ MonoBehaviour:
     isAI: 0
     priority: 1
     movePosIndexs:
-    - {x: 8, y: 3, z: 10}
+    - {x: 8, y: 3, z: 8}
     - {x: 8, y: 3, z: 9}
-    - {x: 9, y: 3, z: 9}
+    - {x: 7, y: 3, z: 9}
     - {x: 8, y: 3, z: 9}
   thumbnail: {fileID: 21300000, guid: 587da6a22575b80498c7d544dea31726, type: 3}

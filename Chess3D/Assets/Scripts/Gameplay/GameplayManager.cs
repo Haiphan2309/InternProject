@@ -14,7 +14,7 @@ public class GameplayManager : MonoBehaviour
 
     [SerializeField] LevelSpawner levelSpawner;
     public CameraController camController;
-    [SerializeField] UIGameplayManager uiGameplayManager;
+    public UIGameplayManager uiGameplayManager;
     [SerializeField] TutorialConfig tutorialConfig;
 
     [SerializeField] Transform availableMovePrefab;
@@ -268,6 +268,10 @@ public class GameplayManager : MonoBehaviour
                         tran.localScale = new Vector3(1, 1, 1);
                         tran.rotation = Quaternion.Euler(90, 0, 0);
                         break;
+                    case TileType.BOX:
+                        tran.localScale = new Vector3(1, 1, 1);
+                        tran.rotation = Quaternion.Euler(90, 0, 0);
+                        break;
                     case TileType.SLOPE_0:
                         tran.position += new Vector3(0f, -0.45f, 0.1f);
                         tran.localScale = new Vector3(1, 1.3f, 1);
@@ -391,6 +395,7 @@ public class GameplayManager : MonoBehaviour
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
         {
+            uiGameplayManager.uIChessManPanel.DisableChess(defeatedChessMan);
             if (defeatedChessMan.isEnemy)
             {
                 DefeatEnemyChessMan(defeatedChessMan.index);
@@ -405,7 +410,10 @@ public class GameplayManager : MonoBehaviour
         //StartCoroutine(Cor_AfterAnim(chessMan,posIndexToMove));
 
         if (enemyTurn == false)
+        {
             SetRemainTurn(remainTurn - 1);
+            uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
+        }
     }
     public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null) //Cap nhat toa do tile oldPos thanh None, va cap nhat tileInfo cho new pos
     {
