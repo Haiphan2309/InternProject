@@ -92,4 +92,10 @@ public class UIGameplaySlider : MonoBehaviour
             
         }
     }
+
+    public void ChangeValueFromTurn(int turn, int maxTurn)
+    {
+        slider.value = turn / maxTurn;
+        
+    }
 }
