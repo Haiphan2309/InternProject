@@ -11,7 +11,7 @@ public class UILevelSlot : MonoBehaviour
 
     public string levelPath;
     public string assetPath;
-    public string defaultPath;
+    // public string defaultPath;
     public int chapterIndex = 0;
     public int levelIndex = 0;
 
@@ -26,9 +26,7 @@ public class UILevelSlot : MonoBehaviour
         this.levelIndex = levelIndex;
         this.currentStarCount = currentStarCount;
 
-        assetPath = "ScriptableObjects/LevelData" + "/Level_" + levelIndex;
-        defaultPath = "UI/DefaultAsset/LoadingScreenGradient";
-        levelData = Resources.Load<LevelData>(assetPath);
+        levelData = GameUtils.GetLevelData(chapterIndex, levelIndex);
         if (levelData == null)
         {
             this.isAvailable = false;
@@ -52,14 +50,10 @@ public class UILevelSlot : MonoBehaviour
         if (isAvailable)
         {
             sprite = levelData.thumbnail;
-            isAvailable = true;
-            transform.GetComponent<Image>().color = Color.white;
         }
         else
         {
-            sprite = Resources.Load<Sprite>(defaultPath);
-            isAvailable = false;
-            transform.GetComponent<Image>().color = Color.black;
+            sprite = null;
         }
         levelImage.sprite = sprite;
         Debug.Log("Level " + levelIndex + " is available " + isAvailable);
