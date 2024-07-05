@@ -268,6 +268,10 @@ public class GameplayManager : MonoBehaviour
                         tran.localScale = new Vector3(1, 1, 1);
                         tran.rotation = Quaternion.Euler(90, 0, 0);
                         break;
+                    case TileType.BOX:
+                        tran.localScale = new Vector3(1, 1, 1);
+                        tran.rotation = Quaternion.Euler(90, 0, 0);
+                        break;
                     case TileType.SLOPE_0:
                         tran.position += new Vector3(0f, -0.45f, 0.1f);
                         tran.localScale = new Vector3(1, 1.3f, 1);
