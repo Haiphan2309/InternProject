@@ -151,10 +151,14 @@ public class ChessMan : GameplayObject
             }
         }
 
+        yield return new WaitForSeconds(0.5f);
+
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
 
         GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
         posIndex = target;
+
+        CheckBox(target);
 
         GameplayManager.Instance.EndTurn();
     }
@@ -182,5 +186,17 @@ public class ChessMan : GameplayObject
             //}
             Destroy(gameObject);
         });
+    }
+
+    private void CheckBox(Vector3 target)
+    {
+        Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(target + Vector3.down);
+        GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+
+        if (gameplayObject != null && GameUtils.GetTile(gameplayObject.transform.position) == TileType.BOX)
+        {
+            transform.SetParent(gameplayObject.transform);
+        }
+
     }
 }
