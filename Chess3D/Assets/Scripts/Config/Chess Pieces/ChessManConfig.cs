@@ -22,7 +22,7 @@ public class ChessManConfig : ScriptableObject
     // Check if the potential tile is available
     private bool IsTile(Vector3 currentMove)
     {
-        // if the tile below the currentMove's y-level is NONE
+        // if the tile below the currentMove's y-level is NONE / CHESS
         // then there is no tile below the currentMove.
         bool isTile = false;
         TileType tileData = GameUtils.GetTileBelowObject(currentMove);
@@ -199,12 +199,12 @@ public class ChessManConfig : ScriptableObject
     // Check if the potential tile that the pieces move into is a team's piece
     private bool IsSameTeam(Vector3 currentPosition, Vector3 currentMove)
     {
-        // Debug.Log("Current Position: " + currentPosition + GetTile(currentPosition).ToString());
-        // Debug.Log("Current Move: " + currentMove + GetTile(currentMove).ToString());
+        // Debug.Log("Current Position: " + GameUtils.GetTile(currentPosition));
+        // Debug.Log("Current Move: " + GameUtils.GetTile(currentMove));
         // return false;
         TileType currentPosType = GameUtils.GetTile(currentPosition);
         TileType currentMoveType = GameUtils.GetTile(currentMove);
-        return (currentPosType == TileType.PLAYER_CHESS && currentPosType == TileType.PLAYER_CHESS)
+        return (currentPosType == TileType.PLAYER_CHESS && currentMoveType == TileType.PLAYER_CHESS)
             || (currentPosType == TileType.ENEMY_CHESS && currentMoveType == TileType.ENEMY_CHESS);
     }
 
@@ -230,8 +230,9 @@ public class ChessManConfig : ScriptableObject
     {
         // The Vector3 that stores the current position for the next move
         bool dynamicObjectOnDirection = false;
+        bool isEnemy = false;
         Vector3 currentMove = currentPositionIndex;
-        Vector3 move = currentMove;
+        Vector3 move;
         for (int i = 1; i <= moveRange; ++i)
         {
             move = currentMove + direction;
@@ -241,7 +242,7 @@ public class ChessManConfig : ScriptableObject
             {
                 if (dynamicObjectOnDirection)
                 {
-                    return;
+                    break;
                 }
                 move += Vector3.down;
             }
@@ -253,24 +254,23 @@ public class ChessManConfig : ScriptableObject
             // Check if the potential move is standable
             if (!CanStandOn(move))
             {
-                return;
+                break;
             }
             // Check if the potential move is jumpable
             if (!ValidateJump(move, direction))
             {
-                return;
+                break;
             }
             // Check if the potential move is movable
             if (!ValidateMove(move, direction))
             {
-                return;
+                break;
             }
             if (IsDynamicObject(move))
             {
                 if (dynamicObjectOnDirection)
                 {
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-                    return;
+                    break;
                 }
                 dynamicObjectOnDirection = true;
             }
@@ -283,11 +283,7 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsSameTeam(currentPositionIndex, move))
             {
-                if (dynamicObjectOnDirection)
-                {
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-                    return;
-                }
+                break;
             }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
@@ -295,12 +291,8 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsDifferentTeam(currentPositionIndex, move))
             {
-                if (dynamicObjectOnDirection)
-                {
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-                    return;
-                }
+                isEnemy = true;
+                break;
             }
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
@@ -309,6 +301,15 @@ public class ChessManConfig : ScriptableObject
             }
             // Update the currentMove
             currentMove = move;
+        }
+
+        if (dynamicObjectOnDirection)
+        {
+            if (isEnemy)
+            {
+                possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+            }
+            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
         }
     }
 
@@ -347,16 +348,16 @@ public class ChessManConfig : ScriptableObject
         Vector3 killState = KillState(chessManPriority);
 
         // Debug.Log("Decision");
-/*        if (killState != Vector3.zero)
-        {
-            Debug.Log("Kill State" + killState);
-            return killState;
-        }
-        if (retreatState != Vector3.zero)
-        {
-            Debug.Log("Retreat State" + retreatState);
-            return retreatState;
-        }*/
+        /*        if (killState != Vector3.zero)
+                {
+                    Debug.Log("Kill State" + killState);
+                    return killState;
+                }
+                if (retreatState != Vector3.zero)
+                {
+                    Debug.Log("Retreat State" + retreatState);
+                    return retreatState;
+                }*/
         Debug.Log("Patrol State" + patrolState);
         return patrolState;
     }

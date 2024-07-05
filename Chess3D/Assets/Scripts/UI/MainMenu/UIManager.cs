@@ -131,8 +131,8 @@ public class UIManager : MonoBehaviour
 
     public void LevelPreset(int chapterIndex)
     {
-        chapter.GetChild(0).GetComponent<TMP_Text>().text = "Chapter " + chapterIndex.ToString();
-        chapter.GetChild(1).GetComponent<TMP_Text>().text = "Chapter " + chapterIndex.ToString();
+        chapter.GetChild(0).GetComponent<TMP_Text>().text = "Chapter " + (chapterIndex + 1).ToString();
+        chapter.GetChild(1).GetComponent<TMP_Text>().text = "Chapter " + (chapterIndex + 1).ToString();
         UIStack.Push(chapterMenu);
         levelHolder.anchoredPosition = Vector3.down * 2000f;
         for (int idx = 0; idx < 3; ++idx)
@@ -174,11 +174,15 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Return");
         UI lastUI = UIStack.Peek();
-        if (lastUI.GetType() == typeof(UILevelMenu))
+        if (lastUI.GetType() == typeof(UIChapterMenu))
         {
+            for(int i = 0; i < levelContent.childCount; ++i)
+            {
+                Destroy(levelContent.GetChild(i).gameObject);
+            }
             levelButton.Clear();
         }
-        else if (lastUI.GetType() == typeof(UIChapterMenu))
+        else if (lastUI.GetType() == typeof(UIMainMenu))
         {
             chapterButton.Clear();
         }
