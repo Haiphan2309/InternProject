@@ -46,7 +46,7 @@ namespace GDC.Managers
             }
             if (gameDataOrigin.playerLevelStars.Count == 0) 
             {
-                for (int i=0; i<GameConstants.MAX_LEVEL; i++)
+                for (int i=0; i< GameConstants.MAX_CHAPTER * GameConstants.MAX_LEVEL; i++)
                 {
                     gameDataOrigin.playerLevelStars.Add(0);
                     gameDataOrigin.playerLevelHighScores.Add(99);
@@ -56,7 +56,7 @@ namespace GDC.Managers
             if (playerLevelDatas == null)
                 playerLevelDatas = new List<PlayerLevelData>();
 
-            for(int i=0; i<GameConstants.MAX_LEVEL; i++)
+            for(int i=0; i<GameConstants.MAX_CHAPTER* GameConstants.MAX_LEVEL; i++)
             {
                 playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i]));
             }

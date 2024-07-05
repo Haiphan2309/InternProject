@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera _camera;
     [SerializeField] private Transform worldTarget;
     public Vector3 target; // Đối tượng mà camera sẽ xoay quanh
-    public float distance = 10.0f; // Khoảng cách từ camera đến đối tượng
+    public float distance = 15.0f; // Khoảng cách từ camera đến đối tượng
     public float xSpeed = 250.0f; // Tốc độ xoay theo trục x
     public float ySpeed = 120.0f; // Tốc độ xoay theo trục y
 

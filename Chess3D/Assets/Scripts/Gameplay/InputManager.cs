@@ -163,6 +163,7 @@ public class InputManager : MonoBehaviour
     void HitChessMan(RaycastHit hit)
     {
         GameplayManager.Instance.HideAvailableMove();
+        GameplayManager.Instance.uiGameplayManager.uIChessManPanel.HideOutlineFromPanel();
         preChessMan = curChessMan;
         curChessMan = hit.transform.GetComponent<ChessMan>();
         if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false)
