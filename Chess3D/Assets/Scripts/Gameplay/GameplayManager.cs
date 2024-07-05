@@ -103,6 +103,7 @@ public class GameplayManager : MonoBehaviour
             if (chapterData.id == tutorialData.chapterIndex && levelData.id == tutorialData.levelIndex)
             {
                 uiGameplayManager.ShowTutorial(tutorialData.tutorialSprite);
+                return;
             }
         }
     }
