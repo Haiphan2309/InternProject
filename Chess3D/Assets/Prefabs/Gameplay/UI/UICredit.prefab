@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "PH\u1EA0M NGUY\u1EC4N QUANH NH\xC2N"
+  m_text: "PH\u1EA0M NGUY\u1EC4N QUANG NH\xC2N"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
