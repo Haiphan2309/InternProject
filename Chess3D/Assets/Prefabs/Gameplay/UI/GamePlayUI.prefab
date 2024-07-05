@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 5807779187910960739}
   - component: {fileID: 5807779187910960737}
   - component: {fileID: 5807779187910960738}
-  - component: {fileID: 485379528265180661}
   - component: {fileID: 8096949182648654301}
   m_Layer: 0
   m_Name: InformationPanel
@@ -202,21 +201,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &485379528265180661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5807779187910960732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5aec843ffd0c154bbe344318227c7cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uIGameplaySlider: {fileID: 0}
-  turnText: {fileID: 0}
-  highScoreText: {fileID: 0}
 --- !u!114 &8096949182648654301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5aec843ffd0c154bbe344318227c7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIGameplaySlider: {fileID: 0}
+  uIGameplaySlider: {fileID: 5807779188075651409}
   turnText: {fileID: 5807779188871321041}
   highScoreText: {fileID: 8503722813117776334}
 --- !u!1 &5807779187921519710
@@ -753,7 +737,7 @@ MonoBehaviour:
   settingBtn: {fileID: 5807779187826395213}
   toggleChessManBtn: {fileID: 5807779187921519708}
   uIChessManPanel: {fileID: 9032894727868889794}
-  uIInformationPanel: {fileID: 0}
+  uIInformationPanel: {fileID: 8096949182648654301}
   uiWinPanel: {fileID: 2459697721632131239}
   uiLosePanel: {fileID: 2459697721717142807}
   uiSetting: {fileID: 6038639936688711216}

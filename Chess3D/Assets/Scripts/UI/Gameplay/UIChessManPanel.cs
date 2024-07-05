@@ -126,11 +126,7 @@ public class UIChessManPanel : MonoBehaviour
             Transform chessImg = holder.holderObject.transform.Find("ChessImage");
             chessImg.gameObject.GetComponent<Image>().sprite = chessSpriteDic[army.config.chessManType];
             chessImg.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.chessColor;
-            // Assign default Color to border and background
-            //Transform background = holder.holderObject.transform.Find("Background");
-            //Transform foreground = background.GetChild(0);
-            //background.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.defaultBorder;
-            //foreground.gameObject.GetComponent<Image>().color = enemyChessHolderConfig.defaultBackground;
+            
             ChangeHolderColor(holder, false);
             //
 
@@ -157,7 +153,7 @@ public class UIChessManPanel : MonoBehaviour
     [Button]
     public void TurnOnPanel()
     {
-
+        Debug.Log("Turn of panel");
         rectTransform.DOAnchorPosX(turnOnPos, duration).SetEase(Ease.OutBack);
 
     }
@@ -217,4 +213,8 @@ public class UIChessManPanel : MonoBehaviour
 
     }
 
+    public void HideOutlineFromPanel()
+    {
+        activatingHolder?.chessMan.SetOutline(0);
+    }
 }
