@@ -32,15 +32,23 @@ public static class GameUtils
         return tileType == TileType.SLOPE_0 || tileType == TileType.SLOPE_90 || tileType == TileType.SLOPE_180 || tileType == TileType.SLOPE_270;
     }
 
+    public static bool CheckChess(TileType tileType)
+    {
+        return tileType == TileType.PLAYER_CHESS || tileType == TileType.ENEMY_CHESS;
+    }
+
     public static TileType GetTileBelowObject(Vector3 position)
     {
-        ;
-        return GameplayManager.Instance.levelData.GetTileInfoNoDeep(position + Vector3.down).tileType;
+        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(position + Vector3.down);
+        if (tileInfo == null) return TileType.NONE;
+        return tileInfo.tileType;
     }
 
     public static TileType GetTile(Vector3 position)
     {
-        return GameplayManager.Instance.levelData.GetTileInfoNoDeep(position).tileType;
+        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(position);
+        if (tileInfo == null) return TileType.NONE; 
+        return tileInfo.tileType;
     }
 
     public static GameObject GetObjectByPosition(Vector3 position, LayerMask layerMask)

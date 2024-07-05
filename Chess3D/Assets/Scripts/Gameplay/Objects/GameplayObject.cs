@@ -86,6 +86,7 @@ public class GameplayObject : MonoBehaviour
                 path.Add(current);
                 current.y -= 1;
                 tile = GameUtils.GetTileBelowObject(current);
+                if (current == end) break;
             }
 
             if (GameUtils.CheckSlope(tile))

@@ -67,18 +67,8 @@ public class GameplayManager : MonoBehaviour
         SetRemainTurn(levelSpawner.levelData.maxTurn);
         camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
 
-        if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
-        if (enemyArmy.Count > 0)
-        {
-            listEnemyPriorityLowest.Clear();
-            foreach (var enemy in enemyArmy)
-            {
-                if (levelData.GetEnemyArmies()[enemy.index].priority == levelData.GetEnemyArmies()[0].priority)
-                {
-                    listEnemyPriorityLowest.Add(enemy);
-                }
-            }
-        }
+        ResetEnemyPriorityLowestList();
+        
         RenderSettings.skybox = chapterData.skyBox;
 
         isAnimMoving = false;
@@ -89,6 +79,23 @@ public class GameplayManager : MonoBehaviour
         CheckShowTutorial();
     }
 
+    void ResetEnemyPriorityLowestList()
+    {
+        if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
+        if (enemyArmy.Count > 0)
+        {
+            //Debug.Log("StartResetPriorityList");
+            listEnemyPriorityLowest.Clear();
+            foreach (var enemy in enemyArmy)
+            {
+                //Debug.Log(levelData.GetEnemyArmies()[enemy.index].priority);
+                if (levelData.GetEnemyArmies()[enemy.index].priority == levelData.GetEnemyArmies()[enemyArmy[0].index].priority)
+                {
+                    listEnemyPriorityLowest.Add(enemy);
+                }
+            }
+        }
+    }
     void CheckShowTutorial()
     {
         foreach(var tutorialData in tutorialConfig.tutorialDatas)
@@ -116,16 +123,17 @@ public class GameplayManager : MonoBehaviour
     {
         remainTurn = value;
     }
-    public void ChangeTurn()
-    {
-        isAnimMoving = false;
-        StartCoroutine(Cor_EndTurn());
-    }
     IEnumerator Cor_EndTurn()
     {
         yield return new WaitUntil(() => isEndTurn);
         ChangeTurn(!enemyTurn);
     }
+    void ChangeTurn()
+    {
+        isAnimMoving = false;
+        StartCoroutine(Cor_EndTurn());
+    }
+    
     void ChangeTurn(bool enemyTurn)
     {
         if (CheckWin())
@@ -169,6 +177,11 @@ public class GameplayManager : MonoBehaviour
             }
         }
 
+        if (listEnemyPriorityLowest.Count <= 0)
+        {
+            ResetEnemyPriorityLowestList();
+        }
+
         if (listEnemyPriorityLowest.Count > 0)
         {
             if (listEnemyPriorityLowest[0].EnemyMove())
@@ -202,7 +215,7 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Player Turn");
         //dosomething
     }
-    public void DefeatEnemyChessMan(int enemyIndex)
+    void DefeatEnemyChessMan(int enemyIndex)
     {
         foreach(var chessman in listEnemyPriorityLowest)
         {
@@ -221,7 +234,7 @@ public class GameplayManager : MonoBehaviour
             }
         }
     }
-    public void DefeatPlayerChessMan(int playerIndex)
+    void DefeatPlayerChessMan(int playerIndex)
     {
         foreach (var chessman in playerArmy)
         {
@@ -378,6 +391,14 @@ public class GameplayManager : MonoBehaviour
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
         {
+            if (defeatedChessMan.isEnemy)
+            {
+                DefeatEnemyChessMan(defeatedChessMan.index);
+            }
+            else
+            {
+                DefeatPlayerChessMan(defeatedChessMan.index);
+            }
             StartCoroutine(Cor_DefeatedChessMan(chessMan, defeatedChessMan));
         }
 
@@ -398,106 +419,27 @@ public class GameplayManager : MonoBehaviour
         }
         levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
     }
+    public void UpdateTile(Vector3 oldPos, TileInfo tileInfo = null)
+    {
+        levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
+    }
     public void EndTurn() //Duoc goi sau khi ket thuc luot
     {
         isEndTurn = true;
         ChangeTurn();
     }
-    //IEnumerator Cor_AfterAnim(ChessMan chessMan, Vector3 posIndexToMove)
-    //{
-    //    yield return new WaitUntil(() => isAnimMoving == false);
-        
-    //    //Debug.Log("AfterAnim");
-    //    if (chessMan.config.chessManType != ChessManType.KNIGHT)
-    //    {
-    //        Vector3 direct = new Vector3(posIndexToMove.x - chessMan.posIndex.x, 0, posIndexToMove.z - chessMan.posIndex.z).normalized;
-    //        Vector3 towardPos = Vector3.zero;
-    //        TileInfo boxTileInfo = null;
-    //        foreach (var move in chessMan.config.Move(chessMan.posIndex))
-    //        {
-    //            Vector3 moveDirect = new Vector3(move.x - chessMan.posIndex.x, 0, move.z - chessMan.posIndex.z).normalized;
-    //            //Debug.Log(direct + " " + moveDirect);
-    //            if ((int)Mathf.Round(moveDirect.x) != (int)Mathf.Round(direct.x) || (int)Mathf.Round(moveDirect.z) != (int)Mathf.Round(direct.z)) continue;
-    //            if (Vector3.Distance(chessMan.posIndex, move) > Vector3.Distance(chessMan.posIndex, posIndexToMove)) continue;
 
-    //            TileInfo tempTileInfo = levelData.GetTileInfoNoDeep((int)Mathf.Round(move.x), (int)Mathf.Round(move.y), (int)Mathf.Round(move.z));
-    //            Debug.Log("MOVE " + move + "  " + posIndexToMove + tempTileInfo.tileType);
-    //            if (tempTileInfo.tileType == TileType.BOX || tempTileInfo.tileType == TileType.BOULDER)
-    //            {
-    //                towardPos = move;
-    //                boxTileInfo = tempTileInfo;
-    //                Debug.Log("Find " + boxTileInfo);
-    //                break;
-    //            }
-    //        }
-
-    //        if (boxTileInfo != null)
-    //        {
-    //            //TileInfo boxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z);
-    //            TileInfo underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
-    //            Vector3 boxPosToMove = posIndexToMove + direct;
-    //            while ((int)boxPosToMove.y - 1 > 0 && underBoxTileInfo.tileType == TileType.NONE ||
-    //                underBoxTileInfo.tileType == TileType.ENEMY_CHESS || underBoxTileInfo.tileType == TileType.PLAYER_CHESS) //box/boulder roi xuong
-    //            {
-    //                levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-    //                boxPosToMove.y--;
-    //                underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
-    //            }
-
-    //            while ((int)boxPosToMove.y - 1 > 0 && underBoxTileInfo.tileType == TileType.WATER) // doi voi Boulder thi tiep tuc chim xuong nuoc
-    //            {
-    //                boxPosToMove.y--;
-    //                underBoxTileInfo = levelData.GetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y - 1, (int)towardPos.z);
-    //            }
-
-    //            if (boxTileInfo.tileType == TileType.BOULDER) //Doi voi boulder thi lan tren mat phang nghieng (ko co xet dang o trong nuoc)
-    //            {
-    //                while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_0)
-    //                {
-    //                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-    //                    boxPosToMove.y--;
-    //                    boxPosToMove.z++;
-    //                }
-    //                while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_90)
-    //                {
-    //                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-    //                    boxPosToMove.y--;
-    //                    boxPosToMove.x--;
-    //                }
-    //                while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_180)
-    //                {
-    //                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-    //                    boxPosToMove.y--;
-    //                    boxPosToMove.z--;
-    //                }
-    //                while ((int)boxPosToMove.y - 1 > 0 && levelData.GetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y - 1, (int)boxPosToMove.z).tileType == TileType.SLOPE_270)
-    //                {
-    //                    levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, 0, TileType.NONE);
-    //                    boxPosToMove.y--;
-    //                    boxPosToMove.x++;
-    //                }
-    //            }
-
-    //            if ((int)boxPosToMove.x >= 0 && (int)boxPosToMove.y > 0 && (int)boxPosToMove.z >= 0) //box/boulder chua roi ra khoi map
-    //            {
-    //                levelData.SetTileInfoNoDeep((int)boxPosToMove.x, (int)boxPosToMove.y, (int)boxPosToMove.z, boxTileInfo.id, boxTileInfo.tileType);
-    //                levelData.SetTileInfoNoDeep((int)towardPos.x, (int)towardPos.y, (int)towardPos.z, 0, TileType.NONE);
-    //            }
-
-    //            //levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
-    //        }
-    //        //}
-    //    }
-    //    TileInfo curTileInfo = levelData.GetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z);
-    //    levelData.SetTileInfoNoDeep((int)posIndexToMove.x, (int)posIndexToMove.y, (int)posIndexToMove.z, curTileInfo.id, curTileInfo.tileType);
-    //    levelData.SetTileInfoNoDeep((int)chessMan.posIndex.x, (int)chessMan.posIndex.y, (int)chessMan.posIndex.z, 0, TileType.NONE);
-    //    chessMan.posIndex = posIndexToMove;
-    //    isEndTurn = true;
-    //}
-
+    public int GetStarOfCurrentLevel()
+    {
+        if (remainTurn >= levelData.starTurn3) return 3;
+        if (remainTurn >= levelData.starTurn2) return 2;
+        if (remainTurn > 0) return 1;
+        return 0;
+    }
     void Win()
     {
         Debug.Log("Win");
+        SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, GetStarOfCurrentLevel(), remainTurn);
         uiGameplayManager.ShowWin();
     }
     void Lose()

@@ -92,6 +92,18 @@ namespace GDC.Managers
         }
 
         #region support function
+        public void SetLevelData(int chapterId, int levelId, int star, int remainTurn)
+        {
+            int index = chapterId * GameConstants.MAX_LEVEL + levelId;
+            if (star > playerLevelDatas[index].star) 
+            {
+                playerLevelDatas[index].star = star;
+            }
+            if (playerLevelDatas[index].highScore < remainTurn)
+            {
+                playerLevelDatas[index].highScore = remainTurn;
+            }
+        }
         public int GetLevelStar(int chapterId, int levelId)
         {
             return playerLevelDatas[chapterId * GameConstants.MAX_LEVEL + levelId].star;

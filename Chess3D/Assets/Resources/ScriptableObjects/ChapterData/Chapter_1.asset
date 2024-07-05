@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   levelDatas:
-  - {fileID: 11400000, guid: b1febb222263bf94ead4326600e7770c, type: 2}
-  - {fileID: 11400000, guid: d2e118bf063527e408841585826d87e0, type: 2}
-  - {fileID: 11400000, guid: 9f08f85719b1312479fee4740f9d2f58, type: 2}
-  thumbnail: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
-  skyBox: {fileID: 2100000, guid: 115073f3de5c0d6458173c73af997bc0, type: 2}
+  - {fileID: 11400000, guid: 43af347a6ab877b41b4e1af77176a4e7, type: 2}
+  - {fileID: 11400000, guid: 2eac02057220f5b4cb14ff5b3a3058e9, type: 2}
+  thumbnail: {fileID: 21300000, guid: 317709f2e39c098489afc502a63e7e6e, type: 3}
+  skyBox: {fileID: 2100000, guid: d25224a74278ca24ba4c4a5d9da29a9f, type: 2}
   starRequire: 0
