@@ -46,16 +46,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120e776215a9fea4380e40308e3fce94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSpeed: 0
+  outline: {fileID: 183277108}
+  isOnSlope: 0
+  isOnPathSlope: 0
+  isFalling: 0
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 0
   config: {fileID: 11400000, guid: 7ac94aed580bed84a82e33cb11e2aa70, type: 2}
   posIndex: {x: 6, y: 3, z: 4}
   speed: 0.05
-  posIndexToMove: {x: 0, y: 0, z: 0}
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
-  outline: {fileID: 183277108}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 128
   isEnemy: 0
+  index: 0
+  isTouchBox: 0
+  isTouchBoulder: 0
 --- !u!65 &1652286005729679838
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123,7 +132,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -382652638819485698, guid: f7b1a7a5c67f68f48b1c0496e308cc61, type: 3}
+      objectReference: {fileID: 2100000, guid: 16d544b158ca666459e518a2dc7c0cdf, type: 2}
     - target: {fileID: 919132149155446097, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}
       propertyPath: m_Name
       value: rook

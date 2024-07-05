@@ -12,29 +12,36 @@ public class UILevelSlot : MonoBehaviour
     public string levelPath;
     public string assetPath;
     public string defaultPath;
-    public int levelIndex = 0;
     public int chapterIndex = 0;
+    public int levelIndex = 0;
 
     private int maxStarCount = 3;
+    private int currentStarCount;
     private bool isAvailable = true;
     private LevelData levelData;
-    public void Setup(int index)
+
+    public void LevelSetup(int chapterIndex, int levelIndex, int currentStarCount)
     {
-        levelIndex = index;
+        this.chapterIndex = chapterIndex;
+        this.levelIndex = levelIndex;
+        this.currentStarCount = currentStarCount;
+
         assetPath = "ScriptableObjects/LevelData" + "/Level_" + levelIndex;
         defaultPath = "UI/DefaultAsset/LoadingScreenGradient";
         levelData = Resources.Load<LevelData>(assetPath);
         if (levelData == null)
         {
-            isAvailable = false;
+            this.isAvailable = false;
             transform.GetComponent<Image>().color = Color.black;
         }
         else
         {
-            isAvailable = true;
+            this.isAvailable = true;
             transform.GetComponent<Image>().color = Color.white;
         }
+
         SpriteSetup();
+        ButtonSetup();
         TextSetup();
         StarSetup();
     }
@@ -58,15 +65,16 @@ public class UILevelSlot : MonoBehaviour
         Debug.Log("Level " + levelIndex + " is available " + isAvailable);
     }
 
-    public void ButtonSetup()
+    private void ButtonSetup()
     {
         if (isAvailable)
         {
-            LoadLevel(chapterIndex, levelIndex);
+            transform.GetComponent<Button>().interactable = true;
+            transform.GetComponent<Button>().onClick.AddListener(delegate { LoadLevel(chapterIndex, levelIndex); });
         }
         else
         {
-
+            transform.GetComponent<Button>().interactable = false;
         }
     }
 
@@ -82,7 +90,7 @@ public class UILevelSlot : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int chapterIndex, int levelIndex)
+    private void LoadLevel(int chapterIndex, int levelIndex)
     {
         GDC.Managers.GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.GAMEPLAY,
@@ -97,10 +105,9 @@ public class UILevelSlot : MonoBehaviour
 
     private void StarSetup()
     {
-        int starCount = Random.Range(0,4); //GDC.Managers.SaveLoadManager.Instance.GameData.playerLevelDatas[0].star;
         for(int i = 0; i < maxStarCount; ++i)
         {
-            if (i < starCount)
+            if (i < currentStarCount)
                 levelStar.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/DefaultAsset/Star_0");
             else
                 levelStar.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/DefaultAsset/Star_1");

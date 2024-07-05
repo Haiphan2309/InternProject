@@ -12,36 +12,25 @@ public class UI : MonoBehaviour
     private float sliderPositionHalfHeight = 315f;
     private float sliderOffset = -50f;
 
-    private float chessHolderPosition = 350f;
-    private float chessHolderScale = 20f;
+    private float titleTextPosition = 350f;
+
+    private float chessHolderPosition = 250f;
+    private float chessHolderScale = 15f;
 
     private float chessPiecePosition = 250f;
     private float chessPieceOffset = 20f;
 
-    private float levelHolderPosition = 1200f;
+    private float levelHolderPosition = 2000f;
 
     public virtual void Anim()
     {
-        DisableButton();
+        UIManager.Instance.HideAllButtons();
         StartCoroutine(Cor_Anim());
     }
 
     public virtual IEnumerator Cor_Anim()
     {
         yield return null;
-    }
-    public void EnableButton()
-    {
-        UIManager.Instance.startButton.GetComponent<Button>().interactable = true;
-        UIManager.Instance.settingButton.GetComponent<Button>().interactable = true;
-        UIManager.Instance.returnButton.GetComponent<Button>().interactable = true;
-    }
-
-    public void DisableButton()
-    {
-        UIManager.Instance.startButton.GetComponent<Button>().interactable = false;
-        UIManager.Instance.settingButton.GetComponent<Button>().interactable = false;
-        UIManager.Instance.returnButton.GetComponent<Button>().interactable = false;
     }
 
     public void ShowSliderFullHeight(RectTransform slider)
@@ -104,5 +93,15 @@ public class UI : MonoBehaviour
     public void HideLevelHolder()
     {
         UIManager.Instance.levelHolder.DOAnchorPosY(-levelHolderPosition, _timer).SetEase(Ease.OutBack);
+    }
+
+    public void ShowTitleText()
+    {
+        UIManager.Instance.title.DOAnchorPosY(-titleTextPosition, _timer * 1.5f).SetEase(Ease.OutBack);
+    }
+
+    public void HideTitleText()
+    {
+        UIManager.Instance.title.DOAnchorPosY(600, _timer * 1.5f).SetEase(Ease.OutBack);
     }
 }

@@ -9,19 +9,21 @@ public class UILevelMenu : UI
 {
     public override IEnumerator Cor_Anim()
     {
-        SetTitle();
+        SetText();
         SetButtonSystem();
         SetChessHolder();
         SetSlider();
+        SetChapterSystem();
         SetLevelSystem();
         yield return new WaitForSeconds(1f);
-        EnableButton();
+        UIManager.Instance.ShowAllButtons();
         yield return null;
     }
 
-    private void SetTitle()
+    private void SetText()
     {
-        UIManager.Instance.title.DOAnchorPosY(300f, _timer * 1.5f).SetEase(Ease.OutBack);
+        HideTitleText();
+        UIManager.Instance.chapter.GetComponent<RectTransform>().DOAnchorPosY(-50, _timer);
     }
 
     private void SetSlider()
@@ -39,8 +41,15 @@ public class UILevelMenu : UI
     private void SetButtonSystem()
     {
         UIManager.Instance.startButton.GetComponent<RectTransform>().DOAnchorPosX(600, _timer);
-        UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(100, _timer);
+        UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
+        UIManager.Instance.creditButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
     }
+
+    private void SetChapterSystem()
+    {
+        UIManager.Instance.chapterHolder.DOAnchorPosY(-2000, _timer);
+    }
+
     private void SetLevelSystem()
     {
         ShowLevelHolder();

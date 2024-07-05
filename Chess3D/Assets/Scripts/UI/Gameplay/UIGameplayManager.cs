@@ -13,6 +13,10 @@ public class UIGameplayManager : MonoBehaviour
     [SerializeField] UIChessManPanel uIChessManPanel;
     [SerializeField] UIGameplaySlider uIGameplaySlider;
 
+    [SerializeField] UIWinPanel uiWinPanel;
+    [SerializeField] UILosePanel uiLosePanel;
+    [SerializeField] UISetting uiSetting;
+    [SerializeField] UITutorial uiTutorial;
     
 
     bool isChessManPanelOn;
@@ -22,11 +26,11 @@ public class UIGameplayManager : MonoBehaviour
     {
         Instance = this;
     }
-    private void Start()
-    {
+    //private void Start()
+    //{
         
-        Setup();
-    }
+    //    //Setup();
+    //}
 
     public void Setup()
     {
@@ -36,9 +40,28 @@ public class UIGameplayManager : MonoBehaviour
         uIChessManPanel.Setup();
         uIGameplaySlider.Setup();
         // Assign btn
+        settingBtn.onClick.AddListener(OnSetting);
         toggleChessManBtn.onClick.AddListener(OnToggleBtnClicked);
+        
     }
 
+    public void ShowTutorial(Sprite tutorialSprite)
+    {
+        uiTutorial.Show(tutorialSprite);
+
+    }
+    public void ShowWin()
+    {
+        uiWinPanel.Show();
+    }
+    public void ShowLose()
+    {
+        uiLosePanel.Show();
+    }
+    void OnSetting()
+    {
+        uiSetting.Show();
+    }
     private void OnToggleBtnClicked()
     {
    

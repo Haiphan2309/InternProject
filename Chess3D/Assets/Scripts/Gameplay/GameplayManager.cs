@@ -13,7 +13,9 @@ public class GameplayManager : MonoBehaviour
     public static GameplayManager Instance { get; private set; }
 
     [SerializeField] LevelSpawner levelSpawner;
-    [SerializeField] CameraController camController;
+    public CameraController camController;
+    [SerializeField] UIGameplayManager uiGameplayManager;
+    [SerializeField] TutorialConfig tutorialConfig;
 
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
@@ -82,7 +84,22 @@ public class GameplayManager : MonoBehaviour
         isAnimMoving = false;
         isEndTurn = true;
         enemyTurn = false;
+
+        uiGameplayManager.Setup();
+        CheckShowTutorial();
     }
+
+    void CheckShowTutorial()
+    {
+        foreach(var tutorialData in tutorialConfig.tutorialDatas)
+        {
+            if (chapterData.id == tutorialData.chapterIndex && levelData.id == tutorialData.levelIndex)
+            {
+                uiGameplayManager.ShowTutorial(tutorialData.tutorialSprite);
+            }
+        }
+    }
+
 
     void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
     {
@@ -93,6 +110,7 @@ public class GameplayManager : MonoBehaviour
         levelData.maxTurn = levelDataSO.maxTurn;
         levelData.center = levelDataSO.center;
         levelData.distance = levelDataSO.distance;
+        levelData.id = levelDataSO.id;
     }
     void SetRemainTurn(int value)
     {
@@ -110,8 +128,16 @@ public class GameplayManager : MonoBehaviour
     }
     void ChangeTurn(bool enemyTurn)
     {
-        if (CheckWin()) Win();
-        else if (CheckLose()) Lose();
+        if (CheckWin())
+        {
+            Win();
+            return;
+        }
+        else if (CheckLose())
+        {
+            Lose();
+            return;
+        }
 
         this.enemyTurn = enemyTurn;
         if (enemyTurn)
@@ -472,10 +498,12 @@ public class GameplayManager : MonoBehaviour
     void Win()
     {
         Debug.Log("Win");
+        uiGameplayManager.ShowWin();
     }
     void Lose()
     {
         Debug.Log("Lose");
+        uiGameplayManager.ShowLose();
     }
     bool CheckLose()
     {
