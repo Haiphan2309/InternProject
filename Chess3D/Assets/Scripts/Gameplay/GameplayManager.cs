@@ -495,9 +495,17 @@ public class GameplayManager : MonoBehaviour
     //    isEndTurn = true;
     //}
 
+    public int GetStarOfCurrentLevel()
+    {
+        if (remainTurn == 0) return 0;
+        if (remainTurn < levelData.starTurn2) return 1;
+        if (remainTurn < levelData.starTurn3) return 2;
+        return 3;
+    }
     void Win()
     {
         Debug.Log("Win");
+        SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, GetStarOfCurrentLevel(), remainTurn);
         uiGameplayManager.ShowWin();
     }
     void Lose()
