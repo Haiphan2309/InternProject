@@ -6,14 +6,13 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ChessMan : GameplayObject
 {
     public ChessManConfig config;
-    public Vector3 posIndex;
-    [SerializeField] float speed;
 
     [SerializeField] GameObject vfxDefeated;
     [SerializeField] LayerMask groundLayerMask;
@@ -37,7 +36,7 @@ public class ChessMan : GameplayObject
         this.index = index;
         this.posIndex = posIndex;
     }
-    
+
     public bool EnemyMove()
     {
         EnemyArmy enemy = GameplayManager.Instance.levelData.GetEnemyArmies()[index];
@@ -81,9 +80,6 @@ public class ChessMan : GameplayObject
         {
             KnightMoveAnim(posIndexToMove);
         }
-
-        // posIndex = posIndexToMove;
-        // GameplayManager.Instance.ChangeTurn(true);
     }
     void KnightMoveAnim(Vector3 posIndexToMove)
     {
@@ -94,11 +90,11 @@ public class ChessMan : GameplayObject
     {
         Vector3 direction = (target - transform.position).normalized;
         RotateToDirection(direction);
-        
+
         yield return new WaitForSeconds(0.5f);
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            AjustPosToGround(transform.position, target, target - transform.position, true, true);
+            // AjustPosToGround(transform.position, target, target - transform.position, true, true);
             TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
 
             GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
@@ -117,17 +113,21 @@ public class ChessMan : GameplayObject
         // Unset Parent for chess piece
         SetParentDefault();
 
-        // Store current position and current index
-        Vector3 currPos = transform.position;
-        Vector3 currPosIdx = posIndex;
+        // First Pos + Target Pos
+        Debug.Log("CHESSMAN Position: " + posIndex + " Target: " + target);
 
-        // Find the direction to move and rotate to the target
+        // // Store current position and current index
+        Vector3 currPos = transform.position;
+        Vector3 currIdx = posIndex;
+
         Vector3 direction = (target - currPos).normalized;
+
+        // Rotate to target
         RotateToDirection(direction);
         yield return new WaitForSeconds(0.5f);
 
-        // Calculate Path
-        List<Vector3> path = CalculatePath(currPosIdx, target);
+        // Calculate Path from First Pos to Target Pos
+        List<Vector3> path = CalculatePath(currIdx, target);
 
         // Move
         foreach (var gridCell in path)
@@ -136,7 +136,8 @@ public class ChessMan : GameplayObject
             GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
             Vector3 boxDirection = direction;
             boxDirection.y = 0;
-            if (gameplayObject != null) gameplayObject.MoveAnim(SnapToGrid(gridCell + boxDirection), 5f * Time.deltaTime);
+
+            if (gameplayObject != null) gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
 
             while (currPos != gridCell)
             {
@@ -147,22 +148,18 @@ public class ChessMan : GameplayObject
 
                 yield return null;
             }
+            yield return new WaitForSeconds(0.3f);
         }
-
-        AjustPosToGround(transform.position, target, direction, true, true);
-
-        yield return new WaitForSeconds(0.1f);
 
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
 
         GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
         posIndex = target;
 
-        isTouchBox = false;
-        isTouchBoulder = false;
-
         GameplayManager.Instance.EndTurn();
     }
+
+
 
     void RotateToDirection(Vector3 direction)
     {
@@ -173,7 +170,7 @@ public class ChessMan : GameplayObject
     [Button]
     public void Defeated()
     {
-        Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0,2), 2, Random.Range(0,2));
+        Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
         transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
             Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);

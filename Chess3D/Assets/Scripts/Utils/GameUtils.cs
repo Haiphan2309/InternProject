@@ -33,7 +33,8 @@ public static class GameUtils
     }
 
     public static TileType GetTileBelowObject(Vector3 position)
-    {;
+    {
+        ;
         return GameplayManager.Instance.levelData.GetTileInfoNoDeep(position + Vector3.down).tileType;
     }
 

@@ -8,51 +8,83 @@ using UnityEngine.UIElements;
 
 public class Box : GameplayObject
 {
-    public override void MoveAnim(Vector3 posIndexToMove, float speed)
+    public override void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     //posIndexToMove: ở đây không phải vị trí cuối cùng, mà chỉ là vị trí mà chessman đẩy đến (sát bên chessman),
     //sẽ phải tự tính toàn tiếp vị trí tiếp theo nếu dưới chân nó là None (thì sẽ rơi) với tốc độ defaultSpeed.
     //speed: là speed của chessMan đẩy box, box sẽ di chuyển cùng tốc độ với chessman đẩy box,
     //khi nào đẩy đến rơi xuống vực mới di chuyển với tốc độ defaultSpeed;
     {
         //todo anim
-        StartCoroutine(Cor_BoxMoveAnim(posIndexToMove));
+        StartCoroutine(Cor_BoxMoveAnim(posIndexToMove, direction));
     }
 
-    IEnumerator Cor_BoxMoveAnim(Vector3 target)
+    IEnumerator Cor_BoxMoveAnim(Vector3 target, Vector3 direction)
     {
-        Vector3 startPos = GameUtils.SnapToGrid(transform.position);
-        Vector3 currPos = startPos;
+        Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
+        this.posIndex = currIdx;
+        target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
+        Debug.Log("BOX Position: " + currIdx + " Old Target: " + target + " New Target " + GameUtils.SnapToGrid(CalculateTarget(target, direction)));
 
-        Vector3 direction = (target - currPos).normalized;
+        // Calculate Path from First Pos to Target Pos
+        List<Vector3> path = CalculatePath(currIdx, target);
 
-        target = CalculateTarget(target);
-
-        List<Vector3> path = CalculatePath(currPos, target, isBox: true);
-
+        // Move
         foreach (var gridCell in path)
         {
-            while (currPos != gridCell)
+            while (currIdx != gridCell)
             {
                 AjustPosToGround(transform.position, gridCell, direction, true);
-                if (!isOnSlope) currPos = transform.position;
-                else currPos = transform.position + Vector3.up * 0.4f;
+
+                if (!isOnSlope) currIdx = transform.position;
+                else currIdx = transform.position + Vector3.up * 0.4f;
+
                 yield return null;
             }
         }
 
-        AjustPosToGround(transform.position, target, direction, true, true);
+        yield return null;
 
-        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(startPos);
-        Debug.Log(tileInfo.tileType);
-        GameplayManager.Instance.UpdateTile(startPos, GameUtils.SnapToGrid(target), tileInfo);
-        
+        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+
+        GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
+        this.posIndex = target;
+
+    }
+
+    private Vector3 CalculateTarget(Vector3 target, Vector3 direction)
+    {
+        Vector3 nextCell = target + direction;
+        TileType tile = GameUtils.GetTile(nextCell);
+        TileType tileBelow = GameUtils.GetTileBelowObject(nextCell);
+
+        if (GameUtils.CheckSlope(tile))
+        {
+            nextCell.y += 1;
+        }
+
+        if (tileBelow == TileType.GROUND) return nextCell;
+
+        while (tile == TileType.NONE)
+        {
+            nextCell.y -= 1;
+
+            tile = GameUtils.GetTile(nextCell);
+
+            if (nextCell.y <= -3)
+            {
+                break;
+            }
+        }
+
+        return nextCell;
     }
 
     protected override void AjustPosToGround(Vector3 newPosition, Vector3 target, Vector3 direction, bool isChessMan = false, bool isRoundInteger = false)
     {
         Vector3 rotation = transform.rotation.eulerAngles;
 
-        TileType tileType = GetTileBelowObject(SnapToGrid(target));
+        TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
+
         switch (tileType)
         {
             case TileType.SLOPE_0:
@@ -73,7 +105,7 @@ public class Box : GameplayObject
                 break;
 
             default:
-                rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+                rotation = Vector3.zero;
                 isOnSlope = false;
                 break;
         }
@@ -81,25 +113,9 @@ public class Box : GameplayObject
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
-        //transform.DOMove(target, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
-        //{
-
-        //});
-
         if (isRoundInteger)
         {
             transform.position = target;
-
-            if (isChessMan && GetTileBelowObject(SnapToGrid(transform.position)) == TileType.BOX)
-            {
-                Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(transform.position) + Vector3.down;
-
-                GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
-
-                Debug.Log("Stay on GamplayObject: " + gameplayObject.transform.name);
-
-                transform.SetParent(gameplayObject.transform);
-            }
         }
 
         else
@@ -110,17 +126,4 @@ public class Box : GameplayObject
         transform.DORotate(rotation, 0.3f);
     }
 
-    private Vector3 CalculateTarget(Vector3 target)
-    {
-        TileType tileType = GameUtils.GetTile(target);
-
-        if (GameUtils.CheckSlope(tileType))
-        {
-            target.y += 1;
-        }
-
-        
-
-        return target;
-    }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameplayObject : MonoBehaviour
 {
+    public Vector3 posIndex;
     public float defaultSpeed;
     public Outline outline;
 
@@ -15,7 +16,7 @@ public class GameplayObject : MonoBehaviour
 
     public LayerMask objectLayer;
 
-    public virtual void MoveAnim(Vector3 posIndexToMove, float speed)
+    public virtual void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     {
         Debug.Log("A");
     }
@@ -36,149 +37,66 @@ public class GameplayObject : MonoBehaviour
         outline.OutlineWidth = width;
     }
 
-    protected Vector3 SnapToGrid(Vector3 position)
-    {
-        return new Vector3(Mathf.Round(position.x), Mathf.Round(position.y), Mathf.Round(position.z));
-    }
-
-    protected bool CheckSlope(TileType tileType)
-    {
-        return tileType == TileType.SLOPE_0 || tileType == TileType.SLOPE_90 || tileType == TileType.SLOPE_180 || tileType == TileType.SLOPE_270;
-    }
-
-    protected TileType GetTileBelowObject(Vector3 position)
-    {
-        float Xpos = position.x;
-        float Ypos = position.y - 1f;
-        float Zpos = position.z;        
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
-    }
-
-    protected TileType GetTile(Vector3 position)
-    {
-        float Xpos = position.x;
-        float Ypos = position.y;
-        float Zpos = position.z;
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
-    }
-
     protected void SetParentDefault()
     {
         transform.SetParent(null);
     }
 
-    protected List<Vector3> CalculatePath(Vector3 start, Vector3 end, bool isBox = false)
+    protected void MoveToNextPath(ref Vector3 current, Vector3 end)
+    {
+        if (current.x != end.x)
+        {
+            current.x += Mathf.Sign(end.x - current.x);
+        }
+        if (current.z != end.z)
+        {
+            current.z += Mathf.Sign(end.z - current.z);
+        }
+    }
+
+    protected void PrintPath(List<Vector3> path)
+    {
+        for (int i = 0; i < path.Count; i++)
+        {
+            Debug.Log($"Path[{i}]: {path[i]}");
+        }
+    }
+
+    protected List<Vector3> CalculatePath(Vector3 start, Vector3 end)
     {
         List<Vector3> path = new List<Vector3>();
         Vector3 current = start;
 
-        isOnPathSlope = isOnSlope;
-
         while (current != end)
         {
-            // Move to next tile
-            if (!isFalling || isOnPathSlope)
-            {
-                if (current.x != end.x)
-                {
-                    current.x += Mathf.Sign(end.x - current.x);
-                }
-                if (current.z != end.z)
-                {
-                    current.z += Mathf.Sign(end.z - current.z);
-                }
-            }
-            isFalling = false;
+            MoveToNextPath(ref current, end);
 
-            if (isOnPathSlope)
-            {
-                isOnPathSlope = false;
-                if (CheckSlope(GetTileBelowObject(current + Vector3.down)))
-                {
-                    current.y -= 1;
-                    path.Add(new Vector3(current.x, current.y, current.z));
-                    continue;
-                }
-                
-            }
+            TileType tile = GameUtils.GetTile(current);
 
-            // Check the tile above
-            Vector3 tileUp = current + Vector3.up;
-            TileType tileType = GetTileBelowObject(tileUp);
-
-            if (CheckSlope(tileType))
+            if (GameUtils.CheckSlope(tile))
             {
                 current.y += 1;
-                path.Add(new Vector3(current.x, current.y, current.z));
+                path.Add(current);
                 continue;
             }
 
-            // Check the tile
-            tileType = GetTileBelowObject(current);
-            if (tileType == TileType.NONE && !isBox)
+            tile = GameUtils.GetTileBelowObject(current);
+            while (tile == TileType.NONE)
             {
-                if (isOnPathSlope)
-                {
-                    isFalling = false;
-                }
-                else isFalling = true;
-
-                path.Add(new Vector3(current.x, current.y, current.z));
+                path.Add(current);
                 current.y -= 1;
-
-                continue;
+                tile = GameUtils.GetTileBelowObject(current);
             }
 
-            else if ((tileType == TileType.NONE || tileType == TileType.BOX) && isBox)
+            if (GameUtils.CheckSlope(tile))
             {
-                if (tileType == TileType.GROUND)
-                    break;
-
-                if (isOnPathSlope)
-                {
-                    isFalling = false;
-                }
-
-                else isFalling = true;
-
-                path.Add(new Vector3(current.x, current.y, current.z));
-                current.y -= 1;
-
-                if (current.y <= -5)
-                {
-                    break;
-                }
-
+                if (path.Count >= 1) path.RemoveAt(path.Count - 1);
+                path.Add(current);
                 continue;
             }
 
-            else if (CheckSlope(tileType))
-            {
-                if (isOnPathSlope)
-                {
-                    current.y -= 1;
-                    path.Add(new Vector3(current.x, current.y, current.z));
-                }
-                else
-                {
-                    path.Add(new Vector3(current.x, current.y, current.z));
-                    current.y -= 1;
-                }
-
-                continue;
-            }
-
-            path.Add(new Vector3(current.x, current.y, current.z));
+            path.Add(current);
         }
-
         return path;
     }
 
@@ -186,45 +104,25 @@ public class GameplayObject : MonoBehaviour
     {
         Vector3 rotation = transform.rotation.eulerAngles;
 
-        TileType tileType = GetTileBelowObject(SnapToGrid(target));
-        switch (tileType)
-        {
-            case TileType.SLOPE_0:
-            case TileType.SLOPE_90:
-            case TileType.SLOPE_180:
-            case TileType.SLOPE_270:
-                rotation.x = -45 * direction.normalized.x;
-                isOnSlope = true;
-                break;
+        TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
 
-            default:
-                rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
-                isOnSlope = false;
-                break;
+        if (GameUtils.CheckSlope(tileType))
+        {
+            rotation.x = -45 * direction.normalized.x;
+            isOnSlope = true;
+        }
+        else
+        {
+            rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+            isOnSlope = false;
         }
 
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
-        //transform.DOMove(target, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
-        //{
-            
-        //});
-
         if (isRoundInteger)
         {
             transform.position = target;
-
-            if (isChessMan && GetTileBelowObject(SnapToGrid(transform.position)) == TileType.BOX)
-            {
-                Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(transform.position) + Vector3.down;
-
-                GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
-
-                Debug.Log("Stay on GamplayObject: " + gameplayObject.transform.name);
-
-                transform.SetParent(gameplayObject.transform);
-            }
         }
 
         else
@@ -233,7 +131,5 @@ public class GameplayObject : MonoBehaviour
         }
 
         transform.DORotate(rotation, 0.3f);
-
-
     }
 }
