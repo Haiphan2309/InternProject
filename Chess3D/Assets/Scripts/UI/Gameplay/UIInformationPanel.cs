@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UIInformationPanel : MonoBehaviour
 {
-    [SerializeField] UIGameplaySlider uIGameplaySlider;
+    public UIGameplaySlider uIGameplaySlider;
     [SerializeField] TMP_Text turnText;
     [SerializeField] TMP_Text highScoreText;
 
@@ -26,6 +26,7 @@ public class UIInformationPanel : MonoBehaviour
     public void SetUITurn(int turn)
     {
         turnText.text = "Turn: " + turn.ToString();
+        uIGameplaySlider.ChangeValueFromTurn(turn, GameplayManager.Instance.levelData.maxTurn);
     }
 
     public void SetUIHighScore(int score)

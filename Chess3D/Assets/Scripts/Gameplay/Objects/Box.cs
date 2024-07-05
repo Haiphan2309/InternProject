@@ -45,7 +45,6 @@ public class Box : GameplayObject
         }
 
         yield return null;
-
         IsDrop();
 
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
@@ -151,7 +150,7 @@ public class Box : GameplayObject
         if (GameUtils.SnapToGrid(transform.position).y <= -3)
         {
             GameplayManager.Instance.UpdateTile(posIndex);
-            //CheckChessman(this.posIndex, target);
+            
             Destroy(this.gameObject);
         }
     }

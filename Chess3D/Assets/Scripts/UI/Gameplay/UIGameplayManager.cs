@@ -10,9 +10,9 @@ public class UIGameplayManager : MonoBehaviour
     [SerializeField] Button settingBtn;
     [SerializeField] Button toggleChessManBtn;
 
-    [SerializeField] UIChessManPanel uIChessManPanel;
+    public UIChessManPanel uIChessManPanel;
     //[SerializeField] UIGameplaySlider uIGameplaySlider;
-    [SerializeField] UIInformationPanel uIInformationPanel;
+    public UIInformationPanel uIInformationPanel;
 
     [SerializeField] UIWinPanel uiWinPanel;
     [SerializeField] UILosePanel uiLosePanel;
