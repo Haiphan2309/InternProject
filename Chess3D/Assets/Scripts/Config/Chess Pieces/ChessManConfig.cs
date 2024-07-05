@@ -217,7 +217,7 @@ public class ChessManConfig : ScriptableObject
         TileType currentPosType = GameUtils.GetTile(currentPosition);
         TileType currentMoveType = GameUtils.GetTile(currentMove);
         return (currentPosType == TileType.PLAYER_CHESS && currentMoveType == TileType.ENEMY_CHESS)
-            || (currentPosType == TileType.ENEMY_CHESS && currentPosType == TileType.PLAYER_CHESS);
+            || (currentPosType == TileType.ENEMY_CHESS && currentMoveType == TileType.PLAYER_CHESS);
     }
 
     private bool IsDynamicObject(Vector3 currentMove)
