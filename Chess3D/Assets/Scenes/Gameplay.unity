@@ -24845,6 +24845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
+  tileTypeData: {fileID: 11400000, guid: 1ed95a94ef7651a4cba8c7374ecec1d9, type: 2}
   storeLevelName: 
 --- !u!4 &1220447862
 Transform:
