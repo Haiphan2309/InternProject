@@ -1,19 +1,10 @@
+using GDC.Constants;
 using GDC.Enums;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.Mathematics;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class ChessManConfig : ScriptableObject
 {
-    private float _Xlimit = 0;
-    private float _Ylimit = 0;
-    private float _Zlimit = 0;
-
     private float _height;
     private int _moveRange;
     private ChessManType _chessManType;
@@ -28,46 +19,13 @@ public class ChessManConfig : ScriptableObject
     public ChessManType chessManType { get; set; }
     public List<Vector3> possibleMoveList { get; set; }
 
-    // Get TileType of a tile below position
-    public void LoadLimit()
-    {
-        _Xlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(0);
-        _Ylimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(1);
-        _Zlimit = GameplayManager.Instance.levelData.GetTileInfo().GetLength(2);
-    }
-
-    private TileType GetTileBelow(Vector3 position)
-    {
-        float Xpos = position.x;
-        float Ypos = position.y - 1f;
-        float Zpos = position.z;
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
-    }
-
-    private TileType GetTile(Vector3 position)
-    {
-        float Xpos = position.x;
-    // Get TileType of a tile at position
-        float Ypos = position.y;
-        float Zpos = position.z;
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
-    }
-
     // Check if the potential tile is available
     private bool IsTile(Vector3 currentMove)
     {
-        // if the tile below the currentMove's y-level is NONE
+        // if the tile below the currentMove's y-level is NONE / CHESS
         // then there is no tile below the currentMove.
         bool isTile = false;
-        TileType tileData = GetTileBelow(currentMove);
+        TileType tileData = GameUtils.GetTileBelowObject(currentMove);
 
         // Object cannot stand on NONE
         switch (tileData)
@@ -85,35 +43,11 @@ public class ChessManConfig : ScriptableObject
         return isTile;
     }
 
-    // Check if the potential tile is in bound
-    private bool InBound(Vector3 currentMove)
-    {
-        bool inBound = true;
-        float Xpos = currentMove.x;
-        float Ypos = currentMove.y;
-        float Zpos = currentMove.z;
-
-        if (Xpos < 0 || Xpos >= _Xlimit)
-        {
-            inBound = false;
-        }
-        if (Ypos <= 0 || Ypos >= _Ylimit)
-        {
-            inBound = false;
-        }
-        if (Zpos < 0 || Zpos >= _Zlimit)
-        {
-            inBound = false;
-        }
-        // Debug.Log("InBound = " + inBound);
-        return inBound;
-    }
-
     // Check if the potential tile that the pieces move into can be stood on
     private bool CanStandOn(Vector3 currentMove)
     {
         bool canStandOn = true;
-        TileType tileData = GetTileBelow(currentMove);
+        TileType tileData = GameUtils.GetTileBelowObject(currentMove);
 
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
@@ -144,7 +78,7 @@ public class ChessManConfig : ScriptableObject
     private bool ValidateMove(Vector3 currentMove, Vector3 direction)
     {
         bool isMovable = false;
-        TileType tileData = GetTile(currentMove);
+        TileType tileData = GameUtils.GetTile(currentMove);
 
         switch (tileData)
         {
@@ -186,7 +120,7 @@ public class ChessManConfig : ScriptableObject
     private bool OnSlopeUp(Vector3 currentMove, Vector3 direction)
     {
         bool onSlopeUp = false;
-        TileType tileData = GetTile(currentMove);
+        TileType tileData = GameUtils.GetTile(currentMove);
 
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
@@ -226,7 +160,7 @@ public class ChessManConfig : ScriptableObject
     private bool OnSlopeDown(Vector3 currentMove, Vector3 direction)
     {
         bool onSlopeDown = false;
-        TileType tileData = GetTileBelow(currentMove);
+        TileType tileData = GameUtils.GetTileBelowObject(currentMove);
 
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
@@ -265,12 +199,13 @@ public class ChessManConfig : ScriptableObject
     // Check if the potential tile that the pieces move into is a team's piece
     private bool IsSameTeam(Vector3 currentPosition, Vector3 currentMove)
     {
-        // Debug.Log("Current Position: " + currentPosition + GetTile(currentPosition).ToString());
-        // Debug.Log("Current Move: " + currentMove + GetTile(currentMove).ToString());
+        // Debug.Log("Current Position: " + GameUtils.GetTile(currentPosition));
+        // Debug.Log("Current Move: " + GameUtils.GetTile(currentMove));
         // return false;
-
-        return (GetTile(currentPosition) == TileType.PLAYER_CHESS && GetTile(currentMove) == TileType.PLAYER_CHESS)
-            || (GetTile(currentPosition) == TileType.ENEMY_CHESS && GetTile(currentMove) == TileType.ENEMY_CHESS);
+        TileType currentPosType = GameUtils.GetTile(currentPosition);
+        TileType currentMoveType = GameUtils.GetTile(currentMove);
+        return (currentPosType == TileType.PLAYER_CHESS && currentMoveType == TileType.PLAYER_CHESS)
+            || (currentPosType == TileType.ENEMY_CHESS && currentMoveType == TileType.ENEMY_CHESS);
     }
 
     // Check if the potential tile that the pieces move into is another team's piece
@@ -279,61 +214,63 @@ public class ChessManConfig : ScriptableObject
         // Debug.Log("Current Position: " + GetTile(currentPosition).ToString());
         // Debug.Log("Current Move: " + GetTile(currentMove).ToString());
         // return false;
-
-        return (GetTile(currentPosition) == TileType.PLAYER_CHESS && GetTile(currentMove) == TileType.ENEMY_CHESS)
-            || (GetTile(currentPosition) == TileType.ENEMY_CHESS && GetTile(currentMove) == TileType.PLAYER_CHESS);
+        TileType currentPosType = GameUtils.GetTile(currentPosition);
+        TileType currentMoveType = GameUtils.GetTile(currentMove);
+        return (currentPosType == TileType.PLAYER_CHESS && currentMoveType == TileType.ENEMY_CHESS)
+            || (currentPosType == TileType.ENEMY_CHESS && currentMoveType == TileType.PLAYER_CHESS);
     }
 
     private bool IsDynamicObject(Vector3 currentMove)
     {
-        return GetTile(currentMove) == TileType.BOX || GetTile(currentMove) == TileType.BOULDER;
+        TileType currentMoveType = GameUtils.GetTile(currentMove);
+        return currentMoveType == TileType.BOX || currentMoveType == TileType.BOULDER;
     }
 
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
         // The Vector3 that stores the current position for the next move
         bool dynamicObjectOnDirection = false;
+        bool isEnemy = false;
         Vector3 currentMove = currentPositionIndex;
-        Vector3 move = currentMove;
+        Vector3 move;
         for (int i = 1; i <= moveRange; ++i)
         {
             move = currentMove + direction;
             // Debug.Log("Load " + move.ToString());
             // We find the first tile below the next move
-            while (move.y >= 1f && InBound(move) && !IsTile(move))
+            while (move.y >= 1f && GameUtils.InBound(move) && !IsTile(move))
             {
                 if (dynamicObjectOnDirection)
                 {
-                    return;
+                    break;
                 }
                 move += Vector3.down;
             }
             // Check if the potential move is in bound
-            if (!InBound(move))
+            if (!GameUtils.InBound(move))
             {
                 return;
             }
             // Check if the potential move is standable
             if (!CanStandOn(move))
             {
-                return;
+                break;
             }
             // Check if the potential move is jumpable
             if (!ValidateJump(move, direction))
             {
-                return;
+                break;
             }
             // Check if the potential move is movable
             if (!ValidateMove(move, direction))
             {
-                return;
+                break;
             }
             if (IsDynamicObject(move))
             {
                 if (dynamicObjectOnDirection)
                 {
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-                    return;
+                    break;
                 }
                 dynamicObjectOnDirection = true;
             }
@@ -346,11 +283,7 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsSameTeam(currentPositionIndex, move))
             {
-                if (dynamicObjectOnDirection)
-                {
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-                    return;
-                }
+                break;
             }
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
@@ -358,12 +291,8 @@ public class ChessManConfig : ScriptableObject
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsDifferentTeam(currentPositionIndex, move))
             {
-                if (dynamicObjectOnDirection)
-                {
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-                    possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
-                    return;
-                }
+                isEnemy = true;
+                break;
             }
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
@@ -372,6 +301,15 @@ public class ChessManConfig : ScriptableObject
             }
             // Update the currentMove
             currentMove = move;
+        }
+
+        if (dynamicObjectOnDirection)
+        {
+            if (isEnemy)
+            {
+                possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+            }
+            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
         }
     }
 
@@ -383,7 +321,6 @@ public class ChessManConfig : ScriptableObject
     public List<Vector3> Move(Vector3 currentPositionIndex)
     {
         possibleMoveList.Clear();
-        LoadLimit();
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
     }
@@ -411,16 +348,16 @@ public class ChessManConfig : ScriptableObject
         Vector3 killState = KillState(chessManPriority);
 
         // Debug.Log("Decision");
-/*        if (killState != Vector3.zero)
-        {
-            Debug.Log("Kill State" + killState);
-            return killState;
-        }
-        if (retreatState != Vector3.zero)
-        {
-            Debug.Log("Retreat State" + retreatState);
-            return retreatState;
-        }*/
+        /*        if (killState != Vector3.zero)
+                {
+                    Debug.Log("Kill State" + killState);
+                    return killState;
+                }
+                if (retreatState != Vector3.zero)
+                {
+                    Debug.Log("Retreat State" + retreatState);
+                    return retreatState;
+                }*/
         Debug.Log("Patrol State" + patrolState);
         return patrolState;
     }
@@ -466,7 +403,7 @@ public class ChessManConfig : ScriptableObject
     // RetreatState: Move the piece away from the danger tiles
     public virtual Vector3 RetreatState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority)
     {
-        int[,,] scores = new int[(int)_Xlimit, (int)_Ylimit, (int)_Zlimit];
+        int[,,] scores = new int[GameConstants.MAX_X_SIZE, GameConstants.MAX_Y_SIZE, GameConstants.MAX_Z_SIZE];
 
         List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
         for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)

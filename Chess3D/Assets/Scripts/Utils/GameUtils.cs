@@ -34,26 +34,13 @@ public static class GameUtils
 
     public static TileType GetTileBelowObject(Vector3 position)
     {
-        float Xpos = position.x;
-        float Ypos = position.y - 1f;
-        float Zpos = position.z;
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
+        ;
+        return GameplayManager.Instance.levelData.GetTileInfoNoDeep(position + Vector3.down).tileType;
     }
 
     public static TileType GetTile(Vector3 position)
     {
-        float Xpos = position.x;
-        float Ypos = position.y;
-        float Zpos = position.z;
-        return GameplayManager.Instance.levelData.GetTileInfo()[
-               (int)Mathf.Round(Xpos),
-               (int)Mathf.Round(Ypos),
-               (int)Mathf.Round(Zpos)
-               ].tileType;
+        return GameplayManager.Instance.levelData.GetTileInfoNoDeep(position).tileType;
     }
 
     public static GameObject GetObjectByPosition(Vector3 position, LayerMask layerMask)
@@ -84,5 +71,63 @@ public static class GameUtils
         }
 
         return foundObject;
+    }
+
+    public static bool InBound(Vector3 currentMove)
+    {
+        bool inBound = true;
+        float Xpos = currentMove.x;
+        float Ypos = currentMove.y;
+        float Zpos = currentMove.z;
+
+        if (Xpos < 0 || Xpos >= GDC.Constants.GameConstants.MAX_X_SIZE)
+        {
+            inBound = false;
+        }
+        if (Ypos <= 0 || Ypos >= GDC.Constants.GameConstants.MAX_Y_SIZE)
+        {
+            inBound = false;
+        }
+        if (Zpos < 0 || Zpos >= GDC.Constants.GameConstants.MAX_Z_SIZE)
+        {
+            inBound = false;
+        }
+        // Debug.Log("InBound = " + inBound);
+        return inBound;
+    }
+
+    public static ChapterData GetChapterData(int chapterId) //ChapterId bat dau tu 0
+    {
+        string chapterName = "Chapter_" + (chapterId + 1).ToString();
+        string loadPath = "ScriptableObjects/ChapterData/" + chapterName;
+        ChapterData chapterData = Resources.Load<ChapterData>(loadPath);
+
+        if (chapterData == null)
+        {
+            Debug.LogError($"Failed to load chapter: " + chapterName);
+
+        }
+        else
+        {
+            Debug.Log($"Loading chapter {chapterName} successfully");
+        }
+        return chapterData;
+    }
+    public static LevelData GetLevelData(int chapterID, int levelID) //LevelId bat dau tu 0
+    {
+        ChapterData chapterData = GetChapterData(chapterID);
+        LevelData levelData = chapterData.levelDatas[levelID];
+
+        string levelName = chapterID.ToString() + "_" + levelID.ToString();
+        if (levelData == null)
+        {
+            Debug.LogError($"Failed to load level: " + "Level_" + levelName);
+
+        }
+        else
+        {
+            Debug.Log($"Loading level {levelName} successfully");
+        }
+        return levelData;
     }
 }

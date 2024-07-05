@@ -51,7 +51,8 @@ public class UIWinPanel : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         turnSlider.DOValue(GameplayManager.Instance.remainTurn, 3);
-        for (int i = 0; i < 3; i++)
+        int starNum = GameplayManager.Instance.GetStarOfCurrentLevel();
+        for (int i = 0; i < starNum; i++)
         {
             stars[i].DOColor(Color.white, 0.2f);
             stars[i].rectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
