@@ -24,6 +24,17 @@ public class PawnConfig : ChessManConfig
             Vector3 direction = Vector3.right * _straghtDirection[i, 0] + Vector3.forward * _straghtDirection[i, 1];
             GenerateMove(currentPositionIndex, direction);
         }
+        for (int i = possibleMoveList.Count - 1; i >= 0 ; --i)
+        {
+            TileType currentPosType = GameUtils.GetTile(currentPositionIndex);
+            TileType currentMoveType = GameUtils.GetTile(possibleMoveList[i]);
+
+            if ((currentPosType == TileType.PLAYER_CHESS && currentMoveType == TileType.ENEMY_CHESS)
+            || (currentPosType == TileType.ENEMY_CHESS && currentMoveType == TileType.PLAYER_CHESS))
+            {
+                possibleMoveList.RemoveAt(i);
+            }
+        }
         for (int i = 0; i < _diagonalDirection.GetLength(0); ++i)
         {
             Vector3 direction = Vector3.right * _diagonalDirection[i, 0] + Vector3.forward * _diagonalDirection[i, 1];
