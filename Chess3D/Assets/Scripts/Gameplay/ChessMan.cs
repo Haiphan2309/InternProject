@@ -138,6 +138,7 @@ public class ChessMan : GameplayObject
             boxDirection.y = 0;
 
             if (gameplayObject != null) gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
+            yield return null;
 
             while (currPos != gridCell)
             {
@@ -148,7 +149,6 @@ public class ChessMan : GameplayObject
 
                 yield return null;
             }
-            yield return new WaitForSeconds(0.3f);
         }
 
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
@@ -158,8 +158,6 @@ public class ChessMan : GameplayObject
 
         GameplayManager.Instance.EndTurn();
     }
-
-
 
     void RotateToDirection(Vector3 direction)
     {
