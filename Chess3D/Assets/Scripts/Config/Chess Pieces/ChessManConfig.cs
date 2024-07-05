@@ -310,7 +310,7 @@ public class ChessManConfig : ScriptableObject
             currentMove = move;
         }
 
-        if (dynamicObjectOnDirection)
+        if (dynamicObjectOnDirection && moveRange > 1)
         {
             if (isEnemy)
             {
@@ -330,119 +330,5 @@ public class ChessManConfig : ScriptableObject
         possibleMoveList.Clear();
         GenerateMoveList(currentPositionIndex);
         return possibleMoveList;
-    }
-
-    // Simple AI Mechanics (every pieces except KING)
-    // The AI knows all of the player's positions and types and also their own move list and the KINGs.
-    // There will be 3 states: PatrolState, RetreatState, KillState (the KING will not have this)
-    // The priority queue is as follows: KillState -> RetreatState -> PatrolState
-    // The pieces' priority on states: KING -> QUEEN -> CASTLE -> KNIGHT -> BISHOP -> PAWN
-    // MAYBE AIManager
-    public Vector3 MoveByDefault(Vector3 currentPositionIndex)
-    {
-        // Debug.Log("AI CHECK");
-        possibleMoveList = Move(currentPositionIndex);
-        Dictionary<ChessManType, int> chessManPriority = new Dictionary<ChessManType, int>();
-        chessManPriority[ChessManType.PAWN] = 0;
-        chessManPriority[ChessManType.BISHOP] = 1;
-        chessManPriority[ChessManType.KNIGHT] = 2;
-        chessManPriority[ChessManType.CASTLE] = 3;
-        chessManPriority[ChessManType.QUEEN] = 4;
-        chessManPriority[ChessManType.KING] = 5;
-
-        Vector3 patrolState = PatrolState(currentPositionIndex, chessManPriority);
-        Vector3 retreatState = RetreatState(currentPositionIndex, chessManPriority);
-        Vector3 killState = KillState(chessManPriority);
-
-        // Debug.Log("Decision");
-        /*        if (killState != Vector3.zero)
-                {
-                    Debug.Log("Kill State" + killState);
-                    return killState;
-                }
-                if (retreatState != Vector3.zero)
-                {
-                    Debug.Log("Retreat State" + retreatState);
-                    return retreatState;
-                }*/
-        Debug.Log("Patrol State" + patrolState);
-        return patrolState;
-    }
-
-    // KillState: Use the piece to kill the player's piece
-    public virtual Vector3 KillState(Dictionary<ChessManType, int> chessManPriority)
-    {
-        int bestChessManID = 0;
-        List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
-        // We find the best ChessManType in the playerArmy list
-        for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
-        {
-            // Debug.Log("Contain: " + playerArmy[playerIdx].posIndex + " = " + possibleMoveList.Contains(playerArmy[playerIdx].posIndex));
-            if (possibleMoveList.Contains(playerArmy[playerIdx].posIndex))
-            {
-                if (bestChessManID < chessManPriority[playerArmy[playerIdx].config.chessManType])
-                {
-                    bestChessManID = chessManPriority[playerArmy[playerIdx].config.chessManType];
-                }
-            }
-        }
-
-        Vector3 decision = Vector3.zero;
-        for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
-        {
-            if (chessManPriority[playerArmy[playerIdx].config.chessManType] == bestChessManID)
-            {
-                // Default
-                if (decision == Vector3.zero)
-                {
-                    decision = playerArmy[playerIdx].posIndex;
-                }
-                // Random pick
-                if (UnityEngine.Random.Range(0, 100) >= 50)
-                {
-                    decision = playerArmy[playerIdx].posIndex;
-                }
-            }
-        }
-        return decision;
-    }
-
-    // RetreatState: Move the piece away from the danger tiles
-    public virtual Vector3 RetreatState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority)
-    {
-        int[,,] scores = new int[GameConstants.MAX_X_SIZE, GameConstants.MAX_Y_SIZE, GameConstants.MAX_Z_SIZE];
-
-        List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
-        for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
-        {
-            List<Vector3> movePool = playerArmy[playerIdx].config.Move(playerArmy[playerIdx].posIndex);
-            foreach (Vector3 move in movePool) scores[(int)move.x, (int)move.y, (int)move.z]--;
-        }
-
-        Vector3 decision = Vector3.zero;
-        foreach (Vector3 move in possibleMoveList)
-        {
-            int score = scores[(int)move.x, (int)move.y, (int)move.z];
-            if (score >= 0)
-            {
-                if (decision == Vector3.zero)
-                {
-                    decision = move;
-                }
-                // Random pick
-                if (UnityEngine.Random.Range(0, 100) >= 50)
-                {
-                    decision = move;
-                }
-            }
-        }
-        return decision;
-    }
-
-    // PatrolState: Default
-    public virtual Vector3 PatrolState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority = null)
-    {
-        return currentPositionIndex;
-        // return possibleMoveList[UnityEngine.Random.Range(0, possibleMoveList.Count)];
     }
 }
