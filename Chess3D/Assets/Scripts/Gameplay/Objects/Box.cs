@@ -62,13 +62,11 @@ public class Box : GameplayObject
             nextCell.y += 1;
         }
 
-        if (tileBelow == TileType.GROUND) return nextCell;
-
-        while (tile == TileType.NONE)
+        while (tileBelow == TileType.NONE)
         {
             nextCell.y -= 1;
 
-            tile = GameUtils.GetTile(nextCell);
+            tileBelow = GameUtils.GetTileBelowObject(nextCell);
 
             if (nextCell.y <= -3)
             {
