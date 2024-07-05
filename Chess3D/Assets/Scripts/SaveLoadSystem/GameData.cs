@@ -55,10 +55,12 @@ namespace GDC.Managers
 
             if (playerLevelDatas == null)
                 playerLevelDatas = new List<PlayerLevelData>();
+
             for(int i=0; i<GameConstants.MAX_LEVEL; i++)
             {
                 playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i]));
             }
+
             currentLevel = gameDataOrigin.currentLevel;
             currentChapter = gameDataOrigin.currentChapter;
 

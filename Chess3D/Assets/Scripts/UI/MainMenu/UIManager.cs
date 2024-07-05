@@ -129,13 +129,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void LevelPreset(int chapterIndex)
+    public void LevelPreset(int chapterIndex, int maxLevelIndex)
     {
         chapter.GetChild(0).GetComponent<TMP_Text>().text = "Chapter " + (chapterIndex + 1).ToString();
         chapter.GetChild(1).GetComponent<TMP_Text>().text = "Chapter " + (chapterIndex + 1).ToString();
         UIStack.Push(chapterMenu);
         levelHolder.anchoredPosition = Vector3.down * 2000f;
-        for (int idx = 0; idx < 3; ++idx)
+        for (int idx = 0; idx < maxLevelIndex; ++idx)
         {
             int levelIndex = idx;
             UILevelSlot levelSlot = Instantiate(levelSlotPrefab, levelContent);

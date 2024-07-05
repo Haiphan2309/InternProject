@@ -1,3 +1,4 @@
+using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,8 +7,9 @@ using UnityEngine.UI;
 
 public class UIChapterSlot : MonoBehaviour
 {
-    // public Image chapterImage;
+    public Image chapterImage;
     public TMP_Text chapterText;
+    public TMP_Text requirementsText;
 
     public int chapterIndex = 0;
     private bool isAvailable = true;
@@ -16,13 +18,37 @@ public class UIChapterSlot : MonoBehaviour
     public void ChapterSetup(int chapterIndex)
     {
         this.chapterIndex = chapterIndex;
-        //SpriteSetup();
+        this.chapterData = GameUtils.GetChapterData(this.chapterIndex);
+        
+        if(chapterData.starRequire <= 10) //SaveLoadManager.Instance.GameData.GetAllStar())
+        {
+            isAvailable = true;
+            transform.GetComponent<Image>().color = Color.black;
+        }
+        else
+        {
+            isAvailable = false;
+            transform.GetComponent<Image>().color = Color.white;
+        }
+
+        SpriteSetup();
         ButtonSetup();
-        //TextSetup();
+        TextSetup();
     }
 
     private void SpriteSetup()
     {
+        Sprite sprite;
+        if (isAvailable)
+        {
+            sprite = chapterData.thumbnail;
+        }
+        else
+        {
+            sprite = null;
+        }
+        chapterImage.sprite = sprite;
+        Debug.Log("Chapter " + chapterIndex + " is available " + isAvailable);
     }
 
     private void ButtonSetup()
@@ -40,7 +66,7 @@ public class UIChapterSlot : MonoBehaviour
 
     private void LoadLevelList()
     {
-        UIManager.Instance.LevelPreset(chapterIndex);
+        UIManager.Instance.LevelPreset(chapterIndex, chapterData.levelDatas.Count);
     }
 
     private void TextSetup()
@@ -48,10 +74,12 @@ public class UIChapterSlot : MonoBehaviour
         if (isAvailable)
         {
             chapterText.text = "Chapter " + (chapterIndex + 1).ToString();
+            requirementsText.text = "OK";
         }
         else
         {
             chapterText.text = "Unavailable";
+            requirementsText.text = chapterData.starRequire.ToString();
         }
     }
 }

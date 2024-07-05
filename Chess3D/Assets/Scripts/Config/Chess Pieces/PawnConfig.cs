@@ -1,3 +1,4 @@
+using GDC.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,7 +8,7 @@ using UnityEngine;
 public class PawnConfig : ChessManConfig
 {
     public GameObject prefab;
-    private float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
+
     PawnConfig()
     {
         Debug.Log("Spawn Pawn");
@@ -22,6 +23,19 @@ public class PawnConfig : ChessManConfig
         {
             Vector3 direction = Vector3.right * _straghtDirection[i, 0] + Vector3.forward * _straghtDirection[i, 1];
             GenerateMove(currentPositionIndex, direction);
+        }
+        for (int i = 0; i < _diagonalDirection.GetLength(0); ++i)
+        {
+            Vector3 direction = Vector3.right * _diagonalDirection[i, 0] + Vector3.forward * _diagonalDirection[i, 1];
+            Vector3 currentMove = currentPositionIndex + direction;
+            TileType currentPosType = GameUtils.GetTile(currentPositionIndex);
+            TileType currentMoveType = GameUtils.GetTile(currentMove);
+
+            if ((currentPosType == TileType.PLAYER_CHESS && currentMoveType == TileType.ENEMY_CHESS)
+            || (currentPosType == TileType.ENEMY_CHESS && currentMoveType == TileType.PLAYER_CHESS))
+            {
+                possibleMoveList.Add(currentMove);
+            }
         }
     }
 }

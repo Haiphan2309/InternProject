@@ -8,10 +8,6 @@ public class KnightConfig : ChessManConfig
 {
     public GameObject prefab;
     private float _jumpLimit = 2f;      // hard-coded number
-    private float[,] _knightDirection = { 
-        { -1f, 2f }, { 1f, 2f }, { 1f, -2f }, { -1f, -2f },
-        { -2f, 1f }, { 2f, 1f }, { 2f, -1f }, { -2f, -1f }
-    };
 
     KnightConfig()
     {
@@ -66,14 +62,8 @@ public class KnightConfig : ChessManConfig
     {
         for (int i = 0; i < _knightDirection.GetLength(0); ++i)
         {
-            for(int j = -(int)currentPositionIndex.y; j < (int)_jumpLimit; ++j)
-            {
-                Vector3 direction
-                    = Vector3.right * _knightDirection[i, 0]
-                    + Vector3.up * (float)j
-                    + Vector3.forward * _knightDirection[i, 1];
+                Vector3 direction = Vector3.right * _knightDirection[i, 0]+ Vector3.forward * _knightDirection[i, 1];
                 GenerateMove(currentPositionIndex, direction);
-            }
         }
     }
 }
