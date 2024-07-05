@@ -15,6 +15,7 @@ public class UIGameplaySlider : MonoBehaviour
     [SerializeField] RectTransform star3;
 
 
+
     public Sprite starOffSprite;
     public Sprite starOnSprite;
 
@@ -90,5 +91,11 @@ public class UIGameplaySlider : MonoBehaviour
             }
             
         }
+    }
+
+    public void ChangeValueFromTurn(int turn, int maxTurn)
+    {
+        slider.value = turn / maxTurn;
+        
     }
 }
