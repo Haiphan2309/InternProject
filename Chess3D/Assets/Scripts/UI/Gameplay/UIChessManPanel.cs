@@ -217,4 +217,23 @@ public class UIChessManPanel : MonoBehaviour
     {
         activatingHolder?.chessMan.SetOutline(0);
     }
+
+    public void DisableChess(ChessMan chessMan)
+    {
+        List<ChessHolder> chessHolders = chessMan.isEnemy ? enemyHolderList : playerHolderList; 
+        if (!chessMan.isEnemy)
+        {
+            foreach(var holder in chessHolders)
+            {
+                if (holder.chessMan == chessMan)
+                {
+                    holder.holderObject.GetComponent<Button>().interactable = false;
+                    if (activatingHolder == holder)
+                    {
+                        GameplayManager.Instance.camController.ChangeToDefaultCamera();
+                    }
+                }
+            }
+        }
+    }
 }
