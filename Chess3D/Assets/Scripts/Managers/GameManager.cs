@@ -44,6 +44,11 @@ namespace GDC.Managers
             this.versionText.text = $"Version {this.buildVersion}.{this.buildTime} - Release";
 #endif
         }
+
+        private void Start()
+        {
+            SaveLoadManager.Instance.Load();
+        }
         void OnApplicationQuit()
         {
             //ProfileManager.Instance.Save();

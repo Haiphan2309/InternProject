@@ -172,14 +172,14 @@ public class ChessMan : GameplayObject
         transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
             Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
-            if (isEnemy)
-            {
-                GameplayManager.Instance.DefeatEnemyChessMan(index);
-            }
-            else
-            {
-                GameplayManager.Instance.DefeatPlayerChessMan(index);
-            }
+            //if (isEnemy)
+            //{
+            //    GameplayManager.Instance.DefeatEnemyChessMan(index);
+            //}
+            //else
+            //{
+            //    GameplayManager.Instance.DefeatPlayerChessMan(index);
+            //}
             Destroy(gameObject);
         });
     }

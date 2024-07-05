@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120e776215a9fea4380e40308e3fce94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posIndex: {x: 6, y: 3, z: 4}
   defaultSpeed: 0
   outline: {fileID: 5112689643946604538}
   isOnSlope: 0
@@ -55,8 +56,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   config: {fileID: 11400000, guid: 8fba18f8ffdf2604ab9de2d5a0f3dde2, type: 2}
-  posIndex: {x: 6, y: 3, z: 4}
-  speed: 0.05
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
   groundLayerMask:
     serializedVersion: 2
@@ -163,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
+  outlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
