@@ -19,6 +19,13 @@ public class ChessManConfig : ScriptableObject
     public ChessManType chessManType { get; set; }
     public List<Vector3> possibleMoveList { get; set; }
 
+    public readonly float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
+    public readonly float[,] _diagonalDirection = { { -1f, 1f }, { 1f, 1f }, { -1f, -1f }, { 1f, -1f } };
+    public readonly float[,] _knightDirection = {
+        { -1f, 2f }, { 1f, 2f }, { 1f, -2f }, { -1f, -2f },
+        { -2f, 1f }, { 2f, 1f }, { 2f, -1f }, { -2f, -1f }
+    };
+
     // Check if the potential tile is available
     private bool IsTile(Vector3 currentMove)
     {

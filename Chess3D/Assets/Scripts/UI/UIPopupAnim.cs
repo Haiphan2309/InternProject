@@ -66,7 +66,10 @@ public class UIPopupAnim : MonoBehaviour
     [Button]
     public void Hide()
     {
-        UIManager.Instance.ShowAllButtons();
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.ShowAllButtons();
+        }
         DOTween.Kill(panelRect);
 
         Image[] images = panelRect.GetComponentsInChildren<Image>();

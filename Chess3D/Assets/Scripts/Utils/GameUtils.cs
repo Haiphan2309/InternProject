@@ -103,4 +103,39 @@ public static class GameUtils
         // Debug.Log("InBound = " + inBound);
         return inBound;
     }
+
+    public static ChapterData GetChapterData(int chapterId) //ChapterId bat dau tu 0
+    {
+        string chapterName = "Chapter_" + (chapterId + 1).ToString();
+        string loadPath = "ScriptableObjects/ChapterData/" + chapterName;
+        ChapterData chapterData = Resources.Load<ChapterData>(loadPath);
+
+        if (chapterData == null)
+        {
+            Debug.LogError($"Failed to load chapter: " + chapterName);
+
+        }
+        else
+        {
+            Debug.Log($"Loading chapter {chapterName} successfully");
+        }
+        return chapterData;
+    }
+    public static LevelData GetLevelData(int chapterID, int levelID) //LevelId bat dau tu 0
+    {
+        ChapterData chapterData = GetChapterData(chapterID);
+        LevelData levelData = chapterData.levelDatas[levelID];
+
+        string levelName = chapterID.ToString() + "_" + levelID.ToString();
+        if (levelData == null)
+        {
+            Debug.LogError($"Failed to load level: " + "Level_" + levelName);
+
+        }
+        else
+        {
+            Debug.Log($"Loading level {levelName} successfully");
+        }
+        return levelData;
+    }
 }

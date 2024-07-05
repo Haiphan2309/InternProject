@@ -14,18 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTilemapName: Floor_2
   prefabs:
-  - {fileID: 5213880191220909169, guid: 66614f3fc2a21be4d88294c6a39ba04e, type: 3}
-  - {fileID: 5213880191220909169, guid: aae60704497e0974db73d5f264d910e4, type: 3}
-  - {fileID: 5213880191220909169, guid: 83eb7013c6d7f8043aa6cabdd638802f, type: 3}
-  - {fileID: 5213880191220909169, guid: e56aaf6d5463f2940bba8be744b7d760, type: 3}
   - {fileID: 4051196245707785669, guid: 83585b764e054e645b2a034f4f319ca6, type: 3}
   - {fileID: 4051196245707785669, guid: 2c36bd543e637f74b87ec9c021067a2f, type: 3}
   - {fileID: 8998501177938085803, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
-  - {fileID: 8998501177938085803, guid: 0ff962d6b41e27d49a623e7718583f8c, type: 3}
-  - {fileID: 2773410193484695969, guid: 5fc0a998845f3e64a879a567455c1c0e, type: 3}
-  - {fileID: 6790502167011976086, guid: fa7a4e806557b26488771a7214a65b97, type: 3}
-  - {fileID: 8998501177938085803, guid: f275cb86fcdc1da4595e19e8a44361ea, type: 3}
   - {fileID: 8998501177938085803, guid: e6a6601d969993746869974ab4ef725f, type: 3}
+  - {fileID: 8998501177938085803, guid: 788f58102a9460749a0d3e1bfc944590, type: 3}
+  - {fileID: 8998501177938085803, guid: 0ff962d6b41e27d49a623e7718583f8c, type: 3}
+  - {fileID: 8998501177938085803, guid: 4048d3ac55ca89a4bb4ab044a935e879, type: 3}
+  - {fileID: 4051196245707785669, guid: 1a4ef538579404a4ebe1d1380980d1a0, type: 3}
+  - {fileID: 5213880191220909169, guid: 66614f3fc2a21be4d88294c6a39ba04e, type: 3}
   selectedIndex: 8
   manualOffset: 0
   manualOffsetValue: 0

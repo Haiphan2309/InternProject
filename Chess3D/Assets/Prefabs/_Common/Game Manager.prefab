@@ -65,7 +65,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1187738467
 RectTransform:
   m_ObjectHideFlags: 0
@@ -778,9 +778,11 @@ MonoBehaviour:
     playerLevelHighScores: 
     playerLevelStars: 
     currentLevel: 0
+    currentChapter: 0
   GameData:
     IsSaveLoadProcessing: 0
     playerLevelDatas: []
+    currentChapter: 0
     currentLevel: 0
 --- !u!1 &8249350817095926785
 GameObject:

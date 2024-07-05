@@ -55,10 +55,12 @@ namespace GDC.Managers
 
             if (playerLevelDatas == null)
                 playerLevelDatas = new List<PlayerLevelData>();
+
             for(int i=0; i<GameConstants.MAX_LEVEL; i++)
             {
                 playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i]));
             }
+
             currentLevel = gameDataOrigin.currentLevel;
             currentChapter = gameDataOrigin.currentChapter;
 
@@ -90,6 +92,18 @@ namespace GDC.Managers
         }
 
         #region support function
+        public void SetLevelData(int chapterId, int levelId, int star, int remainTurn)
+        {
+            int index = chapterId * GameConstants.MAX_LEVEL + levelId;
+            if (star > playerLevelDatas[index].star) 
+            {
+                playerLevelDatas[index].star = star;
+            }
+            if (playerLevelDatas[index].highScore < remainTurn)
+            {
+                playerLevelDatas[index].highScore = remainTurn;
+            }
+        }
         public int GetLevelStar(int chapterId, int levelId)
         {
             return playerLevelDatas[chapterId * GameConstants.MAX_LEVEL + levelId].star;

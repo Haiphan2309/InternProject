@@ -51,7 +51,8 @@ public class UIWinPanel : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         turnSlider.DOValue(GameplayManager.Instance.remainTurn, 3);
-        for (int i = 0; i < 3; i++)
+        int starNum = GameplayManager.Instance.GetStarOfCurrentLevel();
+        for (int i = 0; i < starNum; i++)
         {
             stars[i].DOColor(Color.white, 0.2f);
             stars[i].rectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
@@ -81,12 +82,34 @@ public class UIWinPanel : MonoBehaviour
             SoundType.NONE,
             cb: () =>
             {
-                GDC.Managers.GameManager.Instance.SetInitData(currentChapterIndex, currentLevelIndex);
+                GameManager.Instance.SetInitData(currentChapterIndex, currentLevelIndex);
             },
             true);
     }
     void OnNextLevel()
     {
-        Debug.Log("NextLevel");
+        ChapterData curChapterData = GameplayManager.Instance.chapterData;
+        int nextLevelIndex = GameplayManager.Instance.levelData.id + 1;
+        int nextChapterIndex = curChapterData.id + 1;
+        if (curChapterData.levelDatas.Count >= nextLevelIndex)
+        {
+            nextLevelIndex = 0;
+            ChapterData nextChapterData = GameUtils.GetChapterData(nextChapterIndex);
+            if (nextChapterData == null)
+            {
+                Debug.Log("Da het level de choi");
+                replayBtn.onClick.Invoke();
+                return;
+            }
+        }
+        GameManager.Instance.LoadSceneManually(
+            GDC.Enums.SceneType.GAMEPLAY,
+            GDC.Enums.TransitionType.IN,
+            SoundType.NONE,
+            cb: () =>
+            {
+                GameManager.Instance.SetInitData(nextChapterIndex, nextLevelIndex);
+            },
+            true);
     }
 }

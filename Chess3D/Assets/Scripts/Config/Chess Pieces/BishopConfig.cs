@@ -6,7 +6,6 @@ using UnityEngine;
 public class BishopConfig : ChessManConfig
 {
     public GameObject prefab;
-    private float[,] _diagonalDirection = { { -1f, 1f },  { 1f, 1f }, { -1f, -1f }, { 1f, -1f } };
 
     BishopConfig()
     {
