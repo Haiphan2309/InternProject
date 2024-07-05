@@ -82,12 +82,34 @@ public class UIWinPanel : MonoBehaviour
             SoundType.NONE,
             cb: () =>
             {
-                GDC.Managers.GameManager.Instance.SetInitData(currentChapterIndex, currentLevelIndex);
+                GameManager.Instance.SetInitData(currentChapterIndex, currentLevelIndex);
             },
             true);
     }
     void OnNextLevel()
     {
-        Debug.Log("NextLevel");
+        ChapterData curChapterData = GameplayManager.Instance.chapterData;
+        int nextLevelIndex = GameplayManager.Instance.levelData.id + 1;
+        int nextChapterIndex = curChapterData.id + 1;
+        if (curChapterData.levelDatas.Count >= nextLevelIndex)
+        {
+            nextLevelIndex = 0;
+            ChapterData nextChapterData = GameUtils.GetChapterData(nextChapterIndex);
+            if (nextChapterData == null)
+            {
+                Debug.Log("Da het level de choi");
+                replayBtn.onClick.Invoke();
+                return;
+            }
+        }
+        GameManager.Instance.LoadSceneManually(
+            GDC.Enums.SceneType.GAMEPLAY,
+            GDC.Enums.TransitionType.IN,
+            SoundType.NONE,
+            cb: () =>
+            {
+                GameManager.Instance.SetInitData(nextChapterIndex, nextLevelIndex);
+            },
+            true);
     }
 }

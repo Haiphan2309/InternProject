@@ -419,6 +419,10 @@ public class GameplayManager : MonoBehaviour
         }
         levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
     }
+    public void UpdateTile(Vector3 oldPos, TileInfo tileInfo = null)
+    {
+        levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
+    }
     public void EndTurn() //Duoc goi sau khi ket thuc luot
     {
         isEndTurn = true;
