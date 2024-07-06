@@ -47,6 +47,7 @@ public class LevelSpawner : MonoBehaviour
         SpawnTile();
         SpawnPlayerChess();
         SpawnEnemyChess();
+        SpawnEnemyDefaultMove();
     }
     private void SpawnTile()
     {
@@ -131,41 +132,22 @@ public class LevelSpawner : MonoBehaviour
             index++;
         }
     }
+    void SpawnEnemyDefaultMove()
+    {
+        var defaultMovePointObj = Resources.Load<GameObject>( objectPrefabPath + "/999");
+        List<Vector3> defaultMoves = levelData.GetAllDefaultMove();
+        foreach (var move in defaultMoves) 
+        {
+            Instantiate(defaultMovePointObj, move, Quaternion.identity);
+        }
+    }
     public ChapterData GetChapterData(int chapterId)
     {
         return GameUtils.GetChapterData(chapterId);
-        //string chapterName = "Chapter_" + (chapterId+1).ToString();
-        //string loadPath = "ScriptableObjects/ChapterData/" + chapterName;
-        //ChapterData chapterData = Resources.Load<ChapterData>(loadPath);
-
-        //if (chapterData == null)
-        //{
-        //    Debug.LogError($"Failed to load chapter: " + chapterName);
-
-        //}
-        //else
-        //{
-        //    Debug.Log($"Loading chapter {chapterName} successfully");
-        //}
-        //return chapterData;
     }
     private LevelData GetLevelData(int chapterID, int levelID)
     {
         return GameUtils.GetLevelData(chapterID, levelID);
-        //ChapterData chapterData = GetChapterData(chapterID);
-        //LevelData levelData = chapterData.levelDatas[levelID];
-
-        //string levelName = chapterID.ToString() + "_" + levelID.ToString();
-        //if (levelData == null)
-        //{
-        //    Debug.LogError($"Failed to load level: " + "Level_"+levelName);
-
-        //}
-        //else
-        //{
-        //    Debug.Log($"Loading level {levelName} successfully");
-        //}
-        //return levelData;
     }
     private void GetPrefabs()
     {
