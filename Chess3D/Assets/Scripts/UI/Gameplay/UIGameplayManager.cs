@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class UIGameplayManager : MonoBehaviour
     [SerializeField] UILosePanel uiLosePanel;
     [SerializeField] UISetting uiSetting;
     [SerializeField] UITutorial uiTutorial;
+    [SerializeField] TutorialConfig tutorialConfig;
     
 
     bool isChessManPanelOn;
@@ -29,10 +31,11 @@ public class UIGameplayManager : MonoBehaviour
     }
     //private void Start()
     //{
-        
+
     //    //Setup();
     //}
 
+    [Button]
     public void Setup()
     {
         Debug.Log("Setup UI");
@@ -45,13 +48,22 @@ public class UIGameplayManager : MonoBehaviour
         // Assign btn
         settingBtn.onClick.AddListener(OnSetting);
         toggleChessManBtn.onClick.AddListener(OnToggleBtnClicked);
-        
+
+        CheckShowTutorial();
     }
 
-    public void ShowTutorial(Sprite tutorialSprite)
+    public void CheckShowTutorial()
     {
-        uiTutorial.Show(tutorialSprite);
-
+        int chapterId = GameplayManager.Instance.chapterData.id;
+        int levelId = GameplayManager.Instance.levelData.id;
+        foreach (var tutorialData in tutorialConfig.tutorialDatas)
+        {
+            if (chapterId == tutorialData.chapterIndex && levelId == tutorialData.levelIndex)
+            {
+                uiTutorial.EnqueueTutorial(tutorialData);
+            }
+        }
+        uiTutorial.Show();
     }
     public void ShowWin()
     {

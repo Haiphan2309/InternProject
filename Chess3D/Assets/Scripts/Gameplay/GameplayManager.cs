@@ -15,7 +15,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] LevelSpawner levelSpawner;
     public CameraController camController;
     public UIGameplayManager uiGameplayManager;
-    [SerializeField] TutorialConfig tutorialConfig;
+    //[SerializeField] TutorialConfig tutorialConfig;
 
     [SerializeField] Transform availableMovePrefab;
     List<Transform> availableMoveTrans = new List<Transform>();
@@ -31,7 +31,7 @@ public class GameplayManager : MonoBehaviour
     [HideInInspector] public bool isAnimMoving, isEndTurn;
 
     [Header("Test only")]
-    public int levelIndex, chapterIndex;
+    public int levelIndexTest, chapterIndexTest;
     private void Awake()
     {
         Instance = this;
@@ -54,7 +54,7 @@ public class GameplayManager : MonoBehaviour
     [Button]
     public void LoadLevel()
     {
-        LoadLevel(chapterIndex ,levelIndex);
+        LoadLevel(chapterIndexTest ,levelIndexTest);
     }
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
@@ -76,7 +76,6 @@ public class GameplayManager : MonoBehaviour
         enemyTurn = false;
 
         uiGameplayManager.Setup();
-        CheckShowTutorial();
     }
 
     void ResetEnemyPriorityLowestList()
@@ -93,17 +92,6 @@ public class GameplayManager : MonoBehaviour
                 {
                     listEnemyPriorityLowest.Add(enemy);
                 }
-            }
-        }
-    }
-    void CheckShowTutorial()
-    {
-        foreach(var tutorialData in tutorialConfig.tutorialDatas)
-        {
-            if (chapterData.id == tutorialData.chapterIndex && levelData.id == tutorialData.levelIndex)
-            {
-                uiGameplayManager.ShowTutorial(tutorialData.tutorialSprite);
-                return;
             }
         }
     }

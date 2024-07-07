@@ -16,3 +16,8 @@ MonoBehaviour:
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 30ea822139c5b414987049aa2bb718e1, type: 3}
+    tutorialText: "\u0110o\u1EA1n test n\xE0o \u0111\xF3 cho tutorial th\u1EE9 nh\u1EA5t"
+  - chapterIndex: 0
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 952274f5b34c0e24bba972ae030da6ae, type: 3}
+    tutorialText: "\u0110o\u1EA1n test n\xE0o \u0111\xF3 cho tutorial th\u1EE9 hai"
