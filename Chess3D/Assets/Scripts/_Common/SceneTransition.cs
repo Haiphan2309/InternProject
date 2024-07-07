@@ -64,10 +64,10 @@ namespace GDC.Common
             {
                 image.color = Color.clear;
                 //SoundManager.Instance.PlaySound(SoundID.SFX_TRANSITION_IN);
-                inUpRect.anchoredPosition = new Vector2(0, 2000);
-                inDownRect.anchoredPosition = new Vector2(0, -2000);
-                inLeftRect.anchoredPosition = new Vector2(-2000, 0);
-                inRightRect.anchoredPosition = new Vector2(2000, 0);
+                inUpRect.anchoredPosition = new Vector2(0, 3000);
+                inDownRect.anchoredPosition = new Vector2(0, -3000);
+                inLeftRect.anchoredPosition = new Vector2(-3000, 0);
+                inRightRect.anchoredPosition = new Vector2(3000, 0);
 
                 inUpRect.DOAnchorPos(new Vector2(0, 900), TRANS_DURATION);
                 inDownRect.DOAnchorPos(new Vector2(0, -900), TRANS_DURATION);
@@ -125,10 +125,10 @@ namespace GDC.Common
                 inLeftRect.anchoredPosition = new Vector2(-900, 0);
                 inRightRect.anchoredPosition = new Vector2(900, 0);
 
-                inUpRect.DOAnchorPos(new Vector2(0,2000), TRANS_DURATION);
-                inDownRect.DOAnchorPos(new Vector2(0, -2000), TRANS_DURATION);
-                inLeftRect.DOAnchorPos(new Vector2(-2000, 0), TRANS_DURATION);
-                inRightRect.DOAnchorPos(new Vector2(2000, 0), TRANS_DURATION);
+                inUpRect.DOAnchorPos(new Vector2(0,3000), TRANS_DURATION);
+                inDownRect.DOAnchorPos(new Vector2(0, -3000), TRANS_DURATION);
+                inLeftRect.DOAnchorPos(new Vector2(-3000, 0), TRANS_DURATION);
+                inRightRect.DOAnchorPos(new Vector2(3000, 0), TRANS_DURATION);
                 inRect.DORotate(new Vector3(0, 0, -360), TRANS_DURATION, RotateMode.FastBeyond360);
             }
             else if (transitionType == TransitionType.FADE)

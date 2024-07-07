@@ -35,6 +35,8 @@ public class UIChessManPanel : MonoBehaviour
 
     [SerializeField] ChessHolderConfig playerChessHolderConfig;
     [SerializeField] ChessHolderConfig enemyChessHolderConfig;
+    [SerializeField] ChessHolderConfig disableHolderConfig;
+    
     //
     public float duration = 1f;
     //
@@ -189,13 +191,19 @@ public class UIChessManPanel : MonoBehaviour
         activatingHolder?.chessMan.SetOutline(10, Color.white);
         
     }
-    private void ChangeHolderColor(ChessHolder holder, bool isOn)
+    private void ChangeHolderColor(ChessHolder holder, bool isOn, bool isDisable = false)
     {
         if (holder == null) return;
         bool isEnemy = holder.chessMan.isEnemy;
         Color backgroundColor, foregroundColor;
         ChessHolderConfig holderConfig = isEnemy ? enemyChessHolderConfig : playerChessHolderConfig;
-        if (isOn)
+        if (isDisable)
+        {
+            holderConfig = disableHolderConfig;
+            backgroundColor = holderConfig.defaultBorder;
+            foregroundColor = holderConfig.defaultBackground;
+        }
+        else if (isOn)
         {
             backgroundColor = holderConfig.activeBorder;
             foregroundColor = holderConfig.activeBackground;
@@ -220,20 +228,21 @@ public class UIChessManPanel : MonoBehaviour
 
     public void DisableChess(ChessMan chessMan)
     {
+   
         List<ChessHolder> chessHolders = chessMan.isEnemy ? enemyHolderList : playerHolderList; 
-        if (!chessMan.isEnemy)
+
+        foreach(var holder in chessHolders)
         {
-            foreach(var holder in chessHolders)
+            if (holder.chessMan == chessMan)
             {
-                if (holder.chessMan == chessMan)
+                holder.holderObject.GetComponent<Button>().interactable = false;
+                ChangeHolderColor(holder, false, true);
+                if (activatingHolder == holder)
                 {
-                    holder.holderObject.GetComponent<Button>().interactable = false;
-                    if (activatingHolder == holder)
-                    {
-                        GameplayManager.Instance.camController.ChangeToDefaultCamera();
-                    }
+                    GameplayManager.Instance.camController.ChangeToDefaultCamera();
                 }
             }
         }
+        
     }
 }

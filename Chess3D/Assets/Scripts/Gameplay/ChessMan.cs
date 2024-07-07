@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using GDC;
 using GDC.Enums;
 using GDC.Managers;
@@ -23,6 +23,8 @@ public class ChessMan : GameplayObject
 
     public bool isTouchBox = false;
     public bool isTouchBoulder = false;
+
+    int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
 
     public void Setup(PlayerArmy playerArmy, int index, Vector3 posIndex)
     {
@@ -57,10 +59,26 @@ public class ChessMan : GameplayObject
             Vector3 intendedMove = moves[moveIndex];
             if (GameplayManager.Instance.CheckMove(config, posIndex, intendedMove) == false)
             {
-                return false;
+                deltaMoveIndex = -deltaMoveIndex; //Dao nguoc chieu di chuyen lai
+                int backMoveIndex = moveIndex + deltaMoveIndex*2; //x2 để ko tính cái ô mà mình đang đứng mà là tính cái ô trước đó theo default move
+                if (backMoveIndex < 0) backMoveIndex = moves.Count - 1;
+                backMoveIndex = backMoveIndex % moves.Count;
+
+                intendedMove = moves[backMoveIndex];
+                //Debug.Log(intendedMove);
+                
+                if (GameplayManager.Instance.CheckMove(config, posIndex, intendedMove) == false)
+                {
+                    deltaMoveIndex = -deltaMoveIndex;
+                    return false;
+                }
+                moveIndex = backMoveIndex;
             }
             GameplayManager.Instance.MakeMove(this, moves[moveIndex]);
-            moveIndex = (moveIndex + 1) % moves.Count;
+
+            moveIndex = moveIndex + deltaMoveIndex;
+            if (moveIndex < 0) moveIndex = moves.Count - 1;
+            moveIndex = moveIndex % moves.Count;
         }
         return true;
     }

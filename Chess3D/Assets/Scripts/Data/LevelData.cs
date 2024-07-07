@@ -169,6 +169,23 @@ public class LevelData : ScriptableObject
     {
         return new List<EnemyArmy>(enemyArmies);
     }
+    public List<Vector3> GetAllDefaultMove()
+    {
+        Dictionary<Vector3, Vector3> moveDict = new Dictionary<Vector3, Vector3>(); //Dung dictionary de giam O(n^3) -> O(n^2)
+        List<Vector3> moves = new List<Vector3>();
+        foreach(var enemy in enemyArmies)
+        {
+            foreach(var enemyMove in enemy.movePosIndexs)
+            {
+                moveDict[enemyMove] = enemyMove;
+            }
+        }
+        foreach(var move in moveDict.Values)
+        {
+            moves.Add(move);
+        }
+        return moves;
+    }    
 
     private TileInfo[,,] DeepCopyArray(TileInfo[,,] originalArray)
     {

@@ -33,6 +33,8 @@ public class InfiniteLoopWatcher : MonoBehaviour
         // You can implement any game stopping logic here, like showing a warning screen
         // or pausing the game. For simplicity, let's just stop the game time.
 
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
