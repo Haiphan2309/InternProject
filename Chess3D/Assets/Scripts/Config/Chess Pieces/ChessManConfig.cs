@@ -1,6 +1,7 @@
 using GDC.Constants;
 using GDC.Enums;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChessManConfig : ScriptableObject
@@ -9,10 +10,6 @@ public class ChessManConfig : ScriptableObject
     private int _moveRange;
     private ChessManType _chessManType;
     private List<Vector3> _possibleMoveList;
-
-    public float Xlimit { get; set; }
-    public float Ylimit { get; set; }
-    public float Zlimit { get; set; }
 
     public float height { get; set; }
     public int moveRange { get; set; }
@@ -79,7 +76,6 @@ public class ChessManConfig : ScriptableObject
         bool isJumpable = true;
         return isJumpable;
     }
-
 
     // Check if the potential tile that the pieces move into is movable
     private bool ValidateMove(Vector3 currentMove, Vector3 direction)
@@ -410,7 +406,7 @@ public class ChessManConfig : ScriptableObject
     // RetreatState: Move the piece away from the danger tiles
     public virtual Vector3 RetreatState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority)
     {
-        int[,,] scores = new int[(int)Xlimit, (int)Ylimit, (int)Zlimit];
+        int[,,] scores = new int[GameConstants.MAX_X_SIZE, GameConstants.MAX_Y_SIZE, GameConstants.MAX_Z_SIZE];
 
         List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
         for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
