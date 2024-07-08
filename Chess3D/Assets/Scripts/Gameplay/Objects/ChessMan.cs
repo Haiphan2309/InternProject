@@ -3,6 +3,7 @@ using GDC;
 using GDC.Enums;
 using GDC.Managers;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -182,8 +183,19 @@ public class ChessMan : GameplayObject
         posIndex = target;
 
         CheckBox(target);
+        CheckPromote();
 
         GameplayManager.Instance.EndTurn();
+    }
+
+    private void CheckPromote()
+    {
+        GameObject promoteGround = GameUtils.GetObjectByPosition(GameUtils.SnapToGrid(transform.position) + Vector3.down);
+        Debug.Log("Promote Ground: " + promoteGround.name);
+        if (config.chessManType == ChessManType.PAWN && promoteGround.name == "150(Clone)")
+        {
+            UIGameplayManager.Instance.ShowPromote();
+        }
     }
 
     void RotateToDirection(Vector3 direction)

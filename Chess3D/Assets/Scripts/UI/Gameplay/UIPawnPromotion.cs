@@ -19,10 +19,10 @@ public class UIPawnPromotion : MonoBehaviour
     List<Button> buttonList;
     ChessManType promoteType;
 
-    private void Start()
-    {
-        Setup();
-    }
+    //private void Start()
+    //{
+    //    Setup();
+    //}
 
     public void Setup()
     {

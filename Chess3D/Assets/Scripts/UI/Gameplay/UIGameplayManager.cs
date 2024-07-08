@@ -19,6 +19,7 @@ public class UIGameplayManager : MonoBehaviour
     [SerializeField] UILosePanel uiLosePanel;
     [SerializeField] UISetting uiSetting;
     [SerializeField] UITutorial uiTutorial;
+    [SerializeField] UIPawnPromotion uiPawnPromotion;
     [SerializeField] TutorialConfig tutorialConfig;
     
 
@@ -44,10 +45,13 @@ public class UIGameplayManager : MonoBehaviour
         // Setup UI
         uIChessManPanel.Setup();
         uIInformationPanel.Setup();
+        uiPawnPromotion.Setup();
         //uIGameplaySlider.Setup();
         // Assign btn
         settingBtn.onClick.AddListener(OnSetting);
         toggleChessManBtn.onClick.AddListener(OnToggleBtnClicked);
+
+        Debug.Log("B");
 
         CheckShowTutorial();
     }
@@ -90,5 +94,10 @@ public class UIGameplayManager : MonoBehaviour
         }
         isChessManPanelOn = !isChessManPanelOn;
         
+    }
+
+    public void ShowPromote()
+    {
+        uiPawnPromotion.Open();
     }
 }
