@@ -15,6 +15,7 @@ public class ChessMan : GameplayObject
     public ChessManConfig config;
 
     [SerializeField] LayerMask groundLayerMask;
+    [SerializeField] ChessManType testPromoteType;
 
     public bool isEnemy;
     public int index;
@@ -213,4 +214,98 @@ public class ChessMan : GameplayObject
         }
 
     }
+
+
+    public void Promote(ChessManType chessManType)
+    {
+        // Change Config
+        ChessManConfig newConfig = GetConfigFromType(chessManType);
+        if (newConfig == null)
+        {
+            Debug.LogError("Fail to load new CONFIG in PROMOTE");
+            return;
+        }
+        config = newConfig;
+
+        // Change Mesh
+
+        Mesh newMesh = GetMeshFromType(chessManType);
+        if (newMesh == null)
+        {
+            Debug.LogError("Fail to load new MESH in PROMOTE");
+            return;
+        }
+        gameObject.GetComponentInChildren<MeshFilter>().mesh = newMesh;
+
+        //
+        GameplayManager.Instance.HideAvailableMove();
+    }
+    private ChessManConfig GetConfigFromType(ChessManType type)
+    {
+        string path = "ScriptableObjects/ChessMan/";
+
+        switch (type)
+        {
+            case ChessManType.PAWN:
+                path += "PawnConfig";
+                break;
+            case ChessManType.CASTLE:
+                path += "CastleConfig";
+                break;
+            case ChessManType.BISHOP:
+                path += "BishopConfig";
+                break;
+            case ChessManType.KNIGHT:
+                path += "KnightConfig";
+                break;
+            case ChessManType.QUEEN:
+                path += "QueenConfig";
+                break;
+            case ChessManType.KING:
+                path += "KingConfig";
+                break;
+            default:
+                break;
+        }
+        // Assets/Resources/ScriptableObjects/ChessMan/KnightConfig.asset
+
+        return Resources.Load<ChessManConfig>(path);
+    }
+
+    private Mesh GetMeshFromType(ChessManType type)
+    {
+        string path = "Materials/ChessMesh/"; //.fbs
+        switch (type)
+        {
+            case ChessManType.PAWN:
+                path += "pawn";
+                break;
+            case ChessManType.CASTLE:
+                path += "rook";
+                break;
+            case ChessManType.BISHOP:
+                path += "bishop";
+                break;
+            case ChessManType.KNIGHT:
+                path += "knight";
+                break;
+            case ChessManType.QUEEN:
+                path += "queen";
+                break;
+            case ChessManType.KING:
+                path += "king";
+                break;
+            default:
+                break;
+        }
+        return Resources.Load<Mesh>(path);
+    }
+
+#if UNITY_EDITOR
+    [Button]
+    void TestPromote()
+    {
+        Promote(testPromoteType);
+    }
+#endif
 }
