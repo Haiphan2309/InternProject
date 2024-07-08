@@ -45,7 +45,7 @@ public class UIChapterMenu : UI
 
     private void SetChapterSystem()
     {
-        UIManager.Instance.chapterHolder.DOAnchorPosY(150, _timer);
+        UIManager.Instance.chapterHolder.DOAnchorPosY(0, _timer);
         //ShowLevelHolder();
     }
 
