@@ -35,8 +35,8 @@ public class CameraController : MonoBehaviour
 
     //For zoom
     private float zoom;
-    private float zoomMax = 60;
-    private float zoomMin = 16;
+    private float zoomMax = 6;
+    private float zoomMin = 2;
     private float zoomVelocity = 0f;
     private float smoothZoomTime = 0.25f;
 
@@ -73,7 +73,7 @@ public class CameraController : MonoBehaviour
         // 
         Cursor.lockState = CursorLockMode.None;
         //
-        zoom = Camera.main.fieldOfView;
+        zoom = Camera.main.orthographicSize;
     }
 
     void LateUpdate()
@@ -141,6 +141,6 @@ public class CameraController : MonoBehaviour
     
         zoom -= inc;
         zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
-        _camera.m_Lens.FieldOfView = Mathf.SmoothDamp(_camera.m_Lens.FieldOfView, zoom,  ref zoomVelocity, smoothZoomTime);
+        _camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, zoom,  ref zoomVelocity, smoothZoomTime);
     }
 }
