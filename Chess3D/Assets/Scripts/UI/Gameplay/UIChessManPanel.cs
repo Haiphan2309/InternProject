@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
+ 
 public class ChessHolder
 {
     public ChessMan chessMan;
@@ -221,6 +221,22 @@ public class UIChessManPanel : MonoBehaviour
 
     }
 
+
+    public void UpdateHolder(ChessMan chessMan) 
+    {
+        foreach(var holder in playerHolderList)
+        {
+            if (!holder.chessMan == chessMan)
+            {
+                ReLoadHolderImg(holder);
+            }
+        }
+    }
+    private void ReLoadHolderImg(ChessHolder holder)
+    {
+        Transform chessImg = holder.holderObject.transform.Find("ChessImage");
+        chessImg.gameObject.GetComponent<Image>().sprite = chessSpriteDic[holder.chessMan.config.chessManType];
+    }
     public void HideOutlineFromPanel()
     {
         activatingHolder?.chessMan.SetOutline(0);

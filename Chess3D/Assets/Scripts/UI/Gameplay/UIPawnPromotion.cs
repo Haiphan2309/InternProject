@@ -25,7 +25,7 @@ public class UIPawnPromotion : MonoBehaviour
     }
 
     public void Setup()
-    {
+    { 
         exitBtn.onClick.AddListener(OnExitBtnClicked);
         SetupHolderButtons();
 
