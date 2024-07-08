@@ -2,12 +2,14 @@ using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UISetting : MonoBehaviour
 {
     [SerializeField] UIPopupAnim uiPopupAnim;
+    [SerializeField] TMP_Text levelText;
     [SerializeField] Button menuBtn, replayBtn, hideButton;
     Coroutine hideCor;
 
@@ -18,6 +20,8 @@ public class UISetting : MonoBehaviour
         menuBtn.onClick.AddListener(OnMenu);
         replayBtn.onClick.AddListener(OnReplay);
         hideButton.onClick.AddListener(Hide);
+
+        levelText.text = "Level " + (GameplayManager.Instance.chapterData.id + 1).ToString() + "-" + (GameplayManager.Instance.levelData.id+1).ToString();
 
         if (hideCor != null)
         {

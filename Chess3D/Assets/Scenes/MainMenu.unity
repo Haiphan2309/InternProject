@@ -384,10 +384,10 @@ RectTransform:
   m_Father: {fileID: 567353738}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &14813396
 GameObject:
@@ -11205,6 +11205,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 500799157, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
+      propertyPath: GameDataOrigin.IsHaveSaveData
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2051113583596249667, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
       propertyPath: m_Name
       value: Game Manager
@@ -12053,7 +12057,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -960.00037, y: 300}
+  m_AnchoredPosition: {x: -960, y: 300}
   m_SizeDelta: {x: 0, y: 600}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1708460510

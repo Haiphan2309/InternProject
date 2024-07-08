@@ -32441,7 +32441,7 @@ MonoBehaviour:
   yMaxLimit: 80
   smoothTime: 0.2
   chess: {fileID: 0}
-  zoomSpeed: 20
+  zoomSpeed: 5
 --- !u!114 &1349836854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46283,7 +46283,7 @@ Camera:
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 70
-  orthographic: 0
+  orthographic: 1
   orthographic size: 10
   m_Depth: 0
   m_CullingMask:

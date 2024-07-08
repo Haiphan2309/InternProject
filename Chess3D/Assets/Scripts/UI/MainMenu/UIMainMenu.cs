@@ -11,8 +11,7 @@ public class UIMainMenu : UI
     {
         SetSlider();
         SetChessHolder();
-        SetChapterSystem();
-        SetLevelSystem();
+        SetHolderSystem();
         SetButtonSystem();
         SetText();
         yield return new WaitForSeconds(1.5f);
@@ -23,7 +22,7 @@ public class UIMainMenu : UI
     private void SetText()
     {
         ShowTitleText();
-        UIManager.Instance.chapter.GetComponent<RectTransform>().DOAnchorPosY(600, _timer);
+        HideChapterText();
     }
 
     private void SetSlider()
@@ -46,13 +45,9 @@ public class UIMainMenu : UI
         UIManager.Instance.creditButton.GetComponent<RectTransform>().DOAnchorPosX(225, _timer);
     }
 
-    private void SetChapterSystem()
-    {
-        UIManager.Instance.chapterHolder.DOAnchorPosY(-2000, _timer);
-    }
-
-    private void SetLevelSystem()
+    private void SetHolderSystem()
     {
         HideLevelHolder();
+        HideChapterHolder();
     }
 }
