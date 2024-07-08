@@ -13,8 +13,7 @@ public class UILevelMenu : UI
         SetButtonSystem();
         SetChessHolder();
         SetSlider();
-        SetChapterSystem();
-        SetLevelSystem();
+        SetHolderSystem();
         yield return new WaitForSeconds(1f);
         UIManager.Instance.ShowAllButtons();
         yield return null;
@@ -23,7 +22,7 @@ public class UILevelMenu : UI
     private void SetText()
     {
         HideTitleText();
-        UIManager.Instance.chapter.GetComponent<RectTransform>().DOAnchorPosY(-50, _timer);
+        ShowChapterText();
     }
 
     private void SetSlider()
@@ -45,13 +44,9 @@ public class UILevelMenu : UI
         UIManager.Instance.creditButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
     }
 
-    private void SetChapterSystem()
-    {
-        UIManager.Instance.chapterHolder.DOAnchorPosY(-2000, _timer);
-    }
-
-    private void SetLevelSystem()
+    private void SetHolderSystem()
     {
         ShowLevelHolder();
+        HideChapterHolder();
     }
 }
