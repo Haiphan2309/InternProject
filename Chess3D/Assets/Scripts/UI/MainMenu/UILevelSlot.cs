@@ -56,7 +56,7 @@ public class UILevelSlot : MonoBehaviour
             sprite = null;
         }
         levelImage.sprite = sprite;
-        Debug.Log("Level " + levelIndex + " is available " + isAvailable);
+        // Debug.Log("Level " + levelIndex + " is available " + isAvailable);
     }
 
     private void ButtonSetup()
@@ -76,7 +76,7 @@ public class UILevelSlot : MonoBehaviour
     {
         if (isAvailable)
         {
-            levelText.text = "Level " + (levelIndex + 1).ToString();
+            levelText.text = $"Level {chapterIndex + 1}-{levelIndex + 1}";
         }
         else
         {

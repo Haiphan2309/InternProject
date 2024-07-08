@@ -23,12 +23,12 @@ public class UIChapterSlot : MonoBehaviour
         if (this.chapterData == null || this.chapterData.starRequire <= 10) //SaveLoadManager.Instance.GameData.GetAllStar())
         {
             isAvailable = true;
-            transform.GetComponent<Image>().color = Color.black;
+            transform.GetComponent<Image>().color = Color.white;
         }
         else
         {
             isAvailable = false;
-            transform.GetComponent<Image>().color = Color.white;
+            transform.GetComponent<Image>().color = Color.black;
         }
 
         SpriteSetup();
@@ -71,15 +71,16 @@ public class UIChapterSlot : MonoBehaviour
 
     private void TextSetup()
     {
+        int currentPlayerStats = 10; //SaveLoadManager.Instance.GameData.GetAllStar();
         if (isAvailable)
         {
-            chapterText.text = "Chapter " + (chapterIndex + 1).ToString();
+            chapterText.text = $"Chapter {chapterIndex + 1}";
             requirementsText.text = "OK";
         }
         else
         {
-            chapterText.text = "Unavailable";
-            requirementsText.text = chapterData.starRequire.ToString();
+            chapterText.text = "???";
+            requirementsText.text = $"Require: {currentPlayerStats}/{this.chapterData.starRequire} stars";
         }
     }
 }

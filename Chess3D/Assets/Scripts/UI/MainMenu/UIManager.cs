@@ -66,7 +66,19 @@ public class UIManager : MonoBehaviour
         mainMenu.Anim();
     }
 
-    // Button setup
+    public void IntoChapterMenu()
+    {
+        UIStack.Push(mainMenu);
+        chapterMenu.Anim();
+    }
+
+    public void IntoLevelMenu(int chapterIndex)
+    {
+        UIStack.Push(mainMenu);
+        LevelPreset(chapterIndex, GameUtils.GetChapterData(chapterIndex).levelDatas.Count);
+    }
+
+    // Setup
     private void Preset()
     {
         SliderPreset();
@@ -129,8 +141,8 @@ public class UIManager : MonoBehaviour
 
     public void LevelPreset(int chapterIndex, int maxLevelIndex)
     {
-        chapter.GetChild(0).GetComponent<TMP_Text>().text = "Chapter " + (chapterIndex + 1).ToString();
-        chapter.GetChild(1).GetComponent<TMP_Text>().text = "Chapter " + (chapterIndex + 1).ToString();
+        chapter.GetChild(0).GetComponent<TMP_Text>().text = $"Chapter {chapterIndex + 1}";
+        chapter.GetChild(1).GetComponent<TMP_Text>().text = $"Chapter {chapterIndex + 1}";
         UIStack.Push(chapterMenu);
         levelHolder.anchoredPosition = Vector3.down * 2000f;
         for (int idx = 0; idx < maxLevelIndex; ++idx)

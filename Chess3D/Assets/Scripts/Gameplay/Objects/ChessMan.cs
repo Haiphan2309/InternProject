@@ -14,7 +14,6 @@ public class ChessMan : GameplayObject
 {
     public ChessManConfig config;
 
-    [SerializeField] GameObject vfxDefeated;
     [SerializeField] LayerMask groundLayerMask;
     [SerializeField] ChessManType testPromoteType;
 
@@ -140,6 +139,9 @@ public class ChessMan : GameplayObject
         Vector3 currIdx = posIndex;
 
         Vector3 direction = (target - currPos).normalized;
+        direction.y = 0;
+
+        Debug.Log("Direction: " + direction);
 
         // Rotate to target
         RotateToDirection(direction);
@@ -151,13 +153,18 @@ public class ChessMan : GameplayObject
         // Move
         foreach (var gridCell in path)
         {
+            Debug.Log("Grid: " + gridCell);
             Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(gridCell);
             GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
             Vector3 boxDirection = direction;
             boxDirection.y = 0;
 
-            if (gameplayObject != null) gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
-            yield return null;
+            if (gameplayObject != null)
+            {
+                gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
+                yield return null;
+            }
+            
 
             while (currPos != gridCell)
             {
@@ -186,25 +193,6 @@ public class ChessMan : GameplayObject
     {
         Quaternion targetRotation = Quaternion.FromToRotation(Vector3.forward, direction);
         transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
-    }
-
-    [Button]
-    public void Defeated()
-    {
-        Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
-        transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
-            //if (isEnemy)
-            //{
-            //    GameplayManager.Instance.DefeatEnemyChessMan(index);
-            //}
-            //else
-            //{
-            //    GameplayManager.Instance.DefeatPlayerChessMan(index);
-            //}
-            Destroy(gameObject);
-        });
     }
 
     private void CheckBox(Vector3 target)
