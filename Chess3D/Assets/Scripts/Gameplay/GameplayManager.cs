@@ -76,6 +76,7 @@ public class GameplayManager : MonoBehaviour
         enemyTurn = false;
 
         uiGameplayManager.Setup();
+        Debug.Log("A");
     }
 
     void ResetEnemyPriorityLowestList()
