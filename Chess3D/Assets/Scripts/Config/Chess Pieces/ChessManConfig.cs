@@ -37,8 +37,8 @@ public class ChessManConfig : ScriptableObject
             case TileType.OBJECT:
             case TileType.BOULDER:
             case TileType.WATER:
-            case TileType.PLAYER_CHESS:
-            case TileType.ENEMY_CHESS:
+            // case TileType.PLAYER_CHESS:
+            // case TileType.ENEMY_CHESS:
                 canStandOn = false;
                 break;
             // else
@@ -225,28 +225,29 @@ public class ChessManConfig : ScriptableObject
             // Register the next move
             move = currentMove + direction;
 
-            Debug.Log("Load " + move.ToString());
+            // Debug.Log("Load " + move.ToString());
             // We find the first tile below the next move
             // If the piece is pushing the OBJECT:
             // 
             while (move.y >= 1f && GameUtils.InBound(move) && !CanStandOn(move))
             {
+                if (dynamicObjectOnDirection) return;
                 // Find the lower ground
                 move += Vector3.down;
-                Debug.Log("DOWN " + move.ToString());
+                // Debug.Log("DOWN " + move.ToString());
             }
 
             // Check if the potential move is in bound
             if (!GameUtils.InBound(move))
             {
-                Debug.Log("OOB " + move.ToString());
+                // Debug.Log("OOB " + move.ToString());
                 return;
             }
 
             // Check if the potential move is standable
             if (!CanStandOn(move))
             {
-                Debug.Log("STAND " + move.ToString());
+                // Debug.Log("STAND " + move.ToString());
                 break;
             }
 
@@ -260,7 +261,7 @@ public class ChessManConfig : ScriptableObject
             // Since there is a WATER - DYNAMIC OBJECT interaction, we put dynamicObjectOnDirection in
             if (!ValidateMove(move, direction, dynamicObjectOnDirection))
             {
-                Debug.Log("MOVE " + move.ToString());
+                // Debug.Log("MOVE " + move.ToString());
                 break;
             }
 
