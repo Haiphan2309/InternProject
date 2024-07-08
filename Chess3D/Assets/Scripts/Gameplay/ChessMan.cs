@@ -304,9 +304,12 @@ public class ChessMan : GameplayObject
         }
         return Resources.Load<Mesh>(path);
     }
+
+#if UNITY_EDITOR
     [Button]
     void TestPromote()
     {
         Promote(testPromoteType);
     }
+#endif
 }
