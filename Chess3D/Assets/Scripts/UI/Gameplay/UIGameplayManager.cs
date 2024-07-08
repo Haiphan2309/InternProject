@@ -1,3 +1,4 @@
+using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -99,5 +100,10 @@ public class UIGameplayManager : MonoBehaviour
     public void ShowPromote()
     {
         uiPawnPromotion.Open();
+    }
+
+    public ChessManType GetPromoteType()
+    {
+        return uiPawnPromotion.GetPromoteType();
     }
 }

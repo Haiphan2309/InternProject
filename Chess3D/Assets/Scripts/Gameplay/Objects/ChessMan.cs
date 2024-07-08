@@ -10,13 +10,14 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class ChessMan : GameplayObject
 {
     public ChessManConfig config;
 
     [SerializeField] LayerMask groundLayerMask;
-    [SerializeField] ChessManType testPromoteType;
+    public ChessManType testPromoteType;
 
     public bool isEnemy;
     public int index;
@@ -32,6 +33,8 @@ public class ChessMan : GameplayObject
         isEnemy = false;
         this.index = index;
         this.posIndex = posIndex;
+
+        testPromoteType = config.chessManType;
     }
     public void Setup(EnemyArmy enemyArmy, int index, Vector3 posIndex)
     {
@@ -183,19 +186,25 @@ public class ChessMan : GameplayObject
         posIndex = target;
 
         CheckBox(target);
-        CheckPromote();
-
-        GameplayManager.Instance.EndTurn();
+        StartCoroutine(CheckPromote());
     }
 
-    private void CheckPromote()
+    private IEnumerator CheckPromote()
     {
         GameObject promoteGround = GameUtils.GetObjectByPosition(GameUtils.SnapToGrid(transform.position) + Vector3.down);
-        Debug.Log("Promote Ground: " + promoteGround.name);
         if (config.chessManType == ChessManType.PAWN && promoteGround.name == "150(Clone)")
         {
             UIGameplayManager.Instance.ShowPromote();
+            while (testPromoteType == ChessManType.PAWN)
+            {
+                testPromoteType = UIGameplayManager.Instance.GetPromoteType();
+                yield return null;
+            }
+
+            Promote(testPromoteType);
         }
+
+        GameplayManager.Instance.EndTurn();
     }
 
     void RotateToDirection(Vector3 direction)
