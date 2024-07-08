@@ -138,9 +138,6 @@ public class ChessMan : GameplayObject
         Vector3 currIdx = posIndex;
 
         Vector3 direction = (target - currPos).normalized;
-        direction.y = 0;
-
-        Debug.Log("Direction: " + direction);
 
         // Rotate to target
         RotateToDirection(direction);
@@ -191,8 +188,19 @@ public class ChessMan : GameplayObject
     void RotateToDirection(Vector3 direction)
     {
         Quaternion targetRotation = Quaternion.FromToRotation(Vector3.forward, direction);
+        Vector3 eulerAngles = transform.rotation.eulerAngles;
+        eulerAngles.y = 0;
         transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
     }
+
+    //void RotateToDirection(Vector3 direction)
+    //{
+    //    // Calculate target rotation relative to Y axis
+    //    Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+    //    // Rotate around Y axis only
+    //    transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
+    //}
 
     private void CheckBox(Vector3 target)
     {

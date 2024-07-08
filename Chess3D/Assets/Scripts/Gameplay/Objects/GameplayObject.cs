@@ -68,8 +68,6 @@ public class GameplayObject : MonoBehaviour
     {
         List<Vector3> path = new List<Vector3>();
         Vector3 current = start;
-        int temp = 0;
-        bool prevSlope = false;
 
         while (current != end)
         {
@@ -81,7 +79,6 @@ public class GameplayObject : MonoBehaviour
             {
                 current.y += 1;
                 path.Add(current);
-                prevSlope = true;
                 continue;
             }
 
@@ -91,21 +88,18 @@ public class GameplayObject : MonoBehaviour
                 path.Add(current);
                 current.y -= 1;
                 tile = GameUtils.GetTileBelowObject(current);
-                temp++;
-                if (temp > 1) prevSlope = false;
                 if (current == end) break;
             }
 
             if (GameUtils.CheckSlope(tile))
             {
-                if (path.Count >= 1 && (temp > 0 || prevSlope)) path.RemoveAt(path.Count - 1);
-                prevSlope = true;
+                //if (path.Count >= 1 && temp > 0) path.RemoveAt(path.Count - 1);
                 path.Add(current);
+                current.y -= 1;
                 continue;
             }
 
             path.Add(current);
-            prevSlope = false;
         }
         return path;
     }
@@ -116,16 +110,40 @@ public class GameplayObject : MonoBehaviour
 
         TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
 
-        if (GameUtils.CheckSlope(tileType))
-        {
-            rotation.x = 45 * (Mathf.Round(direction.normalized.magnitude));            
-            isOnSlope = true;
-        }
+        //if (GameUtils.CheckSlope(tileType))
+        //{
+        //    isOnSlope = true;
+        //}
 
-        else
+        //else
+        //{
+        //    rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+        //    isOnSlope = false;
+        //}
+
+        switch (tileType)
         {
-            rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
-            isOnSlope = false;
+            case TileType.SLOPE_0:
+                rotation.x = 45 * (Mathf.Round(direction.normalized.z));
+                isOnSlope = true;
+                break;
+            case TileType.SLOPE_90:
+                rotation.x = -45 * (Mathf.Round(direction.normalized.x));
+                isOnSlope = true;
+                break;
+            case TileType.SLOPE_180:
+                rotation.x = -45 * (Mathf.Round(direction.normalized.z));
+                isOnSlope = true;
+                break;
+            case TileType.SLOPE_270:
+                rotation.x = 45 * (Mathf.Round(direction.normalized.x));
+                isOnSlope = true;
+                break;
+
+            default:
+                rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+                isOnSlope = false;
+                break;
         }
 
         if (isOnSlope) target = target - Vector3.up * 0.4f;
