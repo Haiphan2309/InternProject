@@ -75,7 +75,7 @@ public class UIChapterSlot : MonoBehaviour
         if (isAvailable)
         {
             chapterText.text = $"Chapter {chapterIndex + 1}";
-            requirementsText.text = "OK";
+            requirementsText.text = "";
         }
         else
         {
