@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ea2989c52f4fd49821c3f2b28b28bd, type: 3}
   m_Name: Level_2_2
   m_EditorClassIdentifier: 
-  id: 0
-  center: {x: 0, y: 0, z: 0}
-  distance: 0
-  maxTurn: 0
-  starTurn2: 0
-  starTurn3: 0
+  id: 1
+  center: {x: 4.5, y: 3, z: 7.5}
+  distance: 15
+  maxTurn: 20
+  starTurn2: 7
+  starTurn3: 13
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -8219,24 +8219,34 @@ MonoBehaviour:
   - chessManType: 5
     posIndex: {x: 4, y: 3, z: 3}
   enemyArmies:
-  - chessManType: 5
-    posIndex: {x: 1, y: 2, z: 10}
-    isAI: 0
-    priority: 0
-    movePosIndexs: []
-  - chessManType: 0
-    posIndex: {x: 2, y: 2, z: 9}
-    isAI: 0
-    priority: 0
-    movePosIndexs: []
-  - chessManType: 0
-    posIndex: {x: 8, y: 2, z: 9}
-    isAI: 0
-    priority: 0
-    movePosIndexs: []
   - chessManType: 2
     posIndex: {x: 3, y: 2, z: 6}
     isAI: 0
     priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 5, y: 2, z: 5}
+    - {x: 4, y: 3, z: 3}
+    - {x: 5, y: 2, z: 5}
+    - {x: 3, y: 2, z: 6}
+  - chessManType: 0
+    posIndex: {x: 2, y: 2, z: 9}
+    isAI: 0
+    priority: 1
+    movePosIndexs:
+    - {x: 2, y: 2, z: 10}
+    - {x: 2, y: 2, z: 9}
+  - chessManType: 0
+    posIndex: {x: 8, y: 2, z: 9}
+    isAI: 0
+    priority: 0
+    movePosIndexs:
+    - {x: 7, y: 2, z: 9}
+    - {x: 8, y: 2, z: 9}
+  - chessManType: 5
+    posIndex: {x: 1, y: 2, z: 10}
+    isAI: 0
+    priority: 2
+    movePosIndexs:
+    - {x: 1, y: 2, z: 9}
+    - {x: 1, y: 2, z: 10}
   thumbnail: {fileID: 0}
