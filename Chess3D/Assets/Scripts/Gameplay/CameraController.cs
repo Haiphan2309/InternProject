@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
     {
         
         _camera = GetComponent<CinemachineVirtualCamera>();
-        
+        transform.rotation = Quaternion.Euler(new Vector3(20, 40, 0));
         worldTarget.position = center;
         this.distance = distance;
         ChangeToDefaultCamera();
