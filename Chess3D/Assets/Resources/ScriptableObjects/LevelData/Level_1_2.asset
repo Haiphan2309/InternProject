@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Level_1_2
   m_EditorClassIdentifier: 
   id: 1
-  center: {x: 3.5, y: 1, z: 5.5}
+  center: {x: 4, y: 3, z: 7}
   distance: 15
-  maxTurn: 99
-  starTurn2: 99
-  starTurn3: 99
+  maxTurn: 20
+  starTurn2: 5
+  starTurn3: 10
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -173,8 +173,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 0, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 114
+      tileType: 2
   - pos: {x: 0, y: 2, z: 7}
     tileInfo:
       id: 0
@@ -669,8 +669,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 1, y: 2, z: 2}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 114
+      tileType: 2
   - pos: {x: 1, y: 2, z: 3}
     tileInfo:
       id: 0
@@ -701,8 +701,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 1, y: 2, z: 10}
     tileInfo:
-      id: 110
-      tileType: 2
+      id: 105
+      tileType: 7
   - pos: {x: 1, y: 2, z: 11}
     tileInfo:
       id: 105
@@ -1221,8 +1221,8 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 2, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 104
+      tileType: 6
   - pos: {x: 2, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -1733,8 +1733,8 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 3, y: 2, z: 12}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 104
+      tileType: 6
   - pos: {x: 3, y: 2, z: 13}
     tileInfo:
       id: 0
@@ -4261,8 +4261,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 114
+      tileType: 2
   - pos: {x: 8, y: 2, z: 5}
     tileInfo:
       id: 0
@@ -8217,21 +8217,25 @@ MonoBehaviour:
   - chessManType: 1
     posIndex: {x: 6, y: 2, z: 6}
   enemyArmies:
-  - chessManType: 5
-    posIndex: {x: 3, y: 3, z: 3}
-    isAI: 0
-    priority: 0
-    movePosIndexs:
-    - {x: 3, y: 3, z: 2}
-    - {x: 3, y: 3, z: 3}
   - chessManType: 1
     posIndex: {x: 5, y: 2, z: 13}
     isAI: 0
     priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 0, y: 2, z: 13}
+    - {x: 5, y: 2, z: 13}
   - chessManType: 0
     posIndex: {x: 3, y: 3, z: 5}
     isAI: 0
-    priority: 0
-    movePosIndexs: []
-  thumbnail: {fileID: 21300000, guid: 4136ed59be832ae4f98fef5cbc45e65b, type: 3}
+    priority: 1
+    movePosIndexs:
+    - {x: 3, y: 3, z: 4}
+    - {x: 3, y: 3, z: 5}
+  - chessManType: 5
+    posIndex: {x: 3, y: 3, z: 3}
+    isAI: 0
+    priority: 2
+    movePosIndexs:
+    - {x: 2, y: 3, z: 3}
+    - {x: 3, y: 3, z: 3}
+  thumbnail: {fileID: 21300000, guid: d6cbff7b5f2dbbe4dadda35f7b340809, type: 3}
