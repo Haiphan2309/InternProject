@@ -68,17 +68,20 @@ public class GameplayObject : MonoBehaviour
     {
         List<Vector3> path = new List<Vector3>();
         Vector3 current = start;
+        int temp = 0;
+        bool prevSlope = false;
 
         while (current != end)
         {
             MoveToNextPath(ref current, end);
-
+             
             TileType tile = GameUtils.GetTile(current);
 
             if (GameUtils.CheckSlope(tile))
             {
                 current.y += 1;
                 path.Add(current);
+                prevSlope = true;
                 continue;
             }
 
@@ -88,17 +91,21 @@ public class GameplayObject : MonoBehaviour
                 path.Add(current);
                 current.y -= 1;
                 tile = GameUtils.GetTileBelowObject(current);
+                temp++;
+                if (temp > 1) prevSlope = false;
                 if (current == end) break;
             }
 
             if (GameUtils.CheckSlope(tile))
             {
-                if (path.Count >= 1) path.RemoveAt(path.Count - 1);
+                if (path.Count >= 1 && (temp > 0 || prevSlope)) path.RemoveAt(path.Count - 1);
+                prevSlope = true;
                 path.Add(current);
                 continue;
             }
 
             path.Add(current);
+            prevSlope = false;
         }
         return path;
     }
@@ -111,9 +118,10 @@ public class GameplayObject : MonoBehaviour
 
         if (GameUtils.CheckSlope(tileType))
         {
-            rotation.x = -45 * direction.normalized.x;
+            rotation.x = 45 * (Mathf.Round(direction.normalized.magnitude));            
             isOnSlope = true;
         }
+
         else
         {
             rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
