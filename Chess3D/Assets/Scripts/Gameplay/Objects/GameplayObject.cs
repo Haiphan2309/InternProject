@@ -1,5 +1,6 @@
 using DG.Tweening;
 using GDC.Enums;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class GameplayObject : MonoBehaviour
     public bool isFalling = false;
 
     public LayerMask objectLayer;
+    [SerializeField] GameObject vfxDefeated;
 
     public virtual void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     {
@@ -132,5 +134,24 @@ public class GameplayObject : MonoBehaviour
         }
 
         transform.DORotate(rotation, 0.3f);
+    }
+
+    [Button]
+    public void Defeated()
+    {
+        Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
+        transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
+            //if (isEnemy)
+            //{
+            //    GameplayManager.Instance.DefeatEnemyChessMan(index);
+            //}
+            //else
+            //{
+            //    GameplayManager.Instance.DefeatPlayerChessMan(index);
+            //}
+            Destroy(gameObject);
+        });
     }
 }

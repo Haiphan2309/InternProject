@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 public class Box : GameplayObject
 {
     private bool isDestroy = false;
+    private int destroyPositionY = -3;
     public override void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     //posIndexToMove: ở đây không phải vị trí cuối cùng, mà chỉ là vị trí mà chessman đẩy đến (sát bên chessman),
     //sẽ phải tự tính toàn tiếp vị trí tiếp theo nếu dưới chân nó là None (thì sẽ rơi) với tốc độ defaultSpeed.
@@ -44,12 +45,20 @@ public class Box : GameplayObject
         }
 
         yield return null;
-        IsDrop();
 
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
-        GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
-        CheckChessman(this.posIndex, target);
-        this.posIndex = target;
+        GameplayObject gameplayObject = GetChessman(this.posIndex, target);
+
+        if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
+        {
+            IsDrop(gameplayObject);
+        }
+        else
+        {
+            GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
+            CheckChessman(gameplayObject, this.posIndex, target);
+            this.posIndex = target;
+        }
         
     }
 
@@ -126,7 +135,21 @@ public class Box : GameplayObject
         transform.DORotate(rotation, 0.3f);
     }
 
-    private void CheckChessman(Vector3 oldPos, Vector3 target)
+    private void CheckChessman(GameplayObject gameplayObject, Vector3 oldPos, Vector3 target)
+    {
+        Vector3 chessmanPosIdx = posIndex + Vector3.up;
+        Vector3 chessmanTarget = target + Vector3.up;
+
+        if (gameplayObject != null && GameUtils.CheckChess(GameUtils.GetTile(chessmanPosIdx)))
+        {
+            TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(chessmanPosIdx);
+
+            GameplayManager.Instance.UpdateTile(chessmanPosIdx, chessmanTarget, tileInfo);
+            gameplayObject.posIndex = chessmanTarget;
+        }
+    }
+
+    private GameplayObject GetChessman(Vector3 oldPos, Vector3 target)
     {
         Vector3 chessmanPosIdx = posIndex + Vector3.up;
         Vector3 chessmanTarget = target + Vector3.up;
@@ -136,22 +159,22 @@ public class Box : GameplayObject
 
         if (gameplayObject != null && GameUtils.CheckChess(GameUtils.GetTile(chessmanPosIdx)))
         {
-            Debug.Log(gameplayObject.name);
             TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(chessmanPosIdx);
-
-            GameplayManager.Instance.UpdateTile(chessmanPosIdx, chessmanTarget, tileInfo);
-            gameplayObject.posIndex = chessmanTarget;
+            return gameplayObject;
         }
+
+        return null;
     }
 
-    private void IsDrop()
+    private void IsDrop(GameplayObject gameplayObject)
     {
-        if (GameUtils.SnapToGrid(transform.position).y <= -3)
+        if (gameplayObject != null)
         {
-            GameplayManager.Instance.UpdateTile(posIndex);
-            
-            Destroy(this.gameObject);
+            GameplayManager.Instance.UpdateTile(posIndex + Vector3.up);
+            gameplayObject.Defeated();
         }
+        
+        this.Defeated();
     }
 
 }

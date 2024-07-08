@@ -111,8 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff01bc00e97d4a4db1fe07ea48eba6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posIndex: {x: 0, y: 0, z: 0}
   defaultSpeed: 5
   outline: {fileID: 154858078353309136}
+  isOnSlope: 0
+  isOnPathSlope: 0
+  isFalling: 0
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
 --- !u!114 &154858078353309136
 MonoBehaviour:
   m_ObjectHideFlags: 0

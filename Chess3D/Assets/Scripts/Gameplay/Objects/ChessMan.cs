@@ -14,7 +14,6 @@ public class ChessMan : GameplayObject
 {
     public ChessManConfig config;
 
-    [SerializeField] GameObject vfxDefeated;
     [SerializeField] LayerMask groundLayerMask;
 
     public bool isEnemy;
@@ -185,25 +184,6 @@ public class ChessMan : GameplayObject
     {
         Quaternion targetRotation = Quaternion.FromToRotation(Vector3.forward, direction);
         transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
-    }
-
-    [Button]
-    public void Defeated()
-    {
-        Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
-        transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
-            //if (isEnemy)
-            //{
-            //    GameplayManager.Instance.DefeatEnemyChessMan(index);
-            //}
-            //else
-            //{
-            //    GameplayManager.Instance.DefeatPlayerChessMan(index);
-            //}
-            Destroy(gameObject);
-        });
     }
 
     private void CheckBox(Vector3 target)
