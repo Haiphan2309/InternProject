@@ -138,6 +138,9 @@ public class ChessMan : GameplayObject
         Vector3 currIdx = posIndex;
 
         Vector3 direction = (target - currPos).normalized;
+        direction.y = 0;
+
+        Debug.Log("Direction: " + direction);
 
         // Rotate to target
         RotateToDirection(direction);
@@ -149,13 +152,18 @@ public class ChessMan : GameplayObject
         // Move
         foreach (var gridCell in path)
         {
+            Debug.Log("Grid: " + gridCell);
             Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(gridCell);
             GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
             Vector3 boxDirection = direction;
             boxDirection.y = 0;
 
-            if (gameplayObject != null) gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
-            yield return null;
+            if (gameplayObject != null)
+            {
+                gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
+                yield return null;
+            }
+            
 
             while (currPos != gridCell)
             {
