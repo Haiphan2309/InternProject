@@ -191,9 +191,20 @@ public class GameplayManager : MonoBehaviour
                             return;
                         }
                     }
-                    Vector3 randomMove = enemyArmy[0].config.PatrolState(enemyArmy[0].posIndex);
-                    MakeMove(enemyArmy[0], randomMove);
-                    Debug.Log(enemyArmy[0].name + " di chuyen random");
+
+                    //Ko con ai co the di theo mac dinh duoc, cuoi cung thi di bat ki nuoc di nao co the di duoc:
+                    foreach(var enemy in enemyArmy)
+                    {
+                        foreach(var move in enemy.config.Move(enemy.posIndex))
+                        {
+                            if (CheckMove(enemy.config, enemy.posIndex, move))
+                            {
+                                MakeMove(enemy, move);
+                                Debug.Log(enemy + " Da het duong, enemy di bat ki nuoc di nao co the di duoc");
+                                return;
+                            }
+                        }
+                    }
                 }
             }            
         }

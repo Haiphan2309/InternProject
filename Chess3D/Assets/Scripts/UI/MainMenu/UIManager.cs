@@ -149,7 +149,7 @@ public class UIManager : MonoBehaviour
         {
             int levelIndex = idx;
             UILevelSlot levelSlot = Instantiate(levelSlotPrefab, levelContent);
-            levelSlot.LevelSetup(chapterIndex,levelIndex,1);
+            levelSlot.LevelSetup(chapterIndex,levelIndex);
             levelButton.Add(levelSlot.GetComponent<Button>());
         }
         levelMenu.Anim();

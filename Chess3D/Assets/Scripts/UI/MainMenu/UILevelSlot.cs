@@ -1,3 +1,4 @@
+using GDC.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -20,13 +21,14 @@ public class UILevelSlot : MonoBehaviour
     private bool isAvailable = true;
     private LevelData levelData;
 
-    public void LevelSetup(int chapterIndex, int levelIndex, int currentStarCount)
+    public void LevelSetup(int chapterIndex, int levelIndex)
     {
         this.chapterIndex = chapterIndex;
         this.levelIndex = levelIndex;
-        this.currentStarCount = currentStarCount;
+        this.currentStarCount = SaveLoadManager.Instance.GameData.GetLevelStar(chapterIndex, levelIndex);
 
         levelData = GameUtils.GetLevelData(chapterIndex, levelIndex);
+
         if (levelData == null)
         {
             this.isAvailable = false;

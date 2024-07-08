@@ -32441,7 +32441,7 @@ MonoBehaviour:
   yMaxLimit: 80
   smoothTime: 0.2
   chess: {fileID: 0}
-  zoomSpeed: 20
+  zoomSpeed: 5
 --- !u!114 &1349836854
 MonoBehaviour:
   m_ObjectHideFlags: 0

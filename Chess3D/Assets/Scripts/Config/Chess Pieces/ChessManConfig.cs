@@ -306,7 +306,7 @@ public class ChessManConfig : ScriptableObject
             currentMove = move;
         }
 
-        if (dynamicObjectOnDirection && moveRange > 1)
+        if (dynamicObjectOnDirection)
         {
             if (isEnemy)
             {
@@ -351,16 +351,16 @@ public class ChessManConfig : ScriptableObject
         Vector3 killState = KillState(chessManPriority);
 
         // Debug.Log("Decision");
-        /*        if (killState != Vector3.zero)
-                {
-                    Debug.Log("Kill State" + killState);
-                    return killState;
-                }
-                if (retreatState != Vector3.zero)
-                {
-                    Debug.Log("Retreat State" + retreatState);
-                    return retreatState;
-                }*/
+        if (killState != Vector3.zero)
+        {
+            Debug.Log("Kill State" + killState);
+            return killState;
+        }
+        if (retreatState != Vector3.zero)
+        {
+            Debug.Log("Retreat State" + retreatState);
+            return retreatState;
+        }
         Debug.Log("Patrol State" + patrolState);
         return patrolState;
     }

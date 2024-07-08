@@ -18,9 +18,9 @@ public class UIChapterSlot : MonoBehaviour
     public void ChapterSetup(int chapterIndex)
     {
         this.chapterIndex = chapterIndex;
-        this.chapterData = GameUtils.GetChapterData(this.chapterIndex);
+        chapterData = GameUtils.GetChapterData(this.chapterIndex);
 
-        if (this.chapterData == null || this.chapterData.starRequire <= 10) //SaveLoadManager.Instance.GameData.GetAllStar())
+        if (chapterData == null || chapterData.starRequire <= SaveLoadManager.Instance.GameData.GetAllStar())
         {
             isAvailable = true;
             transform.GetComponent<Image>().color = Color.white;
@@ -71,7 +71,7 @@ public class UIChapterSlot : MonoBehaviour
 
     private void TextSetup()
     {
-        int currentPlayerStats = 10; //SaveLoadManager.Instance.GameData.GetAllStar();
+        int currentPlayerStats = SaveLoadManager.Instance.GameData.GetAllStar();
         if (isAvailable)
         {
             chapterText.text = $"Chapter {chapterIndex + 1}";
