@@ -55,8 +55,8 @@ MonoBehaviour:
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
-  config: {fileID: 11400000, guid: bc949470591c5794aaa04f469b5ef7b6, type: 2}
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
+  config: {fileID: 11400000, guid: bc949470591c5794aaa04f469b5ef7b6, type: 2}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -75,8 +75,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2, z: 1}
-  m_Center: {x: 0, y: 0.67, z: 0}
+  m_Size: {x: 0.5, y: 1.5, z: 0.5}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1001 &4571105700659617377
 PrefabInstance:
   m_ObjectHideFlags: 0

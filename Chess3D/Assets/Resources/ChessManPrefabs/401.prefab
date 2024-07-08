@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120e776215a9fea4380e40308e3fce94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posIndex: {x: 6, y: 3, z: 4}
   defaultSpeed: 0
   outline: {fileID: 183277108}
   isOnSlope: 0
@@ -54,10 +55,8 @@ MonoBehaviour:
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
-  config: {fileID: 11400000, guid: 7ac94aed580bed84a82e33cb11e2aa70, type: 2}
-  posIndex: {x: 6, y: 3, z: 4}
-  speed: 0.05
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
+  config: {fileID: 11400000, guid: 7ac94aed580bed84a82e33cb11e2aa70, type: 2}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -76,7 +75,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2, z: 1}
+  m_Size: {x: 0.5, y: 1.2, z: 0.5}
   m_Center: {x: 0, y: 0.67, z: 0}
 --- !u!1001 &6732192452136217210
 PrefabInstance:
