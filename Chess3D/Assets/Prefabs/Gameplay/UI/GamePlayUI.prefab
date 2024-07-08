@@ -743,6 +743,7 @@ MonoBehaviour:
   uiLosePanel: {fileID: 2459697721717142807}
   uiSetting: {fileID: 6038639936688711216}
   uiTutorial: {fileID: 8490311485697745631}
+  tutorialConfig: {fileID: 11400000, guid: 967c3572c815c7b4e950d2bfa3aaa069, type: 2}
 --- !u!1 &5807779188229021149
 GameObject:
   m_ObjectHideFlags: 0
