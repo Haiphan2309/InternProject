@@ -23,30 +23,6 @@ public class ChessManConfig : ScriptableObject
         { -2f, 1f }, { 2f, 1f }, { 2f, -1f }, { -2f, -1f }
     };
 
-    // Check if the potential tile is available
-    private bool IsTile(Vector3 currentMove)
-    {
-        // if the tile below the currentMove's y-level is NONE / CHESS
-        // then there is no tile below the currentMove.
-        bool isTile = false;
-        TileType tileData = GameUtils.GetTileBelowObject(currentMove);
-
-        // Object cannot stand on NONE
-        switch (tileData)
-        {
-            // if it's not NONE / PLAYER_CHESS / ENEMY_CHESS then it's a tile
-            case TileType.NONE:
-            case TileType.PLAYER_CHESS:
-            case TileType.ENEMY_CHESS:
-                break;
-            // else
-            default:
-                isTile = true;
-                break;
-        }
-        return isTile;
-    }
-
     // Check if the potential tile that the pieces move into can be stood on
     private bool CanStandOn(Vector3 currentMove)
     {
@@ -56,11 +32,13 @@ public class ChessManConfig : ScriptableObject
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
         {
-            // if it's not GROUND / BOX / SLOPES then it's NONE / OBJECT / BOULDER / WATER
+            // if it's not GROUND / BOX / SLOPES then it's NONE / OBJECT / BOULDER / WATER / CHESS
             case TileType.NONE:
             case TileType.OBJECT:
             case TileType.BOULDER:
             case TileType.WATER:
+            case TileType.PLAYER_CHESS:
+            case TileType.ENEMY_CHESS:
                 canStandOn = false;
                 break;
             // else
@@ -78,7 +56,7 @@ public class ChessManConfig : ScriptableObject
     }
 
     // Check if the potential tile that the pieces move into is movable
-    private bool ValidateMove(Vector3 currentMove, Vector3 direction)
+    private bool ValidateMove(Vector3 currentMove, Vector3 direction, bool dynamicObjectOnDirection)
     {
         bool isMovable = false;
         TileType tileData = GameUtils.GetTile(currentMove);
@@ -111,6 +89,11 @@ public class ChessManConfig : ScriptableObject
                     isMovable = true;
                 }
                 break;
+
+            // if WATER, we have to check if we're pushing a DYNAMIC OBJECT (dynamicObjectOnDirection)
+            // if pushing return true else false -> return dynamicObjectOnDirection
+            case TileType.WATER:
+                return dynamicObjectOnDirection;
 
             // it is STATIC OBJECT by then it's not movable
             default:
@@ -234,62 +217,80 @@ public class ChessManConfig : ScriptableObject
         // The Vector3 that stores the current position for the next move
         bool dynamicObjectOnDirection = false;
         bool isEnemy = false;
+        // bool isOnAir = false;
         Vector3 currentMove = currentPositionIndex;
         Vector3 move;
         for (int i = 1; i <= moveRange; ++i)
         {
+            // Register the next move
             move = currentMove + direction;
-            // Debug.Log("Load " + move.ToString());
+
+            Debug.Log("Load " + move.ToString());
             // We find the first tile below the next move
-            while (move.y >= 1f && GameUtils.InBound(move) && !IsTile(move))
+            // If the piece is pushing the OBJECT:
+            // 
+            while (move.y >= 1f && GameUtils.InBound(move) && !CanStandOn(move))
             {
-                if (dynamicObjectOnDirection)
-                {
-                    break;
-                }
+                // Find the lower ground
                 move += Vector3.down;
+                Debug.Log("DOWN " + move.ToString());
             }
+
             // Check if the potential move is in bound
             if (!GameUtils.InBound(move))
             {
+                Debug.Log("OOB " + move.ToString());
                 return;
             }
+
             // Check if the potential move is standable
             if (!CanStandOn(move))
             {
+                Debug.Log("STAND " + move.ToString());
                 break;
             }
+
             // Check if the potential move is jumpable
             if (!ValidateJump(move, direction))
             {
                 break;
             }
+
             // Check if the potential move is movable
-            if (!ValidateMove(move, direction))
+            // Since there is a WATER - DYNAMIC OBJECT interaction, we put dynamicObjectOnDirection in
+            if (!ValidateMove(move, direction, dynamicObjectOnDirection))
             {
+                Debug.Log("MOVE " + move.ToString());
                 break;
             }
+
+            // Check if there is a DYNAMIC OBJECT in the potential move
             if (IsDynamicObject(move))
             {
+                // Check to see if they are stacked
                 if (dynamicObjectOnDirection)
                 {
                     break;
                 }
                 dynamicObjectOnDirection = true;
             }
+
             // Check if the potential move is into slopes up
             if (OnSlopeUp(move, direction))
             {
                 move += Vector3.up;
             }
+
             // Check if the potential move is into the same team piece
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsSameTeam(currentPositionIndex, move))
             {
                 break;
             }
+
             // If here means the move is executable, we add it to the list
             possibleMoveList.Add(move);
+
             // Check if the potential move is into another team piece
             // The pieces are ALWAYS ABOVE SLOPES
             if (IsDifferentTeam(currentPositionIndex, move))
@@ -297,11 +298,13 @@ public class ChessManConfig : ScriptableObject
                 isEnemy = true;
                 break;
             }
+
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
             {
                 move += Vector3.down;
             }
+
             // Update the currentMove
             currentMove = move;
         }
