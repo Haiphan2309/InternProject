@@ -26,7 +26,6 @@ public class KnightConfig : ChessManConfig
         // therefore we return true
         if ((currentMove - direction).y + _jumpLimit >= GameConstants.MAX_Y_SIZE)
         {
-            Debug.Log("Current y " + (currentMove - direction).y + _jumpLimit);
             return true;
         }
 

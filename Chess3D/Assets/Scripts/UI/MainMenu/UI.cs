@@ -1,4 +1,5 @@
 using DG.Tweening;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,19 +9,21 @@ public class UI : MonoBehaviour
     public float _timer = 1f;
     public bool isLoaded = false;
 
-    private float sliderPositionFullHeight = 630f;
-    private float sliderPositionHalfHeight = 315f;
-    private float sliderOffset = -50f;
+    private readonly float sliderPositionFullHeight = 600f;
+    private readonly float sliderPositionHalfHeight = 325f;
+    private readonly float sliderOffset = -50f;
 
-    private float titleTextPosition = 350f;
+    private readonly float titleTextPosition = 350f;
+    private readonly float chapterTextPosition = -25f;
+    private readonly float textHidePosition = 600f;
 
-    private float chessHolderPosition = 250f;
-    private float chessHolderScale = 15f;
+    private readonly float chessHolderPosition = 250f;
+    private readonly float chessHolderScale = 15f;
 
-    private float chessPiecePosition = 250f;
-    private float chessPieceOffset = 20f;
+    private readonly float chessPiecePosition = 250f;
+    private readonly float chessPieceOffset = 20f;
 
-    private float levelHolderPosition = 2000f;
+    private readonly float holderHidePosition = -2000f;
 
     public virtual void Anim()
     {
@@ -92,7 +95,16 @@ public class UI : MonoBehaviour
 
     public void HideLevelHolder()
     {
-        UIManager.Instance.levelHolder.DOAnchorPosY(-levelHolderPosition, _timer).SetEase(Ease.OutBack);
+        UIManager.Instance.levelHolder.DOAnchorPosY(holderHidePosition, _timer).SetEase(Ease.OutBack);
+    }
+    public void ShowChapterHolder()
+    {
+        UIManager.Instance.chapterHolder.DOAnchorPosY(0, _timer).SetEase(Ease.OutBack);
+    }
+
+    public void HideChapterHolder()
+    {
+        UIManager.Instance.chapterHolder.DOAnchorPosY(holderHidePosition, _timer).SetEase(Ease.OutBack);
     }
 
     public void ShowTitleText()
@@ -102,6 +114,16 @@ public class UI : MonoBehaviour
 
     public void HideTitleText()
     {
-        UIManager.Instance.title.DOAnchorPosY(600, _timer * 1.5f).SetEase(Ease.OutBack);
+        UIManager.Instance.title.DOAnchorPosY(textHidePosition, _timer).SetEase(Ease.OutBack);
+    }
+
+    public void ShowChapterText()
+    {
+        UIManager.Instance.chapter.DOAnchorPosY(chapterTextPosition, _timer).SetEase(Ease.OutBack);
+    }
+
+    public void HideChapterText()
+    {
+        UIManager.Instance.chapter.DOAnchorPosY(textHidePosition, _timer).SetEase(Ease.OutBack);
     }
 }

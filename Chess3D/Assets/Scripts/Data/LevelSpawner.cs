@@ -33,7 +33,6 @@ public class LevelSpawner : MonoBehaviour
             { ChessManType.BISHOP,  3 },
             { ChessManType.QUEEN,   4 },
             { ChessManType.KING,    5 }
-
         };
         levelData = GetLevelData(chapterId, levelId);
     }
