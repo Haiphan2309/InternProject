@@ -97,6 +97,19 @@ public class Boulder : GameplayObject
             }
         }
 
+        while (GameUtils.CheckSlope(tileBelow))
+        {
+            nextCell.y -= 1;
+            nextCell += direction;
+
+            tileBelow = GameUtils.GetTileBelowObject(nextCell);
+
+            if (nextCell.y <= -3)
+            {
+                break;
+            }
+        }
+
         // Check Water --> Move down
         if (tileBelow == TileType.WATER)
         {
