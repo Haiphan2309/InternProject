@@ -204,6 +204,7 @@ public class ChessMan : GameplayObject
             }
 
             Promote(testPromoteType);
+            GameplayManager.Instance.uiGameplayManager.UpdateHolder(this);
         }
 
         GameplayManager.Instance.EndTurn();

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIPawnPromotion : MonoBehaviour
 {
     
-    [SerializeField] Button exitBtn;
+
     [SerializeField] GameObject rookNode;
     [SerializeField] GameObject bishopNode;
     [SerializeField] GameObject knightNode;
@@ -28,7 +28,7 @@ public class UIPawnPromotion : MonoBehaviour
 
     public void Setup()
     { 
-        exitBtn.onClick.AddListener(OnExitBtnClicked);
+       
         uiPopupAnim = GetComponent<UIPopupAnim>();
         uiPopupAnim.Hide();
         SetupHolderButtons();
@@ -60,10 +60,7 @@ public class UIPawnPromotion : MonoBehaviour
         Close();
     }
 
-    private void OnExitBtnClicked()
-    {
-        gameObject.SetActive(false);
-    }
+   
 
     public void Open()
     {

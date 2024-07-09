@@ -109,4 +109,10 @@ public class UIGameplayManager : MonoBehaviour
     {
         return uiPawnPromotion.GetPromoteType();
     }
+
+    public void UpdateHolder(ChessMan chessMan)
+    {
+        uIChessManPanel.UpdateHolder(chessMan);
+    }
+    
 }
