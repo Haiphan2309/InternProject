@@ -109,6 +109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posIndex: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  isAnim: 0
+  index: 0
   defaultSpeed: 5
   outline: {fileID: 1249440887912763412}
   isOnSlope: 0
@@ -117,7 +119,7 @@ MonoBehaviour:
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
-  vfxDefeated: {fileID: 0}
+  vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
 --- !u!114 &1249440887912763412
 MonoBehaviour:
   m_ObjectHideFlags: 0

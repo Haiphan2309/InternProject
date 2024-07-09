@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 151
   Clips:
-  - {fileID: 8300000, guid: 9d23f7dad02665f4d889748e82dd4d63, type: 3}
+  - {fileID: 8300000, guid: 6f537b48bbc888446a348b334d13eeb3, type: 3}
   IsLoop: 1
   IsPitch: 0
   IsAlone: 0

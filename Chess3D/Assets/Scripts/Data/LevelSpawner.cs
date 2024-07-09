@@ -83,6 +83,10 @@ public class LevelSpawner : MonoBehaviour
                     {
                         tile.GetComponent<Box>().Setup(GameUtils.SnapToGrid(tile.transform.position));
                     }
+                    else if (tileId == 201)
+                    {
+                        tile.GetComponent<Boulder>().Setup(GameUtils.SnapToGrid(tile.transform.position));
+                    }
                     tile.transform.parent = floor.transform;
                 }
             }
