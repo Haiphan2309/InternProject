@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d25224a74278ca24ba4c4a5d9da29a9f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.52367425, g: 0.7995278, b: 0.93196756, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17738,7 +17738,6 @@ Transform:
   - {fileID: 1729157901}
   - {fileID: 1089615498}
   - {fileID: 1653803662}
-  - {fileID: 284033002}
   - {fileID: 896201728}
   - {fileID: 2144269396}
   - {fileID: 1694115778}
@@ -17757,7 +17756,6 @@ Transform:
   - {fileID: 1275917639}
   - {fileID: 1760050093}
   - {fileID: 1006187701}
-  - {fileID: 72276540}
   - {fileID: 2044441445}
   - {fileID: 1370979511}
   - {fileID: 1322496574}
@@ -17778,18 +17776,20 @@ Transform:
   - {fileID: 1027577385}
   - {fileID: 1289313616}
   - {fileID: 1820431805}
+  - {fileID: 753383106}
   - {fileID: 1761925101}
   - {fileID: 1673731658}
   - {fileID: 1112798868}
-  - {fileID: 697063802}
-  - {fileID: 1947127827}
-  - {fileID: 1411441990}
   - {fileID: 1273512030}
-  - {fileID: 753383106}
-  - {fileID: 1457649404}
-  - {fileID: 2036213682}
+  - {fileID: 1947127827}
   - {fileID: 604794692}
+  - {fileID: 1411441990}
+  - {fileID: 1457649404}
+  - {fileID: 697063802}
+  - {fileID: 2036213682}
+  - {fileID: 284033002}
   - {fileID: 2035858889}
+  - {fileID: 72276540}
   - {fileID: 809398114}
   - {fileID: 2091858988}
   m_Father: {fileID: 2046767317}
@@ -59491,14 +59491,14 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
