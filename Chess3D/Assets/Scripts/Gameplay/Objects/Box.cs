@@ -30,6 +30,7 @@ public class Box : GameplayObject
 
     IEnumerator Cor_BoxMoveAnim(Vector3 target, Vector3 direction)
     {
+        isAnim = true;
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
         targetPosition = target;
@@ -54,19 +55,25 @@ public class Box : GameplayObject
 
         yield return null;
 
-        // TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
-        //GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
+        TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(transform.position));
 
-        //if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
-        //{
-        //    IsDrop(gameplayObject);
-        //}
-        //else
-        //{
-        //    //GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
-        //    CheckChessman(gameplayObject, this.posIndex, target);
-        //    targetPosition = target;
-        //}
+        Debug.Log(tile);
+
+        if (GameUtils.CheckChess(tile))
+        {
+            GameplayObject destroyGO = GetChessman(target, target, Vector3.zero);
+            GameplayManager.Instance.DefeatEnemyChessMan(destroyGO.index);
+            destroyGO.Defeated();
+        }
+        
+        GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
+
+        if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
+        {
+            IsDrop(gameplayObject);
+        }
+
+        isAnim = false;
     }
 
     private Vector3 CalculateTarget(Vector3 target, Vector3 direction)
@@ -172,7 +179,7 @@ public class Box : GameplayObject
 
     private GameplayObject GetChessman(Vector3 oldPos, Vector3 target, Vector3 moveVector)
     {
-        Vector3 chessmanPosIdx = posIndex + moveVector;
+        Vector3 chessmanPosIdx = oldPos + moveVector;
         Vector3 chessmanTarget = target + moveVector;
 
         Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(chessmanTarget);
@@ -189,6 +196,7 @@ public class Box : GameplayObject
 
     private void IsDrop(GameplayObject gameplayObject)
     {
+        isAnim = false;
         if (gameplayObject != null)
         {
             GameplayManager.Instance.UpdateTile(posIndex + Vector3.up);

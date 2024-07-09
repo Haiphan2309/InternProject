@@ -14,7 +14,10 @@ public class GameplayObject : MonoBehaviour
     // Vị trí kết thúc của Object
     public Vector3 targetPosition = Vector3.zero;
 
+    // Check xem có đang làm anim hay không
+    public bool isAnim = false;
 
+    public int index;
     public float defaultSpeed;
     public Outline outline;
 

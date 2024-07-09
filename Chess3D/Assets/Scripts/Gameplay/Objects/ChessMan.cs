@@ -20,7 +20,7 @@ public class ChessMan : GameplayObject
     public ChessManType testPromoteType;
 
     public bool isEnemy;
-    public int index;
+    //public int index;
     int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
 
     int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
@@ -161,9 +161,10 @@ public class ChessMan : GameplayObject
             Vector3 boxDirection = direction;
             boxDirection.y = 0;
 
-            if (gameplayObject != null)
+            if (gameplayObject != null && !gameplayObject.isAnim)
             {
-                gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
+                gameplayObject.MoveAnim(target, boxDirection, 5f * Time.deltaTime);
+
                 yield return null;
 
                 //yield return new WaitForSeconds(0.5f);
@@ -185,7 +186,9 @@ public class ChessMan : GameplayObject
 
         if (gameplayObject != null)
         {
+            yield return new WaitUntil(() => gameplayObject.isAnim == false);
             gameplayObject.SetPosIndex();
+            
         }
 
         SetPosIndex();
