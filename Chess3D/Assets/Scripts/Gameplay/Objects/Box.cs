@@ -17,13 +17,14 @@ public class Box : GameplayObject
     //khi nào đẩy đến rơi xuống vực mới di chuyển với tốc độ defaultSpeed;
     {
         //todo anim
+        Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
+        this.posIndex = currIdx;
         StartCoroutine(Cor_BoxMoveAnim(posIndexToMove, direction));
     }
 
     IEnumerator Cor_BoxMoveAnim(Vector3 target, Vector3 direction)
     {
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
-        this.posIndex = currIdx;
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
         Debug.Log("BOX Position: " + currIdx + " Target: " + target);
 
