@@ -62,8 +62,6 @@ public class UIPawnPromotion : MonoBehaviour
 
    
 
-
-   
     public void Open()
     {
         gameObject.SetActive(true);

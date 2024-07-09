@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,8 +14,12 @@ public class UIPopupAnim : MonoBehaviour
     [SerializeField] List<Color> imageOriginColor, textOriginColor, tmpTextOriginColor;
 
     [Button]
-    public void Show()
+    public void Show(bool isPlaySound = true)
     {
+        if (isPlaySound)
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_UI_SHOW);
+        DisableAllButton();
+
         DOTween.Kill(panelRect);
 
         panelRect.localScale = Vector2.zero;
@@ -61,11 +66,14 @@ public class UIPopupAnim : MonoBehaviour
             }
         }
 
-        panelRect.DOScale(1, 0.5f).SetEase(Ease.OutBack);
+        panelRect.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(()=>EnableAllButton());
     }
     [Button]
     public void Hide()
     {
+        DisableAllButton();
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+
         if (UIManager.Instance != null)
         {
             UIManager.Instance.ShowAllButtons();
@@ -129,6 +137,29 @@ public class UIPopupAnim : MonoBehaviour
         foreach (var text in texts)
         {
             tmpTextOriginColor.Add(text.color);
+        }
+    }
+
+    void DisableAllButton()
+    {
+        Button[] buttons = panelRect.GetComponentsInChildren<Button>();
+        if (buttons != null)
+        {
+            foreach (var button in buttons)
+            {
+                button.interactable = false;
+            }
+        }
+    }
+    void EnableAllButton()
+    {
+        Button[] buttons = panelRect.GetComponentsInChildren<Button>();
+        if (buttons != null)
+        {
+            foreach (var button in buttons)
+            {
+                button.interactable = true;
+            }
         }
     }
     //void KillThisDotween()

@@ -310,13 +310,46 @@ public class ChessManConfig : ScriptableObject
             currentMove = move;
         }
 
+        // If the type is KNIGHT we ignore the rest
+        if (chessManType == ChessManType.KNIGHT)
+        {
+            return;
+        }
+
+        // Universal pushing detection config
         if (dynamicObjectOnDirection)
         {
+            // Custom for PAWN / KING
+            if (moveRange <= 1)
+            {
+                bool canPush = true;
+                Vector3 nextMove = currentMove + direction;
+                // If the next tile is out of bound we don't care
+                if (!GameUtils.InBound(nextMove)) return;
+
+                TileType type = GameUtils.GetTile(nextMove);
+                // If the next tile is not OBJECT / CHESS we keep the move
+                switch (type)
+                {
+                    case TileType.OBJECT:
+                    case TileType.BOX:
+                    case TileType.BOULDER:
+                    case TileType.PLAYER_CHESS:
+                    case TileType.ENEMY_CHESS:
+                        canPush = false;
+                        break;
+                    default:
+                        break;
+                }
+                if (canPush) return;
+            }
+            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
+
+            // If PAWN / KING then this is unchecked
             if (isEnemy)
             {
                 possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
             }
-            possibleMoveList.RemoveAt(possibleMoveList.Count - 1);
         }
     }
 

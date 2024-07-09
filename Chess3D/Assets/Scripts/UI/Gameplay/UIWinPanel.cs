@@ -20,12 +20,15 @@ public class UIWinPanel : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_WIN);
+
         menuBtn.onClick.AddListener(OnMenu);
         replayBtn.onClick.AddListener(OnReplay);
         nextBtn.onClick.AddListener(OnNextLevel);
 
         haloColor = halos[0].color;
-        uiPopupAnim.Show();
+        uiPopupAnim.Show(false);
         //Debug.Log(GameplayManager.Instance.levelData.maxTurn);
         turnSlider.maxValue = GameplayManager.Instance.levelData.maxTurn;
         turnText.text = "Turn: " + GameplayManager.Instance.remainTurn.ToString();

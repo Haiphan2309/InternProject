@@ -14,10 +14,13 @@ public class UILosePanel : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_LOSE);
+
         menuBtn.onClick.AddListener(OnMenu);
         replayBtn.onClick.AddListener(OnReplay);
 
-        uiPopupAnim.Show();
+        uiPopupAnim.Show(false);
         
     }
     void OnMenu()
