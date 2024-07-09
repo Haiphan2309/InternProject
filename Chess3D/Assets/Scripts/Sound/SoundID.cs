@@ -35,8 +35,8 @@ namespace AudioPlayer
         SFX_BUTTON_CLICK,
         SFX_UI_SHOW,
         SFX_UI_LOCK,
-
         SFX_TRANSITION_IN,
         SFX_TRANSITION_OUT,
+        SFX_STAR,
     }
 }

@@ -60,6 +60,7 @@ public class UIWinPanel : MonoBehaviour
             stars[i].DOColor(Color.white, 0.2f);
             stars[i].rectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
             halos[i].rectTransform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_STAR);
             yield return new WaitForSeconds(1);
         }
     }
@@ -93,8 +94,8 @@ public class UIWinPanel : MonoBehaviour
     {
         ChapterData curChapterData = GameplayManager.Instance.chapterData;
         int nextLevelIndex = GameplayManager.Instance.levelData.id + 1;
-        int nextChapterIndex = curChapterData.id + 1;
-        if (curChapterData.levelDatas.Count >= nextLevelIndex)
+        int nextChapterIndex = curChapterData.id;
+        if (curChapterData.levelDatas.Count <= nextLevelIndex)
         {
             nextLevelIndex = 0;
             ChapterData nextChapterData = GameUtils.GetChapterData(nextChapterIndex);
@@ -103,6 +104,11 @@ public class UIWinPanel : MonoBehaviour
                 Debug.Log("Da het level de choi");
                 replayBtn.onClick.Invoke();
                 return;
+            }
+            else
+            {
+                Debug.Log("Next level in same chapter");
+                nextChapterIndex++;
             }
         }
         GameManager.Instance.LoadSceneManually(

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb599853ca90eb04cb6aecb5e3a2ea83, type: 3}
-  m_Name: MainMenu
+  m_Name: SFX_STAR
   m_EditorClassIdentifier: 
-  Id: 101
+  Id: 506
   Clips:
-  - {fileID: 8300000, guid: fa441f76a6f513a46a2f516eeec94ccc, type: 3}
-  IsLoop: 1
+  - {fileID: 8300000, guid: 072ce196eeaa9164a8efcce4fec67be4, type: 3}
+  IsLoop: 0
   IsPitch: 0
   IsAlone: 0
   IsContinues: 0
