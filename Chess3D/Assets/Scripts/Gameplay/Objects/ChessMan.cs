@@ -117,7 +117,7 @@ public class ChessMan : GameplayObject
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             SetPosIndex();
-
+            CheckBox(target);
             GameplayManager.Instance.EndTurn();
         });
     }
