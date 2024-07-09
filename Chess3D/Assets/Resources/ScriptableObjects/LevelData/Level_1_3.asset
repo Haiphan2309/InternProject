@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_1_3
   m_EditorClassIdentifier: 
   id: 2
-  center: {x: 6, y: 2, z: 5}
+  center: {x: 8, y: 5, z: 5}
   distance: 10
   maxTurn: 15
   starTurn2: 10
