@@ -69,6 +69,8 @@ public class UIChapterSlot : MonoBehaviour
 
     private void LoadLevelList()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_TRANSITION_IN);
         UIManager.Instance.LevelPreset(chapterIndex, chapterData.levelDatas.Count);
     }
 
