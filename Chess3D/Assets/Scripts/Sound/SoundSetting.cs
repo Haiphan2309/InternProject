@@ -23,13 +23,13 @@ public class SoundSetting : MonoBehaviour
     public void SettingSFXVolume()
     {
         SoundManager.Instance.SetSFXVolume(SFXSlider.value / 10f);
-        if (alreadySet) SoundManager.Instance.PlaySound(AudioPlayer.SoundID.BUTTON_CLICK);
+        if (alreadySet) SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
     }
     public void SettingMusicVolume()
     {
         var musicVolume = MusicSlider.value / 10f;
         SoundManager.Instance.SetMusicVolume(musicVolume);
-        if (alreadySet) SoundManager.Instance.PlaySoundHelper(AudioPlayer.SoundID.BUTTON_CLICK, musicVolume);
+        if (alreadySet) SoundManager.Instance.PlaySoundHelper(AudioPlayer.SoundID.SFX_BUTTON_CLICK, musicVolume);
     }
     public void MuteSFX()
     {
@@ -37,7 +37,7 @@ public class SoundSetting : MonoBehaviour
         {
             SoundManager.Instance.SetSFXVolume(5);
             SFXSlider.value = 5;
-            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.BUTTON_CLICK, 0.5f);
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK, 0.5f);
         }
         else 
         {
@@ -51,7 +51,7 @@ public class SoundSetting : MonoBehaviour
         {
             SoundManager.Instance.SetMusicVolume(5);
             MusicSlider.value = 5;
-            SoundManager.Instance.PlaySoundHelper(AudioPlayer.SoundID.BUTTON_CLICK, 0.5f);
+            SoundManager.Instance.PlaySoundHelper(AudioPlayer.SoundID.SFX_BUTTON_CLICK, 0.5f);
         }
         else 
         {

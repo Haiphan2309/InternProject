@@ -12,17 +12,8 @@ public enum SoundType
 {
     NONE = -1,
     COMMON = 0,
-    MAIN_MENU = 1,
-    INTRO,
-    REAL_WORLD_AREA,
-    BEGIN_AREA,
-    AREA_1,
-    AREA_2,
-    AREA_3,
-    AREA_4,
-    AREA_5,
-    //SPELL,
-    //PLAYER,
+    MUSIC,
+    SOUND_EFFECT,
 }
 
 namespace AudioPlayer
