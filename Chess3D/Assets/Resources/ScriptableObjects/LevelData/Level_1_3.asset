@@ -8235,6 +8235,7 @@ MonoBehaviour:
     - {x: 6, y: 4, z: 11}
     - {x: 5, y: 4, z: 11}
     - {x: 5, y: 4, z: 12}
+    - {x: 6, y: 4, z: 12}
   - chessManType: 1
     posIndex: {x: 1, y: 4, z: 8}
     isAI: 0
@@ -8244,5 +8245,7 @@ MonoBehaviour:
     posIndex: {x: 2, y: 5, z: 12}
     isAI: 0
     priority: 1
-    movePosIndexs: []
-  thumbnail: {fileID: 0}
+    movePosIndexs:
+    - {x: 2, y: 5, z: 11}
+    - {x: 2, y: 5, z: 12}
+  thumbnail: {fileID: 21300000, guid: 3aa6d87a8621aeb4195b95be51d47a04, type: 3}
