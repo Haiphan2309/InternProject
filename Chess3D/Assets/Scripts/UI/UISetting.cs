@@ -11,7 +11,9 @@ public class UISetting : MonoBehaviour
     [SerializeField] UIPopupAnim uiPopupAnim;
     [SerializeField] TMP_Text levelText;
     [SerializeField] Button menuBtn, replayBtn, hideButton;
+    [SerializeField] Slider musicSlider, soundSlider;
     Coroutine hideCor;
+    [SerializeField] int maxVolume = 10;
 
     [Button]
     public void Show()
@@ -21,7 +23,15 @@ public class UISetting : MonoBehaviour
         replayBtn.onClick.AddListener(OnReplay);
         hideButton.onClick.AddListener(Hide);
 
-        levelText.text = "Level " + (GameplayManager.Instance.chapterData.id + 1).ToString() + "-" + (GameplayManager.Instance.levelData.id+1).ToString();
+        musicSlider.onValueChanged.AddListener(delegate { OnChangeMusicVolume(); });
+        soundSlider.onValueChanged.AddListener(delegate { OnChangeSoundVolume(); });
+        musicSlider.maxValue = maxVolume;
+        soundSlider.maxValue = maxVolume;
+
+        if (levelText.gameObject.activeSelf)
+        {
+            levelText.text = "Level " + (GameplayManager.Instance.chapterData.id + 1).ToString() + "-" + (GameplayManager.Instance.levelData.id + 1).ToString();
+        }
 
         if (hideCor != null)
         {
@@ -69,5 +79,16 @@ public class UISetting : MonoBehaviour
                 GDC.Managers.GameManager.Instance.SetInitData(currentChapterIndex, currentLevelIndex);
             },
             true);
+    }
+
+    void OnChangeMusicVolume()
+    {
+        SoundManager.Instance.SetMusicVolume((float)musicSlider.value/maxVolume);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+    }
+    void OnChangeSoundVolume()
+    {
+        SoundManager.Instance.SetSFXVolume((float)soundSlider.value / maxVolume);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
     }
 }

@@ -164,6 +164,8 @@ public class InputManager : MonoBehaviour
     }
     void HitChessMan(RaycastHit hit)
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_CHESSMAN);
+
         GameplayManager.Instance.HideAvailableMove();
         GameplayManager.Instance.uiGameplayManager.uIChessManPanel.HideOutlineFromPanel();
         preChessMan = curChessMan;
@@ -210,6 +212,7 @@ public class InputManager : MonoBehaviour
     void HitTileToMove(RaycastHit hit)
     {
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+
         Vector3 tileToMoveIndex = hit.transform.position + Vector3.up; //Hien tai position = tile index
         if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, tileToMoveIndex))
         {
