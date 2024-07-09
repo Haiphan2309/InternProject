@@ -39,7 +39,8 @@ public class CameraController : MonoBehaviour
     private float zoomMin = 2;
     private float zoomVelocity = 0f;
     private float smoothZoomTime = 0.25f;
-
+    //
+    private bool isLocked = false;
    
     public void Setup(Vector3 center, float distance)
     {
@@ -78,7 +79,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_camera != null )
+        if (_camera != null && !isLocked)
         {
             HandleZoomCamera();
             HandleSwipeCamera();
@@ -142,5 +143,15 @@ public class CameraController : MonoBehaviour
         zoom -= inc;
         zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
         _camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, zoom,  ref zoomVelocity, smoothZoomTime);
+    }
+
+    public void Lock()
+    {
+        isLocked = true;
+    }
+
+    public void Unlock()
+    {
+        isLocked = false;
     }
 }
