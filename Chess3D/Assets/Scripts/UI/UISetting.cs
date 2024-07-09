@@ -27,6 +27,8 @@ public class UISetting : MonoBehaviour
         soundSlider.onValueChanged.AddListener(delegate { OnChangeSoundVolume(); });
         musicSlider.maxValue = maxVolume;
         soundSlider.maxValue = maxVolume;
+        musicSlider.value = SoundManager.Instance.GetMusicVolume() * maxVolume;
+        soundSlider.value = SoundManager.Instance.GetSFXVolume() * maxVolume;
 
         if (levelText.gameObject.activeSelf)
         {
