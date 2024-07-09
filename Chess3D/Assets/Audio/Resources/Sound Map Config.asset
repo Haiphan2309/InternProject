@@ -15,13 +15,3 @@ MonoBehaviour:
   MapPath:
   - Type: 0
     Path: SoundMaps/Common Sound Map
-  - Type: 1
-    Path: SoundMaps/Main Menu Sound Map
-  - Type: 2
-    Path: SoundMaps/Intro Sound Map
-  - Type: 3
-    Path: SoundMaps/Real World Sound Map
-  - Type: 4
-    Path: SoundMaps/Begin Area Sound Map
-  - Type: 5
-    Path: SoundMaps/Area1 Sound Map
