@@ -56,7 +56,7 @@ public class ChessMan : GameplayObject
             List<Vector3> moves = enemy.movePosIndexs;
             if (moves.Count == 0)
             {
-                Debug.LogError(gameObject.name + " khong co nuoc di mac dinh nao ca!");
+                Debug.Log(gameObject.name + " khong co nuoc di mac dinh nao ca! -> skip");
                 return false;
             }
 
