@@ -1,3 +1,4 @@
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -122,6 +123,7 @@ public class InputManager : MonoBehaviour
                 }
                 else if ((tileLayerMask & (1 << hit.transform.gameObject.layer)) != 0)
                 {
+                    SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
                     ShowObjectOver(mouseOver, hit.transform.position);
                     HideOulineHitChessMan();
                 }
@@ -207,6 +209,7 @@ public class InputManager : MonoBehaviour
     }
     void HitTileToMove(RaycastHit hit)
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
         Vector3 tileToMoveIndex = hit.transform.position + Vector3.up; //Hien tai position = tile index
         if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, tileToMoveIndex))
         {

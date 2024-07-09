@@ -760,7 +760,8 @@ namespace GDC.Managers
 
         private void LoadCommonSoundMaps()
         {
-            LoadSoundMap(SoundType.MAIN_MENU);
+            LoadSoundMap(SoundType.MUSIC);
+            LoadSoundMap(SoundType.SOUND_EFFECT);
             LoadSoundMap(SoundType.COMMON);
         }
 
