@@ -99,6 +99,14 @@ public class GameplayObject : MonoBehaviour
                 continue;
             }
 
+            // Water and ChessMan below
+            if (tile == TileType.WATER || GameUtils.CheckChess(tile))
+            {
+                current.y -= 1;
+                path.Add(current);
+                continue;
+            }
+
             path.Add(current);
         }
         return path;

@@ -68,11 +68,13 @@ public class Box : GameplayObject
         TileType tile = GameUtils.GetTile(nextCell);
         TileType tileBelow = GameUtils.GetTileBelowObject(nextCell);
 
+        // Check Slope --> Move up
         if (GameUtils.CheckSlope(tile))
         {
             nextCell.y += 1;
         }
 
+        // Check None --> Drop down
         while (tileBelow == TileType.NONE)
         {
             nextCell.y -= 1;
@@ -83,6 +85,18 @@ public class Box : GameplayObject
             {
                 break;
             }
+        }
+
+        // Check Water --> Move down
+        if (tileBelow == TileType.WATER)
+        {
+            nextCell.y -= 1;
+        }
+
+        // Check ChessMan --> Delete ChessMan
+        if (GameUtils.CheckChess(tileBelow))
+        {
+            nextCell.y -= 1;
         }
 
         return nextCell;
