@@ -210,7 +210,12 @@ public class InputManager : MonoBehaviour
         Vector3 tileToMoveIndex = hit.transform.position + Vector3.up; //Hien tai position = tile index
         if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, tileToMoveIndex))
         {
-            GameplayManager.Instance.MakeMove(curChessMan, tileToMoveIndex);
+            ChessMan defeatedEnemyChessMan = null;
+            if (GameUtils.GetTile(tileToMoveIndex) == GDC.Enums.TileType.ENEMY_CHESS)
+            {
+                defeatedEnemyChessMan = GameUtils.GetGameplayObjectByPosition(tileToMoveIndex).transform.GetComponent<ChessMan>();
+            }
+            GameplayManager.Instance.MakeMove(curChessMan, tileToMoveIndex, defeatedEnemyChessMan);
             GameplayManager.Instance.HideAvailableMove();
         }
         else

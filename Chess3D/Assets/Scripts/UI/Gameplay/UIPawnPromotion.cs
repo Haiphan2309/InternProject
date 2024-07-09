@@ -27,7 +27,7 @@ public class UIPawnPromotion : MonoBehaviour
     //}
 
     public void Setup()
-    {
+    { 
         exitBtn.onClick.AddListener(OnExitBtnClicked);
         uiPopupAnim = GetComponent<UIPopupAnim>();
         uiPopupAnim.Hide();

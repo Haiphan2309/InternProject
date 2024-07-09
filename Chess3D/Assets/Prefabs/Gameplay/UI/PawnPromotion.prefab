@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exitBtn: {fileID: 4208828708055612049}
-  castleNode: {fileID: 0}
+  rookNode: {fileID: 0}
   bishopNode: {fileID: 0}
   knightNode: {fileID: 0}
   queenNode: {fileID: 0}
@@ -710,6 +710,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6777804657742117427, guid: 28ca0174d6a39eb49bf90db7d281907b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e67dcf12d0f526438b41ede1f98d2e4, type: 2}
     - target: {fileID: 6935753121023477711, guid: 28ca0174d6a39eb49bf90db7d281907b, type: 3}
       propertyPath: m_text
       value: 'Castle
@@ -855,6 +859,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6777804657742117427, guid: 28ca0174d6a39eb49bf90db7d281907b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4bf99152ebc997743b46882c0668a351, type: 2}
     - target: {fileID: 6935753121023477711, guid: 28ca0174d6a39eb49bf90db7d281907b, type: 3}
       propertyPath: m_text
       value: Queen
@@ -998,6 +1006,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6777804657742117427, guid: 28ca0174d6a39eb49bf90db7d281907b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ad663b4211a6394abe588e00fe66970, type: 2}
     - target: {fileID: 6935753121023477711, guid: 28ca0174d6a39eb49bf90db7d281907b, type: 3}
       propertyPath: m_text
       value: Knight
@@ -1141,6 +1153,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6777804657742117427, guid: 28ca0174d6a39eb49bf90db7d281907b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 38061fe0dd4f8f74d8732f6143448210, type: 2}
     - target: {fileID: 6935753121023477711, guid: 28ca0174d6a39eb49bf90db7d281907b, type: 3}
       propertyPath: m_text
       value: Bishop

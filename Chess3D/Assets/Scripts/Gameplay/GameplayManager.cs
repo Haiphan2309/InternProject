@@ -331,7 +331,7 @@ public class GameplayManager : MonoBehaviour
                 //Debug.Log(gameplayObj);
                 if (gameplayObj == null) continue;
 
-                gameplayObj.SetOutline(10, Color.yellow);
+                gameplayObj.SetOutline(10, Color.cyan);
                 if (outlineGameplayObj == null)
                 {
                     outlineGameplayObj = new List<GameplayObject>();
