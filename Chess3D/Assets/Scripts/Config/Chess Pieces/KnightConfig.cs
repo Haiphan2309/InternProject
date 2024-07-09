@@ -62,13 +62,10 @@ public class KnightConfig : ChessManConfig
     {
         for (int i = 0; i < _knightDirection.GetLength(0); ++i)
         {
-            for (int j = -(int)currentPositionIndex.y; j <= _jumpLimit; ++j)
-            {
-                Vector3 direction = Vector3.right * _knightDirection[i, 0]
-                                  + Vector3.up * j
-                                  + Vector3.forward * _knightDirection[i, 1];
-                GenerateMove(currentPositionIndex, direction);
-            }
+            Vector3 direction = Vector3.right * _knightDirection[i, 0]
+                                + Vector3.up * _jumpLimit
+                                + Vector3.forward * _knightDirection[i, 1];
+            GenerateMove(currentPositionIndex, direction);
         }
     }
 }

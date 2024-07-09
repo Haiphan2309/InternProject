@@ -88,6 +88,7 @@ public class UILevelSlot : MonoBehaviour
 
     private void LoadLevel(int chapterIndex, int levelIndex)
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         GDC.Managers.GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.GAMEPLAY,
             GDC.Enums.TransitionType.IN,
