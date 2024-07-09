@@ -218,7 +218,7 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Player Turn");
         //dosomething
     }
-    void DefeatEnemyChessMan(int enemyIndex)
+    public void DefeatEnemyChessMan(int enemyIndex)
     {
         foreach(var chessman in listEnemyPriorityLowest)
         {

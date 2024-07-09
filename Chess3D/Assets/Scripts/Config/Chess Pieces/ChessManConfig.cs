@@ -28,7 +28,7 @@ public class ChessManConfig : ScriptableObject
     {
         bool canStandOn = true;
         TileType tileData = GameUtils.GetTileBelowObject(currentMove);
-        Debug.Log(currentMove.ToString() + " " + tileData);
+        // Debug.Log(currentMove.ToString() + " " + tileData);
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
         {
@@ -240,7 +240,7 @@ public class ChessManConfig : ScriptableObject
                 if (dynamicObjectOnDirection) return;
                 // Find the lower ground
                 move += Vector3.down;
-                Debug.Log("DOWN " + move.ToString());
+                // Debug.Log("DOWN " + move.ToString());
             }
 
             // Check if the potential move is in bound
@@ -253,7 +253,7 @@ public class ChessManConfig : ScriptableObject
             // Check if the potential move is standable
             if (!CanStandOn(move))
             {
-                Debug.Log("STAND " + move.ToString());
+                // Debug.Log("STAND " + move.ToString());
                 break;
             }
 
@@ -267,7 +267,7 @@ public class ChessManConfig : ScriptableObject
             // Since there is a WATER - DYNAMIC OBJECT interaction, we put dynamicObjectOnDirection in
             if (!ValidateMove(move, direction, dynamicObjectOnDirection))
             {
-                Debug.Log("MOVE " + move.ToString());
+                // Debug.Log("MOVE " + move.ToString());
                 break;
             }
 
