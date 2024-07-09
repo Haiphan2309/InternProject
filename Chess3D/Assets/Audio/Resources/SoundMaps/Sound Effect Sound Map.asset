@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9938e02597404e54f8bd7d20d972854e, type: 3}
+  m_Name: Sound Effect Sound Map
+  m_EditorClassIdentifier: 
+  soundType: 2
+  path: SoundData/SoundEffect
+  SoundMappingList:
+  - name: SFX_CLICK_CHESSMAN
+    Id: 401
+    Data: {fileID: 11400000, guid: ac0f685756b248e4f8bd1cb0b8fcc12e, type: 2}
+  - name: SFX_CLICK_TILE
+    Id: 402
+    Data: {fileID: 11400000, guid: 8d32c25377c566741b4e26bc6b8ec506, type: 2}
+  - name: SFX_DISAPPEAR
+    Id: 403
+    Data: {fileID: 11400000, guid: e4f698c5c0193e341a81a49bd699b1db, type: 2}
+  - name: SFX_WATER_SPLASH
+    Id: 404
+    Data: {fileID: 11400000, guid: 97b635c6535a8444cb2af9d0deef8e65, type: 2}
+  - name: SFX_WIN
+    Id: 405
+    Data: {fileID: 11400000, guid: cb7e37bf7372fd645ad2e02e4611fae9, type: 2}
+  - name: SFX_LOSE
+    Id: 406
+    Data: {fileID: 11400000, guid: e37384ea311dfd84da5c6eaade20af40, type: 2}
+  - name: SFX_PHONG
+    Id: 407
+    Data: {fileID: 11400000, guid: f3e1d91e9a81f6544b614b8ef6015cc5, type: 2}
+  - name: SFX_BUTTON_CLICK
+    Id: 501
+    Data: {fileID: 11400000, guid: 8d908b7a064036340a47edd9a4cd5769, type: 2}
+  - name: SFX_UI_SHOW
+    Id: 502
+    Data: {fileID: 11400000, guid: 7a9ea38090729d34db1fcbaafddae5a5, type: 2}
+  - name: SFX_UI_LOCK
+    Id: 503
+    Data: {fileID: 11400000, guid: b2dc37c225d2f5149bf08c77a5b52d9b, type: 2}
+  - name: SFX_TRANSITION_IN
+    Id: 504
+    Data: {fileID: 11400000, guid: da5448aa7aca67846b61da7151bfd2ee, type: 2}
+  - name: SFX_TRANSITION_OUT
+    Id: 505
+    Data: {fileID: 11400000, guid: ff218792d78380e4bbf2b055517df1a3, type: 2}

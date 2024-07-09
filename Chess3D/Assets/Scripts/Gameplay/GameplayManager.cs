@@ -58,7 +58,7 @@ public class GameplayManager : MonoBehaviour
     }
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
-        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.TEST_MUSIC);
+        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1);
 
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
