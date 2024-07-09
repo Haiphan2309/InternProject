@@ -57,6 +57,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.MUSIC_MAIN_MENU);
     }
 
     // Start is called before the first frame update
@@ -163,6 +164,8 @@ public class UIManager : MonoBehaviour
 
     private void StartButton()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_TRANSITION_IN);
         Debug.Log("Start");
         UIStack.Push(mainMenu);
         chapterMenu.Anim();
@@ -170,6 +173,7 @@ public class UIManager : MonoBehaviour
 
     private void SettingButton()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Settings");
         UISetting settingPage = Instantiate(settingPagePrefab, pageSystem);
@@ -178,6 +182,8 @@ public class UIManager : MonoBehaviour
 
     private void ReturnButton()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_TRANSITION_OUT);
         Debug.Log("Return");
         UI lastUI = UIStack.Peek();
         if (lastUI.GetType() == typeof(UIChapterMenu))
@@ -197,6 +203,7 @@ public class UIManager : MonoBehaviour
 
     private void CreditButton()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Credit");
         UIPopupAnim creditPage = Instantiate(creditPagePrefab, pageSystem);
@@ -205,7 +212,7 @@ public class UIManager : MonoBehaviour
 
     public void HideAllButtons()
     {
-        for(int i = 0; i < levelButton.Count; ++i)
+        for (int i = 0; i < levelButton.Count; ++i)
         {
             levelButton[i].interactable = false;
         }

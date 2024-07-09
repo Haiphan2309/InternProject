@@ -310,6 +310,12 @@ public class ChessManConfig : ScriptableObject
             currentMove = move;
         }
 
+        // If the type is KNIGHT we ignore the rest
+        if (chessManType == ChessManType.KNIGHT)
+        {
+            return;
+        }
+
         // Universal pushing detection config
         if (dynamicObjectOnDirection)
         {
