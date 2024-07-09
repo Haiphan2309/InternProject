@@ -51,12 +51,12 @@ public static class GameUtils
         return tileInfo.tileType;
     }
 
-    public static GameObject GetObjectByPosition(Vector3 position, LayerMask layerMask)
+    public static GameObject GetObjectByPosition(Vector3 position)
     {
         GameObject foundObject = null;
         foreach (GameObject obj in Object.FindObjectsOfType<GameObject>())
         {
-            if (CompareVector3(obj.transform.position, position) && obj.layer.CompareTo(layerMask.value) == 1)
+            if (CompareVector3(obj.transform.position, position))
             {
                 foundObject = obj;
                 break;

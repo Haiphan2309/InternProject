@@ -30,6 +30,9 @@ public class UIChapterSlot : MonoBehaviour
             isAvailable = false;
             transform.GetComponent<Image>().color = Color.black;
         }
+        
+        // EASY ACCESS PURPORSE
+        isAvailable = true;
 
         SpriteSetup();
         ButtonSetup();

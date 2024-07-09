@@ -13,20 +13,24 @@ public class UIPawnPromotion : MonoBehaviour
     [SerializeField] GameObject bishopNode;
     [SerializeField] GameObject knightNode;
     [SerializeField] GameObject queenNode;
-    
-    
+
+    [SerializeField] UIPopupAnim uiPopupAnim;
+
+
 
     List<Button> buttonList;
     ChessManType promoteType;
 
-    private void Start()
-    {
-        Setup();
-    }
+    //private void Start()
+    //{
+    //    Setup();
+    //}
 
     public void Setup()
     { 
         exitBtn.onClick.AddListener(OnExitBtnClicked);
+        uiPopupAnim = GetComponent<UIPopupAnim>();
+        uiPopupAnim.Hide();
         SetupHolderButtons();
 
     }
@@ -52,6 +56,7 @@ public class UIPawnPromotion : MonoBehaviour
     private void OnButtonCLicked(ChessManType chessManType)
     {
         promoteType = chessManType;
+        uiPopupAnim.Hide();
         Close();
     }
 
@@ -65,6 +70,7 @@ public class UIPawnPromotion : MonoBehaviour
     public void Open()
     {
         gameObject.SetActive(true);
+        uiPopupAnim.Show();
     }
 
     public void Close()
