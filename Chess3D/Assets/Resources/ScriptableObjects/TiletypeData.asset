@@ -16,7 +16,7 @@ MonoBehaviour:
   - tileType: 0
     idList: 00000000
   - tileType: 1
-    idList: 640000006500000079000000cb000000960000007a0000007b000000
+    idList: 640000006500000079000000ca000000960000007a0000007b000000
   - tileType: 3
     idList: 6600000067000000
   - tileType: 6
@@ -36,4 +36,4 @@ MonoBehaviour:
   - tileType: 4
     idList: c8000000
   - tileType: 5
-    idList: 00000000
+    idList: c9000000
