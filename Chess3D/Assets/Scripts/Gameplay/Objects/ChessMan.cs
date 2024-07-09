@@ -263,6 +263,7 @@ public class ChessMan : GameplayObject
 
         //
         GameplayManager.Instance.HideAvailableMove();
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_PHONG);
     }
     private ChessManConfig GetConfigFromType(ChessManType type)
     {
