@@ -23,9 +23,6 @@ public class ChessMan : GameplayObject
     public int index;
     int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
 
-    public bool isTouchBox = false;
-    public bool isTouchBoulder = false;
-
     int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
 
     public void Setup(PlayerArmy playerArmy, int index, Vector3 posIndex)
@@ -111,16 +108,14 @@ public class ChessMan : GameplayObject
     IEnumerator Cor_KnightMoveAnim(Vector3 target)
     {
         Vector3 direction = (target - transform.position).normalized;
+        targetPosition = target;
         RotateToDirection(direction);
 
         yield return new WaitForSeconds(0.5f);
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            // AjustPosToGround(transform.position, target, target - transform.position, true, true);
-            TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+            SetPosIndex();
 
-            GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
-            posIndex = target;
             GameplayManager.Instance.EndTurn();
         });
     }
@@ -150,13 +145,16 @@ public class ChessMan : GameplayObject
 
         // Calculate Path from First Pos to Target Pos
         List<Vector3> path = CalculatePath(currIdx, target);
+        targetPosition = target;
+
+        Vector3 gameplayObjectPosition = Vector3.zero;
+        GameplayObject gameplayObject = null;
 
         // Move
         foreach (var gridCell in path)
         {
-            Debug.Log("Grid: " + gridCell);
-            Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(gridCell);
-            GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+            gameplayObjectPosition = GameUtils.SnapToGrid(gridCell);
+            gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
             Vector3 boxDirection = direction;
             boxDirection.y = 0;
 
@@ -164,6 +162,8 @@ public class ChessMan : GameplayObject
             {
                 gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
                 yield return null;
+
+                //yield return new WaitForSeconds(0.5f);
             }
             
 
@@ -178,12 +178,14 @@ public class ChessMan : GameplayObject
             }
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return null;
 
-        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+        if (gameplayObject != null)
+        {
+            gameplayObject.SetPosIndex();
+        }
 
-        GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
-        posIndex = target;
+        SetPosIndex();
 
         CheckBox(target);
         StartCoroutine(CheckPromote());
@@ -202,7 +204,6 @@ public class ChessMan : GameplayObject
             }
 
             Promote(testPromoteType);
-            // Call UpdateHolder (KHANG NHO CALL NHA)
         }
 
         GameplayManager.Instance.EndTurn();
@@ -328,6 +329,14 @@ public class ChessMan : GameplayObject
     void TestPromote()
     {
         Promote(testPromoteType);
+    }
+    [Button]
+    void ShowMoveAvaiList()
+    {
+        foreach(var move in config.Move(posIndex))
+        {
+            Debug.Log("Avai " + move);
+        }
     }
 #endif
 }

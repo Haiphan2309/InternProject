@@ -1,13 +1,20 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameplayObject : MonoBehaviour
 {
+    // Vị trí ban đầu của Object
     public Vector3 posIndex;
+
+    // Vị trí kết thúc của Object
+    public Vector3 targetPosition = Vector3.zero;
+
+
     public float defaultSpeed;
     public Outline outline;
 
@@ -18,9 +25,11 @@ public class GameplayObject : MonoBehaviour
     public LayerMask objectLayer;
     [SerializeField] GameObject vfxDefeated;
 
+
+
     public virtual void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     {
-        Debug.Log("A");
+        
     }
 
     public virtual void DestroyAnim()
@@ -118,17 +127,6 @@ public class GameplayObject : MonoBehaviour
 
         TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
 
-        //if (GameUtils.CheckSlope(tileType))
-        //{
-        //    isOnSlope = true;
-        //}
-
-        //else
-        //{
-        //    rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
-        //    isOnSlope = false;
-        //}
-
         switch (tileType)
         {
             case TileType.SLOPE_0:
@@ -177,15 +175,14 @@ public class GameplayObject : MonoBehaviour
         transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
             Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
-            //if (isEnemy)
-            //{
-            //    GameplayManager.Instance.DefeatEnemyChessMan(index);
-            //}
-            //else
-            //{
-            //    GameplayManager.Instance.DefeatPlayerChessMan(index);
-            //}
             Destroy(gameObject);
         });
+    }
+
+    public virtual void SetPosIndex()
+    {
+        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+        GameplayManager.Instance.UpdateTile(posIndex, targetPosition, tileInfo);
+        posIndex = targetPosition;
     }
 }

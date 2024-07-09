@@ -6,6 +6,7 @@ using UnityEngine;
 using GDC.Enums;
 using System;
 using GDC.Constants;
+using Unity.Burst.Intrinsics;
 public class LevelSpawner : MonoBehaviour
 {
     [HideInInspector] public LevelData levelData;
@@ -78,7 +79,10 @@ public class LevelSpawner : MonoBehaviour
                     //
                     if (tileId < 0 || tileId > GameConstants.obstacleIdBoundary.y) continue;
                     GameObject tile = Instantiate(tilePrefabDic[tileId], spawnPos, tilePrefabDic[tileId].transform.rotation);
-
+                    if (tileId == 200)
+                    {
+                        tile.GetComponent<Box>().Setup(GameUtils.SnapToGrid(tile.transform.position));
+                    }
                     tile.transform.parent = floor.transform;
                 }
             }

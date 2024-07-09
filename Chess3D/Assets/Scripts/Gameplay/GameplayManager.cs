@@ -420,6 +420,7 @@ public class GameplayManager : MonoBehaviour
     }
     public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null) //Cap nhat toa do tile oldPos thanh None, va cap nhat tileInfo cho new pos
     {
+        Debug.Log($"{oldPos}, {newPos}");
         if (tileInfo == null)
         {
             levelData.SetTileInfoNoDeep(newPos, 0, TileType.NONE);

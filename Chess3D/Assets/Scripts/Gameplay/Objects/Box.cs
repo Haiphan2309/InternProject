@@ -2,6 +2,7 @@
 using GDC.Enums;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,6 +11,12 @@ public class Box : GameplayObject
 {
     private bool isDestroy = false;
     private int destroyPositionY = -3;
+
+    public void Setup(Vector3 posIndex)
+    {
+        this.posIndex = posIndex;
+    }
+    
     public override void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     //posIndexToMove: ở đây không phải vị trí cuối cùng, mà chỉ là vị trí mà chessman đẩy đến (sát bên chessman),
     //sẽ phải tự tính toàn tiếp vị trí tiếp theo nếu dưới chân nó là None (thì sẽ rơi) với tốc độ defaultSpeed.
@@ -17,8 +24,7 @@ public class Box : GameplayObject
     //khi nào đẩy đến rơi xuống vực mới di chuyển với tốc độ defaultSpeed;
     {
         //todo anim
-        Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
-        this.posIndex = currIdx;
+        targetPosition = posIndex;
         StartCoroutine(Cor_BoxMoveAnim(posIndexToMove, direction));
     }
 
@@ -26,7 +32,8 @@ public class Box : GameplayObject
     {
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
-        Debug.Log("BOX Position: " + currIdx + " Target: " + target);
+        targetPosition = target;
+        Debug.Log("BOX Position: " + posIndex + " Target: " + targetPosition);
 
         // Calculate Path from First Pos to Target Pos
         List<Vector3> path = CalculatePath(currIdx, target);
@@ -47,20 +54,19 @@ public class Box : GameplayObject
 
         yield return null;
 
-        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
-        GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
+        // TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+        // GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
 
-        if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
-        {
-            IsDrop(gameplayObject);
-        }
-        else
-        {
-            GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
-            CheckChessman(gameplayObject, this.posIndex, target);
-            this.posIndex = target;
-        }
-        
+        //if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
+        //{
+        //    IsDrop(gameplayObject);
+        //}
+        //else
+        //{
+        //    //GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
+        //    CheckChessman(gameplayObject, this.posIndex, target);
+        //    targetPosition = target;
+        //}
     }
 
     private Vector3 CalculateTarget(Vector3 target, Vector3 direction)
