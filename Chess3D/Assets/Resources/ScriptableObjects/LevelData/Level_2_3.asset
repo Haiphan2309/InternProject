@@ -3305,11 +3305,11 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 3, z: 5}
     tileInfo:
-      id: 100
+      id: 202
       tileType: 1
   - pos: {x: 6, y: 3, z: 6}
     tileInfo:
-      id: 100
+      id: 202
       tileType: 1
   - pos: {x: 6, y: 3, z: 7}
     tileInfo:
@@ -3817,11 +3817,11 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 3, z: 5}
     tileInfo:
-      id: 100
+      id: 202
       tileType: 1
   - pos: {x: 7, y: 3, z: 6}
     tileInfo:
-      id: 100
+      id: 202
       tileType: 1
   - pos: {x: 7, y: 3, z: 7}
     tileInfo:
