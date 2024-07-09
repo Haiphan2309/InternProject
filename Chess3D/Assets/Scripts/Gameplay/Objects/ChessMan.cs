@@ -25,6 +25,8 @@ public class ChessMan : GameplayObject
 
     int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
 
+    List<Vector3> showPath = new List<Vector3>();
+
     public void Setup(PlayerArmy playerArmy, int index, Vector3 posIndex)
     {
         isEnemy = false;
@@ -145,6 +147,7 @@ public class ChessMan : GameplayObject
 
         // Calculate Path from First Pos to Target Pos
         List<Vector3> path = CalculatePath(currIdx, target);
+        showPath = path;
         targetPosition = target;
 
         Vector3 gameplayObjectPosition = Vector3.zero;
@@ -336,6 +339,15 @@ public class ChessMan : GameplayObject
         foreach(var move in config.Move(posIndex))
         {
             Debug.Log("Avai " + move);
+        }
+    }
+
+    [Button]
+    void ShowPath()
+    {
+        foreach (var path in showPath)
+        {
+            Debug.Log("Path: " + path);
         }
     }
 #endif

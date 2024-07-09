@@ -55,7 +55,7 @@ public class Box : GameplayObject
         yield return null;
 
         // TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
-        // GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
+        //GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
 
         //if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
         //{
@@ -198,4 +198,10 @@ public class Box : GameplayObject
         this.Defeated();
     }
 
+    public override void SetPosIndex()
+    {
+        GameplayObject gameplayObject = GetChessman(this.posIndex, targetPosition, Vector3.up);
+        CheckChessman(gameplayObject, this.posIndex, targetPosition);
+        base.SetPosIndex();
+    }
 }
