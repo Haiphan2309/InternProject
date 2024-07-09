@@ -481,7 +481,6 @@ public class ChessManConfig : ScriptableObject
     // PatrolState: Default
     public virtual Vector3 PatrolState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority = null)
     {
-        return currentPositionIndex;
-        // return possibleMoveList[UnityEngine.Random.Range(0, possibleMoveList.Count)];
+        return possibleMoveList[UnityEngine.Random.Range(0, possibleMoveList.Count)];
     }
 }
