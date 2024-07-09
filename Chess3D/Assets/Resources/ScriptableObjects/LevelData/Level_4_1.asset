@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Level_4_1
   m_EditorClassIdentifier: 
   id: 0
-  center: {x: 0, y: 0, z: 0}
-  distance: 0
-  maxTurn: 0
-  starTurn2: 0
-  starTurn3: 0
+  center: {x: 12, y: 9, z: 12}
+  distance: 12
+  maxTurn: 36
+  starTurn2: 12
+  starTurn3: 24
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -8228,16 +8228,8 @@ MonoBehaviour:
   - chessManType: 5
     posIndex: {x: 3, y: 2, z: 6}
     isAI: 0
-    priority: 0
-    movePosIndexs:
-    - {x: 3, y: 2, z: 7}
-    - {x: 2, y: 2, z: 7}
-    - {x: 3, y: 2, z: 7}
-    - {x: 3, y: 2, z: 6}
-    - {x: 3, y: 2, z: 5}
-    - {x: 4, y: 2, z: 5}
-    - {x: 3, y: 2, z: 5}
-    - {x: 3, y: 2, z: 6}
+    priority: 99
+    movePosIndexs: []
   - chessManType: 2
     posIndex: {x: 12, y: 2, z: 7}
     isAI: 1

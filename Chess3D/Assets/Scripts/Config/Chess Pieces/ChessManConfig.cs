@@ -37,13 +37,9 @@ public class ChessManConfig : ScriptableObject
             case TileType.OBJECT:
             case TileType.BOULDER:
             case TileType.WATER:
-                canStandOn = false;
-                break;
-
-            // Extra cases for KNIGHT handler
             case TileType.PLAYER_CHESS:
             case TileType.ENEMY_CHESS:
-                canStandOn = (chessManType != ChessManType.KNIGHT);
+                canStandOn = false;
                 break;
                 
             // else
@@ -411,7 +407,7 @@ public class ChessManConfig : ScriptableObject
     // KillState: Use the piece to kill the player's piece
     public virtual Vector3 KillState(Dictionary<ChessManType, int> chessManPriority)
     {
-        int bestChessManID = 0;
+        int bestChessManID = -1;
         List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
         // We find the best ChessManType in the playerArmy list
         for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
@@ -437,7 +433,7 @@ public class ChessManConfig : ScriptableObject
                     decision = playerArmy[playerIdx].posIndex;
                 }
                 // Random pick
-                if (UnityEngine.Random.Range(0, 100) >= 50)
+                if (Random.Range(0, 100) >= 50)
                 {
                     decision = playerArmy[playerIdx].posIndex;
                 }
@@ -469,7 +465,7 @@ public class ChessManConfig : ScriptableObject
                     decision = move;
                 }
                 // Random pick
-                if (UnityEngine.Random.Range(0, 100) >= 50)
+                if (Random.Range(0, 100) >= 50)
                 {
                     decision = move;
                 }
@@ -481,6 +477,6 @@ public class ChessManConfig : ScriptableObject
     // PatrolState: Default
     public virtual Vector3 PatrolState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority = null)
     {
-        return possibleMoveList[UnityEngine.Random.Range(0, possibleMoveList.Count)];
+        return possibleMoveList[Random.Range(0, possibleMoveList.Count)];
     }
 }
