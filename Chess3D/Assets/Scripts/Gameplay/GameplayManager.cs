@@ -58,7 +58,7 @@ public class GameplayManager : MonoBehaviour
     }
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
-        // SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.TEST_MUSIC);
+        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1);
 
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
@@ -322,24 +322,15 @@ public class GameplayManager : MonoBehaviour
     }
     void CheckShowOutlineGameplayObject(Vector3 pos)
     {
-        TileInfo tileInfo = levelData.GetTileInfoNoDeep(pos);
-        if (tileInfo.tileType == TileType.BOX || tileInfo.tileType == TileType.BOULDER)
+        GameplayObject gameplayObj = GameUtils.GetGameplayObjectByPosition(pos);
+        if (gameplayObj != null)
         {
-            Collider[] colls = Physics.OverlapBox(pos, Vector3.one / 5);
-            foreach (Collider coll in colls) 
+            gameplayObj.SetOutline(10, Color.cyan);
+            if (outlineGameplayObj == null)
             {
-                GameplayObject gameplayObj = coll.transform.GetComponent<GameplayObject>();
-
-                //Debug.Log(gameplayObj);
-                if (gameplayObj == null) continue;
-
-                gameplayObj.SetOutline(10, Color.cyan);
-                if (outlineGameplayObj == null)
-                {
-                    outlineGameplayObj = new List<GameplayObject>();
-                }
-                outlineGameplayObj.Add(gameplayObj);
+                outlineGameplayObj = new List<GameplayObject>();
             }
+            outlineGameplayObj.Add(gameplayObj);
         }
     }
     void ShowOutlineChessMan(ChessMan chessMan)
@@ -420,7 +411,6 @@ public class GameplayManager : MonoBehaviour
     }
     public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null) //Cap nhat toa do tile oldPos thanh None, va cap nhat tileInfo cho new pos
     {
-        Debug.Log($"{oldPos}, {newPos}");
         if (tileInfo == null)
         {
             levelData.SetTileInfoNoDeep(newPos, 0, TileType.NONE);

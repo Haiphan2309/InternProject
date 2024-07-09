@@ -41,6 +41,8 @@ MonoBehaviour:
   - {fileID: 8998501177938085803, guid: bdf55e303ca2d10408f33b41b8c7c9e5, type: 3}
   - {fileID: 8998501177938085803, guid: d107fb8a37b6e6c41b08f2dcba2fec6a, type: 3}
   - {fileID: 4051196245707785669, guid: faf0a3741b616044289a1063dbb13965, type: 3}
-  selectedIndex: 18
+  - {fileID: 4051196245707785669, guid: 9517e8f813380834eafc7bc7eb90991d, type: 3}
+  - {fileID: 8998501177938085803, guid: 0ff962d6b41e27d49a623e7718583f8c, type: 3}
+  selectedIndex: 10
   manualOffset: 0
   manualOffsetValue: 0

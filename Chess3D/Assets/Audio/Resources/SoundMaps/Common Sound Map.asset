@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9938e02597404e54f8bd7d20d972854e, type: 3}
   m_Name: Common Sound Map
   m_EditorClassIdentifier: 
-  soundType: 1
-  path: SoundData/Music
-  SoundMappingList:
-  - name: TEST_MUSIC
-    Id: 99
-    Data: {fileID: 11400000, guid: 9672e3109f83b9e43847d54a30d5803c, type: 2}
+  soundType: 0
+  path: SoundData/Common
+  SoundMappingList: []
