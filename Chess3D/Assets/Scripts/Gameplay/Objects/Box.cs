@@ -47,7 +47,7 @@ public class Box : GameplayObject
         yield return null;
 
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
-        GameplayObject gameplayObject = GetChessman(this.posIndex, target);
+        GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
 
         if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
         {
@@ -149,10 +149,10 @@ public class Box : GameplayObject
         }
     }
 
-    private GameplayObject GetChessman(Vector3 oldPos, Vector3 target)
+    private GameplayObject GetChessman(Vector3 oldPos, Vector3 target, Vector3 moveVector)
     {
-        Vector3 chessmanPosIdx = posIndex + Vector3.up;
-        Vector3 chessmanTarget = target + Vector3.up;
+        Vector3 chessmanPosIdx = posIndex + moveVector;
+        Vector3 chessmanTarget = target + moveVector;
 
         Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(chessmanTarget);
         GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);

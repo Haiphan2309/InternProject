@@ -202,6 +202,7 @@ public class ChessMan : GameplayObject
             }
 
             Promote(testPromoteType);
+            // Call UpdateHolder (KHANG NHO CALL NHA)
         }
 
         GameplayManager.Instance.EndTurn();
