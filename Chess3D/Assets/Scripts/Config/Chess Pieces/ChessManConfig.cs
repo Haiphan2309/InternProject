@@ -222,6 +222,8 @@ public class ChessManConfig : ScriptableObject
         // bool isOnAir = false;
         Vector3 currentMove = currentPositionIndex;
         Vector3 move;
+        // This is for KNIGHT only
+        Vector3 knightMove = currentMove + direction;
         for (int i = 1; i <= moveRange; ++i)
         {
             // Register the next move
@@ -254,7 +256,7 @@ public class ChessManConfig : ScriptableObject
             }
 
             // Check if the potential move is jumpable
-            if (!ValidateJump(move, direction))
+            if (!ValidateJump(knightMove, direction))
             {
                 break;
             }
