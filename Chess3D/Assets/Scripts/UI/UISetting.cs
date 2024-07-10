@@ -8,17 +8,34 @@ using UnityEngine.UI;
 
 public class UISetting : MonoBehaviour
 {
-    [SerializeField] UIPopupAnim uiPopupAnim;
-    [SerializeField] TMP_Text levelText;
-    [SerializeField] Button menuBtn, replayBtn, hideButton;
-    [SerializeField] Slider musicSlider, soundSlider;
-    Coroutine hideCor;
-    [SerializeField] int maxVolume = 10;
+    [SerializeField] private UIPopupAnim uiPopupAnim;
+    [SerializeField] private TMP_Text levelText;
+    [SerializeField] private Button menuBtn, replayBtn, hideButton;
+    [SerializeField] private Slider musicSlider, soundSlider;
+    private Coroutine hideCor;
+    [SerializeField] private int maxVolume = 10;
+    private bool isAreadySetup;
 
     [Button]
     public void Show()
     {
         gameObject.SetActive(true);
+
+        if (isAreadySetup == false)
+        {
+            isAreadySetup = true;
+            Setup();
+        }
+
+        if (hideCor != null)
+        {
+            StopCoroutine(hideCor);
+        }
+
+        uiPopupAnim.Show();
+    }
+    private void Setup()
+    {
         menuBtn.onClick.AddListener(OnMenu);
         replayBtn.onClick.AddListener(OnReplay);
         hideButton.onClick.AddListener(Hide);
@@ -34,13 +51,6 @@ public class UISetting : MonoBehaviour
         {
             levelText.text = "Level " + (GameplayManager.Instance.chapterData.id + 1).ToString() + "-" + (GameplayManager.Instance.levelData.id + 1).ToString();
         }
-
-        if (hideCor != null)
-        {
-            StopCoroutine(hideCor);
-        }
-
-        uiPopupAnim.Show();
     }
     public void Hide()
     {
