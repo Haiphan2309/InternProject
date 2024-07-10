@@ -68,12 +68,25 @@ public class UIManager : MonoBehaviour
 
     public void IntoChapterMenu()
     {
+        Debug.Log(Instance);
+        StartCoroutine(Cor_IntoChapterMenu());
+    }
+
+    IEnumerator Cor_IntoChapterMenu()
+    {
+        yield return new WaitUntil(() => Instance != null);
         UIStack.Push(mainMenu);
         chapterMenu.Anim();
     }
 
     public void IntoLevelMenu(int chapterIndex)
     {
+        StartCoroutine(Cor_IntoLevelMenu(chapterIndex));
+    }
+
+    IEnumerator Cor_IntoLevelMenu(int chapterIndex)
+    {
+        yield return new WaitUntil(() => Instance != null);
         UIStack.Push(mainMenu);
         LevelPreset(chapterIndex, GameUtils.GetChapterData(chapterIndex).levelDatas.Count);
     }
@@ -220,11 +233,18 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < levelButton.Count; ++i)
         {
+            if (levelButton[i] != null)
+            {
             levelButton[i].interactable = false;
+            }
         }
-        for(int i = 0; i < chapterButton.Count; ++i)
+
+        for (int i = 0; i < chapterButton.Count; ++i)
         {
-            chapterButton[i].interactable = false;
+            if (chapterButton[i] != null)
+            {
+                chapterButton[i].interactable = false;
+            }
         }
         startButton.GetComponent<Button>().interactable = false;
         settingButton.GetComponent<Button>().interactable = false;
@@ -238,6 +258,7 @@ public class UIManager : MonoBehaviour
         {
             levelButton[i].interactable = true;
         }
+
         for (int i = 0; i < chapterButton.Count; ++i)
         {
             chapterButton[i].interactable = true;

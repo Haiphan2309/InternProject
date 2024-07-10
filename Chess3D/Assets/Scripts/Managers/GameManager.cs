@@ -193,6 +193,15 @@ namespace GDC.Managers
         {
             StartCoroutine(Cor_InitData(chapterIndex, levelIndex));
         }
+        public void LoadMenu()
+        {
+            StartCoroutine(Cor_LoadMenu());
+        }
+        IEnumerator Cor_LoadMenu()
+        {
+            yield return new WaitUntil(() => UIManager.Instance != null);
+            UIManager.Instance.IntoChapterMenu();
+        }
         IEnumerator Cor_InitData(int chapterIndex, int levelIndex)
         {
             yield return new WaitUntil(() => GameplayManager.Instance != null);
