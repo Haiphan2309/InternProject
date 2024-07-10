@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
     public UIPopupAnim creditPagePrefab;
     public UISetting settingPagePrefab;
 
-    private float hidePosition = 600f;
+    private readonly float hidePosition = 600f;
 
     private Color leftCircleColor = new Color(200f / 255f, 150f / 255f, 1f);
     private Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
@@ -57,7 +57,6 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.MUSIC_MAIN_MENU);
     }
 
     // Start is called before the first frame update
@@ -65,6 +64,7 @@ public class UIManager : MonoBehaviour
     {
         Preset();
         mainMenu.Anim();
+        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.MUSIC_MAIN_MENU);
     }
 
     public void IntoChapterMenu()
