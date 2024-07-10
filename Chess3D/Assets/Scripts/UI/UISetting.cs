@@ -95,6 +95,7 @@ public class UISetting : MonoBehaviour
 
     void OnChangeMusicVolume()
     {
+        //SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1, (float)musicSlider.value / maxVolume);
         SoundManager.Instance.SetMusicVolume((float)musicSlider.value/maxVolume);
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
     }
