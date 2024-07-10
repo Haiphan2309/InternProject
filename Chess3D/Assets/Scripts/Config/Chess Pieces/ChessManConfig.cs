@@ -37,13 +37,9 @@ public class ChessManConfig : ScriptableObject
             case TileType.OBJECT:
             case TileType.BOULDER:
             case TileType.WATER:
-                canStandOn = false;
-                break;
-
-            // Extra cases for KNIGHT handler
             case TileType.PLAYER_CHESS:
             case TileType.ENEMY_CHESS:
-                canStandOn = (chessManType != ChessManType.KNIGHT);
+                canStandOn = false;
                 break;
                 
             // else
@@ -218,6 +214,24 @@ public class ChessManConfig : ScriptableObject
         return currentMoveType == TileType.BOX || currentMoveType == TileType.BOULDER;
     }
 
+    // Used for BOX check
+    private bool IsPushable(Vector3 currentMove, Vector3 direction)
+    {
+        bool isPushable;
+        TileType tileData = GameUtils.GetTile(currentMove);
+
+        switch (tileData)
+        {
+            case TileType.BOX:
+                isPushable = direction.x * direction.z != 0f;
+                break;
+            default:
+                isPushable = true;
+                break;
+        }
+        return isPushable;
+    }
+
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
         // The Vector3 that stores the current position for the next move
@@ -226,6 +240,8 @@ public class ChessManConfig : ScriptableObject
         // bool isOnAir = false;
         Vector3 currentMove = currentPositionIndex;
         Vector3 move;
+        // This is for KNIGHT only
+        Vector3 knightMove = currentMove + direction;
         for (int i = 1; i <= moveRange; ++i)
         {
             // Register the next move
@@ -258,7 +274,7 @@ public class ChessManConfig : ScriptableObject
             }
 
             // Check if the potential move is jumpable
-            if (!ValidateJump(move, direction))
+            if (!ValidateJump(knightMove, direction))
             {
                 break;
             }
@@ -274,6 +290,10 @@ public class ChessManConfig : ScriptableObject
             // Check if there is a DYNAMIC OBJECT in the potential move
             if (IsDynamicObject(move))
             {
+                if (!IsPushable(move, direction))
+                {
+                    break;
+                }
                 // Check to see if they are stacked
                 if (dynamicObjectOnDirection)
                 {
@@ -305,7 +325,6 @@ public class ChessManConfig : ScriptableObject
                 isEnemy = true;
                 break;
             }
-
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
             {
@@ -411,7 +430,7 @@ public class ChessManConfig : ScriptableObject
     // KillState: Use the piece to kill the player's piece
     public virtual Vector3 KillState(Dictionary<ChessManType, int> chessManPriority)
     {
-        int bestChessManID = 0;
+        int bestChessManID = -1;
         List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
         // We find the best ChessManType in the playerArmy list
         for (int playerIdx = 0; playerIdx < playerArmy.Count; ++playerIdx)
@@ -437,7 +456,7 @@ public class ChessManConfig : ScriptableObject
                     decision = playerArmy[playerIdx].posIndex;
                 }
                 // Random pick
-                if (UnityEngine.Random.Range(0, 100) >= 50)
+                if (Random.Range(0, 100) >= 50)
                 {
                     decision = playerArmy[playerIdx].posIndex;
                 }
@@ -469,7 +488,7 @@ public class ChessManConfig : ScriptableObject
                     decision = move;
                 }
                 // Random pick
-                if (UnityEngine.Random.Range(0, 100) >= 50)
+                if (Random.Range(0, 100) >= 50)
                 {
                     decision = move;
                 }
@@ -481,7 +500,6 @@ public class ChessManConfig : ScriptableObject
     // PatrolState: Default
     public virtual Vector3 PatrolState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority = null)
     {
-        return currentPositionIndex;
-        // return possibleMoveList[UnityEngine.Random.Range(0, possibleMoveList.Count)];
+        return possibleMoveList[Random.Range(0, possibleMoveList.Count)];
     }
 }
