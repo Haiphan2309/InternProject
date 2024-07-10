@@ -141,6 +141,8 @@ public class ChessMan : GameplayObject
 
         Vector3 direction = (target - currIdx).normalized;
 
+        Vector3 storeBoxPos = Vector3.zero;
+
         // Rotate to target
         RotateToDirection(direction);
         yield return new WaitForSeconds(0.5f);
@@ -153,13 +155,19 @@ public class ChessMan : GameplayObject
         Vector3 gameplayObjectPosition = Vector3.zero;
         GameplayObject gameplayObject = null;
 
+        int i = 1;
+
         // Move
         foreach (var gridCell in path)
         {
             gameplayObjectPosition = GameUtils.SnapToGrid(gridCell);
+
             gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+
             Vector3 boxDirection = direction;
             boxDirection.y = 0;
+
+            Debug.Log($"[{i}] {gameplayObject}");
 
             if (gameplayObject != null && !gameplayObject.isAnim)
             {
@@ -184,12 +192,13 @@ public class ChessMan : GameplayObject
 
         yield return null;
 
-        if (gameplayObject != null)
+        if (gameplayObject != null /*&& (GameUtils.GetTile(storeBoxPos) == TileType.BOX || GameUtils.GetTile(storeBoxPos) == TileType.BOULDER)*/)
         {
             yield return new WaitUntil(() => gameplayObject.isAnim == false);
             gameplayObject.SetPosIndex();
-            
         }
+
+        isStandOnSlope = isOnSlope;
 
         SetPosIndex();
 
@@ -220,15 +229,8 @@ public class ChessMan : GameplayObject
     {
         Transform childObject = transform.GetChild(0);
 
-        Debug.Log("Direction: " + direction);
-
         Quaternion targetRotation = Quaternion.FromToRotation(Vector3.forward, direction);
         Vector3 eulerAngles = childObject.rotation.eulerAngles;
-
-        //targetRotation.x = childObject.rotation.x;
-        //targetRotation.z = childObject.rotation.z;
-
-        Debug.Log("Child Rotation: " + childObject.rotation.eulerAngles + " Target Rotation: " + targetRotation.eulerAngles);
 
         childObject.DOLocalRotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
     }
@@ -242,7 +244,6 @@ public class ChessMan : GameplayObject
         {
             transform.SetParent(gameplayObject.transform);
         }
-
     }
 
 

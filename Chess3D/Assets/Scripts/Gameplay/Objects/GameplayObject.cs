@@ -227,6 +227,7 @@ public class GameplayObject : MonoBehaviour
     public virtual void SetPosIndex()
     {
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+        Debug.Log(tileInfo.tileType);
         GameplayManager.Instance.UpdateTile(posIndex, targetPosition, tileInfo);
         posIndex = targetPosition;
     }
