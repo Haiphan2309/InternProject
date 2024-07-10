@@ -12,6 +12,8 @@ public class Box : GameplayObject
     private bool isDestroy = false;
     private int destroyPositionY = -3;
 
+    [SerializeField] private GameObject vfxWaterSplash;
+
     public void Setup(Vector3 posIndex)
     {
         this.posIndex = posIndex;
@@ -68,6 +70,10 @@ public class Box : GameplayObject
             GameplayObject destroyGO = GetChessman(target, target, Vector3.zero);
             GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
             destroyGO.Defeated();
+        }
+        else if (tile == TileType.WATER)
+        {
+            Instantiate(vfxWaterSplash, target, Quaternion.identity);
         }
         
         GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
