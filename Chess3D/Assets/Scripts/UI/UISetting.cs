@@ -68,6 +68,7 @@ public class UISetting : MonoBehaviour
     }
     public void OnMenu()
     {
+        int curChapterIndex = GameplayManager.Instance.chapterData.id;
         GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.MAINMENU,
             GDC.Enums.TransitionType.IN,
@@ -75,7 +76,7 @@ public class UISetting : MonoBehaviour
             cb: () =>
             {
                 //    //GDC.Managers.GameManager.Instance.SetInitData(levelIndex);
-                GameManager.Instance.LoadMenu();
+                GameManager.Instance.LoadMenuLevel(curChapterIndex);
             },
             true);
     }

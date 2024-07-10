@@ -193,16 +193,25 @@ namespace GDC.Managers
         {
             StartCoroutine(Cor_InitData(chapterIndex, levelIndex));
         }
-        public void LoadMenu()
+        public void LoadMenuChapter()
         {
-            StartCoroutine(Cor_LoadMenu());
+            StartCoroutine(Cor_LoadMenuChapter());
         }
-        IEnumerator Cor_LoadMenu()
+        public void LoadMenuLevel(int chapterIndex)
+        {
+            StartCoroutine(Cor_LoadMenuLevel(chapterIndex));
+        }
+        private IEnumerator Cor_LoadMenuChapter()
         {
             yield return new WaitUntil(() => UIManager.Instance != null);
             UIManager.Instance.IntoChapterMenu();
         }
-        IEnumerator Cor_InitData(int chapterIndex, int levelIndex)
+        private IEnumerator Cor_LoadMenuLevel(int chapterIndex)
+        {
+            yield return new WaitUntil(() => UIManager.Instance != null);
+            UIManager.Instance.IntoLevelMenu(chapterIndex);
+        }
+        private IEnumerator Cor_InitData(int chapterIndex, int levelIndex)
         {
             yield return new WaitUntil(() => GameplayManager.Instance != null);
             //string levelName = "Level_" + (levelIndex+1).ToString();
