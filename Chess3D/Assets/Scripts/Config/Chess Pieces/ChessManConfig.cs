@@ -214,6 +214,24 @@ public class ChessManConfig : ScriptableObject
         return currentMoveType == TileType.BOX || currentMoveType == TileType.BOULDER;
     }
 
+    // Used for BOX check
+    private bool IsPushable(Vector3 currentMove, Vector3 direction)
+    {
+        bool isPushable;
+        TileType tileData = GameUtils.GetTile(currentMove);
+
+        switch (tileData)
+        {
+            case TileType.BOX:
+                isPushable = direction.x * direction.z != 0f;
+                break;
+            default:
+                isPushable = true;
+                break;
+        }
+        return isPushable;
+    }
+
     public virtual void GenerateMove(Vector3 currentPositionIndex, Vector3 direction)
     {
         // The Vector3 that stores the current position for the next move
@@ -272,6 +290,10 @@ public class ChessManConfig : ScriptableObject
             // Check if there is a DYNAMIC OBJECT in the potential move
             if (IsDynamicObject(move))
             {
+                if (!IsPushable(move, direction))
+                {
+                    break;
+                }
                 // Check to see if they are stacked
                 if (dynamicObjectOnDirection)
                 {
@@ -303,7 +325,6 @@ public class ChessManConfig : ScriptableObject
                 isEnemy = true;
                 break;
             }
-
             // Check if the potential move is into slopes down
             if (OnSlopeDown(move, direction))
             {
