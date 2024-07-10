@@ -11,6 +11,7 @@ public class Box : GameplayObject
 {
     private bool isDestroy = false;
     private int destroyPositionY = -3;
+    private bool isDropToWater = false;
 
     [SerializeField] private GameObject vfxWaterSplash;
 
@@ -46,6 +47,12 @@ public class Box : GameplayObject
         {
             while (currIdx != gridCell)
             {
+                if (GameUtils.GetTile(GameUtils.SnapToGrid(transform.position)) == TileType.WATER && !isDropToWater)
+                {
+                    Instantiate(vfxWaterSplash, target + Vector3.up, Quaternion.identity);
+                    isDropToWater = true;
+                }
+
                 AjustPosToGround(transform.position, gridCell, direction, true);
 
                 if (!isOnSlope) currIdx = transform.position;
@@ -71,10 +78,6 @@ public class Box : GameplayObject
             GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
             destroyGO.Defeated();
         }
-        else if (tile == TileType.WATER)
-        {
-            Instantiate(vfxWaterSplash, target, Quaternion.identity);
-        }
         
         GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
 
@@ -84,6 +87,7 @@ public class Box : GameplayObject
         }
 
         isAnim = false;
+        isDropToWater = false;
     }
 
     private Vector3 CalculateTarget(Vector3 target, Vector3 direction)
