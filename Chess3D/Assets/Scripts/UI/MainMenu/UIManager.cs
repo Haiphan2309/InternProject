@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
     public UISetting settingPagePrefab;
 
     private readonly float hidePosition = 600f;
+    public readonly float timer = 1f;
 
     private Color leftCircleColor = new Color(200f / 255f, 150f / 255f, 1f);
     private Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
@@ -50,9 +51,9 @@ public class UIManager : MonoBehaviour
     private Color leftChessPieceColor = new Color(0f, 0.5f, 1f);
     private Color rightChessPieceColor = new Color(1f, 0.5f, 0f);
 
-    private Stack<UI> UIStack = new Stack<UI>();
-    private List<Button> chapterButton = new List<Button>();
-    private List<Button> levelButton = new List<Button>();
+    private readonly Stack<UI> UIStack = new Stack<UI>();
+    private readonly List<Button> chapterButton = new List<Button>();
+    private readonly List<Button> levelButton = new List<Button>();
 
     private void Awake()
     {
@@ -68,14 +69,14 @@ public class UIManager : MonoBehaviour
 
     public void IntoChapterMenu()
     {
-        Debug.Log(Instance);
+        // Debug.Log(Instance);
         StartCoroutine(Cor_IntoChapterMenu());
     }
 
     IEnumerator Cor_IntoChapterMenu()
     {
-        yield return new WaitUntil(() => Instance != null);
         UIStack.Push(mainMenu);
+        yield return new WaitForSeconds(timer);
         chapterMenu.Anim();
     }
 
@@ -86,8 +87,9 @@ public class UIManager : MonoBehaviour
 
     IEnumerator Cor_IntoLevelMenu(int chapterIndex)
     {
-        yield return new WaitUntil(() => Instance != null);
         UIStack.Push(mainMenu);
+        UIStack.Push(chapterMenu);
+        yield return new WaitForSeconds(timer);
         LevelPreset(chapterIndex, GameUtils.GetChapterData(chapterIndex).levelDatas.Count);
     }
 
