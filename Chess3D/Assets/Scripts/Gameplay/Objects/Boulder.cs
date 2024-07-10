@@ -49,20 +49,30 @@ public class Boulder : GameplayObject
 
                 yield return null;
             }
+
+            TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(gridCell));
+
+            if (tile == TileType.ENEMY_CHESS)
+            {
+                GameplayObject destroyGO = GetChessman(gridCell, gridCell, Vector3.zero);
+                GameplayManager.Instance.DefeatEnemyChessMan(destroyGO.index);
+                destroyGO.Defeated();
+            }
+            else if (tile == TileType.PLAYER_CHESS)
+            {
+                GameplayObject destroyGO = GetChessman(gridCell, gridCell, Vector3.zero);
+                GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
+                destroyGO.Defeated();
+            }
+            else if (tile == TileType.BOX)
+            {
+                GameplayObject destroyGO = GameUtils.GetGameplayObjectByPosition(gridCell);
+                GameplayManager.Instance.UpdateTile(gridCell);
+                destroyGO.Defeated();
+            }
         }
 
         yield return null;
-
-        TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(transform.position));
-
-        Debug.Log(tile);
-
-        if (GameUtils.CheckChess(tile))
-        {
-            GameplayObject destroyGO = GetChessman(target, target, Vector3.zero);
-            GameplayManager.Instance.DefeatEnemyChessMan(destroyGO.index);
-            destroyGO.Defeated();
-        }
 
         if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
         {

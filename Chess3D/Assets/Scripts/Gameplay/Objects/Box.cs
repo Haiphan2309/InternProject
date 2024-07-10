@@ -57,12 +57,16 @@ public class Box : GameplayObject
 
         TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(transform.position));
 
-        Debug.Log(tile);
-
-        if (GameUtils.CheckChess(tile))
+        if (tile == TileType.ENEMY_CHESS)
         {
             GameplayObject destroyGO = GetChessman(target, target, Vector3.zero);
             GameplayManager.Instance.DefeatEnemyChessMan(destroyGO.index);
+            destroyGO.Defeated();
+        }
+        else if (tile == TileType.PLAYER_CHESS)
+        {
+            GameplayObject destroyGO = GetChessman(target, target, Vector3.zero);
+            GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
             destroyGO.Defeated();
         }
         
@@ -211,5 +215,12 @@ public class Box : GameplayObject
         GameplayObject gameplayObject = GetChessman(this.posIndex, targetPosition, Vector3.up);
         CheckChessman(gameplayObject, this.posIndex, targetPosition);
         base.SetPosIndex();
+    }
+
+    public override void Defeated()
+    {
+        Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
+        Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

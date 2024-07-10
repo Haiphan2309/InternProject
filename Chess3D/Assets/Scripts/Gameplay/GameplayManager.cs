@@ -237,7 +237,7 @@ public class GameplayManager : MonoBehaviour
             }
         }
     }
-    void DefeatPlayerChessMan(int playerIndex)
+    public void DefeatPlayerChessMan(int playerIndex)
     {
         foreach (var chessman in playerArmy)
         {
