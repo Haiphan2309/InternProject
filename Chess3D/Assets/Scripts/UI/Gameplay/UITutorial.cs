@@ -26,7 +26,7 @@ public class UITutorial : MonoBehaviour
         tutorialText.text = tutorialData.tutorialText;
 
         tutorialImage.SetNativeSize();
-        tutorialImage.rectTransform.sizeDelta = tutorialText.rectTransform.sizeDelta * size;
+        tutorialImage.rectTransform.sizeDelta = new Vector2(tutorialImage.rectTransform.sizeDelta.x * size, tutorialImage.rectTransform.sizeDelta.y * size);
         Debug.Log(tutorialImage.rectTransform.sizeDelta);
         imageContainRect.sizeDelta = tutorialImage.rectTransform.sizeDelta;
 

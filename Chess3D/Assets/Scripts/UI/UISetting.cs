@@ -75,6 +75,7 @@ public class UISetting : MonoBehaviour
             cb: () =>
             {
                 //    //GDC.Managers.GameManager.Instance.SetInitData(levelIndex);
+                UIManager.Instance.IntoChapterMenu();
             },
             true);
     }
