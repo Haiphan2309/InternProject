@@ -26,7 +26,7 @@ public class GameplayObject : MonoBehaviour
     public bool isFalling = false;
 
     public LayerMask objectLayer;
-    [SerializeField] GameObject vfxDefeated;
+    [SerializeField] public GameObject vfxDefeated;
 
 
 
@@ -172,7 +172,7 @@ public class GameplayObject : MonoBehaviour
     }
 
     [Button]
-    public void Defeated()
+    public virtual void Defeated()
     {
         Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
         transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
