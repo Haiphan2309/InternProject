@@ -40,6 +40,16 @@ public class UIGameplaySlider : MonoBehaviour
         starStatus = new bool[3] {true, true, true};
         
         SetStarStatus(starStatus);
+        int start2 = GameplayManager.Instance.levelData.starTurn2;
+        int start3 = GameplayManager.Instance.levelData.starTurn3;
+        int maxTurn = GameplayManager.Instance.levelData.maxTurn;
+        SetStarPosition(0, 15);
+        SetStarPosition(1, ((float)start2 / maxTurn) * maxSliderBar);
+        SetStarPosition(2, ((float)start3 / maxTurn) * maxSliderBar);
+        //
+        Debug.Log(((float)start2 / maxTurn) * maxSliderBar);
+        Debug.Log(((float)start3 / maxTurn) * maxSliderBar);
+
     }
     
     void SetStarStatus(int number,bool status)
@@ -74,7 +84,9 @@ public class UIGameplaySlider : MonoBehaviour
 
     void SetStarPosition(int index, float pos)
     {
-
+        Vector2 newPosition = stars[index].anchoredPosition;
+        newPosition.x = pos;
+        stars[index].anchoredPosition = newPosition;
     }
     
 

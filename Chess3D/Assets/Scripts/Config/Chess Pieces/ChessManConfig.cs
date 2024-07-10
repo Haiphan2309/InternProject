@@ -223,7 +223,7 @@ public class ChessManConfig : ScriptableObject
         switch (tileData)
         {
             case TileType.BOX:
-                isPushable = direction.x * direction.z != 0f;
+                isPushable = direction.x * direction.z == 0f;
                 break;
             default:
                 isPushable = true;

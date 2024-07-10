@@ -18,6 +18,12 @@ public class UIChapterSlot : MonoBehaviour
     public void ChapterSetup(int chapterIndex)
     {
         this.chapterIndex = chapterIndex;
+        StartCoroutine(Cor_ChapterSetup());
+    }
+
+    IEnumerator Cor_ChapterSetup()
+    {
+        yield return new WaitUntil(() => SaveLoadManager.Instance != null);
         chapterData = GameUtils.GetChapterData(this.chapterIndex);
 
         if (chapterData == null || chapterData.starRequire <= SaveLoadManager.Instance.GameData.GetAllStar())
@@ -30,7 +36,7 @@ public class UIChapterSlot : MonoBehaviour
             isAvailable = false;
             transform.GetComponent<Image>().color = Color.black;
         }
-        
+
         // EASY ACCESS PURPORSE
         isAvailable = true;
 
