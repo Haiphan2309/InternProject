@@ -64,7 +64,6 @@ public class UIManager : MonoBehaviour
     {
         Preset();
         mainMenu.Anim();
-        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.MUSIC_MAIN_MENU);
     }
 
     public void IntoChapterMenu()
@@ -82,11 +81,18 @@ public class UIManager : MonoBehaviour
     // Setup
     private void Preset()
     {
+        StartCoroutine(Cor_MenuSetup());
+    }
+
+    IEnumerator Cor_MenuSetup()
+    {
+        yield return new WaitUntil(() => SoundManager.Instance != null);
         SliderPreset();
         HolderPreset();
         ButtonPreset();
         ChapterPreset();
         TextPreset();
+        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.MUSIC_MAIN_MENU);
     }
 
     private void SliderPreset()
