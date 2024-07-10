@@ -94,6 +94,7 @@ public class UIWinPanel : MonoBehaviour
             cb: () =>
             {
                 //    //GDC.Managers.GameManager.Instance.SetInitData(levelIndex);
+                UIManager.Instance.IntoChapterMenu();
             },
             true);
     }
@@ -128,7 +129,7 @@ public class UIWinPanel : MonoBehaviour
             }
             else
             {
-                Debug.Log("Next level in same chapter");
+                Debug.Log("Next level in next chapter");
                 nextChapterIndex++;
             }
         }
