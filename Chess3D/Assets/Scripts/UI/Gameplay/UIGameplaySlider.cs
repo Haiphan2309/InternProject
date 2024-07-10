@@ -47,8 +47,7 @@ public class UIGameplaySlider : MonoBehaviour
         SetStarPosition(1, ((float)start2 / maxTurn) * maxSliderBar);
         SetStarPosition(2, ((float)start3 / maxTurn) * maxSliderBar);
         //
-        Debug.Log(((float)start2 / maxTurn) * maxSliderBar);
-        Debug.Log(((float)start3 / maxTurn) * maxSliderBar);
+        
 
     }
     
