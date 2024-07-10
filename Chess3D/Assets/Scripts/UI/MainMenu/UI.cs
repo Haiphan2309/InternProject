@@ -21,7 +21,7 @@ public class UI : MonoBehaviour
     private readonly float chessHolderScale = 15f;
 
     private readonly float chessPiecePosition = 250f;
-    private readonly float chessPieceOffset = 20f;
+    private readonly float chessPieceOffset = 16f;
 
     private readonly float holderHidePosition = -2000f;
 
