@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using GDC.Enums;
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -221,6 +222,7 @@ public class GameplayObject : MonoBehaviour
         {
             Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
             Destroy(gameObject);
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_DISAPPEAR);
             Debug.Log("Destroy Object Successfully");
         });
     }
