@@ -530,37 +530,46 @@ public class ChessManConfig : ScriptableObject
     {
         List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
         List<Vector3> retreatMoves = new List<Vector3>();
-        List<Vector3> posibleMoves = Move(posIndex);
+        List<Vector3> posibleMoves = new List<Vector3>();
+        foreach(var move in Move(posIndex))
+        {
+            posibleMoves.Add(move);
+        }
+
         for (int i = 0; i< posibleMoves.Count; i++)
         {
             //check if this move is safe
             bool isMoveSafe = true;
-            foreach(var player in playerArmy)
+            foreach (var player in playerArmy)
             {
                 List<Vector3> playerPosibleMoves = player.config.Move(player.posIndex);
                 foreach (var playerMove in playerPosibleMoves)
                 {
+                    
                     if (GameUtils.CompareVector3(posibleMoves[i], playerMove))
                     {
-                        Debug.Log("THIS NOT SAFE: " + posibleMoves[i] + " " + playerMove);
                         isMoveSafe = false;
                         break;
                     }
+                    //if (player.config.chessManType == ChessManType.QUEEN) Debug.Log("QUEEN: " + playerMove);
                 }
-                Debug.Log("K " + player.name + "  " + isMoveSafe);
+
                 if (isMoveSafe == false)
                 {
                     break;
                 }
             }
-            Debug.Log("AA");
+
             if (isMoveSafe)
             {
                 retreatMoves.Add(posibleMoves[i]);
             }
         }
-        Debug.Log("BB");
 
+        //foreach(var retreat in retreatMoves)
+        //{
+        //    Debug.Log("retreat " + retreat);
+        //}
         if (retreatMoves.Count > 0)
         {
             int rand = Random.Range(0, retreatMoves.Count);
@@ -569,7 +578,7 @@ public class ChessManConfig : ScriptableObject
         else
         {
             Debug.Log("KO CO DUONG NAO DE NE");
-            return Move(posIndex)[0];
+            return posibleMoves[0];
         }
     }
 }

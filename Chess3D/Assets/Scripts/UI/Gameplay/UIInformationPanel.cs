@@ -39,16 +39,17 @@ public class UIInformationPanel : MonoBehaviour
     public void ChangeToPlayerTurn()
     {
         turnText.text = "Player Turn!";
-       
+        PlayTextAnim();
     }
 
     public void ChangeToEnemyTurn()
     {
         turnText.text = "Enemy Turn!";
+        PlayTextAnim();    
     }
 
     [Button]
-    private void PlayAnim()
+    private void PlayTextAnim()
     {
         DOTween.Kill(turnText);
         turnText.rectTransform.DOScale(1.5f, 1.0f)
