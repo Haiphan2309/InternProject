@@ -24,7 +24,7 @@ public class ChessManConfig : ScriptableObject
     };
 
     // Check if the tile ahead is blocking the move
-    private bool IsBlocked(Vector3 currentMove)
+    private bool IsBlocked(Vector3 currentMove, Vector3 direction)
     {
         bool isBlocked = false;
         TileType tileData = GameUtils.GetTile(currentMove);
@@ -34,6 +34,30 @@ public class ChessManConfig : ScriptableObject
             case TileType.GROUND:
             case TileType.OBJECT:
                 isBlocked = true;
+                break;
+            case TileType.SLOPE_0:
+                if (direction.z > 0)
+                {
+                    isBlocked = true;
+                }
+                break;
+            case TileType.SLOPE_90:
+                if (direction.x < 0)
+                {
+                    isBlocked = true;
+                }
+                break;
+            case TileType.SLOPE_180:
+                if (direction.z < 0)
+                {
+                    isBlocked = true;
+                }
+                break;
+            case TileType.SLOPE_270:
+                if (direction.x > 0)
+                {
+                    isBlocked = true;
+                }
                 break;
 
             // else
@@ -268,7 +292,7 @@ public class ChessManConfig : ScriptableObject
             move = currentMove + direction;
 
             // Debug.Log("Load " + move.ToString());
-            if (IsBlocked(move))
+            if (IsBlocked(move, direction))
             {
                 break;
             }
