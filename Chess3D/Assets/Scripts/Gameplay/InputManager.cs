@@ -241,24 +241,24 @@ public class InputManager : MonoBehaviour
         switch (GameplayManager.Instance.levelData.GetTileInfoNoDeep(pos).tileType)
         {
             case GDC.Enums.TileType.SLOPE_0:
-                obj.transform.position = pos + new Vector3(0, 0.55f, 0.1f);
-                obj.localScale = new Vector3(1, 1.3f, 1);
+                obj.transform.position = pos + new Vector3(0, 0.52f, 0.05f);
+                obj.localScale = new Vector3(1, 1.4f, 1);
                 obj.rotation = Quaternion.Euler(45, 180, 0);
                 break;
             case GDC.Enums.TileType.SLOPE_90:
-                obj.transform.position = pos + new Vector3(-0.1f, 0.55f, 0f);
+                obj.transform.position = pos + new Vector3(-0.05f, 0.52f, 0f);
                 obj.rotation = Quaternion.Euler(45, 90, 0);
-                obj.localScale = new Vector3(1, 1.3f, 1);
+                obj.localScale = new Vector3(1, 1.4f, 1);
                 break;
             case GDC.Enums.TileType.SLOPE_180:
-                obj.transform.position = pos + new Vector3(0, 0.55f, -0.1f);
+                obj.transform.position = pos + new Vector3(0, 0.52f, -0.05f);
                 obj.rotation = Quaternion.Euler(45, 0, 0);
-                obj.localScale = new Vector3(1, 1.3f, 1);
+                obj.localScale = new Vector3(1, 1.4f, 1);
                 break;
             case GDC.Enums.TileType.SLOPE_270:
-                obj.transform.position = pos + new Vector3(0.1f, 0.55f, 0f);
+                obj.transform.position = pos + new Vector3(0.05f, 0.52f, 0f);
                 obj.rotation = Quaternion.Euler(45, 270, 0);
-                obj.localScale = new Vector3(1, 1.3f, 1);
+                obj.localScale = new Vector3(1, 1.4f, 1);
                 break;
             default:
                 obj.transform.position = pos + Vector3.up * 1.02f;
