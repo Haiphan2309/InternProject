@@ -166,8 +166,9 @@ public class UIManager : MonoBehaviour
         chapter.GetChild(0).GetComponent<TMP_Text>().text = $"Chapter {chapterIndex + 1}";
         chapter.GetChild(1).GetComponent<TMP_Text>().text = $"Chapter {chapterIndex + 1}";
         UIStack.Push(chapterMenu);
-        levelHolder.anchoredPosition = Vector3.down * 2000f;
+        levelHolder.anchoredPosition = Vector3.down * 1500;
         for (int idx = 0; idx < maxLevelIndex; ++idx)
+
         {
             int levelIndex = idx;
             UILevelSlot levelSlot = Instantiate(levelSlotPrefab, levelContent);

@@ -16,12 +16,12 @@ MonoBehaviour:
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: a0804ceb06b880b4da8970ce70c86681, type: 3}
-    tutorialText: Welcome to CHESS 3D!
+    tutorialText: Welcome to CHESS 3D! The rules are simple, try to kill the enemy's
+      KING and protect your KING from taken.
   - chapterIndex: 0
     levelIndex: 0
-    tutorialSprite: {fileID: 21300000, guid: 01b4c9e040edb5d45a29ca67f52c45c4, type: 3}
-    tutorialText: This is the KING, the most important piece. You lose if your KING
-      is taken.
+    tutorialSprite: {fileID: 21300000, guid: a0804ceb06b880b4da8970ce70c86681, type: 3}
+    tutorialText: You lose by losing out of turns, or your KING is taken.
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 667e03dae98da2d4084aad1bc46119db, type: 3}
@@ -67,3 +67,41 @@ MonoBehaviour:
     levelIndex: 4
     tutorialSprite: {fileID: 21300000, guid: 49832f66b2f490545b776639ab7a6e40, type: 3}
     tutorialText: The QUEEN is the strongest piece, its movements are shown above.
+  - chapterIndex: 1
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 2d5d5599233de1f4889a999f20aef62d, type: 3}
+    tutorialText: The PAWN is the weakest piece, since it can move 1 tile straight
+      and can only take another piece if it stands diagonally with it.
+  - chapterIndex: 1
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 2d5d5599233de1f4889a999f20aef62d, type: 3}
+    tutorialText: But it has the ability to promote into a stronger piece such as
+      CASTLE, KNIGHT, BISHOP or QUEEN, using the PROMOTE tile as shown above.
+  - chapterIndex: 1
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: cd7386abd03e2ad42bf1a1346477ffbb, type: 3}
+    tutorialText: Introducing the BOX. The BOX is a movable object that can carry
+      a piece to a higher place.
+  - chapterIndex: 1
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: bfe09632666eb2e4aaed91957b7ced65, type: 3}
+    tutorialText: You can push a BOX in straight lines, as shown above where the
+      CASTLE can push the BOXes around them,
+  - chapterIndex: 1
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: eb74ac6f9bd4844459a3d9463ddac2ea, type: 3}
+    tutorialText: But you can't push a BOX diagonally, as shown above where the BISHOP
+      cannot move to the box's place.
+  - chapterIndex: 1
+    levelIndex: 1
+    tutorialSprite: {fileID: 21300000, guid: 60cacefc3e4e83c4c9a92734af3a99a4, type: 3}
+    tutorialText: Just like other pieces, BOX can be moved up using the slopes.
+  - chapterIndex: 1
+    levelIndex: 1
+    tutorialSprite: {fileID: 21300000, guid: ff04ad84a0920d24ab960aefff76b26e, type: 3}
+    tutorialText: Or be moved down using the slopes.
+  - chapterIndex: 1
+    levelIndex: 2
+    tutorialSprite: {fileID: 21300000, guid: e871440d15cf628449f826e9c0729530, type: 3}
+    tutorialText: The BOX is a heavy object, so it can be dropped to block the road,
+      or kill a piece as shown above.
