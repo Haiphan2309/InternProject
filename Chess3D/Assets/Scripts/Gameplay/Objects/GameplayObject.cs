@@ -221,7 +221,6 @@ public class GameplayObject : MonoBehaviour
         {
             Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
             Destroy(gameObject);
-            Debug.Log("Destroy Object Successfully");
         });
     }
 
@@ -230,10 +229,6 @@ public class GameplayObject : MonoBehaviour
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
         Debug.Log(tileInfo.tileType);
         GameplayManager.Instance.UpdateTile(posIndex, targetPosition, tileInfo);
-
-        Debug.Log("Update Position: " + this.name + " Start: " + posIndex + " Target: " + targetPosition);
-
         posIndex = targetPosition;
-
     }
 }

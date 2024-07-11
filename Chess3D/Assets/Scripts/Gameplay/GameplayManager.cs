@@ -28,7 +28,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
-    [HideInInspector] public bool isAnimMoving, isEndTurn, isEndGame;
+    [HideInInspector] public bool isAnimMoving, isEndTurn;
     private void Awake()
     {
         Instance = this;
@@ -66,7 +66,6 @@ public class GameplayManager : MonoBehaviour
         isAnimMoving = false;
         isEndTurn = true;
         enemyTurn = false;
-        isEndGame = false;
 
         uiGameplayManager.Setup();
 
@@ -142,7 +141,7 @@ public class GameplayManager : MonoBehaviour
         }
         
     }
-    private void EnemyTurn() //Xac dinh thu tu di chuyen cua cac enemy
+    private void EnemyTurn()
     {
         Debug.Log("Enemy Turn!");
 
@@ -435,7 +434,6 @@ public class GameplayManager : MonoBehaviour
     private void Win()
     {
         Debug.Log("Win");
-        isEndGame = true;
         SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, GetStarOfCurrentLevel(), remainTurn);
         StartCoroutine(Cor_ShowWinPanel());
         int star = GetStarOfCurrentLevel();
@@ -451,7 +449,6 @@ public class GameplayManager : MonoBehaviour
     void Lose()
     {
         Debug.Log("Lose");
-        isEndGame = true;
         StartCoroutine(Cor_ShowLosePanel());
     }
     private IEnumerator Cor_ShowLosePanel()
