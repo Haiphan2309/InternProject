@@ -33,10 +33,10 @@ public class UILevelSlot : MonoBehaviour
     {
         yield return new WaitUntil(() => SaveLoadManager.Instance != null);
         this.currentStarCount = SaveLoadManager.Instance.GameData.GetLevelStar(chapterIndex, levelIndex);
-
         levelData = GameUtils.GetLevelData(chapterIndex, levelIndex);
+        GameData gameData = SaveLoadManager.Instance.GameData;
 
-        if (levelData == null)
+        if (levelIndex > gameData.currentLevel)
         {
             this.isAvailable = false;
             transform.GetComponent<Image>().color = Color.black;
@@ -46,6 +46,9 @@ public class UILevelSlot : MonoBehaviour
             this.isAvailable = true;
             transform.GetComponent<Image>().color = Color.white;
         }
+
+        // EASY ACCESS PURPORSE
+        isAvailable = true;
 
         SpriteSetup();
         ButtonSetup();
