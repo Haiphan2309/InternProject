@@ -524,4 +524,51 @@ public class ChessManConfig : ScriptableObject
     {
         return possibleMoveList[Random.Range(0, possibleMoveList.Count)];
     }
+
+    //Thuc hien dua ra mot nuoc di ne ngau nhien
+    public Vector3 RetreatMove(Vector3 posIndex)
+    {
+        List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
+        List<Vector3> retreatMoves = new List<Vector3>();
+        List<Vector3> posibleMoves = Move(posIndex);
+        for (int i = 0; i< posibleMoves.Count; i++)
+        {
+            //check if this move is safe
+            bool isMoveSafe = true;
+            foreach(var player in playerArmy)
+            {
+                List<Vector3> playerPosibleMoves = player.config.Move(player.posIndex);
+                foreach (var playerMove in playerPosibleMoves)
+                {
+                    if (GameUtils.CompareVector3(posibleMoves[i], playerMove))
+                    {
+                        isMoveSafe = false;
+                        break;
+                    }
+                }
+                Debug.Log("K " + player.name + "  " + isMoveSafe);
+                if (isMoveSafe == false)
+                {
+                    break;
+                }
+            }
+            Debug.Log("AA");
+            if (isMoveSafe)
+            {
+                retreatMoves.Add(posibleMoves[i]);
+            }
+        }
+        Debug.Log("BB");
+
+        if (retreatMoves.Count > 0)
+        {
+            int rand = Random.Range(0, retreatMoves.Count);
+            return retreatMoves[rand];
+        }
+        else
+        {
+            Debug.Log("KO CO DUONG NAO DE NE");
+            return Move(posIndex)[0];
+        }
+    }
 }

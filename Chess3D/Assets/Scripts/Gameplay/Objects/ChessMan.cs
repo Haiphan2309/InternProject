@@ -54,7 +54,7 @@ public class ChessMan : GameplayObject
             }
             else //Neu la king thi chay tron
             {
-                Vector3 posIndexToMove = config.RetreatState(posIndex);
+                Vector3 posIndexToMove = config.RetreatMove(posIndex);
                 GameplayManager.Instance.MakeMove(this, posIndexToMove);
             }
         }
