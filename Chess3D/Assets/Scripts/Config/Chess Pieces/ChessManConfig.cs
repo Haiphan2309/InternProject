@@ -488,7 +488,7 @@ public class ChessManConfig : ScriptableObject
     }
 
     // RetreatState: Move the piece away from the danger tiles
-    public virtual Vector3 RetreatState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority)
+    public virtual Vector3 RetreatState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority = null)
     {
         int[,,] scores = new int[GameConstants.MAX_X_SIZE, GameConstants.MAX_Y_SIZE, GameConstants.MAX_Z_SIZE];
 

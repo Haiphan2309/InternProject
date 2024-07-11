@@ -142,7 +142,7 @@ public class GameplayManager : MonoBehaviour
         }
         
     }
-    private void EnemyTurn()
+    private void EnemyTurn() //Xac dinh thu tu di chuyen cua cac enemy
     {
         Debug.Log("Enemy Turn!");
 
