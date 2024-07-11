@@ -22,7 +22,7 @@ public class GameplayObject : MonoBehaviour
     public Outline outline;
 
     public bool isOnSlope = false;
-    public bool isOnPathSlope = false;
+    public bool isStandOnSlope = false;
     public bool isFalling = false;
 
     public LayerMask objectLayer;
@@ -130,30 +130,72 @@ public class GameplayObject : MonoBehaviour
 
         TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
 
-        switch (tileType)
+        if (!isStandOnSlope)
         {
-            case TileType.SLOPE_0:
-                rotation.x = 45 * (Mathf.Round(direction.normalized.z));
-                isOnSlope = true;
-                break;
-            case TileType.SLOPE_90:
-                rotation.x = -45 * (Mathf.Round(direction.normalized.x));
-                isOnSlope = true;
-                break;
-            case TileType.SLOPE_180:
-                rotation.x = -45 * (Mathf.Round(direction.normalized.z));
-                isOnSlope = true;
-                break;
-            case TileType.SLOPE_270:
-                rotation.x = 45 * (Mathf.Round(direction.normalized.x));
-                isOnSlope = true;
-                break;
+            switch (tileType)
+            {
+                case TileType.SLOPE_0:
+                    rotation.x = 45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_90:
+                    rotation.x = -45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_180:
+                    rotation.x = -45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_270:
+                    rotation.x = 45;
+                    isOnSlope = true;
+                    break;
 
-            default:
+                default:
+                    rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+                    isOnSlope = false;
+                    break;
+            }
+        }
+        else
+        {
+            if (GameUtils.CheckSlope(tileType))
+            {
+                isOnSlope = true;
+            }
+            else
+            {
                 rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
                 isOnSlope = false;
-                break;
+            }
         }
+
+        //switch (tileType)
+        //{
+        //    case TileType.SLOPE_0:
+        //        rotation.x = 45 * (Mathf.Round(direction.normalized.z));
+        //        isOnSlope = true;
+        //        break;
+        //    case TileType.SLOPE_90:
+        //        rotation.x = -45 * (Mathf.Round(direction.normalized.x));
+        //        isOnSlope = true;
+        //        break;
+        //    case TileType.SLOPE_180:
+        //        rotation.x = -45 * (Mathf.Round(direction.normalized.z));
+        //        isOnSlope = true;
+        //        break;
+        //    case TileType.SLOPE_270:
+        //        rotation.x = 45 * (Mathf.Round(direction.normalized.x));
+        //        isOnSlope = true;
+        //        break;
+
+        //    default:
+        //        rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+        //        isOnSlope = false;
+        //        break;
+        //}
+
+
 
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
@@ -185,6 +227,7 @@ public class GameplayObject : MonoBehaviour
     public virtual void SetPosIndex()
     {
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+        Debug.Log(tileInfo.tileType);
         GameplayManager.Instance.UpdateTile(posIndex, targetPosition, tileInfo);
         posIndex = targetPosition;
     }

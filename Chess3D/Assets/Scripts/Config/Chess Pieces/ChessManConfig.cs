@@ -23,6 +23,26 @@ public class ChessManConfig : ScriptableObject
         { -2f, 1f }, { 2f, 1f }, { 2f, -1f }, { -2f, -1f }
     };
 
+    // Check if the tile ahead is blocking the move
+    private bool IsBlocked(Vector3 currentMove)
+    {
+        bool isBlocked = false;
+        TileType tileData = GameUtils.GetTile(currentMove);
+        switch (tileData)
+        {
+            // if it's not GROUND / BOX / SLOPES then it's NONE / OBJECT / BOULDER / WATER
+            case TileType.GROUND:
+            case TileType.OBJECT:
+                isBlocked = true;
+                break;
+
+            // else
+            default:
+                break;
+        }
+        return isBlocked;
+    }
+
     // Check if the potential tile that the pieces move into can be stood on
     private bool CanStandOn(Vector3 currentMove)
     {
@@ -248,9 +268,11 @@ public class ChessManConfig : ScriptableObject
             move = currentMove + direction;
 
             // Debug.Log("Load " + move.ToString());
+            if (IsBlocked(move))
+            {
+                break;
+            }
             // We find the first tile below the next move
-            // If the piece is pushing the OBJECT:
-            // 
             while (move.y >= 1f && GameUtils.InBound(move) && !CanStandOn(move))
             {
                 if (dynamicObjectOnDirection) return;

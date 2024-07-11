@@ -17,9 +17,11 @@ namespace GDC.Managers
         [SerializeField] GameObject runtimeConsole;
         [SerializeField] int buildVersion;
         [SerializeField] int buildTime;
+        [SerializeField] int buildSubTime;
         [SerializeField] TMP_Text versionText;
         public int BuildVersion => this.buildVersion;
         public int BuildTime => this.buildTime;
+        public int BuildSubTime => this.buildSubTime;
         public AudioSource AudioSource {get; set;}
         public bool isLoadSceneComplete = true;
         void Awake()
@@ -38,10 +40,10 @@ namespace GDC.Managers
             }
 #if ENABLE_CHEAT
             this.runtimeConsole.SetActive(true);
-            this.versionText.text = $"Version {this.buildVersion}.{this.buildTime} - Cheat";
+            this.versionText.text = $"Version {this.buildVersion}.{this.buildTime}.{this.buildSubTime} - Cheat";
 #else
             //this.runtimeConsole.SetActive(false);
-            this.versionText.text = $"Version {this.buildVersion}.{this.buildTime} - Release";
+            this.versionText.text = $"Version {this.buildVersion}.{this.buildTime}.{this.buildSubTime} - Release";
 #endif
         }
 
@@ -193,7 +195,25 @@ namespace GDC.Managers
         {
             StartCoroutine(Cor_InitData(chapterIndex, levelIndex));
         }
-        IEnumerator Cor_InitData(int chapterIndex, int levelIndex)
+        public void LoadMenuChapter()
+        {
+            StartCoroutine(Cor_LoadMenuChapter());
+        }
+        public void LoadMenuLevel(int chapterIndex)
+        {
+            StartCoroutine(Cor_LoadMenuLevel(chapterIndex));
+        }
+        private IEnumerator Cor_LoadMenuChapter()
+        {
+            yield return new WaitUntil(() => UIManager.Instance != null);
+            UIManager.Instance.IntoChapterMenu();
+        }
+        private IEnumerator Cor_LoadMenuLevel(int chapterIndex)
+        {
+            yield return new WaitUntil(() => UIManager.Instance != null);
+            UIManager.Instance.IntoLevelMenu(chapterIndex);
+        }
+        private IEnumerator Cor_InitData(int chapterIndex, int levelIndex)
         {
             yield return new WaitUntil(() => GameplayManager.Instance != null);
             //string levelName = "Level_" + (levelIndex+1).ToString();

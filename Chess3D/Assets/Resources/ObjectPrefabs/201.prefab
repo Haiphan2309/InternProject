@@ -72,6 +72,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ea6b9ba8d9f809b4f8ce0d882eabde59, type: 3}
+      propertyPath: m_TagString
+      value: Object
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea6b9ba8d9f809b4f8ce0d882eabde59, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -114,7 +118,7 @@ MonoBehaviour:
   defaultSpeed: 5
   outline: {fileID: 1249440887912763412}
   isOnSlope: 0
-  isOnPathSlope: 0
+  isStandOnSlope: 0
   isFalling: 0
   objectLayer:
     serializedVersion: 2

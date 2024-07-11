@@ -15,9 +15,55 @@ MonoBehaviour:
   tutorialDatas:
   - chapterIndex: 0
     levelIndex: 0
-    tutorialSprite: {fileID: 21300000, guid: 30ea822139c5b414987049aa2bb718e1, type: 3}
-    tutorialText: "\u0110o\u1EA1n test n\xE0o \u0111\xF3 cho tutorial th\u1EE9 nh\u1EA5t"
+    tutorialSprite: {fileID: 21300000, guid: a0804ceb06b880b4da8970ce70c86681, type: 3}
+    tutorialText: Welcome to CHESS 3D!
   - chapterIndex: 0
     levelIndex: 0
-    tutorialSprite: {fileID: 21300000, guid: 952274f5b34c0e24bba972ae030da6ae, type: 3}
-    tutorialText: "\u0110o\u1EA1n test n\xE0o \u0111\xF3 cho tutorial th\u1EE9 hai"
+    tutorialSprite: {fileID: 21300000, guid: 01b4c9e040edb5d45a29ca67f52c45c4, type: 3}
+    tutorialText: This is the KING, the most important piece. You lose if your KING
+      is taken.
+  - chapterIndex: 0
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 667e03dae98da2d4084aad1bc46119db, type: 3}
+    tutorialText: You win by taking the enemy's KING, as shown by the CASTLE's movement
+      above.
+  - chapterIndex: 0
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 878de9fd59e68354da7ab28e8ea2b367, type: 3}
+    tutorialText: The KING's movement is as follows
+  - chapterIndex: 0
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: a1bd954164c57674ebdc751eb57f34b4, type: 3}
+    tutorialText: This is the CASTLE, it can go in the straight lines if the line
+      has no obstacles.
+  - chapterIndex: 0
+    levelIndex: 1
+    tutorialSprite: {fileID: 21300000, guid: 46164675f48ee5f4791496b76eae26d5, type: 3}
+    tutorialText: The slopes are ways to get your pieces on a higher place.
+  - chapterIndex: 0
+    levelIndex: 1
+    tutorialSprite: {fileID: 21300000, guid: 59b99dedb4b865c46954d4b33416b533, type: 3}
+    tutorialText: The slopes also allow the pieces to go to the lower places.
+  - chapterIndex: 0
+    levelIndex: 2
+    tutorialSprite: {fileID: 21300000, guid: fae0b1fd48182ca4382e60b253591e0a, type: 3}
+    tutorialText: Introducing the KNIGHT. KNIGHT allows you to go high or low without
+      slopes.
+  - chapterIndex: 0
+    levelIndex: 2
+    tutorialSprite: {fileID: 21300000, guid: 93cd1eabe58715e418460977177dd6d7, type: 3}
+    tutorialText: But KNIGHT has its limit too. It can't jump into the very high
+      places.
+  - chapterIndex: 0
+    levelIndex: 3
+    tutorialSprite: {fileID: 21300000, guid: bca6fe1052caed64e8919e7fde765fc8, type: 3}
+    tutorialText: The water tiles blocks the pieces from moving in its directions.
+  - chapterIndex: 0
+    levelIndex: 3
+    tutorialSprite: {fileID: 21300000, guid: 9a11b3f07107cfc4b946a412d0d1690c, type: 3}
+    tutorialText: Introducing the BISHOP. BISHOP can slide through the water tiles
+      as shown below, making it usable if the level has many water tiles.
+  - chapterIndex: 0
+    levelIndex: 4
+    tutorialSprite: {fileID: 21300000, guid: 49832f66b2f490545b776639ab7a6e40, type: 3}
+    tutorialText: The QUEEN is the strongest piece, its movements are shown above.

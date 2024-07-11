@@ -29,10 +29,12 @@ public class Boulder : GameplayObject
     IEnumerator Cor_BoulderMoveAnim(Vector3 target, Vector3 direction)
     {
         isAnim = true;
+
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
+        direction = GameUtils.SnapToGrid(direction);
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
         targetPosition = target;
-        Debug.Log("BOX Position: " + posIndex + " Target: " + targetPosition);
+        Debug.Log("BOULDER Position: " + posIndex + " Target: " + targetPosition);
 
         // Calculate Path from First Pos to Target Pos
         List<Vector3> path = CalculatePath(currIdx, target);
@@ -72,7 +74,7 @@ public class Boulder : GameplayObject
             }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
 
         if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
         {
