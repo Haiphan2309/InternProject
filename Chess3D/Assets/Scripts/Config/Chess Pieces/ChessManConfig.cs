@@ -558,6 +558,10 @@ public class ChessManConfig : ScriptableObject
     //check if this move is safe for enemy
     public bool CheckMoveIsSafe(Vector3 posIndex)
     {
+        int tempTileId = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex).id;
+        TileType tempTileType = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex).tileType;
+        GameplayManager.Instance.levelData.SetTileInfoNoDeep(posIndex, 0, TileType.NONE); //Gia su cho do sau khi di la none (none de de di chuyen)
+            
         List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
         foreach (var player in playerArmy)
         {
@@ -567,10 +571,12 @@ public class ChessManConfig : ScriptableObject
 
                 if (GameUtils.CompareVector3(posIndex, playerMove))
                 {
+                    GameplayManager.Instance.levelData.SetTileInfoNoDeep(posIndex, tempTileId, tempTileType); //Tra ve ban dau
                     return false;
                 }
             }
         }
+        GameplayManager.Instance.levelData.SetTileInfoNoDeep(posIndex, tempTileId, tempTileType); //Tra ve ban dau
         return true;
     }
 }
