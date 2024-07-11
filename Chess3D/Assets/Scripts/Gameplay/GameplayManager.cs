@@ -1,6 +1,7 @@
 using GDC.Enums;
 using GDC.Managers;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
@@ -148,6 +149,8 @@ public class GameplayManager : MonoBehaviour
 
         foreach (var enemy in enemyArmy)
         {
+            if (enemy.config.chessManType == ChessManType.KING && levelData.GetEnemyArmies()[enemy.index].isAI) 
+                continue;
             foreach (var player in playerArmy)
             {
                 foreach (var move in enemy.config.Move(enemy.posIndex))

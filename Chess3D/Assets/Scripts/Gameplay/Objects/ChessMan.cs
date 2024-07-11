@@ -47,16 +47,23 @@ public class ChessMan : GameplayObject
         EnemyArmy enemy = GameplayManager.Instance.levelData.GetEnemyArmies()[index];
         if (enemy.isAI)
         {
+            Vector3 posIndexToMove;
             if (config.chessManType != ChessManType.KING)
             {
-                Vector3 posIndexToMove = config.MoveByDefault(posIndex);
-                GameplayManager.Instance.MakeMove(this, posIndexToMove);
+                posIndexToMove = config.MoveByDefault(posIndex);
             }
             else //Neu la king thi chay tron
             {
-                Vector3 posIndexToMove = config.RetreatMove(posIndex);
-                GameplayManager.Instance.MakeMove(this, posIndexToMove);
+                posIndexToMove = config.RetreatMove(posIndex);
             }
+
+            GameplayObject obj = GameUtils.GetGameplayObjectByPosition(posIndexToMove);
+            ChessMan playerChessManDefeated = null;
+            if (obj != null)
+            {
+                playerChessManDefeated = obj.GetComponent<ChessMan>();
+            }
+            GameplayManager.Instance.MakeMove(this, posIndexToMove, playerChessManDefeated);
         }
         else
         {
