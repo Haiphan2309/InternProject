@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
     private float moveMax = 1f;
     private float moveMin = 0f;
     private float smoothMoveTime = 0.25f;
-    private float pinchMoveAngle = 10f;
+    private float pinchMoveAngle = 90f;
     [SerializeField] private float moveSpeedX = 1f;
     [SerializeField] private float moveSpeedY = 1f;
 

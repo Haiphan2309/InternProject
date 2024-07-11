@@ -5653,8 +5653,8 @@ MonoBehaviour:
   smoothTime: 0.2
   chess: {fileID: 0}
   zoomSpeed: 3
-  moveSpeedX: 10
-  moveSpeedY: 10
+  moveSpeedX: 4
+  moveSpeedY: 4
 --- !u!114 &1349836854
 MonoBehaviour:
   m_ObjectHideFlags: 0

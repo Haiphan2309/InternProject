@@ -63,7 +63,7 @@ namespace GDC.Common
             else if (transitionType == TransitionType.IN)
             {
                 image.color = Color.clear;
-                //SoundManager.Instance.PlaySound(SoundID.SFX_TRANSITION_IN);
+                SoundManager.Instance.PlaySound(SoundID.SFX_TRANSITION_IN);
                 inUpRect.anchoredPosition = new Vector2(0, 3000);
                 inDownRect.anchoredPosition = new Vector2(0, -3000);
                 inLeftRect.anchoredPosition = new Vector2(-3000, 0);
@@ -119,7 +119,7 @@ namespace GDC.Common
             {
                 imageRectTransform.gameObject.SetActive(false);
                 image.color = Color.clear;
-                //SoundManager.Instance.PlaySound(SoundID.SFX_TRANSITION_OUT);
+                SoundManager.Instance.PlaySound(SoundID.SFX_TRANSITION_OUT);
                 inUpRect.anchoredPosition = new Vector2(0, 900);
                 inDownRect.anchoredPosition = new Vector2(0, -900);
                 inLeftRect.anchoredPosition = new Vector2(-900, 0);
