@@ -120,4 +120,16 @@ public class UIGameplayManager : MonoBehaviour
         uIChessManPanel.UpdateHolder(chessMan);
     }
     
+    public void ChangeTurn(bool enemyturn)
+    {
+        if (enemyturn)
+        {
+            uIInformationPanel.ChangeToEnemyTurn();
+        }
+        else
+        {
+            uIInformationPanel.ChangeToPlayerTurn();
+        }
+    }
+   
 }

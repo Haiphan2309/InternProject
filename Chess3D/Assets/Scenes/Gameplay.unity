@@ -251,8 +251,6 @@ MonoBehaviour:
   enemyTurn: 0
   isAnimMoving: 0
   isEndTurn: 0
-  levelIndexTest: 0
-  chapterIndexTest: 0
   logTestPos: {x: 0, y: 0, z: 0}
 --- !u!4 &386281600
 Transform:
@@ -6545,6 +6543,10 @@ PrefabInstance:
     - target: {fileID: 8890560813862063091, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033202521093324600, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -88
       objectReference: {fileID: 0}
     - target: {fileID: 9217503557741931271, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
       propertyPath: m_Color.a
