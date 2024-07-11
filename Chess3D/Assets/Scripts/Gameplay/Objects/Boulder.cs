@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using GDC.Enums;
+using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,16 +32,10 @@ public class Boulder : GameplayObject
         isAnim = true;
 
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
+        direction = GameUtils.SnapToGrid(direction);
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
         targetPosition = target;
-        Debug.Log("BOX Position: " + posIndex + " Target: " + targetPosition);
-
-        float ballRadius = transform.localScale.x / 2;
-        float circumference = 2 * Mathf.PI * ballRadius;
-        float rotations = 1000 / circumference;
-        float rotationAngle = rotations * 360;
-
-        transform.DORotate(new Vector3(rotationAngle, 0f, 0f), 1f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+        Debug.Log("BOULDER Position: " + posIndex + " Target: " + targetPosition);
 
         // Calculate Path from First Pos to Target Pos
         List<Vector3> path = CalculatePath(currIdx, target);
@@ -78,9 +73,14 @@ public class Boulder : GameplayObject
                 GameplayManager.Instance.UpdateTile(gridCell);
                 destroyGO.Defeated();
             }
+            else if (tile == TileType.WATER)
+            {
+                SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_WATER_SPLASH);
+                IsDrop();
+            }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(1f);
 
         if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
         {
@@ -232,6 +232,7 @@ public class Boulder : GameplayObject
     {
         GameplayObject gameplayObject = GetChessman(this.posIndex, targetPosition, Vector3.up);
         CheckChessman(gameplayObject, this.posIndex, targetPosition);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_DISAPPEAR);
         base.SetPosIndex();
     }
 }

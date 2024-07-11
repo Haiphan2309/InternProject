@@ -1,4 +1,5 @@
 using GDC.Enums;
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -59,6 +60,10 @@ public class UIGameplayManager : MonoBehaviour
     {
         int chapterId = GameplayManager.Instance.chapterData.id;
         int levelId = GameplayManager.Instance.levelData.id;
+
+        //Neu man nay da duoc choi qua thi ko can show tutorial nua
+        if (SaveLoadManager.Instance.GameData.CheckPlayedLevelBefore(chapterId, levelId)) return;
+
         foreach (var tutorialData in tutorialConfig.tutorialDatas)
         {
             if (chapterId == tutorialData.chapterIndex && levelId == tutorialData.levelIndex)
@@ -115,4 +120,16 @@ public class UIGameplayManager : MonoBehaviour
         uIChessManPanel.UpdateHolder(chessMan);
     }
     
+    public void ChangeTurn(bool enemyturn)
+    {
+        if (enemyturn)
+        {
+            uIInformationPanel.ChangeToEnemyTurn();
+        }
+        else
+        {
+            uIInformationPanel.ChangeToPlayerTurn();
+        }
+    }
+   
 }
