@@ -140,7 +140,7 @@ public class GameplayObject : MonoBehaviour
                     isOnSlope = true;
                     break;
                 case TileType.SLOPE_90:
-                    rotation.x = -45;
+                    rotation.z = 45;
                     isOnSlope = true;
                     break;
                 case TileType.SLOPE_180:
@@ -148,7 +148,7 @@ public class GameplayObject : MonoBehaviour
                     isOnSlope = true;
                     break;
                 case TileType.SLOPE_270:
-                    rotation.x = 45;
+                    rotation.z = -45;
                     isOnSlope = true;
                     break;
 
