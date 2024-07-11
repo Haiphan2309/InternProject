@@ -16,8 +16,8 @@ MonoBehaviour:
   center: {x: 5, y: 4, z: 7}
   distance: 10
   maxTurn: 20
-  starTurn2: 17
-  starTurn3: 15
+  starTurn2: 5
+  starTurn3: 10
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
