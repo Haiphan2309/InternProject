@@ -89,7 +89,7 @@ public class CameraController : MonoBehaviour
     {
         if (_camera != null && !isLocked)
         {
-            HandleMoveCamera();
+            //HandleMoveCamera();
             HandleZoomCamera();
             HandleSwipeCamera();
         }
@@ -125,6 +125,8 @@ public class CameraController : MonoBehaviour
         transform.rotation = rotation;
         transform.position = position;
     }
+
+    
     private void HandleZoomCamera()
     {
         if (Input.touchCount == 2 && !EventSystem.current.IsPointerOverGameObject())
@@ -138,11 +140,12 @@ public class CameraController : MonoBehaviour
 
             Vector2 touchFirstVector = touchFirst.position - touchFirstPrePos;
             Vector2 touchSecondVector = touchSecond.position - touchSecondPrePos;
-            if (Vector2.Angle(touchFirstVector, touchSecondVector) < 45f)
+            if (Vector2.Angle(touchFirstVector, touchSecondVector) < 45f) // Move Camera
             {
-                Debug.Log("MoveCamera");
+                Vector2 moveVector = Vector2.Lerp(touchFirstVector, touchSecondVector, 0.5f).normalized;
+                Move(moveVector.x, moveVector.y);
             }
-            else
+            else // Zoom Camera
             {
                 float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
                 float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
