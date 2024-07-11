@@ -542,6 +542,7 @@ public class ChessManConfig : ScriptableObject
                 {
                     if (GameUtils.CompareVector3(posibleMoves[i], playerMove))
                     {
+                        Debug.Log("THIS NOT SAFE: " + posibleMoves[i] + " " + playerMove);
                         isMoveSafe = false;
                         break;
                     }
