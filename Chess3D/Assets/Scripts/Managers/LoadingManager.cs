@@ -15,6 +15,7 @@ namespace GDC.Managers
         public static LoadingManager Instance {get; private set;}
         [SerializeField] GameObject loadingCanvas;
         [SerializeField] Image loadingIcon;
+        [SerializeField] List<Sprite> loadingSprites;
         void Awake()
         {
             if (Instance != null)
@@ -41,7 +42,9 @@ namespace GDC.Managers
             this.loadingCanvas.SetActive(isLoading);
             if (isLoading)
             {
-                //todo
+                int rand = Random.Range(0, loadingSprites.Count);
+                loadingIcon.sprite = loadingSprites[rand];
+                loadingIcon.SetNativeSize();
             }    
         }
     }

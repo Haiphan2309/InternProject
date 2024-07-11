@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9938e02597404e54f8bd7d20d972854e, type: 3}
+  m_Name: Music Sound Map
+  m_EditorClassIdentifier: 
+  soundType: 1
+  path: SoundData/Music
+  SoundMappingList:
+  - name: MUSIC_MAIN_MENU
+    Id: 101
+    Data: {fileID: 11400000, guid: 6f79f615a6dcc5d44b635005ae3ed583, type: 2}
+  - name: GAMEPLAY_1
+    Id: 151
+    Data: {fileID: 11400000, guid: 9672e3109f83b9e43847d54a30d5803c, type: 2}

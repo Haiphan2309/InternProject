@@ -1,4 +1,5 @@
 using GDC.Managers;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -25,6 +26,12 @@ public class UILevelSlot : MonoBehaviour
     {
         this.chapterIndex = chapterIndex;
         this.levelIndex = levelIndex;
+        StartCoroutine(Cor_LevelSetup());
+    }
+
+    IEnumerator Cor_LevelSetup()
+    {
+        yield return new WaitUntil(() => SaveLoadManager.Instance != null);
         this.currentStarCount = SaveLoadManager.Instance.GameData.GetLevelStar(chapterIndex, levelIndex);
 
         levelData = GameUtils.GetLevelData(chapterIndex, levelIndex);
@@ -88,13 +95,14 @@ public class UILevelSlot : MonoBehaviour
 
     private void LoadLevel(int chapterIndex, int levelIndex)
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         GDC.Managers.GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.GAMEPLAY,
             GDC.Enums.TransitionType.IN,
             SoundType.NONE,
             cb: () =>
             {
-                GDC.Managers.GameManager.Instance.SetInitData(chapterIndex, levelIndex);
+                GameManager.Instance.SetInitData(chapterIndex, levelIndex);
             },
             true);
     }

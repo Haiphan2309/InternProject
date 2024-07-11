@@ -616,7 +616,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 10
+  m_CameraDistance: 20
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -5776,10 +5776,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7186807886058418985, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8307350613816180652, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

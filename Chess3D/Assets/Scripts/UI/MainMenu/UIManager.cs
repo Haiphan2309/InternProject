@@ -42,7 +42,8 @@ public class UIManager : MonoBehaviour
     public UIPopupAnim creditPagePrefab;
     public UISetting settingPagePrefab;
 
-    private float hidePosition = 600f;
+    private readonly float hidePosition = 600f;
+    public readonly float timer = 1f;
 
     private Color leftCircleColor = new Color(200f / 255f, 150f / 255f, 1f);
     private Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
@@ -50,9 +51,9 @@ public class UIManager : MonoBehaviour
     private Color leftChessPieceColor = new Color(0f, 0.5f, 1f);
     private Color rightChessPieceColor = new Color(1f, 0.5f, 0f);
 
-    private Stack<UI> UIStack = new Stack<UI>();
-    private List<Button> chapterButton = new List<Button>();
-    private List<Button> levelButton = new List<Button>();
+    private readonly Stack<UI> UIStack = new Stack<UI>();
+    private readonly List<Button> chapterButton = new List<Button>();
+    private readonly List<Button> levelButton = new List<Button>();
 
     private void Awake()
     {
@@ -68,24 +69,45 @@ public class UIManager : MonoBehaviour
 
     public void IntoChapterMenu()
     {
+        // Debug.Log(Instance);
+        StartCoroutine(Cor_IntoChapterMenu());
+    }
+
+    IEnumerator Cor_IntoChapterMenu()
+    {
         UIStack.Push(mainMenu);
+        yield return new WaitForSeconds(timer);
         chapterMenu.Anim();
     }
 
     public void IntoLevelMenu(int chapterIndex)
     {
+        StartCoroutine(Cor_IntoLevelMenu(chapterIndex));
+    }
+
+    IEnumerator Cor_IntoLevelMenu(int chapterIndex)
+    {
         UIStack.Push(mainMenu);
+        UIStack.Push(chapterMenu);
+        yield return new WaitForSeconds(timer);
         LevelPreset(chapterIndex, GameUtils.GetChapterData(chapterIndex).levelDatas.Count);
     }
 
     // Setup
     private void Preset()
     {
+        StartCoroutine(Cor_MenuSetup());
+    }
+
+    IEnumerator Cor_MenuSetup()
+    {
+        yield return new WaitUntil(() => SoundManager.Instance != null);
         SliderPreset();
         HolderPreset();
         ButtonPreset();
         ChapterPreset();
         TextPreset();
+        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.MUSIC_MAIN_MENU);
     }
 
     private void SliderPreset()
@@ -163,6 +185,8 @@ public class UIManager : MonoBehaviour
 
     private void StartButton()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_TRANSITION_IN);
         Debug.Log("Start");
         UIStack.Push(mainMenu);
         chapterMenu.Anim();
@@ -170,6 +194,7 @@ public class UIManager : MonoBehaviour
 
     private void SettingButton()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Settings");
         UISetting settingPage = Instantiate(settingPagePrefab, pageSystem);
@@ -178,6 +203,8 @@ public class UIManager : MonoBehaviour
 
     private void ReturnButton()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_TRANSITION_OUT);
         Debug.Log("Return");
         UI lastUI = UIStack.Peek();
         if (lastUI.GetType() == typeof(UIChapterMenu))
@@ -197,6 +224,7 @@ public class UIManager : MonoBehaviour
 
     private void CreditButton()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Credit");
         UIPopupAnim creditPage = Instantiate(creditPagePrefab, pageSystem);
@@ -205,13 +233,20 @@ public class UIManager : MonoBehaviour
 
     public void HideAllButtons()
     {
-        for(int i = 0; i < levelButton.Count; ++i)
+        for (int i = 0; i < levelButton.Count; ++i)
         {
+            if (levelButton[i] != null)
+            {
             levelButton[i].interactable = false;
+            }
         }
-        for(int i = 0; i < chapterButton.Count; ++i)
+
+        for (int i = 0; i < chapterButton.Count; ++i)
         {
-            chapterButton[i].interactable = false;
+            if (chapterButton[i] != null)
+            {
+                chapterButton[i].interactable = false;
+            }
         }
         startButton.GetComponent<Button>().interactable = false;
         settingButton.GetComponent<Button>().interactable = false;
@@ -225,6 +260,7 @@ public class UIManager : MonoBehaviour
         {
             levelButton[i].interactable = true;
         }
+
         for (int i = 0; i < chapterButton.Count; ++i)
         {
             chapterButton[i].interactable = true;

@@ -58,7 +58,7 @@ public class GameplayManager : MonoBehaviour
     }
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
-        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.TEST_MUSIC);
+        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1);
 
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
@@ -218,7 +218,7 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Player Turn");
         //dosomething
     }
-    void DefeatEnemyChessMan(int enemyIndex)
+    public void DefeatEnemyChessMan(int enemyIndex)
     {
         foreach(var chessman in listEnemyPriorityLowest)
         {
@@ -237,7 +237,7 @@ public class GameplayManager : MonoBehaviour
             }
         }
     }
-    void DefeatPlayerChessMan(int playerIndex)
+    public void DefeatPlayerChessMan(int playerIndex)
     {
         foreach (var chessman in playerArmy)
         {
@@ -322,24 +322,15 @@ public class GameplayManager : MonoBehaviour
     }
     void CheckShowOutlineGameplayObject(Vector3 pos)
     {
-        TileInfo tileInfo = levelData.GetTileInfoNoDeep(pos);
-        if (tileInfo.tileType == TileType.BOX || tileInfo.tileType == TileType.BOULDER)
+        GameplayObject gameplayObj = GameUtils.GetGameplayObjectByPosition(pos);
+        if (gameplayObj != null)
         {
-            Collider[] colls = Physics.OverlapBox(pos, Vector3.one / 5);
-            foreach (Collider coll in colls) 
+            gameplayObj.SetOutline(10, Color.cyan);
+            if (outlineGameplayObj == null)
             {
-                GameplayObject gameplayObj = coll.transform.GetComponent<GameplayObject>();
-
-                //Debug.Log(gameplayObj);
-                if (gameplayObj == null) continue;
-
-                gameplayObj.SetOutline(10, Color.cyan);
-                if (outlineGameplayObj == null)
-                {
-                    outlineGameplayObj = new List<GameplayObject>();
-                }
-                outlineGameplayObj.Add(gameplayObj);
+                outlineGameplayObj = new List<GameplayObject>();
             }
+            outlineGameplayObj.Add(gameplayObj);
         }
     }
     void ShowOutlineChessMan(ChessMan chessMan)

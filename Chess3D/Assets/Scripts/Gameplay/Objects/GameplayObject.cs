@@ -1,26 +1,38 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameplayObject : MonoBehaviour
 {
+    // Vị trí ban đầu của Object
     public Vector3 posIndex;
+
+    // Vị trí kết thúc của Object
+    public Vector3 targetPosition = Vector3.zero;
+
+    // Check xem có đang làm anim hay không
+    public bool isAnim = false;
+
+    public int index;
     public float defaultSpeed;
     public Outline outline;
 
     public bool isOnSlope = false;
-    public bool isOnPathSlope = false;
+    public bool isStandOnSlope = false;
     public bool isFalling = false;
 
     public LayerMask objectLayer;
-    [SerializeField] GameObject vfxDefeated;
+    [SerializeField] public GameObject vfxDefeated;
+
+
 
     public virtual void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     {
-        Debug.Log("A");
+        
     }
 
     public virtual void DestroyAnim()
@@ -99,6 +111,14 @@ public class GameplayObject : MonoBehaviour
                 continue;
             }
 
+            // Water and ChessMan below
+            if (tile == TileType.WATER || GameUtils.CheckChess(tile))
+            {
+                current.y -= 1;
+                path.Add(current);
+                continue;
+            }
+
             path.Add(current);
         }
         return path;
@@ -110,41 +130,72 @@ public class GameplayObject : MonoBehaviour
 
         TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
 
-        //if (GameUtils.CheckSlope(tileType))
-        //{
-        //    isOnSlope = true;
-        //}
-
-        //else
-        //{
-        //    rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
-        //    isOnSlope = false;
-        //}
-
-        switch (tileType)
+        if (!isStandOnSlope)
         {
-            case TileType.SLOPE_0:
-                rotation.x = 45 * (Mathf.Round(direction.normalized.z));
-                isOnSlope = true;
-                break;
-            case TileType.SLOPE_90:
-                rotation.x = -45 * (Mathf.Round(direction.normalized.x));
-                isOnSlope = true;
-                break;
-            case TileType.SLOPE_180:
-                rotation.x = -45 * (Mathf.Round(direction.normalized.z));
-                isOnSlope = true;
-                break;
-            case TileType.SLOPE_270:
-                rotation.x = 45 * (Mathf.Round(direction.normalized.x));
-                isOnSlope = true;
-                break;
+            switch (tileType)
+            {
+                case TileType.SLOPE_0:
+                    rotation.x = 45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_90:
+                    rotation.x = -45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_180:
+                    rotation.x = -45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_270:
+                    rotation.x = 45;
+                    isOnSlope = true;
+                    break;
 
-            default:
+                default:
+                    rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+                    isOnSlope = false;
+                    break;
+            }
+        }
+        else
+        {
+            if (GameUtils.CheckSlope(tileType))
+            {
+                isOnSlope = true;
+            }
+            else
+            {
                 rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
                 isOnSlope = false;
-                break;
+            }
         }
+
+        //switch (tileType)
+        //{
+        //    case TileType.SLOPE_0:
+        //        rotation.x = 45 * (Mathf.Round(direction.normalized.z));
+        //        isOnSlope = true;
+        //        break;
+        //    case TileType.SLOPE_90:
+        //        rotation.x = -45 * (Mathf.Round(direction.normalized.x));
+        //        isOnSlope = true;
+        //        break;
+        //    case TileType.SLOPE_180:
+        //        rotation.x = -45 * (Mathf.Round(direction.normalized.z));
+        //        isOnSlope = true;
+        //        break;
+        //    case TileType.SLOPE_270:
+        //        rotation.x = 45 * (Mathf.Round(direction.normalized.x));
+        //        isOnSlope = true;
+        //        break;
+
+        //    default:
+        //        rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+        //        isOnSlope = false;
+        //        break;
+        //}
+
+
 
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
@@ -163,21 +214,21 @@ public class GameplayObject : MonoBehaviour
     }
 
     [Button]
-    public void Defeated()
+    public virtual void Defeated()
     {
         Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
         transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
             Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
-            //if (isEnemy)
-            //{
-            //    GameplayManager.Instance.DefeatEnemyChessMan(index);
-            //}
-            //else
-            //{
-            //    GameplayManager.Instance.DefeatPlayerChessMan(index);
-            //}
             Destroy(gameObject);
         });
+    }
+
+    public virtual void SetPosIndex()
+    {
+        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+        Debug.Log(tileInfo.tileType);
+        GameplayManager.Instance.UpdateTile(posIndex, targetPosition, tileInfo);
+        posIndex = targetPosition;
     }
 }

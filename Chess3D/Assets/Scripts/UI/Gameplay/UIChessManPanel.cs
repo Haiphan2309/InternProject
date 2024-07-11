@@ -226,7 +226,7 @@ public class UIChessManPanel : MonoBehaviour
     {
         foreach(var holder in playerHolderList)
         {
-            if (!holder.chessMan == chessMan)
+            if (holder.chessMan == chessMan)
             {
                 ReLoadHolderImg(holder);
             }

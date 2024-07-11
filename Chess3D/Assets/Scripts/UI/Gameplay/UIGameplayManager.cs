@@ -52,8 +52,6 @@ public class UIGameplayManager : MonoBehaviour
         settingBtn.onClick.AddListener(OnSetting);
         toggleChessManBtn.onClick.AddListener(OnToggleBtnClicked);
 
-        Debug.Log("B");
-
         CheckShowTutorial();
     }
 
@@ -68,6 +66,11 @@ public class UIGameplayManager : MonoBehaviour
                 uiTutorial.EnqueueTutorial(tutorialData);
             }
         }
+        StartCoroutine(Cor_ShowTutorial());
+    }
+    IEnumerator Cor_ShowTutorial()
+    {
+        yield return new WaitForSeconds(1f);
         uiTutorial.Show();
     }
     public void ShowWin()
@@ -106,4 +109,10 @@ public class UIGameplayManager : MonoBehaviour
     {
         return uiPawnPromotion.GetPromoteType();
     }
+
+    public void UpdateHolder(ChessMan chessMan)
+    {
+        uIChessManPanel.UpdateHolder(chessMan);
+    }
+    
 }

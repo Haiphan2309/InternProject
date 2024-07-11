@@ -62,7 +62,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ea6b9ba8d9f809b4f8ce0d882eabde59, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -2867747967464863736, guid: b84d070492798b4459bba31ffb4ee39e, type: 3}
+      objectReference: {fileID: 2100000, guid: ea9549556e11baf4c94ec17316533e51, type: 2}
     - target: {fileID: 919132149155446097, guid: ea6b9ba8d9f809b4f8ce0d882eabde59, type: 3}
       propertyPath: m_Name
       value: 201
@@ -70,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ea6b9ba8d9f809b4f8ce0d882eabde59, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea6b9ba8d9f809b4f8ce0d882eabde59, type: 3}
+      propertyPath: m_TagString
+      value: Object
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ea6b9ba8d9f809b4f8ce0d882eabde59, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -107,14 +111,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69cc443a8bb81e44a5f9a7b4ef11918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posIndex: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  isAnim: 0
+  index: 0
   defaultSpeed: 5
   outline: {fileID: 1249440887912763412}
   isOnSlope: 0
-  isOnPathSlope: 0
+  isStandOnSlope: 0
   isFalling: 0
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
+  vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
 --- !u!114 &1249440887912763412
 MonoBehaviour:
   m_ObjectHideFlags: 0

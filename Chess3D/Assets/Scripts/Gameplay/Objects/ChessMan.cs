@@ -20,13 +20,12 @@ public class ChessMan : GameplayObject
     public ChessManType testPromoteType;
 
     public bool isEnemy;
-    public int index;
+    //public int index;
     int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
 
-    public bool isTouchBox = false;
-    public bool isTouchBoulder = false;
-
     int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
+
+    List<Vector3> showPath = new List<Vector3>();
 
     public void Setup(PlayerArmy playerArmy, int index, Vector3 posIndex)
     {
@@ -56,7 +55,7 @@ public class ChessMan : GameplayObject
             List<Vector3> moves = enemy.movePosIndexs;
             if (moves.Count == 0)
             {
-                Debug.LogError(gameObject.name + " khong co nuoc di mac dinh nao ca!");
+                Debug.Log(gameObject.name + " khong co nuoc di mac dinh nao ca! -> skip");
                 return false;
             }
 
@@ -111,16 +110,14 @@ public class ChessMan : GameplayObject
     IEnumerator Cor_KnightMoveAnim(Vector3 target)
     {
         Vector3 direction = (target - transform.position).normalized;
+        targetPosition = target;
         RotateToDirection(direction);
 
         yield return new WaitForSeconds(0.5f);
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            // AjustPosToGround(transform.position, target, target - transform.position, true, true);
-            TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
-
-            GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
-            posIndex = target;
+            SetPosIndex();
+            CheckBox(target);
             GameplayManager.Instance.EndTurn();
         });
     }
@@ -142,7 +139,9 @@ public class ChessMan : GameplayObject
         Vector3 currPos = transform.position;
         Vector3 currIdx = posIndex;
 
-        Vector3 direction = (target - currPos).normalized;
+        Vector3 direction = (target - currIdx).normalized;
+
+        Vector3 storeBoxPos = Vector3.zero;
 
         // Rotate to target
         RotateToDirection(direction);
@@ -150,20 +149,34 @@ public class ChessMan : GameplayObject
 
         // Calculate Path from First Pos to Target Pos
         List<Vector3> path = CalculatePath(currIdx, target);
+        showPath = path;
+        targetPosition = target;
+
+        Vector3 gameplayObjectPosition = Vector3.zero;
+        GameplayObject gameplayObject = null;
+
+        int i = 1;
 
         // Move
         foreach (var gridCell in path)
         {
-            Debug.Log("Grid: " + gridCell);
-            Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(gridCell);
-            GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+            gameplayObjectPosition = GameUtils.SnapToGrid(gridCell);
+
+            gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+
             Vector3 boxDirection = direction;
             boxDirection.y = 0;
 
-            if (gameplayObject != null)
+            Debug.Log($"[{i}] {gameplayObject}");
+            i++;
+
+            if (gameplayObject != null && !gameplayObject.isAnim)
             {
-                gameplayObject.MoveAnim(gridCell, boxDirection, 5f * Time.deltaTime);
+                gameplayObject.MoveAnim(target, boxDirection, 5f * Time.deltaTime);
+
                 yield return null;
+
+                //yield return new WaitForSeconds(0.5f);
             }
             
 
@@ -178,12 +191,17 @@ public class ChessMan : GameplayObject
             }
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return null;
 
-        TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
+        if (gameplayObject != null && gameplayObject.CompareTag("Object"))
+        {
+            yield return new WaitUntil(() => gameplayObject.isAnim == false);
+            gameplayObject.SetPosIndex();
+        }
 
-        GameplayManager.Instance.UpdateTile(posIndex, target, tileInfo);
-        posIndex = target;
+        isStandOnSlope = isOnSlope;
+
+        SetPosIndex();
 
         CheckBox(target);
         StartCoroutine(CheckPromote());
@@ -202,7 +220,7 @@ public class ChessMan : GameplayObject
             }
 
             Promote(testPromoteType);
-            // Call UpdateHolder (KHANG NHO CALL NHA)
+            GameplayManager.Instance.uiGameplayManager.UpdateHolder(this);
         }
 
         GameplayManager.Instance.EndTurn();
@@ -210,20 +228,13 @@ public class ChessMan : GameplayObject
 
     void RotateToDirection(Vector3 direction)
     {
+        Transform childObject = transform.GetChild(0);
+
         Quaternion targetRotation = Quaternion.FromToRotation(Vector3.forward, direction);
-        Vector3 eulerAngles = transform.rotation.eulerAngles;
-        eulerAngles.y = 0;
-        transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
+        Vector3 eulerAngles = childObject.rotation.eulerAngles;
+
+        childObject.DOLocalRotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
     }
-
-    //void RotateToDirection(Vector3 direction)
-    //{
-    //    // Calculate target rotation relative to Y axis
-    //    Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-
-    //    // Rotate around Y axis only
-    //    transform.DORotate(Vector3.up * targetRotation.eulerAngles.y, 0.3f);
-    //}
 
     private void CheckBox(Vector3 target)
     {
@@ -234,7 +245,6 @@ public class ChessMan : GameplayObject
         {
             transform.SetParent(gameplayObject.transform);
         }
-
     }
 
 
@@ -261,6 +271,7 @@ public class ChessMan : GameplayObject
 
         //
         GameplayManager.Instance.HideAvailableMove();
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_PHONG);
     }
     private ChessManConfig GetConfigFromType(ChessManType type)
     {
@@ -328,6 +339,23 @@ public class ChessMan : GameplayObject
     void TestPromote()
     {
         Promote(testPromoteType);
+    }
+    [Button]
+    void ShowMoveAvaiList()
+    {
+        foreach(var move in config.Move(posIndex))
+        {
+            Debug.Log("Avai " + move);
+        }
+    }
+
+    [Button]
+    void ShowPath()
+    {
+        foreach (var path in showPath)
+        {
+            Debug.Log("Path: " + path);
+        }
     }
 #endif
 }

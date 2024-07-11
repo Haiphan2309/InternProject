@@ -106,8 +106,8 @@ namespace GDC.Managers
         //     }
         // }
 
-        void Update()
-        {
+        //void Update()
+        //{
 // #if UNITY_EDITOR || UNITY_STANDALONE
 //             if( Input.GetKeyDown( KeyCode.M ) )
 //             {
@@ -116,7 +116,7 @@ namespace GDC.Managers
 //                 TriggerDisableMusic();
 //             }
 // #endif
-        }
+        //}
 
         void TriggerDisableMusic()
         {

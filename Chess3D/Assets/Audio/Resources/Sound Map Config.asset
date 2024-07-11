@@ -15,3 +15,7 @@ MonoBehaviour:
   MapPath:
   - Type: 0
     Path: SoundMaps/Common Sound Map
+  - Type: 1
+    Path: SoundMaps/Music Sound Map
+  - Type: 2
+    Path: SoundMaps/Sound Effect Sound Map

@@ -8240,13 +8240,6 @@ MonoBehaviour:
     movePosIndexs:
     - {x: 2, y: 2, z: 5}
     - {x: 2, y: 2, z: 6}
-  - chessManType: 5
-    posIndex: {x: 4, y: 2, z: 7}
-    isAI: 0
-    priority: 0
-    movePosIndexs:
-    - {x: 5, y: 2, z: 7}
-    - {x: 4, y: 2, z: 7}
   - chessManType: 0
     posIndex: {x: 3, y: 2, z: 6}
     isAI: 0
@@ -8275,4 +8268,11 @@ MonoBehaviour:
     movePosIndexs:
     - {x: 1, y: 2, z: 5}
     - {x: 1, y: 2, z: 6}
+  - chessManType: 5
+    posIndex: {x: 4, y: 2, z: 7}
+    isAI: 0
+    priority: 2
+    movePosIndexs:
+    - {x: 5, y: 2, z: 7}
+    - {x: 4, y: 2, z: 7}
   thumbnail: {fileID: 21300000, guid: 1fec6ba5ce57b784f84ae154cd5a23b7, type: 3}

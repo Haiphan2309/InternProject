@@ -8,10 +8,12 @@ using UnityEngine.UI;
 
 public class UITutorial : MonoBehaviour
 {
-    [SerializeField] UIPopupAnim uiPopupAnim;
-    [SerializeField] Image tutorialImage;
-    [SerializeField] TMP_Text tutorialText;
-    Queue<TutorialData> tutorialDataQueue;
+    [SerializeField] private UIPopupAnim uiPopupAnim;
+    [SerializeField] private Image tutorialImage;
+    [SerializeField] private RectTransform imageContainRect;
+    [SerializeField] private TMP_Text tutorialText;
+    [SerializeField] private float size = 1;
+    private Queue<TutorialData> tutorialDataQueue;
 
     public void Show()
     {
@@ -23,6 +25,11 @@ public class UITutorial : MonoBehaviour
         tutorialImage.sprite = tutorialData.tutorialSprite;
         tutorialText.text = tutorialData.tutorialText;
 
+        tutorialImage.SetNativeSize();
+        tutorialImage.rectTransform.sizeDelta = new Vector2(tutorialImage.rectTransform.sizeDelta.x * size, tutorialImage.rectTransform.sizeDelta.y * size);
+        Debug.Log(tutorialImage.rectTransform.sizeDelta);
+        imageContainRect.sizeDelta = tutorialImage.rectTransform.sizeDelta;
+
         uiPopupAnim.Show();  
     }
     public void Hide()
@@ -33,7 +40,7 @@ public class UITutorial : MonoBehaviour
             StartCoroutine(Cor_Show());
         }
     }
-    IEnumerator Cor_Show()
+    private IEnumerator Cor_Show()
     {
         yield return new WaitForSeconds(0.5f);
         DOTween.KillAll();

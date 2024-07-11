@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DirtBlock
   - GrassBlock
+  - Object
   layers:
   - Default
   - TransparentFX
