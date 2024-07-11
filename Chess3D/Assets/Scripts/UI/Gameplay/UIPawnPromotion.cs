@@ -71,7 +71,6 @@ public class UIPawnPromotion : MonoBehaviour
     public void Close()
     {
         uiPopupAnim.Hide();
-        gameObject.SetActive(false);
       //  GameplayManager.Instance.camController.Unlock();
 
     }
