@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 public class CameraController : MonoBehaviour
 {
@@ -45,8 +46,9 @@ public class CameraController : MonoBehaviour
     private float moveMax = 1f;
     private float moveMin = 0f;
     private float smoothMoveTime = 0.25f;
-    [SerializeField] private float moveSpeedX = 10f;
-    [SerializeField] private float moveSpeedY = 10f;
+    private float pinchMoveAngle = 10f;
+    [SerializeField] private float moveSpeedX = 1f;
+    [SerializeField] private float moveSpeedY = 1f;
 
     private bool isLocked = false;
    
@@ -141,7 +143,7 @@ public class CameraController : MonoBehaviour
 
             Vector2 touchFirstVector = touchFirst.position - touchFirstPrePos;
             Vector2 touchSecondVector = touchSecond.position - touchSecondPrePos;
-            if (Vector2.Angle(touchFirstVector, touchSecondVector) < 45f) // Move Camera
+            if (Vector2.Angle(touchFirstVector, touchSecondVector) < pinchMoveAngle) // Move Camera
             {
                 Vector2 moveVector = Vector2.Lerp(touchFirstVector, touchSecondVector, 0.5f).normalized;
                 Move(moveVector.x, moveVector.y);
@@ -187,8 +189,8 @@ public class CameraController : MonoBehaviour
     {
         CinemachineFramingTransposer framing = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
 
-        float targetX = framing.m_ScreenX - x;
-        float targetY = framing.m_ScreenY + y;
+        float targetX = framing.m_ScreenX + x;
+        float targetY = framing.m_ScreenY - y;
 
         targetX = Mathf.Clamp(targetX, moveMin, moveMax);
         targetY = Mathf.Clamp(targetY, moveMin, moveMax);
