@@ -29,17 +29,11 @@ public class GameplayManager : MonoBehaviour
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     [HideInInspector] public bool isAnimMoving, isEndTurn;
-
-    [Header("Test only")]
-    public int levelIndexTest, chapterIndexTest;
     private void Awake()
     {
         Instance = this;
     }
-    //private void Start()
-    //{
-    //    LoadLevel(levelName);
-    //}
+
     [Button]
     void ResetLevelRef()
     {
@@ -51,11 +45,7 @@ public class GameplayManager : MonoBehaviour
         chapterData = null;
         enemyTurn = false;
     }
-    [Button]
-    public void LoadLevel()
-    {
-        LoadLevel(chapterIndexTest ,levelIndexTest);
-    }
+
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
         SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1);
@@ -78,7 +68,8 @@ public class GameplayManager : MonoBehaviour
         enemyTurn = false;
 
         uiGameplayManager.Setup();
-        Debug.Log("A");
+
+        SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
 
     void ResetEnemyPriorityLowestList()
@@ -443,6 +434,9 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Win");
         SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, GetStarOfCurrentLevel(), remainTurn);
         uiGameplayManager.ShowWin();
+        int star = GetStarOfCurrentLevel();
+        SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, star, remainTurn);
+        SaveLoadManager.Instance.Save();
     }
     void Lose()
     {
