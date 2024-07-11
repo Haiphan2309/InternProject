@@ -251,6 +251,7 @@ MonoBehaviour:
   enemyTurn: 0
   isAnimMoving: 0
   isEndTurn: 0
+  isEndGame: 0
   logTestPos: {x: 0, y: 0, z: 0}
 --- !u!4 &386281600
 Transform:
@@ -5652,6 +5653,8 @@ MonoBehaviour:
   smoothTime: 0.2
   chess: {fileID: 0}
   zoomSpeed: 5
+  moveSpeedX: 10
+  moveSpeedY: 10
 --- !u!114 &1349836854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6546,7 +6549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9033202521093324600, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9217503557741931271, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
       propertyPath: m_Color.a
