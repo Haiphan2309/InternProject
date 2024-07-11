@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using GDC.Enums;
+using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,6 +72,11 @@ public class Boulder : GameplayObject
                 GameplayObject destroyGO = GameUtils.GetGameplayObjectByPosition(gridCell);
                 GameplayManager.Instance.UpdateTile(gridCell);
                 destroyGO.Defeated();
+            }
+            else if (tile == TileType.WATER)
+            {
+                SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_WATER_SPLASH);
+                IsDrop();
             }
         }
 
@@ -226,6 +232,7 @@ public class Boulder : GameplayObject
     {
         GameplayObject gameplayObject = GetChessman(this.posIndex, targetPosition, Vector3.up);
         CheckChessman(gameplayObject, this.posIndex, targetPosition);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_DISAPPEAR);
         base.SetPosIndex();
     }
 }
