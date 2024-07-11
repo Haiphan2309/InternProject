@@ -40,7 +40,7 @@ public class Boulder : GameplayObject
         float rotations = 1000 / circumference;
         float rotationAngle = rotations * 360;
 
-        transform.DORotate(new Vector3(rotationAngle, 0f, 0f), 1f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+        // transform.DORotate(new Vector3(rotationAngle, 0f, 0f), 1f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
 
         // Calculate Path from First Pos to Target Pos
         List<Vector3> path = CalculatePath(currIdx, target);
