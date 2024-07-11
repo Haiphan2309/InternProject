@@ -52,13 +52,12 @@ public class UIInformationPanel : MonoBehaviour
     private void PlayTextAnim()
     {
         DOTween.Kill(turnText);
-        turnText.rectTransform.DOScale(1.5f, 1.0f)
+        turnText.rectTransform.DOScale(1.3f, 0.2f)
             .SetEase(Ease.InOutSine)
             .OnComplete(() =>
             {
-                turnText.rectTransform.DOScale(1f, 1.0f)
+                turnText.rectTransform.DOScale(1f, 0.2f)
                     .SetEase(Ease.OutBounce);
-
             });
            
         

@@ -133,6 +133,7 @@ public class GameplayManager : MonoBehaviour
         }
 
         this.enemyTurn = enemyTurn;
+        uiGameplayManager.ChangeTurn(enemyTurn);
         if (enemyTurn)
         {
             EnemyTurn();
@@ -204,6 +205,9 @@ public class GameplayManager : MonoBehaviour
                             }
                         }
                     }
+
+                    //Neu ko co ai co the di duoc het thi skip turn
+                    EndTurn();
                 }
             }            
         }
