@@ -89,6 +89,9 @@ public class CameraController : MonoBehaviour
     {
         if (_camera != null && !isLocked)
         {
+#if UNITY_EDITOR
+            HandleMoveCamera();
+#endif
             //HandleMoveCamera();
             HandleZoomCamera();
             HandleSwipeCamera();

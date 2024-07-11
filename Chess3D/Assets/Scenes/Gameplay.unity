@@ -5646,13 +5646,13 @@ MonoBehaviour:
   worldTarget: {fileID: 1480588119}
   target: {x: 0, y: 0, z: 0}
   distance: 10
-  xSpeed: 250
-  ySpeed: 120
+  xSpeed: 200
+  ySpeed: 80
   yMinLimit: -20
   yMaxLimit: 80
   smoothTime: 0.2
   chess: {fileID: 0}
-  zoomSpeed: 5
+  zoomSpeed: 3
   moveSpeedX: 10
   moveSpeedY: 10
 --- !u!114 &1349836854
