@@ -50,12 +50,7 @@ namespace GDC.Managers
         {
             GameDataOrigin gamedataOrigin = new GameDataOrigin();
             GameDataOrigin = gamedataOrigin;
-            //GameDataOrigin.ArmorEquipID = so_defaultArmor.ID;
-            //GameDataOrigin.ShoeEquipID = so_defaultShoe.ID;
-            //if (GameDataOrigin.SeenItemIDList == null)
-            //    GameDataOrigin.SeenItemIDList = new List<string>();
-            //GameDataOrigin.SeenItemIDList.Add(so_defaultArmor.ID);
-            //GameDataOrigin.SeenItemIDList.Add(so_defaultShoe.ID);
+
             SaveLoadSystem.SaveData(GameDataOrigin);
             GameData.SetupData();
             StartCoroutine(Cor_ResetData());

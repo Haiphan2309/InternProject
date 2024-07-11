@@ -13,11 +13,13 @@ namespace GDC.Managers
     {
         public int star;
         public int highScore;
+        public bool isPlayBefore;
 
-        public PlayerLevelData(int star, int highScore)
+        public PlayerLevelData(int star, int highScore, bool isPlayBefore)
         {
             this.star = star;
             this.highScore = highScore;
+            this.isPlayBefore = isPlayBefore;
         }
     }
 
@@ -43,6 +45,7 @@ namespace GDC.Managers
             {
                 gameDataOrigin.playerLevelStars = new List<int>();
                 gameDataOrigin.playerLevelHighScores = new List<int>();
+                gameDataOrigin.isPlayBefores = new List<bool>();
             }
             if (gameDataOrigin.playerLevelStars.Count == 0) 
             {
@@ -50,6 +53,7 @@ namespace GDC.Managers
                 {
                     gameDataOrigin.playerLevelStars.Add(0);
                     gameDataOrigin.playerLevelHighScores.Add(99);
+                    gameDataOrigin.isPlayBefores.Add(false);
                 }
             }
 
@@ -58,7 +62,7 @@ namespace GDC.Managers
 
             for(int i=0; i<GameConstants.MAX_CHAPTER* GameConstants.MAX_LEVEL; i++)
             {
-                playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i]));
+                playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i], gameDataOrigin.isPlayBefores[i]));
             }
 
             currentLevel = gameDataOrigin.currentLevel;
@@ -82,6 +86,7 @@ namespace GDC.Managers
                 {
                     gameDataOrigin.playerLevelStars.Add(playerLevelData.star);
                     gameDataOrigin.playerLevelHighScores.Add(playerLevelData.highScore);
+                    gameDataOrigin.isPlayBefores.Add(playerLevelData.isPlayBefore);
                 }
             }
             gameDataOrigin.currentLevel = currentLevel;
@@ -124,6 +129,16 @@ namespace GDC.Managers
             }
             return t;
         }
+        public bool CheckPlayedLevelBefore(int chapterId, int levelId)
+        {
+            int index = chapterId * GameConstants.MAX_LEVEL + levelId;
+            return playerLevelDatas[index].isPlayBefore;
+        }
+        public void SetPlayedLevelBefore(int chapterId, int levelId, bool value)
+        {
+            int index = chapterId * GameConstants.MAX_LEVEL + levelId;
+            playerLevelDatas[index].isPlayBefore = value;
+        }
         #endregion
     }
 
@@ -135,6 +150,7 @@ namespace GDC.Managers
         //public string playerName;
         public List<int> playerLevelHighScores;
         public List<int> playerLevelStars;
+        public List<bool> isPlayBefores;
         public int currentLevel;
         public int currentChapter;
     }
