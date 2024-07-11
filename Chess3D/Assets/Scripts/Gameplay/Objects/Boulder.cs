@@ -31,16 +31,10 @@ public class Boulder : GameplayObject
         isAnim = true;
 
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
+        direction = GameUtils.SnapToGrid(direction);
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
         targetPosition = target;
-        Debug.Log("BOX Position: " + posIndex + " Target: " + targetPosition);
-
-        float ballRadius = transform.localScale.x / 2;
-        float circumference = 2 * Mathf.PI * ballRadius;
-        float rotations = 1000 / circumference;
-        float rotationAngle = rotations * 360;
-
-        transform.DORotate(new Vector3(rotationAngle, 0f, 0f), 1f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+        Debug.Log("BOULDER Position: " + posIndex + " Target: " + targetPosition);
 
         // Calculate Path from First Pos to Target Pos
         List<Vector3> path = CalculatePath(currIdx, target);
@@ -80,7 +74,7 @@ public class Boulder : GameplayObject
             }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
 
         if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
         {

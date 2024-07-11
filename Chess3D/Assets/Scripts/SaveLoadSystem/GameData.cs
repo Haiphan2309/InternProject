@@ -80,6 +80,7 @@ namespace GDC.Managers
             //gameDataOrigin.playerName = playerName;
             gameDataOrigin.playerLevelStars = new List<int>();
             gameDataOrigin.playerLevelHighScores = new List<int>();
+            gameDataOrigin.isPlayBefores = new List<bool>();
             if (playerLevelDatas != null)
             {
                 foreach(var playerLevelData in playerLevelDatas)
@@ -138,6 +139,24 @@ namespace GDC.Managers
         {
             int index = chapterId * GameConstants.MAX_LEVEL + levelId;
             playerLevelDatas[index].isPlayBefore = value;
+        }
+        public void CheckSetCurrentLevel(int winChapterId, int winLevelId)
+        {
+            int oldIndex = this.currentChapter + GameConstants.MAX_LEVEL + this.currentLevel;
+
+            winLevelId++;
+            if (winLevelId == GameConstants.MAX_LEVEL)
+            {
+                winLevelId = 0;
+                winChapterId++;
+            }
+            int index = winChapterId * GameConstants.MAX_LEVEL + winLevelId;
+
+            if (index > oldIndex)
+            {
+                this.currentChapter = winChapterId;
+                this.currentLevel = winLevelId;
+            }
         }
         #endregion
     }

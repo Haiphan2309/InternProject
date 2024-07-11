@@ -12,39 +12,39 @@ public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance { get; private set; }
 
-    [SerializeField] LevelSpawner levelSpawner;
+    [SerializeField] private LevelSpawner levelSpawner;
     public CameraController camController;
     public UIGameplayManager uiGameplayManager;
     //[SerializeField] TutorialConfig tutorialConfig;
 
-    [SerializeField] Transform availableMovePrefab;
-    List<Transform> availableMoveTrans = new List<Transform>();
+    [SerializeField] private Transform availableMovePrefab;
+    private List<Transform> availableMoveTrans = new List<Transform>();
 
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public ChapterData chapterData;
 
     [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy;
-    [SerializeField, ReadOnly] List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
-    [SerializeField, ReadOnly] List<GameplayObject> outlineGameplayObj;
+    [SerializeField, ReadOnly] private List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
+    [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
-    [HideInInspector] public bool isAnimMoving, isEndTurn;
+    [HideInInspector] public bool isAnimMoving, isEndTurn, isEndGame;
     private void Awake()
     {
         Instance = this;
     }
 
-    [Button]
-    void ResetLevelRef()
-    {
-        playerArmy.Clear();
-        enemyArmy.Clear();
-        listEnemyPriorityLowest.Clear();
-        outlineChessMan.Clear();
-        levelData = null;
-        chapterData = null;
-        enemyTurn = false;
-    }
+    //[Button]
+    //private void ResetLevelRef()
+    //{
+    //    playerArmy.Clear();
+    //    enemyArmy.Clear();
+    //    listEnemyPriorityLowest.Clear();
+    //    outlineChessMan.Clear();
+    //    levelData = null;
+    //    chapterData = null;
+    //    enemyTurn = false;
+    //}
 
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
@@ -66,13 +66,14 @@ public class GameplayManager : MonoBehaviour
         isAnimMoving = false;
         isEndTurn = true;
         enemyTurn = false;
+        isEndGame = false;
 
         uiGameplayManager.Setup();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
 
-    void ResetEnemyPriorityLowestList()
+    private void ResetEnemyPriorityLowestList()
     {
         if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
         if (enemyArmy.Count > 0)
@@ -91,7 +92,7 @@ public class GameplayManager : MonoBehaviour
     }
 
 
-    void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
+    private void DeepCopyLevelData(LevelData levelDataSO, out LevelData levelData)
     {
         levelData = new LevelData();
         levelData.SetData(levelDataSO.GetTileInfo(), levelDataSO.GetPlayerArmies(), levelDataSO.GetEnemyArmies());
@@ -102,22 +103,22 @@ public class GameplayManager : MonoBehaviour
         levelData.distance = levelDataSO.distance;
         levelData.id = levelDataSO.id;
     }
-    void SetRemainTurn(int value)
+    private void SetRemainTurn(int value)
     {
         remainTurn = value;
     }
-    IEnumerator Cor_EndTurn()
+    private IEnumerator Cor_EndTurn()
     {
         yield return new WaitUntil(() => isEndTurn);
         ChangeTurn(!enemyTurn);
     }
-    void ChangeTurn()
+    private void ChangeTurn()
     {
         isAnimMoving = false;
         StartCoroutine(Cor_EndTurn());
     }
     
-    void ChangeTurn(bool enemyTurn)
+    private void ChangeTurn(bool enemyTurn)
     {
         if (CheckWin())
         {
@@ -141,7 +142,7 @@ public class GameplayManager : MonoBehaviour
         }
         
     }
-    void EnemyTurn()
+    private void EnemyTurn()
     {
         Debug.Log("Enemy Turn!");
 
@@ -204,7 +205,7 @@ public class GameplayManager : MonoBehaviour
         
         //ChangeTurn(false);
     }
-    void PlayerTurn()
+    private void PlayerTurn()
     {
         Debug.Log("Player Turn");
         //dosomething
@@ -267,24 +268,24 @@ public class GameplayManager : MonoBehaviour
                         tran.rotation = Quaternion.Euler(90, 0, 0);
                         break;
                     case TileType.SLOPE_0:
-                        tran.position += new Vector3(0f, -0.45f, 0.1f);
-                        tran.localScale = new Vector3(1, 1.3f, 1);
+                        tran.position += new Vector3(0f, -0.48f, 0.05f);
+                        tran.localScale = new Vector3(1, 1.4f, 1);
                         tran.rotation = Quaternion.Euler(45, 180, 0);
                         break;
                     case TileType.SLOPE_90:
-                        tran.position += new Vector3(-0.1f, -0.45f, 0f);
-                        tran.localScale = new Vector3(1, 1.3f, 1);
+                        tran.position += new Vector3(-0.05f, -0.48f, 0f);
+                        tran.localScale = new Vector3(1, 1.4f, 1);
                         tran.rotation = Quaternion.Euler(45, 90, 0);
                         Debug.Log(tran.rotation.ToString());
                         break;
                     case TileType.SLOPE_180:
-                        tran.position += new Vector3(0f, -0.45f, -0.1f);
-                        tran.localScale = new Vector3(1, 1.3f, 1);
+                        tran.position += new Vector3(0f, -0.48f, -0.05f);
+                        tran.localScale = new Vector3(1, 1.4f, 1);
                         tran.rotation = Quaternion.Euler(45, 0, 0);
                         break;
                     case TileType.SLOPE_270:
-                        tran.position += new Vector3(0.1f, -0.45f, 0f);
-                        tran.localScale = new Vector3(1, 1.3f, 1);
+                        tran.position += new Vector3(0.05f, -0.48f, 0f);
+                        tran.localScale = new Vector3(1, 1.4f, 1);
                         tran.rotation = Quaternion.Euler(45, 270, 0);
                         break;
                 }
@@ -311,7 +312,7 @@ public class GameplayManager : MonoBehaviour
             Debug.LogError("move is null");
         }
     }
-    void CheckShowOutlineGameplayObject(Vector3 pos)
+    private void CheckShowOutlineGameplayObject(Vector3 pos)
     {
         GameplayObject gameplayObj = GameUtils.GetGameplayObjectByPosition(pos);
         if (gameplayObj != null)
@@ -324,7 +325,7 @@ public class GameplayManager : MonoBehaviour
             outlineGameplayObj.Add(gameplayObj);
         }
     }
-    void ShowOutlineChessMan(ChessMan chessMan)
+    private void ShowOutlineChessMan(ChessMan chessMan)
     {
         chessMan.SetOutline(10, Color.cyan);
         if (outlineChessMan == null)
@@ -342,7 +343,7 @@ public class GameplayManager : MonoBehaviour
         }
         outlineChessMan.Clear();
     }
-    void HideOutLineAllGameplayObject()
+    private void HideOutLineAllGameplayObject()
     {
         if (outlineGameplayObj == null) return;
         foreach(var obj in outlineGameplayObj)
@@ -426,21 +427,36 @@ public class GameplayManager : MonoBehaviour
     {
         if (remainTurn >= levelData.starTurn3) return 3;
         if (remainTurn >= levelData.starTurn2) return 2;
-        if (remainTurn > 0) return 1;
+        if (remainTurn >= 0) return 1;
+        Debug.LogError("How the heck the star of current level is 0???");
         return 0;
     }
-    void Win()
+    [Button]
+    private void Win()
     {
         Debug.Log("Win");
+        isEndGame = true;
         SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, GetStarOfCurrentLevel(), remainTurn);
-        uiGameplayManager.ShowWin();
+        StartCoroutine(Cor_ShowWinPanel());
         int star = GetStarOfCurrentLevel();
         SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, star, remainTurn);
+        SaveLoadManager.Instance.GameData.CheckSetCurrentLevel(chapterData.id, levelData.id);
         SaveLoadManager.Instance.Save();
+    }
+    private IEnumerator Cor_ShowWinPanel()
+    {
+        yield return new WaitForSeconds(1);
+        uiGameplayManager.ShowWin();
     }
     void Lose()
     {
         Debug.Log("Lose");
+        isEndGame = true;
+        StartCoroutine(Cor_ShowLosePanel());
+    }
+    private IEnumerator Cor_ShowLosePanel()
+    {
+        yield return new WaitForSeconds(1);
         uiGameplayManager.ShowLose();
     }
     bool CheckLose()
