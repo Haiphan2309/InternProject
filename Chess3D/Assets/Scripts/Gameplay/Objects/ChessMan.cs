@@ -168,6 +168,7 @@ public class ChessMan : GameplayObject
             boxDirection.y = 0;
 
             Debug.Log($"[{i}] {gameplayObject}");
+            i++;
 
             if (gameplayObject != null && !gameplayObject.isAnim)
             {
@@ -192,7 +193,7 @@ public class ChessMan : GameplayObject
 
         yield return null;
 
-        if (gameplayObject != null /*&& (GameUtils.GetTile(storeBoxPos) == TileType.BOX || GameUtils.GetTile(storeBoxPos) == TileType.BOULDER)*/)
+        if (gameplayObject != null && gameplayObject.CompareTag("Object"))
         {
             yield return new WaitUntil(() => gameplayObject.isAnim == false);
             gameplayObject.SetPosIndex();
