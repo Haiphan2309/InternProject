@@ -74,7 +74,7 @@ public class Boulder : GameplayObject
             }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
 
         if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
         {
