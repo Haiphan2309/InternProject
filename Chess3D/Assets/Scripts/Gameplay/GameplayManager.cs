@@ -149,14 +149,16 @@ public class GameplayManager : MonoBehaviour
 
         foreach (var enemy in enemyArmy)
         {
-            if (enemy.config.chessManType == ChessManType.KING && levelData.GetEnemyArmies()[enemy.index].isAI) 
-                continue;
             foreach (var player in playerArmy)
             {
                 foreach (var move in enemy.config.Move(enemy.posIndex))
                 {
                     if (GameUtils.CompareVector3(player.posIndex, move))
                     {
+                        if (enemy.config.chessManType == ChessManType.KING && levelData.GetEnemyArmies()[enemy.index].isAI && enemy.config.CheckMoveIsSafe(enemy.posIndex) == false)
+                        {
+                            continue;
+                        }
                         MakeMove(enemy, move, player);
                         return;
                     }

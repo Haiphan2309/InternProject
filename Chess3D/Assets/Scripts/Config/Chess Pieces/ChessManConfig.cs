@@ -525,10 +525,9 @@ public class ChessManConfig : ScriptableObject
         return possibleMoveList[Random.Range(0, possibleMoveList.Count)];
     }
 
-    //Thuc hien dua ra mot nuoc di ne ngau nhien
+    //Thuc hien dua ra mot nuoc di ne ngau nhien (cho enemy)
     public Vector3 RetreatMove(Vector3 posIndex)
     {
-        List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
         List<Vector3> retreatMoves = new List<Vector3>();
         List<Vector3> posibleMoves = new List<Vector3>();
         foreach(var move in Move(posIndex))
@@ -538,38 +537,12 @@ public class ChessManConfig : ScriptableObject
 
         for (int i = 0; i< posibleMoves.Count; i++)
         {
-            //check if this move is safe
-            bool isMoveSafe = true;
-            foreach (var player in playerArmy)
-            {
-                List<Vector3> playerPosibleMoves = player.config.Move(player.posIndex);
-                foreach (var playerMove in playerPosibleMoves)
-                {
-                    
-                    if (GameUtils.CompareVector3(posibleMoves[i], playerMove))
-                    {
-                        isMoveSafe = false;
-                        break;
-                    }
-                    //if (player.config.chessManType == ChessManType.QUEEN) Debug.Log("QUEEN: " + playerMove);
-                }
-
-                if (isMoveSafe == false)
-                {
-                    break;
-                }
-            }
-
-            if (isMoveSafe)
+            if (CheckMoveIsSafe(posibleMoves[i]))
             {
                 retreatMoves.Add(posibleMoves[i]);
             }
         }
 
-        //foreach(var retreat in retreatMoves)
-        //{
-        //    Debug.Log("retreat " + retreat);
-        //}
         if (retreatMoves.Count > 0)
         {
             int rand = Random.Range(0, retreatMoves.Count);
@@ -580,5 +553,24 @@ public class ChessManConfig : ScriptableObject
             Debug.Log("KO CO DUONG NAO DE NE");
             return posibleMoves[0];
         }
+    }
+
+    //check if this move is safe for enemy
+    public bool CheckMoveIsSafe(Vector3 posIndex)
+    {
+        List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
+        foreach (var player in playerArmy)
+        {
+            List<Vector3> playerPosibleMoves = player.config.Move(player.posIndex);
+            foreach (var playerMove in playerPosibleMoves)
+            {
+
+                if (GameUtils.CompareVector3(posIndex, playerMove))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
