@@ -111,7 +111,8 @@ public class CameraController : MonoBehaviour
 
     private void HandleSwipeCamera()
     {
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
+
+        if (Input.touchCount ==1 && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
             targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
             targetY -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
