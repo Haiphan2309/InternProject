@@ -87,6 +87,7 @@ public class UIWinPanel : MonoBehaviour
     }
     void OnMenu()
     {
+        int curChapterIndex = GameplayManager.Instance.chapterData.id;
         GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.MAINMENU,
             GDC.Enums.TransitionType.IN,
@@ -94,6 +95,7 @@ public class UIWinPanel : MonoBehaviour
             cb: () =>
             {
                 //    //GDC.Managers.GameManager.Instance.SetInitData(levelIndex);
+                GameManager.Instance.LoadMenuLevel(curChapterIndex);
             },
             true);
     }
@@ -128,8 +130,20 @@ public class UIWinPanel : MonoBehaviour
             }
             else
             {
-                Debug.Log("Next level in same chapter");
-                nextChapterIndex++;
+                Debug.Log("End of chapter");
+
+                GameManager.Instance.LoadSceneManually(
+                    GDC.Enums.SceneType.MAINMENU,
+                    GDC.Enums.TransitionType.IN,
+                    SoundType.NONE,
+                    cb: () =>
+                    {
+                        //    //GDC.Managers.GameManager.Instance.SetInitData(levelIndex);
+                        GameManager.Instance.LoadMenuChapter();
+                    },
+                    true);
+                return;
+                //nextChapterIndex++;
             }
         }
         GameManager.Instance.LoadSceneManually(

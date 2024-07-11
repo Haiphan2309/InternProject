@@ -95,7 +95,7 @@ public class UIGameplaySlider : MonoBehaviour
         
         for(int i = 0; i < stars.Length; i++)
         {
-            bool status = stars[i].anchoredPosition.x < slider.value * maxSliderBar;
+            bool status = stars[i].anchoredPosition.x < slider.value * maxSliderBar+2;
             if (status != GetStarStatus(i))
             { 
                 SetStarStatus(i, status);
