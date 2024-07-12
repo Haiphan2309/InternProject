@@ -75,8 +75,8 @@ public class UIManager : MonoBehaviour
 
     IEnumerator Cor_IntoChapterMenu()
     {
-        yield return new WaitForSeconds(timer);
         UIStack.Push(mainMenu);
+        yield return new WaitForSeconds(timer);
         chapterMenu.Anim();
     }
 
@@ -87,8 +87,9 @@ public class UIManager : MonoBehaviour
 
     IEnumerator Cor_IntoLevelMenu(int chapterIndex)
     {
-        yield return new WaitForSeconds(timer);
         UIStack.Push(mainMenu);
+        // UIStack.Push(chapterMenu);
+        yield return new WaitForSeconds(timer);
         LevelPreset(chapterIndex, GameUtils.GetChapterData(chapterIndex).levelDatas.Count);
     }
 

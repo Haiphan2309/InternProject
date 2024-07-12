@@ -47,8 +47,8 @@ public class CameraController : MonoBehaviour
     private float moveMin = 0f;
     private float smoothMoveTime = 0.25f;
     private float pinchMoveAngle = 90f;
-    [SerializeField] private float moveSpeedX = 1f;
-    [SerializeField] private float moveSpeedY = 1f;
+    [SerializeField] private float moveSpeedX = 10f;
+    [SerializeField] private float moveSpeedY = 10f;
 
     private bool isLocked = false;
    
@@ -113,8 +113,7 @@ public class CameraController : MonoBehaviour
 
     private void HandleSwipeCamera()
     {
-
-        if (Input.touchCount ==1 && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
+        if ((Input.touchCount ==1 || Input.GetMouseButton(0)) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
             targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
             targetY -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
@@ -126,6 +125,7 @@ public class CameraController : MonoBehaviour
         y = Mathf.SmoothDamp(y, targetY, ref velocityY, smoothTime);
 
         Quaternion rotation = Quaternion.Euler(y, x, 0);
+        //Debug.Log(rotation * new Vector3(0.0f, 0.0f, -targetDistance) + " SADAS  " + targetDistance.ToString());
         Vector3 position = rotation * new Vector3(0.0f, 0.0f, -targetDistance) + target;
 
         transform.rotation = rotation;
@@ -148,8 +148,8 @@ public class CameraController : MonoBehaviour
             Vector2 touchSecondVector = touchSecond.position - touchSecondPrePos;
             if (Vector2.Angle(touchFirstVector, touchSecondVector) < pinchMoveAngle) // Move Camera
             {
-                Vector2 moveVector = Vector2.Lerp(touchFirstVector, touchSecondVector, 0.5f).normalized;
-                Move(moveVector.x, moveVector.y);
+                //Vector2 moveVector = Vector2.Lerp(touchFirstVector, touchSecondVector, 0.5f).normalized;
+                //Move(moveVector.x, moveVector.y);
             }
             else // Zoom Camera
             {
