@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     IEnumerator Cor_IntoLevelMenu(int chapterIndex)
     {
         UIStack.Push(mainMenu);
-        UIStack.Push(chapterMenu);
+        // UIStack.Push(chapterMenu);
         yield return new WaitForSeconds(timer);
         LevelPreset(chapterIndex, GameUtils.GetChapterData(chapterIndex).levelDatas.Count);
     }
