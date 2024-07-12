@@ -445,17 +445,17 @@ public class GameplayManager : MonoBehaviour
     {
         Debug.Log("Win");
         isEndGame = true;
-        SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, GetStarOfCurrentLevel(), remainTurn);
-        StartCoroutine(Cor_ShowWinPanel());
+        bool isNewRecord = SaveLoadManager.Instance.GameData.CheckNewRecord(chapterData.id, levelData.id, remainTurn);
+        StartCoroutine(Cor_ShowWinPanel(isNewRecord));
         int star = GetStarOfCurrentLevel();
         SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, star, remainTurn);
         SaveLoadManager.Instance.GameData.CheckSetCurrentLevel(chapterData.id, levelData.id);
         SaveLoadManager.Instance.Save();
     }
-    private IEnumerator Cor_ShowWinPanel()
+    private IEnumerator Cor_ShowWinPanel(bool isNewRecord)
     {
         yield return new WaitForSeconds(1);
-        uiGameplayManager.ShowWin();
+        uiGameplayManager.ShowWin(isNewRecord);
     }
     void Lose()
     {

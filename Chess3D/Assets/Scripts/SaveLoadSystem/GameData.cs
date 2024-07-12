@@ -59,6 +59,7 @@ namespace GDC.Managers
 
             if (playerLevelDatas == null)
                 playerLevelDatas = new List<PlayerLevelData>();
+            playerLevelDatas.Clear();
 
             for(int i=0; i<GameConstants.MAX_CHAPTER* GameConstants.MAX_LEVEL; i++)
             {
@@ -98,6 +99,11 @@ namespace GDC.Managers
         }
 
         #region support function
+        public bool CheckNewRecord(int chapterId, int levelId, int remainTurn)
+        {
+            int index = chapterId * GameConstants.MAX_LEVEL + levelId;
+            return playerLevelDatas[index].highScore > remainTurn;
+        }
         public void SetLevelData(int chapterId, int levelId, int star, int remainTurn)
         {
             int index = chapterId * GameConstants.MAX_LEVEL + levelId;
@@ -105,7 +111,7 @@ namespace GDC.Managers
             {
                 playerLevelDatas[index].star = star;
             }
-            if (playerLevelDatas[index].highScore < remainTurn)
+            if (CheckNewRecord(chapterId, levelId, remainTurn))
             {
                 playerLevelDatas[index].highScore = remainTurn;
             }
