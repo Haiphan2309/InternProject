@@ -1,4 +1,4 @@
-using GDC.Enums;
+﻿using GDC.Enums;
 using GDC.Managers;
 using NaughtyAttributes;
 using System;
@@ -14,6 +14,7 @@ public class GameplayManager : MonoBehaviour
     public static GameplayManager Instance { get; private set; }
 
     [SerializeField] private LevelSpawner levelSpawner;
+    [SerializeField] private GridStateManager gridSateManager;
     public CameraController camController;
     public UIGameplayManager uiGameplayManager;
     //[SerializeField] TutorialConfig tutorialConfig;
@@ -24,8 +25,8 @@ public class GameplayManager : MonoBehaviour
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public ChapterData chapterData;
 
-    [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy;
-    [SerializeField, ReadOnly] private List<ChessMan> listEnemyPriorityLowest, outlineChessMan;
+    [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
+    [SerializeField, ReadOnly] private List<ChessMan> outlineChessMan;
     [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
@@ -70,6 +71,7 @@ public class GameplayManager : MonoBehaviour
         isEndGame = false;
 
         uiGameplayManager.Setup();
+        gridSateManager.Setup();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
@@ -384,6 +386,11 @@ public class GameplayManager : MonoBehaviour
     }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
+        if (chessMan.isEnemy == false) //Nếu là player thì lưu vết để có thể undo nước đi được
+        {
+            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest);
+        }
+
         isAnimMoving = true;
         isEndTurn = false;
 
@@ -507,5 +514,11 @@ public class GameplayManager : MonoBehaviour
     {
         TileInfo tileInfo = levelData.GetTileInfoNoDeep(logTestPos);
         Debug.Log(tileInfo.tileType);
+    }
+
+    [Button]
+    public void Undo()
+    {
+        gridSateManager.Undo();
     }
 }

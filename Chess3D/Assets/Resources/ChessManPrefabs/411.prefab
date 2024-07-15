@@ -65,6 +65,9 @@ MonoBehaviour:
     m_Bits: 128
   testPromoteType: 0
   isEnemy: 0
+  moveIndex: 0
+  deltaMoveIndex: 1
+  isAI: 1
 --- !u!65 &1652286005729679838
 BoxCollider:
   m_ObjectHideFlags: 0
