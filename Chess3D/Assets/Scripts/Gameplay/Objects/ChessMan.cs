@@ -146,6 +146,7 @@ public class ChessMan : GameplayObject
     {
         // Unset Parent for chess piece
         SetParentDefault();
+        target = GameUtils.SnapToGrid(target);
 
         // First Pos + Target Pos
         Debug.Log("CHESSMAN Position: " + posIndex + " Target: " + target);

@@ -134,6 +134,11 @@ public class GameplayManager : MonoBehaviour
 
         this.enemyTurn = enemyTurn;
         uiGameplayManager.ChangeTurn(enemyTurn);
+
+        // TEST
+        SolveSystem.Instance.ShowHintMove();
+        // IT WORKS :)))
+        
         if (enemyTurn)
         {
             EnemyTurn();
