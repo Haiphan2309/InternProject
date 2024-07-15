@@ -8,8 +8,10 @@ using UnityEngine.Rendering;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] CinemachineVirtualCamera _camera;
+    [SerializeField] private CinemachineVirtualCamera _camera;
     [SerializeField] private Transform worldTarget;
+    private CinemachineFramingTransposer framing;
+    //
     public Vector3 target; // Đối tượng mà camera sẽ xoay quanh
     public float distance = 15.0f; // Khoảng cách từ camera đến đối tượng
     public float xSpeed = 250.0f; // Tốc độ xoay theo trục x
@@ -41,21 +43,26 @@ public class CameraController : MonoBehaviour
     private float zoomVelocity = 0f;
     private float smoothZoomTime = 0.25f;
     //
+    private Vector3 touchStart;
     private float moveVelocityX = 0f;
     private float moveVelocityY = 0f;
     private float moveMax = 1f;
     private float moveMin = 0f;
     private float smoothMoveTime = 0.25f;
     private float pinchMoveAngle = 90f;
-    [SerializeField] private float moveSpeedX = 10f;
-    [SerializeField] private float moveSpeedY = 10f;
+    [SerializeField] private float moveSpeedX = 8f;
+    [SerializeField] private float moveSpeedY = 8f;
 
     private bool isLocked = false;
-   
+    private enum CameraMode { Swipe, Move};
+    private CameraMode cameraMode = CameraMode.Swipe;
+
+    
     public void Setup(Vector3 center, float distance)
     {
         
         _camera = GetComponent<CinemachineVirtualCamera>();
+        framing = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
         transform.rotation = Quaternion.Euler(new Vector3(20, 40, 0));
         worldTarget.position = center;
         this.distance = distance;
@@ -85,18 +92,29 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         //
         zoom = Camera.main.orthographicSize;
-    }
+        ChangeToDefaultMove();
 
+
+    }
+    private void ChangeToDefaultMove()
+    {
+        framing.m_ScreenX = 0.5f;
+        framing.m_ScreenY = 0.5f;
+    }
     void LateUpdate()
     {
         if (_camera != null && !isLocked)
         {
-#if UNITY_EDITOR
-            HandleMoveCamera();
-#endif
-            //HandleMoveCamera();
             HandleZoomCamera();
-            HandleSwipeCamera();
+            if (cameraMode == CameraMode.Swipe)
+            {
+                HandleSwipeCamera();
+            }
+            else
+            {
+                HandleMoveCamera();
+            }
+            
         }
         
     }
@@ -115,6 +133,7 @@ public class CameraController : MonoBehaviour
     {
         if ((Input.touchCount ==1 || Input.GetMouseButton(0)) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
+      
             targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
             targetY -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
@@ -123,13 +142,18 @@ public class CameraController : MonoBehaviour
 
         x = Mathf.SmoothDamp(x, targetX, ref velocityX, smoothTime);
         y = Mathf.SmoothDamp(y, targetY, ref velocityY, smoothTime);
+        Debug.Log(x + " " + y);
 
-        Quaternion rotation = Quaternion.Euler(y, x, 0);
-        //Debug.Log(rotation * new Vector3(0.0f, 0.0f, -targetDistance) + " SADAS  " + targetDistance.ToString());
-        Vector3 position = rotation * new Vector3(0.0f, 0.0f, -targetDistance) + target;
 
-        transform.rotation = rotation;
-        transform.position = position;
+         Quaternion rotation = Quaternion.Euler(y, x, 0);
+         //Debug.Log(rotation * new Vector3(0.0f, 0.0f, -targetDistance) + " SADAS  " + targetDistance.ToString());
+         Vector3 position = rotation * new Vector3(0.0f, 0.0f, -targetDistance) + target;
+
+         transform.rotation = rotation;
+         transform.position = position;
+        
+       
+        
     }
 
     
@@ -146,19 +170,19 @@ public class CameraController : MonoBehaviour
 
             Vector2 touchFirstVector = touchFirst.position - touchFirstPrePos;
             Vector2 touchSecondVector = touchSecond.position - touchSecondPrePos;
-            if (Vector2.Angle(touchFirstVector, touchSecondVector) < pinchMoveAngle) // Move Camera
-            {
-                //Vector2 moveVector = Vector2.Lerp(touchFirstVector, touchSecondVector, 0.5f).normalized;
-                //Move(moveVector.x, moveVector.y);
-            }
-            else // Zoom Camera
-            {
+            //if (cameraMode == CameraMode.Move) // Move Camera
+            //{
+            //    Vector2 moveVector = Vector2.Lerp(touchFirstVector, touchSecondVector, 0.5f).normalized;
+            //    Move(moveVector.x, moveVector.y);
+            //}
+           // else // Zoom Camera
+           // {
                 float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
                 float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
                 float diff = currentMagnitude - preMagnitude;
 
                 Zoom(diff * zoomSpeed);
-            }
+            //}
 
             //
 
@@ -179,18 +203,21 @@ public class CameraController : MonoBehaviour
 
     private void HandleMoveCamera()
     {
-#if UNITY_EDITOR
-
-        float x = Input.GetAxis("Horizontal") * moveSpeedX * 0.02f;
-        float y = Input.GetAxis("Vertical") * moveSpeedY * 0.02f;
-        Move(x, y);
-        
-#endif
+        if (Input.GetMouseButtonDown(0))
+        {
+            touchStart = Camera.main.ViewportToScreenPoint(Input.mousePosition);
+        }
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 direction = touchStart - Camera.main.ViewportToScreenPoint(Input.mousePosition);
+            direction = direction.normalized;
+            Move(direction.x * moveSpeedX * 0.02f, direction.y * moveSpeedY * 0.02f);
+        }
     }
 
     private void Move(float x, float y)
     {
-        CinemachineFramingTransposer framing = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        
 
         float targetX = framing.m_ScreenX + x;
         float targetY = framing.m_ScreenY - y;
@@ -212,5 +239,18 @@ public class CameraController : MonoBehaviour
     public void Unlock()
     {
         isLocked = false;
+    }
+
+    public void ChangeCameraMode()
+    {
+        if (cameraMode == CameraMode.Move)
+        {
+            cameraMode = CameraMode.Swipe;
+        }
+        else
+        {
+            cameraMode = CameraMode.Move;
+        }
+  
     }
 }

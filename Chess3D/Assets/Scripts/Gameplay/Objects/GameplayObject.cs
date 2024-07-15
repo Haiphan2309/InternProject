@@ -41,6 +41,12 @@ public class GameplayObject : MonoBehaviour
 
     }
 
+    public void SetGameplayObjectData(GameplayObjectData gameplayObjectData)
+    {
+        posIndex = gameplayObjectData.posIndex;
+        //index = gameplayObjectData.index;
+        transform.position = posIndex;
+    }
     public void SetOutline(float width)
     {
         //outline.OutlineColor = color;
