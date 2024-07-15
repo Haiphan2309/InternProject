@@ -18,6 +18,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ff13baddd4a386245a0edd541947f831, type: 2}
   - {fileID: 11400000, guid: ad720f2cacfb00c48a27afe819c6b010, type: 2}
   - {fileID: 11400000, guid: 0ba2db1d158072c46b7eed6a6bc21cc2, type: 2}
+  - {fileID: 11400000, guid: fc559fd984b9ce84288a284c4e0c7a2e, type: 2}
+  - {fileID: 11400000, guid: 60638b6e1b122ee4bbe47e792b242c91, type: 2}
   thumbnail: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
   skyBox: {fileID: 2100000, guid: 115073f3de5c0d6458173c73af997bc0, type: 2}
   starRequire: 0
