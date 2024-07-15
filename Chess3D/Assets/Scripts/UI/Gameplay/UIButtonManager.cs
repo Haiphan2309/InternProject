@@ -52,7 +52,7 @@ public class UIButtonManager : MonoBehaviour
     private void OnSolveBtnClicked()
     {
         // Call Solve method from GamePlay
-
+        GameplayManager.Instance.ShowHint();
         // Update Number
         solveNumber.text = SaveLoadManager.Instance.GameData.solveNum.ToString();
 

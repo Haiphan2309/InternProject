@@ -578,7 +578,7 @@ public class GameplayManager : MonoBehaviour
     }
 
     [Button]
-    private void ShowHint()
+    public void ShowHint()
     {
         isShowHint = true;
         ShowHintMove();
