@@ -4,6 +4,7 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using TMPro;
 using Unity.VisualScripting;
@@ -31,22 +32,17 @@ public class GameplayManager : MonoBehaviour
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     [HideInInspector] public bool isAnimMoving, isEndTurn, isEndGame;
+
+    [SerializeField] private List<HintMove> moveList;
+    [SerializeField] private List<HintMove> moveListTmp;
+    [SerializeField] private GameObject baseHint;
+
+    private bool isShowHint = false;
+
     private void Awake()
     {
         Instance = this;
     }
-
-    //[Button]
-    //private void ResetLevelRef()
-    //{
-    //    playerArmy.Clear();
-    //    enemyArmy.Clear();
-    //    listEnemyPriorityLowest.Clear();
-    //    outlineChessMan.Clear();
-    //    levelData = null;
-    //    chapterData = null;
-    //    enemyTurn = false;
-    //}
 
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
@@ -54,6 +50,7 @@ public class GameplayManager : MonoBehaviour
 
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
+        moveList = CopyList(levelSpawner.levelData.hintMoves);
         chapterData = levelSpawner.GetChapterData(chapterIndex);
 
         playerArmy = levelSpawner.playerArmy;
@@ -146,7 +143,7 @@ public class GameplayManager : MonoBehaviour
         uiGameplayManager.ChangeTurn(enemyTurn);
 
         // TEST
-        SolveSystem.Instance.ShowHintMove();
+        ShowHintMove();
         // IT WORKS :)))
         
         if (enemyTurn)
@@ -539,5 +536,64 @@ public class GameplayManager : MonoBehaviour
         SaveLoadManager.Instance.GameData.undoNum--;
         SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
+    }
+
+    public void ShowHintMove()
+    {
+        if (!isShowHint) return;
+        if (moveList.Count <= 0) return;
+
+        if (!enemyTurn)
+        {
+            GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveList.ElementAt(0).playerArmy.posIndex);
+            chessman.SetOutline(10, Color.cyan);
+
+            Vector3 target = moveList.ElementAt(0).position;
+            GameObject moveTarget = Instantiate(availableMovePrefab, target, Quaternion.identity).gameObject;
+
+            moveTarget = GameUtils.ChangeIndicatorAtPosition(moveTarget, target);
+
+            moveTarget.transform.SetParent(baseHint.transform);
+        }
+
+        else
+        {
+            DestroyAllChildren(baseHint.gameObject);
+            moveListTmp.Add(moveList[0]);
+            moveList.RemoveAt(0);
+
+            GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(0).position);
+            if (chessman == null) isShowHint = false;
+        }
+    }
+
+    public void DestroyAllChildren(GameObject parent)
+    {
+        // Loop through each child of the parent GameObject
+        foreach (Transform child in parent.transform)
+        {
+            // Destroy the child GameObject
+            Destroy(child.gameObject);
+        }
+    }
+
+    [Button]
+    private void ShowHint()
+    {
+        isShowHint = true;
+        ShowHintMove();
+    }
+
+    private List<HintMove> CopyList(List<HintMove> target)
+    {
+        List<HintMove> result = new List<HintMove>();
+
+        foreach (var item in target)
+        {
+            var newItem = item;
+            result.Add(newItem);
+        }
+
+        return result;
     }
 }

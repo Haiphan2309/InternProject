@@ -19,7 +19,7 @@ public class UIPawnPromotion : MonoBehaviour
 
 
     List<Button> buttonList;
-    ChessManType promoteType;
+    public ChessManType promoteType;
 
     //private void Start()
     //{
@@ -38,22 +38,22 @@ public class UIPawnPromotion : MonoBehaviour
     private void SetupHolderButtons()
     {
         rookNode.GetComponentInChildren<Button>().onClick.AddListener(() => {
-            OnButtonCLicked(ChessManType.CASTLE);
+            OnButtonClicked(ChessManType.CASTLE);
         });
 
         bishopNode.GetComponentInChildren<Button>().onClick.AddListener(() => {
-            OnButtonCLicked(ChessManType.BISHOP);
+            OnButtonClicked(ChessManType.BISHOP);
         });
 
         knightNode.GetComponentInChildren<Button>().onClick.AddListener(() => {
-            OnButtonCLicked(ChessManType.KNIGHT);
+            OnButtonClicked(ChessManType.KNIGHT);
         });
 
         queenNode.GetComponentInChildren<Button>().onClick.AddListener(() => {
-            OnButtonCLicked(ChessManType.QUEEN);
+            OnButtonClicked(ChessManType.QUEEN);
         });
     }
-    private void OnButtonCLicked(ChessManType chessManType)
+    private void OnButtonClicked(ChessManType chessManType)
     {
         promoteType = chessManType;
         Close();

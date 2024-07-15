@@ -8233,4 +8233,17 @@ MonoBehaviour:
     movePosIndexs:
     - {x: 2, y: 2, z: 8}
     - {x: 1, y: 2, z: 8}
+  hintMoves:
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 5, y: 2, z: 1}
+    position: {x: 5, y: 2, z: 5}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 5, y: 2, z: 5}
+    position: {x: 1, y: 2, z: 5}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 1, y: 2, z: 5}
+    position: {x: 1, y: 2, z: 8}
   thumbnail: {fileID: 21300000, guid: c37673b254013424b924bfeb2dc14362, type: 3}
