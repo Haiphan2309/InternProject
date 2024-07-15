@@ -96,7 +96,7 @@ public class CameraController : MonoBehaviour
 
 
     }
-    private void ChangeToDefaultMove()
+    public void ChangeToDefaultMove()
     {
         framing.m_ScreenX = 0.5f;
         framing.m_ScreenY = 0.5f;
@@ -131,18 +131,20 @@ public class CameraController : MonoBehaviour
 
     private void HandleSwipeCamera()
     {
-        if ((Input.touchCount ==1 || Input.GetMouseButton(0)) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
+        if (Input.GetMouseButton(0)) Debug.Log("Mouse button down");
+        Debug.Log("Touch count: " + Input.touchCount.ToString());
+        if ((Input.touchCount == 1 || Input.GetMouseButton(0)) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
-      
+        
             targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
             targetY -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
             targetY = ClampAngle(targetY, yMinLimit, yMaxLimit);
         }
-
+        
         x = Mathf.SmoothDamp(x, targetX, ref velocityX, smoothTime);
         y = Mathf.SmoothDamp(y, targetY, ref velocityY, smoothTime);
-        Debug.Log(x + " " + y);
+       
 
 
          Quaternion rotation = Quaternion.Euler(y, x, 0);
@@ -203,6 +205,7 @@ public class CameraController : MonoBehaviour
 
     private void HandleMoveCamera()
     {
+        Debug.Log("Move");
         if (Input.GetMouseButtonDown(0))
         {
             touchStart = Camera.main.ViewportToScreenPoint(Input.mousePosition);
@@ -211,6 +214,7 @@ public class CameraController : MonoBehaviour
         {
             Vector3 direction = touchStart - Camera.main.ViewportToScreenPoint(Input.mousePosition);
             direction = direction.normalized;
+            if (EventSystem.current.IsPointerOverGameObject()) direction = Vector3.zero;
             Move(direction.x * moveSpeedX * 0.02f, direction.y * moveSpeedY * 0.02f);
         }
     }
@@ -253,4 +257,6 @@ public class CameraController : MonoBehaviour
         }
   
     }
+
+    
 }
