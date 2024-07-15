@@ -18,7 +18,7 @@ public class UIWinPanel : MonoBehaviour
     private Color haloColor;
 
     [Button]
-    public void Show()
+    public void Show(bool isNewRecord)
     {
         gameObject.SetActive(true);
 
@@ -52,10 +52,10 @@ public class UIWinPanel : MonoBehaviour
         newRecordText.rectTransform.localScale = Vector2.zero;
         float sliderWidth = turnSlider.GetComponent<RectTransform>().sizeDelta.x;
         starTurn2Rect.anchoredPosition = new Vector2((float)GameplayManager.Instance.levelData.starTurn2 / GameplayManager.Instance.levelData.starTurn3 * sliderWidth, 0);
-        StartCoroutine(Cor_Show());
+        StartCoroutine(Cor_Show(isNewRecord));
     }
 
-    IEnumerator Cor_Show()
+    IEnumerator Cor_Show(bool isNewRecord)
     {
         yield return new WaitForSeconds(0.5f);
         if (GameplayManager.Instance.remainTurn >= GameplayManager.Instance.levelData.starTurn3)
@@ -75,9 +75,10 @@ public class UIWinPanel : MonoBehaviour
             SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_STAR);
             yield return new WaitForSeconds(1);
         }
-        if (GameplayManager.Instance.remainTurn > SaveLoadManager.Instance.GameData.GetLevelHighScore(GameplayManager.Instance.chapterData.id, GameplayManager.Instance.levelData.id))
+        if (isNewRecord)
         {
             //Congrats! It's a new record!
+            newRecordText.color = Color.white;
             newRecordText.rectTransform.DOScale(1,0.3f).SetEase(Ease.OutBack).OnComplete(()=>
             {
                 newRecordText.rectTransform.localScale = Vector2.one;

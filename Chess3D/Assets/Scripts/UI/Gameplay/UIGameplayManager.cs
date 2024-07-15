@@ -78,9 +78,9 @@ public class UIGameplayManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         uiTutorial.Show();
     }
-    public void ShowWin()
+    public void ShowWin(bool isNewRecord)
     {
-        uiWinPanel.Show();
+        uiWinPanel.Show(isNewRecord);
     }
     public void ShowLose()
     {
