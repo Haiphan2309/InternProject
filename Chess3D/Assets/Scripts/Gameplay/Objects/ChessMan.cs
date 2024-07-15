@@ -49,7 +49,8 @@ public class ChessMan : GameplayObject
         posIndex = chessManData.posIndex;
         isEnemy = false;
 
-        transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        AjustPosToGround(posIndex);
     }
     public void SetChessManData(EnemyChessManData chessManData)
     {
@@ -61,7 +62,8 @@ public class ChessMan : GameplayObject
         isEnemy = true;
         isAI = chessManData.isAI;
 
-        transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        AjustPosToGround(posIndex);
     }
 
     public bool EnemyMove()
@@ -168,6 +170,7 @@ public class ChessMan : GameplayObject
     {
         // Unset Parent for chess piece
         SetParentDefault();
+        target = GameUtils.SnapToGrid(target);
 
         // First Pos + Target Pos
         Debug.Log("CHESSMAN Position: " + posIndex + " Target: " + target);

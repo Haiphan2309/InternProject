@@ -58,7 +58,7 @@ public class GameplayManager : MonoBehaviour
 
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
-        SetRemainTurn(levelSpawner.levelData.maxTurn);
+        SetRemainTurn(levelSpawner.levelData.maxTurn, false);
         camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
 
         ResetEnemyPriorityLowestList();
@@ -72,10 +72,16 @@ public class GameplayManager : MonoBehaviour
 
         uiGameplayManager.Setup();
         gridSateManager.Setup();
+        SetPowerUpNum();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
 
+    private void SetPowerUpNum()
+    {
+        SaveLoadManager.Instance.GameData.undoNum = 3;
+        SaveLoadManager.Instance.GameData.solveNum = 3;
+    }
     private void ResetEnemyPriorityLowestList()
     {
         if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
@@ -106,9 +112,11 @@ public class GameplayManager : MonoBehaviour
         levelData.distance = levelDataSO.distance;
         levelData.id = levelDataSO.id;
     }
-    private void SetRemainTurn(int value)
+    private void SetRemainTurn(int value, bool isSetTurnSlider = true)
     {
         remainTurn = value;
+        if (isSetTurnSlider)
+            uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
     }
     private IEnumerator Cor_EndTurn()
     {
@@ -136,6 +144,11 @@ public class GameplayManager : MonoBehaviour
 
         this.enemyTurn = enemyTurn;
         uiGameplayManager.ChangeTurn(enemyTurn);
+
+        // TEST
+        SolveSystem.Instance.ShowHintMove();
+        // IT WORKS :)))
+        
         if (enemyTurn)
         {
             EnemyTurn();
@@ -414,7 +427,6 @@ public class GameplayManager : MonoBehaviour
         if (enemyTurn == false)
         {
             SetRemainTurn(remainTurn - 1);
-            uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
         }
     }
     public void UpdateTile(Vector3 oldPos, Vector3 newPos, TileInfo tileInfo = null) //Cap nhat toa do tile oldPos thanh None, va cap nhat tileInfo cho new pos
@@ -519,6 +531,13 @@ public class GameplayManager : MonoBehaviour
     [Button]
     public void Undo()
     {
+        if (SaveLoadManager.Instance.GameData.undoNum <=0)
+        {
+            Debug.Log("Da het undo");
+            return;
+        }
+        SaveLoadManager.Instance.GameData.undoNum--;
+        SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
     }
 }
