@@ -10,14 +10,15 @@ public class UIGameplayManager : MonoBehaviour
 {
     public static UIGameplayManager Instance { get; private set; }
 
-    [SerializeField] Button settingBtn;
-    [SerializeField] Button toggleChessManBtn;
-    [SerializeField] Button cameraModeBtn;
+    //[SerializeField] Button settingBtn;
+    //[SerializeField] Button toggleChessManBtn;
+    //[SerializeField] Button cameraModeBtn;
 
     public UIChessManPanel uIChessManPanel;
     //[SerializeField] UIGameplaySlider uIGameplaySlider;
     public UIInformationPanel uIInformationPanel;
 
+    [SerializeField] UIButtonManager uIButtonManager;
     [SerializeField] UIWinPanel uiWinPanel;
     [SerializeField] UILosePanel uiLosePanel;
     [SerializeField] UISetting uiSetting;
@@ -50,11 +51,12 @@ public class UIGameplayManager : MonoBehaviour
         uIChessManPanel.Setup();
         uIInformationPanel.Setup();
         uiPawnPromotion.Setup();
+        uIButtonManager.Setup();
         //uIGameplaySlider.Setup();
         // Assign btn
-        settingBtn.onClick.AddListener(OnSetting);
-        toggleChessManBtn.onClick.AddListener(OnToggleBtnClicked);
-        cameraModeBtn.onClick.AddListener(OnCameraModeBtnClicked);
+        //settingBtn.onClick.AddListener(OnSetting);
+        //toggleChessManBtn.onClick.AddListener(OnToggleBtnClicked);
+        //cameraModeBtn.onClick.AddListener(OnCameraModeBtnClicked);
 
         CheckShowTutorial();
     }
@@ -89,11 +91,11 @@ public class UIGameplayManager : MonoBehaviour
     {
         uiLosePanel.Show();
     }
-    void OnSetting()
+    public void OnSetting()
     {
         uiSetting.Show();
     }
-    private void OnToggleBtnClicked()
+    public void OnToggleBtnClicked()
     {
    
         if (!isChessManPanelOn)
@@ -107,11 +109,11 @@ public class UIGameplayManager : MonoBehaviour
         isChessManPanelOn = !isChessManPanelOn;
         
     }
-    private void OnCameraModeBtnClicked()
-    {
-        GameplayManager.Instance.camController.ChangeCameraMode();
-        // Change button appearence when clicke 
-    }
+    //private void OnCameraModeBtnClicked()
+    //{
+    //    GameplayManager.Instance.camController.ChangeCameraMode();
+    //    // Change button appearence when clicke 
+    //}
 
     public void ShowPromote()
     {
