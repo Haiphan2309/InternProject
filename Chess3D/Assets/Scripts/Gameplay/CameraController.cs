@@ -142,7 +142,7 @@ public class CameraController : MonoBehaviour
 
         x = Mathf.SmoothDamp(x, targetX, ref velocityX, smoothTime);
         y = Mathf.SmoothDamp(y, targetY, ref velocityY, smoothTime);
-        Debug.Log(x + " " + y);
+        //Debug.Log(x + " " + y);
 
 
          Quaternion rotation = Quaternion.Euler(y, x, 0);

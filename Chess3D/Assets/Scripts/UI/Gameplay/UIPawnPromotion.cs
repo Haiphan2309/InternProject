@@ -78,4 +78,8 @@ public class UIPawnPromotion : MonoBehaviour
     {
         return promoteType;
     }
+    public void ResetPromoteType()
+    {
+        promoteType = ChessManType.PAWN;
+    }    
 }
