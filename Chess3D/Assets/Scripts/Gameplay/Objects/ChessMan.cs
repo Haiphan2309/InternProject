@@ -44,7 +44,11 @@ public class ChessMan : GameplayObject
     }
     public void SetChessManData(PlayerChessManData chessManData)
     {
-        config = GetConfigFromType(chessManData.chessManType);
+        if (config.chessManType != chessManData.chessManType)
+        {
+            config = GetConfigFromType(chessManData.chessManType);
+            ChangeMesh(chessManData.chessManType);
+        }
         index = chessManData.index;
         posIndex = chessManData.posIndex;
         isEnemy = false;
@@ -301,13 +305,7 @@ public class ChessMan : GameplayObject
 
         // Change Mesh
 
-        Mesh newMesh = GetMeshFromType(chessManType);
-        if (newMesh == null)
-        {
-            Debug.LogError("Fail to load new MESH in PROMOTE");
-            return;
-        }
-        gameObject.GetComponentInChildren<MeshFilter>().mesh = newMesh;
+        ChangeMesh(chessManType);
 
         //
         GameplayManager.Instance.HideAvailableMove();
@@ -372,6 +370,16 @@ public class ChessMan : GameplayObject
                 break;
         }
         return Resources.Load<Mesh>(path);
+    }
+    private void ChangeMesh(ChessManType type)
+    {
+        Mesh newMesh = GetMeshFromType(type);
+        if (newMesh == null)
+        {
+            Debug.LogError("Fail to load new MESH in PROMOTE");
+            return;
+        }
+        gameObject.GetComponentInChildren<MeshFilter>().mesh = newMesh;
     }
 
 #if UNITY_EDITOR
