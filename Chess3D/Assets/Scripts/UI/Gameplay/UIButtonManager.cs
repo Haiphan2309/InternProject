@@ -22,6 +22,8 @@ public class UIButtonManager : MonoBehaviour
         cameraModeBtn.onClick.AddListener(OnCameraModeBtnClicked);
         backBtn.onClick.AddListener(OnBackBtnClicked);
         solveBtn.onClick.AddListener(OnSolveBtnClicked);
+        //
+        UpdateNumber();
     }
 
     private void OnSetting()
@@ -45,7 +47,7 @@ public class UIButtonManager : MonoBehaviour
         // Call Back method from GamePlay 
 
         // Update Number
-        backNumber.text = SaveLoadManager.Instance.GameData.undoNum.ToString();
+        UpdateNumber();
 
     }
 
@@ -54,8 +56,14 @@ public class UIButtonManager : MonoBehaviour
         // Call Solve method from GamePlay
         GameplayManager.Instance.ShowHint();
         // Update Number
+        UpdateNumber();
+
+
+    }
+
+    private void UpdateNumber()
+    {
+        backNumber.text = SaveLoadManager.Instance.GameData.undoNum.ToString();
         solveNumber.text = SaveLoadManager.Instance.GameData.solveNum.ToString();
-
-
     }
 }

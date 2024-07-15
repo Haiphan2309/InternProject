@@ -97,7 +97,7 @@ public class UIGameplayManager : MonoBehaviour
     }
     public void OnToggleBtnClicked()
     {
-   
+        GameplayManager.Instance.camController.ChangeToDefaultMove();
         if (!isChessManPanelOn)
         {
             uIChessManPanel.TurnOnPanel();
