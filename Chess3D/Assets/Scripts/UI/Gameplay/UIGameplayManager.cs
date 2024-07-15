@@ -12,6 +12,7 @@ public class UIGameplayManager : MonoBehaviour
 
     [SerializeField] Button settingBtn;
     [SerializeField] Button toggleChessManBtn;
+    [SerializeField] Button cameraModeBtn;
 
     public UIChessManPanel uIChessManPanel;
     //[SerializeField] UIGameplaySlider uIGameplaySlider;
@@ -26,7 +27,7 @@ public class UIGameplayManager : MonoBehaviour
     
 
     bool isChessManPanelOn;
-
+    bool isCameraMoveOn;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class UIGameplayManager : MonoBehaviour
         Debug.Log("Setup UI");
         //
         isChessManPanelOn = false;
+        isCameraMoveOn = false;
         // Setup UI
         uIChessManPanel.Setup();
         uIInformationPanel.Setup();
@@ -52,6 +54,7 @@ public class UIGameplayManager : MonoBehaviour
         // Assign btn
         settingBtn.onClick.AddListener(OnSetting);
         toggleChessManBtn.onClick.AddListener(OnToggleBtnClicked);
+        cameraModeBtn.onClick.AddListener(OnCameraModeBtnClicked);
 
         CheckShowTutorial();
     }
@@ -103,6 +106,11 @@ public class UIGameplayManager : MonoBehaviour
         }
         isChessManPanelOn = !isChessManPanelOn;
         
+    }
+    private void OnCameraModeBtnClicked()
+    {
+        GameplayManager.Instance.camController.ChangeCameraMode();
+        // Change button appearence when clicke 
     }
 
     public void ShowPromote()
