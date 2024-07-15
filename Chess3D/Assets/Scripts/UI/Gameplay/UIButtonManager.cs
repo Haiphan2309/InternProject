@@ -55,7 +55,5 @@ public class UIButtonManager : MonoBehaviour
         GameplayManager.Instance.ShowHint();
         // Update Number
         solveNumber.text = SaveLoadManager.Instance.GameData.solveNum.ToString();
-
-
     }
 }
