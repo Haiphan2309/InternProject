@@ -47,8 +47,23 @@ public class ChessMan : GameplayObject
         EnemyArmy enemy = GameplayManager.Instance.levelData.GetEnemyArmies()[index];
         if (enemy.isAI)
         {
-            Vector3 posIndexToMove = config.MoveByDefault(posIndex);
-            GameplayManager.Instance.MakeMove(this, posIndexToMove);
+            Vector3 posIndexToMove;
+            if (config.chessManType != ChessManType.KING)
+            {
+                posIndexToMove = config.MoveByDefault(posIndex);
+            }
+            else //Neu la king thi chay tron
+            {
+                posIndexToMove = config.RetreatMove(posIndex);
+            }
+
+            GameplayObject obj = GameUtils.GetGameplayObjectByPosition(posIndexToMove);
+            ChessMan playerChessManDefeated = null;
+            if (obj != null)
+            {
+                playerChessManDefeated = obj.GetComponent<ChessMan>();
+            }
+            GameplayManager.Instance.MakeMove(this, posIndexToMove, playerChessManDefeated);
         }
         else
         {
@@ -154,6 +169,7 @@ public class ChessMan : GameplayObject
 
         Vector3 gameplayObjectPosition = Vector3.zero;
         GameplayObject gameplayObject = null;
+        GameplayObject objectInteract = null;
 
         int i = 1;
 
@@ -164,11 +180,10 @@ public class ChessMan : GameplayObject
 
             gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
 
+            if (gameplayObject != null && gameplayObject.CompareTag("Object")) objectInteract = gameplayObject;
+
             Vector3 boxDirection = direction;
             boxDirection.y = 0;
-
-            Debug.Log($"[{i}] {gameplayObject}");
-            i++;
 
             if (gameplayObject != null && !gameplayObject.isAnim)
             {
@@ -193,10 +208,12 @@ public class ChessMan : GameplayObject
 
         yield return null;
 
-        if (gameplayObject != null && gameplayObject.CompareTag("Object"))
+        if (objectInteract != null && objectInteract.CompareTag("Object"))
         {
-            yield return new WaitUntil(() => gameplayObject.isAnim == false);
-            gameplayObject.SetPosIndex();
+            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + gameplayObject.isAnim);
+            yield return new WaitUntil(() => objectInteract.isAnim == false);
+            Debug.Log("GameplayObject isAnim: " + objectInteract.isAnim);
+            objectInteract.SetPosIndex();
         }
 
         isStandOnSlope = isOnSlope;

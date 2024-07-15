@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 public class CameraController : MonoBehaviour
 {
@@ -39,7 +40,17 @@ public class CameraController : MonoBehaviour
     private float zoomMin = 2;
     private float zoomVelocity = 0f;
     private float smoothZoomTime = 0.25f;
+    //
+    private float moveVelocityX = 0f;
+    private float moveVelocityY = 0f;
+    private float moveMax = 1f;
+    private float moveMin = 0f;
+    private float smoothMoveTime = 0.25f;
+    private float pinchMoveAngle = 90f;
+    [SerializeField] private float moveSpeedX = 10f;
+    [SerializeField] private float moveSpeedY = 10f;
 
+    private bool isLocked = false;
    
     public void Setup(Vector3 center, float distance)
     {
@@ -78,8 +89,12 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_camera != null )
+        if (_camera != null && !isLocked)
         {
+#if UNITY_EDITOR
+            HandleMoveCamera();
+#endif
+            //HandleMoveCamera();
             HandleZoomCamera();
             HandleSwipeCamera();
         }
@@ -87,7 +102,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Hàm để giới hạn góc quay
-    protected static float ClampAngle(float angle, float min, float max)
+    private static float ClampAngle(float angle, float min, float max)
     {
         if (angle < -360F)
             angle += 360F;
@@ -96,9 +111,9 @@ public class CameraController : MonoBehaviour
         return Mathf.Clamp(angle, min, max);
     }
 
-    protected void HandleSwipeCamera()
+    private void HandleSwipeCamera()
     {
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
+        if ((Input.touchCount ==1 || Input.GetMouseButton(0)) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
             targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
             targetY -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
@@ -110,37 +125,92 @@ public class CameraController : MonoBehaviour
         y = Mathf.SmoothDamp(y, targetY, ref velocityY, smoothTime);
 
         Quaternion rotation = Quaternion.Euler(y, x, 0);
+        //Debug.Log(rotation * new Vector3(0.0f, 0.0f, -targetDistance) + " SADAS  " + targetDistance.ToString());
         Vector3 position = rotation * new Vector3(0.0f, 0.0f, -targetDistance) + target;
 
         transform.rotation = rotation;
         transform.position = position;
     }
-    protected void HandleZoomCamera()
+
+    
+    private void HandleZoomCamera()
     {
         if (Input.touchCount == 2 && !EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("Zoom");
+         
             Touch touchFirst = Input.GetTouch(0);
             Touch touchSecond = Input.GetTouch(1);
 
             Vector2 touchFirstPrePos = touchFirst.position - touchFirst.deltaPosition;
             Vector2 touchSecondPrePos = touchSecond.position - touchSecond.deltaPosition;
 
-            float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
-            float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
+            Vector2 touchFirstVector = touchFirst.position - touchFirstPrePos;
+            Vector2 touchSecondVector = touchSecond.position - touchSecondPrePos;
+            if (Vector2.Angle(touchFirstVector, touchSecondVector) < pinchMoveAngle) // Move Camera
+            {
+                //Vector2 moveVector = Vector2.Lerp(touchFirstVector, touchSecondVector, 0.5f).normalized;
+                //Move(moveVector.x, moveVector.y);
+            }
+            else // Zoom Camera
+            {
+                float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
+                float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
+                float diff = currentMagnitude - preMagnitude;
 
-            float diff = currentMagnitude - preMagnitude;
+                Zoom(diff * zoomSpeed);
+            }
 
-            Zoom(diff * zoomSpeed);
+            //
+
+
+            
         }
-
+        #if UNITY_EDITOR
         Zoom(Input.GetAxis("Mouse ScrollWheel")*zoomSpeed);
+        #endif
     }
-    protected void Zoom(float inc)
+    private void Zoom(float inc)
     {
     
         zoom -= inc;
         zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
         _camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, zoom,  ref zoomVelocity, smoothZoomTime);
+    }
+
+    private void HandleMoveCamera()
+    {
+#if UNITY_EDITOR
+
+        float x = Input.GetAxis("Horizontal") * moveSpeedX * 0.02f;
+        float y = Input.GetAxis("Vertical") * moveSpeedY * 0.02f;
+        Move(x, y);
+        
+#endif
+    }
+
+    private void Move(float x, float y)
+    {
+        CinemachineFramingTransposer framing = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
+
+        float targetX = framing.m_ScreenX + x;
+        float targetY = framing.m_ScreenY - y;
+
+        targetX = Mathf.Clamp(targetX, moveMin, moveMax);
+        targetY = Mathf.Clamp(targetY, moveMin, moveMax);
+
+        float smoothX = Mathf.SmoothDamp(framing.m_ScreenX, targetX, ref moveVelocityX, smoothMoveTime);
+        float smoothY = Mathf.SmoothDamp(framing.m_ScreenY, targetY, ref moveVelocityY, smoothMoveTime);
+
+        framing.m_ScreenX = smoothX;
+        framing.m_ScreenY = smoothY;
+    }
+    public void Lock()
+    {
+        isLocked = true;
+    }
+
+    public void Unlock()
+    {
+        isLocked = false;
     }
 }

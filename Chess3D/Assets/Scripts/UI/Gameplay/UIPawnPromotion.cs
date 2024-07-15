@@ -56,7 +56,6 @@ public class UIPawnPromotion : MonoBehaviour
     private void OnButtonCLicked(ChessManType chessManType)
     {
         promoteType = chessManType;
-        uiPopupAnim.Hide();
         Close();
     }
 
@@ -66,11 +65,14 @@ public class UIPawnPromotion : MonoBehaviour
     {
         gameObject.SetActive(true);
         uiPopupAnim.Show();
+       // GameplayManager.Instance.camController.Lock();
     }
 
     public void Close()
     {
-        gameObject.SetActive(false);
+        uiPopupAnim.Hide();
+      //  GameplayManager.Instance.camController.Unlock();
+
     }
     public ChessManType GetPromoteType()
     {

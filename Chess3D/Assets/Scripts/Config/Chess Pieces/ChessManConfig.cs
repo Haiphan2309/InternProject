@@ -24,7 +24,7 @@ public class ChessManConfig : ScriptableObject
     };
 
     // Check if the tile ahead is blocking the move
-    private bool IsBlocked(Vector3 currentMove)
+    private bool IsBlocked(Vector3 currentMove, Vector3 direction)
     {
         bool isBlocked = false;
         TileType tileData = GameUtils.GetTile(currentMove);
@@ -34,6 +34,30 @@ public class ChessManConfig : ScriptableObject
             case TileType.GROUND:
             case TileType.OBJECT:
                 isBlocked = true;
+                break;
+            case TileType.SLOPE_0:
+                if (direction.z > 0)
+                {
+                    isBlocked = true;
+                }
+                break;
+            case TileType.SLOPE_90:
+                if (direction.x < 0)
+                {
+                    isBlocked = true;
+                }
+                break;
+            case TileType.SLOPE_180:
+                if (direction.z < 0)
+                {
+                    isBlocked = true;
+                }
+                break;
+            case TileType.SLOPE_270:
+                if (direction.x > 0)
+                {
+                    isBlocked = true;
+                }
                 break;
 
             // else
@@ -268,7 +292,7 @@ public class ChessManConfig : ScriptableObject
             move = currentMove + direction;
 
             // Debug.Log("Load " + move.ToString());
-            if (IsBlocked(move))
+            if (IsBlocked(move, direction))
             {
                 break;
             }
@@ -523,5 +547,60 @@ public class ChessManConfig : ScriptableObject
     public virtual Vector3 PatrolState(Vector3 currentPositionIndex, Dictionary<ChessManType, int> chessManPriority = null)
     {
         return possibleMoveList[Random.Range(0, possibleMoveList.Count)];
+    }
+
+    //Thuc hien dua ra mot nuoc di ne ngau nhien (cho enemy)
+    public Vector3 RetreatMove(Vector3 posIndex)
+    {
+        List<Vector3> retreatMoves = new List<Vector3>();
+        List<Vector3> posibleMoves = new List<Vector3>();
+        foreach(var move in Move(posIndex))
+        {
+            posibleMoves.Add(move);
+        }
+
+        for (int i = 0; i< posibleMoves.Count; i++)
+        {
+            if (CheckMoveIsSafe(posibleMoves[i]))
+            {
+                retreatMoves.Add(posibleMoves[i]);
+            }
+        }
+
+        if (retreatMoves.Count > 0)
+        {
+            int rand = Random.Range(0, retreatMoves.Count);
+            return retreatMoves[rand];
+        }
+        else
+        {
+            Debug.Log("KO CO DUONG NAO DE NE");
+            return posibleMoves[0];
+        }
+    }
+
+    //check if this move is safe for enemy
+    public bool CheckMoveIsSafe(Vector3 posIndex)
+    {
+        int tempTileId = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex).id;
+        TileType tempTileType = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex).tileType;
+        GameplayManager.Instance.levelData.SetTileInfoNoDeep(posIndex, 0, TileType.NONE); //Gia su cho do sau khi di la none (none de de di chuyen)
+            
+        List<ChessMan> playerArmy = GameplayManager.Instance.playerArmy;
+        foreach (var player in playerArmy)
+        {
+            List<Vector3> playerPosibleMoves = player.config.Move(player.posIndex);
+            foreach (var playerMove in playerPosibleMoves)
+            {
+
+                if (GameUtils.CompareVector3(posIndex, playerMove))
+                {
+                    GameplayManager.Instance.levelData.SetTileInfoNoDeep(posIndex, tempTileId, tempTileType); //Tra ve ban dau
+                    return false;
+                }
+            }
+        }
+        GameplayManager.Instance.levelData.SetTileInfoNoDeep(posIndex, tempTileId, tempTileType); //Tra ve ban dau
+        return true;
     }
 }

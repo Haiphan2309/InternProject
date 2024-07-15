@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using GDC.Enums;
+using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -50,6 +51,7 @@ public class Box : GameplayObject
                 if (GameUtils.GetTile(GameUtils.SnapToGrid(transform.position)) == TileType.WATER && !isDropToWater)
                 {
                     Instantiate(vfxWaterSplash, target + Vector3.up, Quaternion.identity);
+                    SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_WATER_SPLASH);
                     isDropToWater = true;
                 }
 
@@ -78,7 +80,7 @@ public class Box : GameplayObject
             GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
             destroyGO.Defeated();
         }
-        
+
         GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
 
         if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
@@ -232,5 +234,6 @@ public class Box : GameplayObject
         Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
         Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
         Destroy(gameObject);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_DISAPPEAR);
     }
 }

@@ -25,16 +25,17 @@ public class UIChapterSlot : MonoBehaviour
     {
         yield return new WaitUntil(() => SaveLoadManager.Instance != null);
         chapterData = GameUtils.GetChapterData(this.chapterIndex);
+        GameData gameData = SaveLoadManager.Instance.GameData;
 
-        if (chapterData == null || chapterData.starRequire <= SaveLoadManager.Instance.GameData.GetAllStar())
+        if (chapterIndex > gameData.currentChapter || chapterData.starRequire > gameData.GetAllStar())
         {
-            isAvailable = true;
-            transform.GetComponent<Image>().color = Color.white;
+            transform.GetComponent<Image>().color = Color.black;
+            isAvailable = false;
         }
         else
         {
-            isAvailable = false;
-            transform.GetComponent<Image>().color = Color.black;
+            transform.GetComponent<Image>().color = Color.white;
+            isAvailable = true;
         }
 
         // EASY ACCESS PURPORSE

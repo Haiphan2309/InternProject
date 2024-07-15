@@ -1,6 +1,7 @@
 using GDC.Enums;
 using GDC.Managers;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
@@ -28,7 +29,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
-    [HideInInspector] public bool isAnimMoving, isEndTurn;
+    [HideInInspector] public bool isAnimMoving, isEndTurn, isEndGame;
     private void Awake()
     {
         Instance = this;
@@ -66,6 +67,7 @@ public class GameplayManager : MonoBehaviour
         isAnimMoving = false;
         isEndTurn = true;
         enemyTurn = false;
+        isEndGame = false;
 
         uiGameplayManager.Setup();
 
@@ -131,6 +133,7 @@ public class GameplayManager : MonoBehaviour
         }
 
         this.enemyTurn = enemyTurn;
+        uiGameplayManager.ChangeTurn(enemyTurn);
         if (enemyTurn)
         {
             EnemyTurn();
@@ -141,7 +144,7 @@ public class GameplayManager : MonoBehaviour
         }
         
     }
-    private void EnemyTurn()
+    private void EnemyTurn() //Xac dinh thu tu di chuyen cua cac enemy
     {
         Debug.Log("Enemy Turn!");
 
@@ -153,6 +156,10 @@ public class GameplayManager : MonoBehaviour
                 {
                     if (GameUtils.CompareVector3(player.posIndex, move))
                     {
+                        if (enemy.config.chessManType == ChessManType.KING && levelData.GetEnemyArmies()[enemy.index].isAI && enemy.config.CheckMoveIsSafe(enemy.posIndex) == false)
+                        {
+                            continue;
+                        }
                         MakeMove(enemy, move, player);
                         return;
                     }
@@ -198,6 +205,9 @@ public class GameplayManager : MonoBehaviour
                             }
                         }
                     }
+
+                    //Neu ko co ai co the di duoc het thi skip turn
+                    EndTurn();
                 }
             }            
         }
@@ -434,21 +444,23 @@ public class GameplayManager : MonoBehaviour
     private void Win()
     {
         Debug.Log("Win");
-        SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, GetStarOfCurrentLevel(), remainTurn);
-        StartCoroutine(Cor_ShowWinPanel());
+        isEndGame = true;
+        bool isNewRecord = SaveLoadManager.Instance.GameData.CheckNewRecord(chapterData.id, levelData.id, remainTurn);
+        StartCoroutine(Cor_ShowWinPanel(isNewRecord));
         int star = GetStarOfCurrentLevel();
         SaveLoadManager.Instance.GameData.SetLevelData(chapterData.id, levelData.id, star, remainTurn);
         SaveLoadManager.Instance.GameData.CheckSetCurrentLevel(chapterData.id, levelData.id);
         SaveLoadManager.Instance.Save();
     }
-    private IEnumerator Cor_ShowWinPanel()
+    private IEnumerator Cor_ShowWinPanel(bool isNewRecord)
     {
         yield return new WaitForSeconds(1);
-        uiGameplayManager.ShowWin();
+        uiGameplayManager.ShowWin(isNewRecord);
     }
     void Lose()
     {
         Debug.Log("Lose");
+        isEndGame = true;
         StartCoroutine(Cor_ShowLosePanel());
     }
     private IEnumerator Cor_ShowLosePanel()

@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     IEnumerator Cor_IntoLevelMenu(int chapterIndex)
     {
         UIStack.Push(mainMenu);
-        UIStack.Push(chapterMenu);
+        // UIStack.Push(chapterMenu);
         yield return new WaitForSeconds(timer);
         LevelPreset(chapterIndex, GameUtils.GetChapterData(chapterIndex).levelDatas.Count);
     }
@@ -166,8 +166,9 @@ public class UIManager : MonoBehaviour
         chapter.GetChild(0).GetComponent<TMP_Text>().text = $"Chapter {chapterIndex + 1}";
         chapter.GetChild(1).GetComponent<TMP_Text>().text = $"Chapter {chapterIndex + 1}";
         UIStack.Push(chapterMenu);
-        levelHolder.anchoredPosition = Vector3.down * 2000f;
+        levelHolder.anchoredPosition = Vector3.down * 1500;
         for (int idx = 0; idx < maxLevelIndex; ++idx)
+
         {
             int levelIndex = idx;
             UILevelSlot levelSlot = Instantiate(levelSlotPrefab, levelContent);
