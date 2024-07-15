@@ -47,8 +47,10 @@ public class ChessMan : GameplayObject
         if (config.chessManType != chessManData.chessManType)
         {
             config = GetConfigFromType(chessManData.chessManType);
+            testPromoteType = chessManData.chessManType;
             ChangeMesh(chessManData.chessManType);
         }
+        
         index = chessManData.index;
         posIndex = chessManData.posIndex;
         isEnemy = false;
