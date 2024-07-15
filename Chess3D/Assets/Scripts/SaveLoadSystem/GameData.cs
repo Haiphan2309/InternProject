@@ -33,6 +33,8 @@ namespace GDC.Managers
         public List<PlayerLevelData> playerLevelDatas;
         public int currentChapter;
         public int currentLevel; //start with 0
+
+        public int undoNum, solveNum;
         public void SetupData() //load
         {
             IsSaveLoadProcessing = true;
@@ -69,6 +71,9 @@ namespace GDC.Managers
             currentLevel = gameDataOrigin.currentLevel;
             currentChapter = gameDataOrigin.currentChapter;
 
+            undoNum = gameDataOrigin.undoNum;
+            solveNum = gameDataOrigin.solveNum;
+
             SaveLoadManager.Instance.GameDataOrigin = gameDataOrigin;
             IsSaveLoadProcessing = false;
         }
@@ -93,6 +98,9 @@ namespace GDC.Managers
             }
             gameDataOrigin.currentLevel = currentLevel;
             gameDataOrigin.currentChapter = currentChapter;
+
+            gameDataOrigin.undoNum = undoNum;
+            gameDataOrigin.solveNum = solveNum;
 
             IsSaveLoadProcessing = false;
             return gameDataOrigin;
@@ -178,6 +186,8 @@ namespace GDC.Managers
         public List<bool> isPlayBefores;
         public int currentLevel;
         public int currentChapter;
+
+        public int undoNum, solveNum;
     }
 
     [Serializable]

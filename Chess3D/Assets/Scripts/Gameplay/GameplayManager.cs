@@ -72,10 +72,16 @@ public class GameplayManager : MonoBehaviour
 
         uiGameplayManager.Setup();
         gridSateManager.Setup();
+        SetPowerUpNum();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
 
+    private void SetPowerUpNum()
+    {
+        SaveLoadManager.Instance.GameData.undoNum = 3;
+        SaveLoadManager.Instance.GameData.solveNum = 3;
+    }
     private void ResetEnemyPriorityLowestList()
     {
         if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
@@ -520,6 +526,12 @@ public class GameplayManager : MonoBehaviour
     [Button]
     public void Undo()
     {
+        if (SaveLoadManager.Instance.GameData.undoNum <=0)
+        {
+            Debug.Log("Da het undo");
+            return;
+        }
+        SaveLoadManager.Instance.GameData.undoNum--;
         SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
     }
