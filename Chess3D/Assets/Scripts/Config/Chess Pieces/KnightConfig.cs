@@ -45,7 +45,7 @@ public class KnightConfig : ChessManConfig
         // Then check the block at y = object.y + _jumpLimit
         GDC.Enums.TileType firstBlockData = GameUtils.GetTile(v1);
         GDC.Enums.TileType secondBlockData = GameUtils.GetTile(v2);
-        GDC.Enums.TileType currentBlockData = GameUtils.GetTile(currentMove);
+        // GDC.Enums.TileType currentBlockData = GameUtils.GetTile(currentMove);
 
         // if there is something that blocks the jump -> block datas will not be NONE
         if (firstBlockData != GDC.Enums.TileType.NONE || secondBlockData != GDC.Enums.TileType.NONE)
