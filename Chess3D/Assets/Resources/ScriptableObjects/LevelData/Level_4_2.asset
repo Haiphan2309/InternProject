@@ -8234,4 +8234,4 @@ MonoBehaviour:
     isAI: 0
     priority: 1
     movePosIndexs: []
-  thumbnail: {fileID: 21300000, guid: 0df296034e411ec408865b44b3427d87, type: 3}
+  thumbnail: {fileID: 21300000, guid: d5c7250c4489c964ca4fccf32982f486, type: 3}
