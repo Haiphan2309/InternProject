@@ -42,15 +42,20 @@ public class UIButtonManager : MonoBehaviour
 
     private void OnBackBtnClicked()
     {
-        // Call Back method from GamePlay
+        // Call Back method from GamePlay 
 
         // Update Number
-        backNumber.text = SaveLoadManager.Instance.GameData.undoNum;
+        backNumber.text = SaveLoadManager.Instance.GameData.undoNum.ToString();
 
     }
 
     private void OnSolveBtnClicked()
     {
         // Call Solve method from GamePlay
+
+        // Update Number
+        solveNumber.text = SaveLoadManager.Instance.GameData.solveNum.ToString();
+
+
     }
 }
