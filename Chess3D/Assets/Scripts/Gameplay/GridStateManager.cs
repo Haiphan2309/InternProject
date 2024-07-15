@@ -1,6 +1,7 @@
 ﻿using GDC.Enums;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,26 @@ public class GameplayObjectData
 {
     public Vector3 posIndex;
     public int index;
+    public string objName;
+
+    public GameplayObjectData()
+    {
+
+    }
+    public GameplayObjectData(GameplayObject gameplayObject)
+    {
+        posIndex = gameplayObject.posIndex;
+        index = gameplayObject.gameObject.GetInstanceID();
+        if (gameplayObject.name.Contains("200")) //Day la box
+        {
+            objName = "200";
+        }
+        else //Day la boulder
+        {
+            objName = "201";
+        }
+        
+    }
 }
 public class ChessManData : GameplayObjectData
 {
@@ -59,8 +80,9 @@ public class EnemyChessManData : ChessManData
 public class GridState
 {
     public List<TileInfo> tileInfos;
-    public List<PlayerChessManData> playerChessManData;
-    public List<EnemyChessManData> enemyChessManData, enemyChessManDataPrioritys;
+    public List<PlayerChessManData> playerChessManDatas;
+    public List<EnemyChessManData> enemyChessManDatas, enemyChessManDataPrioritys;
+    public List<GameplayObjectData> gameplayObjectDatas;
 
     public GridState(List<TileInfo> tileInfos, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest)
     {
@@ -70,22 +92,31 @@ public class GridState
             this.tileInfos.Add(new TileInfo(tileInfo.id, tileInfo.tileType));
         }
 
-        this.playerChessManData = new List<PlayerChessManData>();
+        this.playerChessManDatas = new List<PlayerChessManData>();
         foreach(ChessMan chessMan in playerArmy)
         {
-            this.playerChessManData.Add(new PlayerChessManData(chessMan));
+            this.playerChessManDatas.Add(new PlayerChessManData(chessMan));
         }
 
-        this.enemyChessManData = new List<EnemyChessManData>();
+        this.enemyChessManDatas = new List<EnemyChessManData>();
         foreach (ChessMan chessMan in enemyArmy)
         {
-            this.enemyChessManData.Add(new EnemyChessManData(chessMan));
+            this.enemyChessManDatas.Add(new EnemyChessManData(chessMan));
         }
 
         this.enemyChessManDataPrioritys = new List<EnemyChessManData>();
         foreach (ChessMan chessMan in listEnemyPriorityLowest)
         {
             this.enemyChessManDataPrioritys.Add(new EnemyChessManData(chessMan));
+        }
+
+        this.gameplayObjectDatas = new List<GameplayObjectData>();
+        List<GameplayObject> objs = GameObject.FindObjectsOfType<GameplayObject>().OfType<GameplayObject>().ToList();
+        List<GameplayObject> gameplayObjs = objs.FindAll(x => x.CompareTag("Object"));
+
+        foreach (var gameplayObj in gameplayObjs)
+        {
+            this.gameplayObjectDatas.Add(new GameplayObjectData(gameplayObj));
         }
     }
 }
@@ -122,7 +153,7 @@ public class GridStateManager : MonoBehaviour
             levelData.tileInfo[i].tileInfo = gridState.tileInfos[i];
         }
 
-        foreach(var chessManData in gridState.playerChessManData)
+        foreach(var chessManData in gridState.playerChessManDatas)
         {
             bool isFind = false;
             foreach(var gameplayPlayer in GameplayManager.Instance.playerArmy)
@@ -148,7 +179,7 @@ public class GridStateManager : MonoBehaviour
             Destroy(enemy.gameObject);
         }
         GameplayManager.Instance.enemyArmy.Clear();
-        foreach (var chessManData in gridState.enemyChessManData)
+        foreach (var chessManData in gridState.enemyChessManDatas)
         {
             ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true);
             chessMan.SetChessManData(chessManData);
@@ -165,6 +196,30 @@ public class GridStateManager : MonoBehaviour
                     GameplayManager.Instance.listEnemyPriorityLowest.Add(enemy);
                     break;
                 }
+            }
+        }
+
+        List<GameplayObject> objs = FindObjectsOfType<GameplayObject>().OfType<GameplayObject>().ToList();
+        List<GameplayObject> gameplayObjs = objs.FindAll(x => x.CompareTag("Object"));
+        //List<GameplayObject> gameplayObjs = GameObject.FindGameObjectsWithTag("Object").OfType<GameplayObject>().ToList();
+        //Debug.Log("So box find " + gameplayObjs.Count + " va so box data " + gridState.gameplayObjectDatas.Count.ToString());
+        foreach (var gameplayObjData in gridState.gameplayObjectDatas)
+        {
+            bool isFind = false;
+            foreach (var gameplayObj in gameplayObjs)
+            {
+                if (gameplayObj.gameObject.GetInstanceID() == gameplayObjData.index)
+                {
+                    gameplayObj.SetGameplayObjectData(gameplayObjData);
+                    isFind = true;
+                    break;
+                }
+            }
+
+            if (isFind == false) //Gameplay này đã bị hủy, cần phải sinh ra lại
+            {
+                GameplayObject obj = SpawnGameplayObject(gameplayObjData.objName);
+                obj.SetGameplayObjectData(gameplayObjData);
             }
         }
     }
@@ -229,5 +284,11 @@ public class GridStateManager : MonoBehaviour
                 break;
         }
         return Instantiate(chessManObj).GetComponent<ChessMan>();
+    }
+    GameplayObject SpawnGameplayObject(string objName) //200 is box, 201 is boulder
+    {
+        string path = "ObjectPrefabs/" + objName;
+        GameObject obj = Resources.Load<GameObject>(path);
+        return Instantiate(obj).GetComponent<GameplayObject>();
     }
 }
