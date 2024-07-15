@@ -29,6 +29,11 @@ MonoBehaviour:
       above.
   - chapterIndex: 0
     levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 5eac29fb74aabf549a166042ab755e16, type: 3}
+    tutorialText: The normal Enemy has these little dots that indicate its movements.
+      Make sure to take a close look at it to plan your moves better.
+  - chapterIndex: 0
+    levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 878de9fd59e68354da7ab28e8ea2b367, type: 3}
     tutorialText: The KING's movement is as follows
   - chapterIndex: 0
@@ -105,3 +110,33 @@ MonoBehaviour:
     tutorialSprite: {fileID: 21300000, guid: e871440d15cf628449f826e9c0729530, type: 3}
     tutorialText: The BOX is a heavy object, so it can be dropped to block the road,
       or kill a piece as shown above.
+  - chapterIndex: 2
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 62c1eaeaaa5519643b8da3a83157e70a, type: 3}
+    tutorialText: The PAWN has the ability to PROMOTE into the stronger pieces, such
+      as CASTLE, KNIGHT, BISHOP and QUEEN.
+  - chapterIndex: 2
+    levelIndex: 1
+    tutorialSprite: {fileID: 21300000, guid: c2ce78a7bd0b4ba4784a2ed0390248b7, type: 3}
+    tutorialText: Introducing the BOULDER, which is a heavy object that is pushable
+      in a diagonal line.
+  - chapterIndex: 2
+    levelIndex: 2
+    tutorialSprite: {fileID: 21300000, guid: da0a9a2b1c29ebc44ba01d79f98a6340, type: 3}
+    tutorialText: The BOULDER can roll down the slopes and destroy everything it
+      lands on.
+  - chapterIndex: 3
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: c3d2f6eef8f20524da395ddaf0b13b7f, type: 3}
+    tutorialText: Unlike the normal enemy that appears in previous levels, this enemy
+      is more intelligent.
+  - chapterIndex: 3
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: c3d2f6eef8f20524da395ddaf0b13b7f, type: 3}
+    tutorialText: 'The purple color means it is infected with the 4.0 mechanics:
+      AI. With AI, it''s capable of moving on its own, albeit randomly.'
+  - chapterIndex: 3
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 834a0c2ffb9fd9a468acccc45d7a58ba, type: 3}
+    tutorialText: An example of an AI move which gets its to this position, although
+      it's more unlikely to not see it.

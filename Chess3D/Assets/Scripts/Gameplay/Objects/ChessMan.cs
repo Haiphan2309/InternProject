@@ -21,9 +21,10 @@ public class ChessMan : GameplayObject
 
     public bool isEnemy;
     //public int index;
-    int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
+    public int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
 
-    int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
+    public int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
+    public bool isAI;
 
     List<Vector3> showPath = new List<Vector3>();
 
@@ -40,6 +41,29 @@ public class ChessMan : GameplayObject
         isEnemy = true;
         this.index = index;
         this.posIndex = posIndex;
+    }
+    public void SetChessManData(PlayerChessManData chessManData)
+    {
+        config = GetConfigFromType(chessManData.chessManType);
+        index = chessManData.index;
+        posIndex = chessManData.posIndex;
+        isEnemy = false;
+
+        //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        AjustPosToGround(posIndex);
+    }
+    public void SetChessManData(EnemyChessManData chessManData)
+    {
+        config = GetConfigFromType(chessManData.chessManType);
+        index = chessManData.index;
+        posIndex = chessManData.posIndex;
+        moveIndex = chessManData.moveIndex;
+        deltaMoveIndex = chessManData.deltaMoveIndex;
+        isEnemy = true;
+        isAI = chessManData.isAI;
+
+        //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        AjustPosToGround(posIndex);
     }
 
     public bool EnemyMove()
@@ -171,8 +195,6 @@ public class ChessMan : GameplayObject
         Vector3 gameplayObjectPosition = Vector3.zero;
         GameplayObject gameplayObject = null;
         GameplayObject objectInteract = null;
-
-        int i = 1;
 
         // Move
         foreach (var gridCell in path)

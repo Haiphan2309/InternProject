@@ -46,14 +46,6 @@ MonoBehaviour:
   - {fileID: 4051196245707785669, guid: 8bfe60e65eb39d14bb7ff8cbd4c6f7ea, type: 3}
   - {fileID: 4051196245707785669, guid: 7475b66b1d229de4ab14e62c4d9e10a1, type: 3}
   - {fileID: 4051196245707785669, guid: d4f79bb9db0c48a4586fbcf0977b91eb, type: 3}
-  - {fileID: 4051196245707785669, guid: 3b4f722e848a45d4cb07dc7109972df2, type: 3}
-  - {fileID: 5213880191220909169, guid: 20c2754bbb2ee394f98cbc212ca6716b, type: 3}
-  - {fileID: 5213880191220909169, guid: d0ab9f8fa2e8f98448e575b655769530, type: 3}
-  - {fileID: 5213880191220909169, guid: 2f8a1cf1e56846d43b4f2729cdbd6941, type: 3}
-  - {fileID: 5213880191220909169, guid: 3594b544dd5d9ec46834cce38c1b9dd3, type: 3}
-  - {fileID: 8998501177938085803, guid: 311f40d15e2d0cd4692e1292ecf9f212, type: 3}
-  - {fileID: 8998501177938085803, guid: e6a6601d969993746869974ab4ef725f, type: 3}
-  - {fileID: 8998501177938085803, guid: ee3481f61872664468f06f4de6f78230, type: 3}
-  selectedIndex: 1
+  selectedIndex: 3
   manualOffset: 0
   manualOffsetValue: 0

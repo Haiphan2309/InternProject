@@ -32,7 +32,6 @@ public class InputManager : MonoBehaviour
             }
             else
             {
-                if (GameplayManager.Instance.isEndGame == false)
                 //this is click
                 MouseClickInput();
             }
@@ -103,7 +102,6 @@ public class InputManager : MonoBehaviour
                 {
                     HideOulineHitChessMan();
                     HitObject(hit);
-                    isPicking = false;
                     //HitTileToMove(hit);
                 }
                 else
@@ -199,7 +197,6 @@ public class InputManager : MonoBehaviour
                         //Enemy khong the an duoc
                         CheckShowOutlineChessMan();
                     }
-                    isPicking = false;
                 }
                 else
                 {

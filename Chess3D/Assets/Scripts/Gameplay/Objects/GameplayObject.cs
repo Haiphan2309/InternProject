@@ -41,6 +41,13 @@ public class GameplayObject : MonoBehaviour
 
     }
 
+    public void SetGameplayObjectData(GameplayObjectData gameplayObjectData)
+    {
+        posIndex = gameplayObjectData.posIndex;
+        //index = gameplayObjectData.index;
+        //transform.position = posIndex;
+        AjustPosToGround(posIndex);
+    }
     public void SetOutline(float width)
     {
         //outline.OutlineColor = color;
@@ -123,6 +130,57 @@ public class GameplayObject : MonoBehaviour
             path.Add(current);
         }
         return path;
+    }
+    public void AjustPosToGround(Vector3 target)
+    {
+        Vector3 rotation = transform.rotation.eulerAngles;
+
+        TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
+
+        if (!isStandOnSlope)
+        {
+            switch (tileType)
+            {
+                case TileType.SLOPE_0:
+                    rotation.x = 45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_90:
+                    rotation.z = 45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_180:
+                    rotation.x = -45;
+                    isOnSlope = true;
+                    break;
+                case TileType.SLOPE_270:
+                    rotation.z = -45;
+                    isOnSlope = true;
+                    break;
+
+                default:
+                    rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+                    isOnSlope = false;
+                    break;
+            }
+        }
+        else
+        {
+            if (GameUtils.CheckSlope(tileType))
+            {
+                isOnSlope = true;
+            }
+            else
+            {
+                rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
+                isOnSlope = false;
+            }
+        }
+
+        if (isOnSlope) target = target - Vector3.up * 0.4f;
+
+        transform.position = target;
+        transform.rotation = Quaternion.Euler(rotation);
     }
 
     protected virtual void AjustPosToGround(Vector3 newPosition, Vector3 target, Vector3 direction, bool isChessMan = false, bool isRoundInteger = false)
