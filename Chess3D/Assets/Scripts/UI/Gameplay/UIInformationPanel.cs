@@ -39,12 +39,14 @@ public class UIInformationPanel : MonoBehaviour
     public void ChangeToPlayerTurn()
     {
         turnText.text = "Player Turn!";
+        turnText.color = Color.blue;
         PlayTextAnim();
     }
 
     public void ChangeToEnemyTurn()
     {
         turnText.text = "Enemy Turn!";
+        turnText.color = Color.red;
         PlayTextAnim();    
     }
 
