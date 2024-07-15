@@ -117,6 +117,7 @@ public class UIGameplayManager : MonoBehaviour
 
     public void ShowPromote()
     {
+        uiPawnPromotion.ResetPromoteType();
         uiPawnPromotion.Open();
     }
 
@@ -124,7 +125,6 @@ public class UIGameplayManager : MonoBehaviour
     {
         return uiPawnPromotion.GetPromoteType();
     }
-
     public void UpdateHolder(ChessMan chessMan)
     {
         uIChessManPanel.UpdateHolder(chessMan);
