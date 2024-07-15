@@ -38,6 +38,7 @@ public class UIChapterMenu : UI
     private void SetButtonSystem()
     {
         UIManager.Instance.startButton.GetComponent<RectTransform>().DOAnchorPosX(600, _timer);
+        UIManager.Instance.settingButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
         UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
         UIManager.Instance.creditButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
     }

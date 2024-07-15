@@ -42,18 +42,20 @@ public class UIManager : MonoBehaviour
     public UIPopupAnim creditPagePrefab;
     public UISetting settingPagePrefab;
 
-    private readonly float hidePosition = 600f;
-    public readonly float timer = 1f;
+    private bool isButtonLoad = false;
+    private bool isCustomLoad = false;
 
-    private Color leftCircleColor = new Color(200f / 255f, 150f / 255f, 1f);
-    private Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
+    private readonly Color leftCircleColor = new Color(200f / 255f, 150f / 255f, 1f);
+    private readonly Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
 
-    private Color leftChessPieceColor = new Color(0f, 0.5f, 1f);
-    private Color rightChessPieceColor = new Color(1f, 0.5f, 0f);
+    private readonly Color leftChessPieceColor = new Color(0f, 0.5f, 1f);
+    private readonly Color rightChessPieceColor = new Color(1f, 0.5f, 0f);
 
     private readonly Stack<UI> UIStack = new Stack<UI>();
     private readonly List<Button> chapterButton = new List<Button>();
     private readonly List<Button> levelButton = new List<Button>();
+
+    private readonly float hidePosition = 600f;
 
     private void Awake()
     {
@@ -64,18 +66,17 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         Preset();
-        mainMenu.Anim();
     }
 
     public void IntoChapterMenu()
     {
-        // Debug.Log(Instance);
         StartCoroutine(Cor_IntoChapterMenu());
     }
 
     IEnumerator Cor_IntoChapterMenu()
     {
-        yield return new WaitForSeconds(timer);
+        isCustomLoad = true;
+        yield return new WaitUntil(() => isButtonLoad);
         UIStack.Push(mainMenu);
         chapterMenu.Anim();
     }
@@ -87,7 +88,8 @@ public class UIManager : MonoBehaviour
 
     IEnumerator Cor_IntoLevelMenu(int chapterIndex)
     {
-        yield return new WaitForSeconds(timer);
+        isCustomLoad = true;
+        yield return new WaitUntil(() => isButtonLoad);
         UIStack.Push(mainMenu);
         LevelPreset(chapterIndex, GameUtils.GetChapterData(chapterIndex).levelDatas.Count);
     }
@@ -100,13 +102,15 @@ public class UIManager : MonoBehaviour
 
     IEnumerator Cor_MenuSetup()
     {
-        yield return new WaitUntil(() => SoundManager.Instance != null);
+        UIStack.Clear();
+        TextPreset();
         SliderPreset();
         HolderPreset();
         ButtonPreset();
         ChapterPreset();
-        TextPreset();
+        yield return new WaitUntil(() => SoundManager.Instance != null);
         SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.MUSIC_MAIN_MENU);
+        if (!isCustomLoad) mainMenu.Anim();
     }
 
     private void SliderPreset()
@@ -146,14 +150,15 @@ public class UIManager : MonoBehaviour
         settingButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
         returnButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.up * 25f;
         creditButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
+
+        isButtonLoad = true;
     }
 
     private void ChapterPreset()
     {
         chapterHolder.anchoredPosition = Vector3.down * 2000f;
-        for (int idx = 0; idx < GDC.Constants.GameConstants.MAX_CHAPTER; ++idx)
+        for (int chapterIndex = 0; chapterIndex < GDC.Constants.GameConstants.MAX_CHAPTER; ++chapterIndex)
         {
-            int chapterIndex = idx;
             UIChapterSlot chapterSlot = Instantiate(chapterSlotPrefab, chapterContent);
             chapterSlot.ChapterSetup(chapterIndex);
             chapterButton.Add(chapterSlot.GetComponent<Button>());
@@ -166,10 +171,8 @@ public class UIManager : MonoBehaviour
         chapter.GetChild(1).GetComponent<TMP_Text>().text = $"Chapter {chapterIndex + 1}";
         UIStack.Push(chapterMenu);
         levelHolder.anchoredPosition = Vector3.down * 1500;
-        for (int idx = 0; idx < maxLevelIndex; ++idx)
-
+        for (int levelIndex = 0; levelIndex < maxLevelIndex; ++levelIndex)
         {
-            int levelIndex = idx;
             UILevelSlot levelSlot = Instantiate(levelSlotPrefab, levelContent);
             levelSlot.LevelSetup(chapterIndex,levelIndex);
             levelButton.Add(levelSlot.GetComponent<Button>());
