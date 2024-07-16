@@ -6,15 +6,9 @@ using UnityEngine;
 
 public class ChessManConfig : ScriptableObject
 {
-    private float _height;
-    private int _moveRange;
-    private ChessManType _chessManType;
-    private List<Vector3> _possibleMoveList;
-
-    public float height { get; set; }
-    public int moveRange { get; set; }
     public ChessManType chessManType { get; set; }
     public List<Vector3> possibleMoveList { get; set; }
+    public int moveRange { get; set; }
 
     public readonly float[,] _straghtDirection = { { 0f, 1f }, { -1f, 0f }, { 1f, 0f }, { 0f, -1f } };
     public readonly float[,] _diagonalDirection = { { -1f, 1f }, { 1f, 1f }, { -1f, -1f }, { 1f, -1f } };
@@ -60,6 +54,7 @@ public class ChessManConfig : ScriptableObject
                 }
                 break;
 
+
             // else
             default:
                 break;
@@ -72,7 +67,7 @@ public class ChessManConfig : ScriptableObject
     {
         bool canStandOn = true;
         TileType tileData = GameUtils.GetTileBelowObject(currentMove);
-        // Debug.Log(currentMove.ToString() + " " + tileData);
+        Debug.Log(currentMove.ToString() + " " + tileData);
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
         {

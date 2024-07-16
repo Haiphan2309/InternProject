@@ -132,7 +132,7 @@ public class CameraController : MonoBehaviour
     private void HandleSwipeCamera()
     {
         if (Input.GetMouseButton(0)) Debug.Log("Mouse button down");
-        Debug.Log("Touch count: " + Input.touchCount.ToString());
+        //Debug.Log("Touch count: " + Input.touchCount.ToString());
         if ((Input.touchCount == 1 || Input.GetMouseButton(0)) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
         
