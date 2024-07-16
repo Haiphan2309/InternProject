@@ -139,5 +139,42 @@ public static class GameUtils
         return levelData;
     }
 
-    
+    public static GameObject ChangeIndicatorAtPosition(GameObject moveTarget, Vector3 target)
+    {
+        TileType tileType = GameUtils.GetTileBelowObject(target);
+
+        switch (tileType)
+        {
+            case TileType.GROUND:
+                moveTarget.transform.localScale = new Vector3(1, 1, 1);
+                moveTarget.transform.rotation = Quaternion.Euler(90, 0, 0);
+                break;
+            case TileType.BOX:
+                moveTarget.transform.localScale = new Vector3(1, 1, 1);
+                moveTarget.transform.rotation = Quaternion.Euler(90, 0, 0);
+                break;
+            case TileType.SLOPE_0:
+                moveTarget.transform.position += new Vector3(0f, -0.48f, 0.05f);
+                moveTarget.transform.localScale = new Vector3(1, 1.4f, 1);
+                moveTarget.transform.rotation = Quaternion.Euler(45, 180, 0);
+                break;
+            case TileType.SLOPE_90:
+                moveTarget.transform.position += new Vector3(-0.05f, -0.48f, 0f);
+                moveTarget.transform.localScale = new Vector3(1, 1.4f, 1);
+                moveTarget.transform.rotation = Quaternion.Euler(45, 90, 0);
+                break;
+            case TileType.SLOPE_180:
+                moveTarget.transform.position += new Vector3(0f, -0.48f, -0.05f);
+                moveTarget.transform.localScale = new Vector3(1, 1.4f, 1);
+                moveTarget.transform.rotation = Quaternion.Euler(45, 0, 0);
+                break;
+            case TileType.SLOPE_270:
+                moveTarget.transform.position += new Vector3(0.05f, -0.48f, 0f);
+                moveTarget.transform.localScale = new Vector3(1, 1.4f, 1);
+                moveTarget.transform.rotation = Quaternion.Euler(45, 270, 0);
+                break;
+        }
+
+        return moveTarget;
+    }
 }

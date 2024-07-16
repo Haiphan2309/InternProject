@@ -4,6 +4,8 @@ using GDC.Enums;
 using System;
 using System.ComponentModel;
 using GDC.Constants;
+using Unity.VisualScripting;
+using RotaryHeart.Lib.SerializableDictionary;
 
 [Serializable]
 public class TileInfo
@@ -61,6 +63,19 @@ public class EnemyArmy : Army
     }
 }
 
+[Serializable]
+public class HintMove
+{
+    public PlayerArmy playerArmy;
+    public Vector3 position;
+
+    public HintMove(PlayerArmy playerArmy, Vector3 position)
+    {
+        this.playerArmy = playerArmy;
+        this.position = position;
+    }
+}
+
 [CreateAssetMenu(menuName = "Data/Level Data")]
 [Serializable]
 public class LevelData : ScriptableObject
@@ -74,6 +89,9 @@ public class LevelData : ScriptableObject
     public List<TileData> tileInfo;
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;
+
+    public List<HintMove> hintMoves;
+
     public Sprite thumbnail;
 
     public LevelData()
@@ -81,6 +99,7 @@ public class LevelData : ScriptableObject
         tileInfo = new List<TileData> ();
         playerArmies = new List<PlayerArmy>();
         enemyArmies = new List<EnemyArmy>();
+        hintMoves = new List<HintMove>();
     }
 
     public void SetData(TileInfo[,,] tileInfo, List<PlayerArmy> playerArmies, List<EnemyArmy> enemyArmies)

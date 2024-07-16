@@ -109,8 +109,14 @@ public class ChessMan : GameplayObject
             {
                 deltaMoveIndex = -deltaMoveIndex; //Dao nguoc chieu di chuyen lai
                 int backMoveIndex = moveIndex + deltaMoveIndex*2; //x2 để ko tính cái ô mà mình đang đứng mà là tính cái ô trước đó theo default move
-                if (backMoveIndex < 0) backMoveIndex = moves.Count - 1;
+                if (backMoveIndex == -1) backMoveIndex = moves.Count - 1;
+                else backMoveIndex = moves.Count - 2; //luc nay backMoveIndex = -2
                 backMoveIndex = backMoveIndex % moves.Count;
+
+                //if (config.chessManType == ChessManType.CASTLE)
+                //{
+                //    Debug.Log("BACKMOVEINDEX: " + backMoveIndex);
+                //}
 
                 intendedMove = moves[backMoveIndex];
                 //Debug.Log(intendedMove);
