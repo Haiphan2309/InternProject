@@ -8300,4 +8300,4 @@ MonoBehaviour:
     priority: 0
     movePosIndexs: []
   hintMoves: []
-  thumbnail: {fileID: 0}
+  thumbnail: {fileID: 21300000, guid: 0b3d380c29b33e841a546dcdf8d02cbb, type: 3}

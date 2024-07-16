@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Level_3_5
   m_EditorClassIdentifier: 
   id: 4
-  center: {x: 8, y: 8, z: 8}
+  center: {x: 3, y: 8, z: 5}
   distance: 8
-  maxTurn: 99
-  starTurn2: 0
-  starTurn3: 0
+  maxTurn: 30
+  starTurn2: 15
+  starTurn3: 20
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -241,11 +241,11 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 0, y: 3, z: 7}
     tileInfo:
-      id: 122
+      id: 150
       tileType: 1
   - pos: {x: 0, y: 3, z: 8}
     tileInfo:
-      id: 150
+      id: 122
       tileType: 1
   - pos: {x: 0, y: 3, z: 9}
     tileInfo:
@@ -3797,7 +3797,7 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 3, z: 0}
     tileInfo:
-      id: 122
+      id: 150
       tileType: 1
   - pos: {x: 7, y: 3, z: 1}
     tileInfo:
@@ -4309,7 +4309,7 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 3, z: 0}
     tileInfo:
-      id: 150
+      id: 122
       tileType: 1
   - pos: {x: 8, y: 3, z: 1}
     tileInfo:
@@ -8225,8 +8225,8 @@ MonoBehaviour:
   - chessManType: 1
     posIndex: {x: 7, y: 4, z: 6}
   enemyArmies:
-  - chessManType: 5
-    posIndex: {x: 8, y: 1, z: 8}
+  - chessManType: 0
+    posIndex: {x: 1, y: 2, z: 1}
     isAI: 0
     priority: 0
     movePosIndexs: []
@@ -8234,46 +8234,81 @@ MonoBehaviour:
     posIndex: {x: 3, y: 1, z: 7}
     isAI: 0
     priority: 0
-    movePosIndexs: []
-  - chessManType: 2
-    posIndex: {x: 2, y: 1, z: 6}
-    isAI: 0
-    priority: 0
-    movePosIndexs: []
-  - chessManType: 2
-    posIndex: {x: 2, y: 1, z: 4}
-    isAI: 0
-    priority: 0
-    movePosIndexs: []
-  - chessManType: 2
-    posIndex: {x: 4, y: 1, z: 2}
-    isAI: 0
-    priority: 0
-    movePosIndexs: []
-  - chessManType: 2
-    posIndex: {x: 6, y: 1, z: 2}
-    isAI: 0
-    priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 1, y: 3, z: 6}
+    - {x: 0, y: 2, z: 4}
+    - {x: 1, y: 2, z: 2}
+    - {x: 1, y: 2, z: 2}
+    - {x: 3, y: 4, z: 3}
+    - {x: 4, y: 4, z: 5}
+    - {x: 3, y: 1, z: 7}
   - chessManType: 2
     posIndex: {x: 7, y: 1, z: 3}
     isAI: 0
     priority: 0
-    movePosIndexs: []
-  - chessManType: 0
-    posIndex: {x: 1, y: 2, z: 1}
+    movePosIndexs:
+    - {x: 6, y: 3, z: 1}
+    - {x: 4, y: 2, z: 0}
+    - {x: 2, y: 2, z: 1}
+    - {x: 3, y: 4, z: 3}
+    - {x: 5, y: 4, z: 4}
+    - {x: 7, y: 1, z: 3}
+  - chessManType: 2
+    posIndex: {x: 2, y: 1, z: 6}
     isAI: 0
     priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 3, y: 3, z: 4}
+    - {x: 5, y: 4, z: 5}
+    - {x: 6, y: 4, z: 7}
+    - {x: 4, y: 2, z: 6}
+    - {x: 3, y: 3, z: 8}
+    - {x: 2, y: 1, z: 6}
+  - chessManType: 2
+    posIndex: {x: 6, y: 1, z: 2}
+    isAI: 0
+    priority: 0
+    movePosIndexs:
+    - {x: 4, y: 3, z: 3}
+    - {x: 5, y: 4, z: 5}
+    - {x: 7, y: 4, z: 6}
+    - {x: 6, y: 2, z: 4}
+    - {x: 8, y: 3, z: 3}
+    - {x: 6, y: 1, z: 2}
+  - chessManType: 2
+    posIndex: {x: 2, y: 1, z: 4}
+    isAI: 0
+    priority: 0
+    movePosIndexs:
+    - {x: 4, y: 3, z: 3}
+    - {x: 2, y: 4, z: 2}
+    - {x: 3, y: 3, z: 4}
+    - {x: 1, y: 2, z: 2}
+    - {x: 2, y: 1, z: 4}
+  - chessManType: 2
+    posIndex: {x: 4, y: 1, z: 2}
+    isAI: 0
+    priority: 0
+    movePosIndexs:
+    - {x: 3, y: 3, z: 4}
+    - {x: 2, y: 4, z: 2}
+    - {x: 4, y: 3, z: 3}
+    - {x: 2, y: 2, z: 1}
+    - {x: 4, y: 1, z: 2}
   - chessManType: 1
     posIndex: {x: 4, y: 3, z: 8}
     isAI: 0
-    priority: 0
+    priority: 1
     movePosIndexs: []
   - chessManType: 1
     posIndex: {x: 8, y: 3, z: 4}
     isAI: 0
-    priority: 0
+    priority: 1
+    movePosIndexs: []
+  - chessManType: 5
+    posIndex: {x: 8, y: 1, z: 8}
+    isAI: 0
+    priority: 99
     movePosIndexs: []
   hintMoves: []
-  thumbnail: {fileID: 0}
+  thumbnail: {fileID: 21300000, guid: 103d95b4a6119aa46809adbca61e5917, type: 3}
