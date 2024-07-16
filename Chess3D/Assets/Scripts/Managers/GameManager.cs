@@ -128,6 +128,7 @@ namespace GDC.Managers
         /// </summary>
         public void LoadSceneManually(SceneType sceneType, TransitionType transitionType, SoundType soundType = SoundType.NONE, System.Action cb = null, bool isStopAllMusicPlaying = false)
         {
+            AdsManager.Instance.CheckLoadToAds();
             isLoadSceneComplete = false;
             //if (isStopAllMusicPlaying || soundType != SoundType.NONE) 
             if (isStopAllMusicPlaying && soundType != SoundType.NONE) 

@@ -8,10 +8,10 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     [SerializeField] bool _testMode = true;
     private string _gameId;
 
-    void Awake()
-    {
-        InitializeAds();
-    }
+    //void Awake()
+    //{
+    //    InitializeAds();
+    //}
 
     public void InitializeAds()
     {
