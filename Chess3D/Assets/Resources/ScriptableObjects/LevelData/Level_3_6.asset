@@ -8236,15 +8236,6 @@ MonoBehaviour:
     - {x: 5, y: 1, z: 5}
     - {x: 5, y: 1, z: 0}
   - chessManType: 1
-    posIndex: {x: 6, y: 1, z: 10}
-    isAI: 0
-    priority: 0
-    movePosIndexs:
-    - {x: 6, y: 1, z: 9}
-    - {x: 6, y: 1, z: 8}
-    - {x: 2, y: 2, z: 8}
-    - {x: 2, y: 3, z: 6}
-  - chessManType: 1
     posIndex: {x: 7, y: 3, z: 10}
     isAI: 0
     priority: 0
@@ -8259,15 +8250,28 @@ MonoBehaviour:
     - {x: 7, y: 1, z: 5}
     - {x: 5, y: 1, z: 5}
     - {x: 5, y: 1, z: 0}
+  - chessManType: 1
+    posIndex: {x: 6, y: 1, z: 10}
+    isAI: 0
+    priority: 0
+    movePosIndexs:
+    - {x: 6, y: 1, z: 9}
+    - {x: 6, y: 1, z: 8}
+    - {x: 2, y: 3, z: 8}
+    - {x: 2, y: 3, z: 6}
   - chessManType: 0
     posIndex: {x: 7, y: 4, z: 3}
     isAI: 0
     priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 7, y: 4, z: 4}
+    - {x: 7, y: 4, z: 5}
+    - {x: 7, y: 4, z: 4}
+    - {x: 7, y: 4, z: 3}
   - chessManType: 1
     posIndex: {x: 6, y: 6, z: 0}
     isAI: 0
-    priority: 0
+    priority: 2
     movePosIndexs:
     - {x: 2, y: 6, z: 0}
     - {x: 2, y: 3, z: 1}
