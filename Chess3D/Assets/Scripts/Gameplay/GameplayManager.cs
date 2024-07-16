@@ -116,9 +116,9 @@ public class GameplayManager : MonoBehaviour
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
     }
 
-    public void RewardTurn()
+    public void RewardTurn(int value)
     {
-        SetRemainTurn(remainTurn + 3);
+        SetRemainTurn(remainTurn + value);
         isEndGame = false;
         ChangeTurn(!enemyTurn);
     }

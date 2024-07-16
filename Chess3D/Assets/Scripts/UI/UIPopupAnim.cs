@@ -12,6 +12,7 @@ public class UIPopupAnim : MonoBehaviour
     [SerializeField] RectTransform panelRect;
     //[SerializeField] List<Image> images = new List<Image>();
     [SerializeField] List<Color> imageOriginColor, textOriginColor, tmpTextOriginColor;
+    List<Button> disableButtons;
 
     [Button]
     public void Show(bool isPlaySound = true)
@@ -139,7 +140,16 @@ public class UIPopupAnim : MonoBehaviour
             tmpTextOriginColor.Add(text.color);
         }
     }
-
+    public void AddButtonDisable(Button button)
+    {
+        if (disableButtons == null) disableButtons = new List<Button>();
+        disableButtons.Add(button);
+    }
+    public void ClearButtonDisable()
+    {
+        if (disableButtons == null) disableButtons = new List<Button>();
+        disableButtons.Clear();
+    }
     void DisableAllButton()
     {
         Button[] buttons = panelRect.GetComponentsInChildren<Button>();
@@ -153,12 +163,26 @@ public class UIPopupAnim : MonoBehaviour
     }
     void EnableAllButton()
     {
+        if (disableButtons == null) disableButtons= new List<Button>();
         Button[] buttons = panelRect.GetComponentsInChildren<Button>();
         if (buttons != null)
         {
             foreach (var button in buttons)
             {
-                button.interactable = true;
+                bool isEnableButton = true;
+                foreach (var disableButton in disableButtons)
+                {
+                    if (disableButton.GetInstanceID() == button.GetInstanceID())
+                    {
+                        isEnableButton = false;
+                        button.interactable = false;
+                        break;
+                    }
+                }
+                if (isEnableButton)
+                {
+                    button.interactable = true;
+                }
             }
         }
     }

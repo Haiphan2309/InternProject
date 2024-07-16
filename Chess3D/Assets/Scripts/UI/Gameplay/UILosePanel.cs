@@ -2,6 +2,7 @@ using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class UILosePanel : MonoBehaviour
     [SerializeField] UIPopupAnim uiPopupAnim;
     [SerializeField] Button menuBtn, replayBtn, rewardAdsBtn;
     [SerializeField] RewardedAdsButton rewardedAdsButton;
+    [SerializeField] TMP_Text turnRewardText;
+    [SerializeField] int turnRewardNum;
     bool isRewarded;
 
     [Button]
@@ -23,15 +26,19 @@ public class UILosePanel : MonoBehaviour
         replayBtn.onClick.AddListener(OnReplay);
         rewardAdsBtn.onClick.AddListener(OnRewardAds);
 
+        turnRewardText.text = "Turn +" + turnRewardNum.ToString();
+
         uiPopupAnim.Show(false);
 
         if (isRewarded == false && GameplayManager.Instance.remainTurn <= 0)
         {
+            Debug.Log("Show reward btn");
             rewardedAdsButton.LoadAd();
         }
         else
         {
-            rewardAdsBtn.interactable = false;
+            Debug.Log("Hide reward btn");
+            uiPopupAnim.AddButtonDisable(rewardAdsBtn);
         }
         
     }
@@ -73,7 +80,7 @@ public class UILosePanel : MonoBehaviour
     void OnRewardAds()
     {
         Hide();
-        GameplayManager.Instance.RewardTurn();
+        GameplayManager.Instance.RewardTurn(turnRewardNum);
         isRewarded = true;
     }
 }
