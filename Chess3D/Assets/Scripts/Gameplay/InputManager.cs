@@ -32,7 +32,6 @@ public class InputManager : MonoBehaviour
             }
             else
             {
-                if (GameplayManager.Instance.isEndGame == false)
                 //this is click
                 MouseClickInput();
             }
@@ -103,7 +102,6 @@ public class InputManager : MonoBehaviour
                 {
                     HideOulineHitChessMan();
                     HitObject(hit);
-                    isPicking = false;
                     //HitTileToMove(hit);
                 }
                 else
@@ -155,13 +153,19 @@ public class InputManager : MonoBehaviour
 
         if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false && isPicking)
         {
-            if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, hit.transform.position))
+            if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, hitObject.posIndex))
             {
                 Debug.Log("Object duoc tuong tac");
-                GameplayManager.Instance.MakeMove(curChessMan, hit.transform.position);
+                GameplayManager.Instance.MakeMove(curChessMan, hitObject.posIndex);
                 HideOutlineHitObject();
             }
-            else HitTileToMove(hit);
+            //else if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, hitObject.posIndex + Vector3.up))
+            //{
+            //    Debug.Log("Dung phia tren object");
+            //    GameplayManager.Instance.MakeMove(curChessMan, hitObject.posIndex + Vector3.up);
+            //    HideOutlineHitObject();
+            //}
+            else HitTileToMove(hit, true);
         }
     }
     void HitChessMan(RaycastHit hit)
@@ -199,7 +203,6 @@ public class InputManager : MonoBehaviour
                         //Enemy khong the an duoc
                         CheckShowOutlineChessMan();
                     }
-                    isPicking = false;
                 }
                 else
                 {
@@ -212,11 +215,21 @@ public class InputManager : MonoBehaviour
             CheckShowOutlineChessMan();
         }
     }
-    void HitTileToMove(RaycastHit hit)
+    void HitTileToMove(RaycastHit hit, bool isHitGameplayObject = false)
     {
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
 
-        Vector3 tileToMoveIndex = hit.transform.position + Vector3.up; //Hien tai position = tile index
+        Vector3 tileToMoveIndex = Vector3.zero;
+        if (isHitGameplayObject)
+        {
+            tileToMoveIndex = hit.transform.GetComponent<GameplayObject>().posIndex + Vector3.up;
+            //Debug.Log("TILE TO MOVE " + tileToMoveIndex);
+        }
+        else
+        {
+            tileToMoveIndex = hit.transform.position + Vector3.up; //Hien tai position = tile index
+        }
+
         if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, tileToMoveIndex))
         {
             ChessMan defeatedEnemyChessMan = null;

@@ -25,6 +25,7 @@ public class UILosePanel : MonoBehaviour
     }
     void OnMenu()
     {
+        int curChapterIndex = GameplayManager.Instance.chapterData.id;
         GameManager.Instance.LoadSceneManually(
             GDC.Enums.SceneType.MAINMENU,
             GDC.Enums.TransitionType.IN,
@@ -32,6 +33,7 @@ public class UILosePanel : MonoBehaviour
             cb: () =>
             {
                 //    //GDC.Managers.GameManager.Instance.SetInitData(levelIndex);
+                GameManager.Instance.LoadMenuLevel(curChapterIndex);
             },
             true);
     }

@@ -44,12 +44,19 @@ public class ChessMan : GameplayObject
     }
     public void SetChessManData(PlayerChessManData chessManData)
     {
-        config = GetConfigFromType(chessManData.chessManType);
+        if (config.chessManType != chessManData.chessManType)
+        {
+            config = GetConfigFromType(chessManData.chessManType);
+            testPromoteType = chessManData.chessManType;
+            ChangeMesh(chessManData.chessManType);
+        }
+        
         index = chessManData.index;
         posIndex = chessManData.posIndex;
         isEnemy = false;
 
-        transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        AjustPosToGround(posIndex);
     }
     public void SetChessManData(EnemyChessManData chessManData)
     {
@@ -61,7 +68,8 @@ public class ChessMan : GameplayObject
         isEnemy = true;
         isAI = chessManData.isAI;
 
-        transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
+        AjustPosToGround(posIndex);
     }
 
     public bool EnemyMove()
@@ -168,6 +176,7 @@ public class ChessMan : GameplayObject
     {
         // Unset Parent for chess piece
         SetParentDefault();
+        target = GameUtils.SnapToGrid(target);
 
         // First Pos + Target Pos
         Debug.Log("CHESSMAN Position: " + posIndex + " Target: " + target);
@@ -298,13 +307,7 @@ public class ChessMan : GameplayObject
 
         // Change Mesh
 
-        Mesh newMesh = GetMeshFromType(chessManType);
-        if (newMesh == null)
-        {
-            Debug.LogError("Fail to load new MESH in PROMOTE");
-            return;
-        }
-        gameObject.GetComponentInChildren<MeshFilter>().mesh = newMesh;
+        ChangeMesh(chessManType);
 
         //
         GameplayManager.Instance.HideAvailableMove();
@@ -369,6 +372,16 @@ public class ChessMan : GameplayObject
                 break;
         }
         return Resources.Load<Mesh>(path);
+    }
+    private void ChangeMesh(ChessManType type)
+    {
+        Mesh newMesh = GetMeshFromType(type);
+        if (newMesh == null)
+        {
+            Debug.LogError("Fail to load new MESH in PROMOTE");
+            return;
+        }
+        gameObject.GetComponentInChildren<MeshFilter>().mesh = newMesh;
     }
 
 #if UNITY_EDITOR
