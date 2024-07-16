@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class UILosePanel : MonoBehaviour
 {
     [SerializeField] UIPopupAnim uiPopupAnim;
-    [SerializeField] Button menuBtn, replayBtn;
+    [SerializeField] Button menuBtn, replayBtn, rewardAdsBtn;
+    [SerializeField] RewardedAdsButton rewardedAdsButton;
+    bool isRewarded;
 
     [Button]
     public void Show()
@@ -19,9 +21,26 @@ public class UILosePanel : MonoBehaviour
 
         menuBtn.onClick.AddListener(OnMenu);
         replayBtn.onClick.AddListener(OnReplay);
+        rewardAdsBtn.onClick.AddListener(OnRewardAds);
 
         uiPopupAnim.Show(false);
+
+        if (isRewarded == false && GameplayManager.Instance.remainTurn <= 0)
+        {
+            rewardedAdsButton.LoadAd();
+        }
+        else
+        {
+            rewardAdsBtn.interactable = false;
+        }
         
+    }
+    public void Hide()
+    {
+        uiPopupAnim.Hide();
+        menuBtn.onClick.RemoveAllListeners();
+        replayBtn.onClick.RemoveAllListeners();
+        rewardAdsBtn.onClick.RemoveAllListeners();
     }
     void OnMenu()
     {
@@ -50,5 +69,11 @@ public class UILosePanel : MonoBehaviour
                 GDC.Managers.GameManager.Instance.SetInitData(currentChapterIndex, currentLevelIndex);
             },
             true);
+    }
+    void OnRewardAds()
+    {
+        Hide();
+        GameplayManager.Instance.RewardTurn();
+        isRewarded = true;
     }
 }
