@@ -156,6 +156,7 @@ public class UIChessManPanel : MonoBehaviour
     public void TurnOnPanel()
     {
         rectTransform.DOAnchorPosX(turnOnPos, duration).SetEase(Ease.OutBack);
+      
 
     }
 
