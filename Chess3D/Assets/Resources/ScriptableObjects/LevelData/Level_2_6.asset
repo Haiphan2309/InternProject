@@ -8301,4 +8301,5 @@ MonoBehaviour:
     isAI: 0
     priority: 0
     movePosIndexs: []
-  thumbnail: {fileID: 0}
+  hintMoves: []
+  thumbnail: {fileID: 21300000, guid: dbb517a678dfce841af43c4664dfb677, type: 3}

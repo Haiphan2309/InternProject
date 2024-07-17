@@ -569,7 +569,7 @@ public class GameplayManager : MonoBehaviour
             moveListTmp.Add(moveList[0]);
             moveList.RemoveAt(0);
 
-            GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(0).position);
+            GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
             if (chessman == null) isShowHint = false;
         }
     }

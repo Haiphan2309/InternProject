@@ -13,7 +13,7 @@ public class UIPopupAnim : MonoBehaviour
     //[SerializeField] List<Image> images = new List<Image>();
     [SerializeField] List<Color> imageOriginColor, textOriginColor, tmpTextOriginColor;
     List<Button> disableButtons;
-
+    
     [Button]
     public void Show(bool isPlaySound = true)
     {
@@ -69,6 +69,7 @@ public class UIPopupAnim : MonoBehaviour
 
         panelRect.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(()=>EnableAllButton());
     }
+
     [Button]
     public void Hide()
     {
