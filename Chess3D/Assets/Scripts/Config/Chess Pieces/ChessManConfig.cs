@@ -63,7 +63,7 @@ public class ChessManConfig : ScriptableObject
     }
 
     // Check if the potential tile that the pieces move into can be stood on
-    private bool CanStandOn(Vector3 currentMove)
+    public bool CanStandOn(Vector3 currentMove)
     {
         bool canStandOn = true;
         TileType tileData = GameUtils.GetTileBelowObject(currentMove);

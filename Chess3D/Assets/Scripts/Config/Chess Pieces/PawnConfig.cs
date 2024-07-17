@@ -40,8 +40,13 @@ public class PawnConfig : ChessManConfig
             Vector3 direction = Vector3.right * _diagonalDirection[i, 0] + Vector3.forward * _diagonalDirection[i, 1];
             Vector3 currentMove = currentPositionIndex + direction;
             TileType currentPosType = GameUtils.GetTile(currentPositionIndex);
-            TileType currentMoveType = GameUtils.GetTile(currentMove);
 
+            while (currentMove.y >= 1f && GameUtils.InBound(currentMove) && !CanStandOn(currentMove))
+            {
+                currentMove += Vector3.down;
+            }
+
+            TileType currentMoveType = GameUtils.GetTile(currentMove);
             if ((currentPosType == TileType.PLAYER_CHESS && currentMoveType == TileType.ENEMY_CHESS)
             || (currentPosType == TileType.ENEMY_CHESS && currentMoveType == TileType.PLAYER_CHESS))
             {
