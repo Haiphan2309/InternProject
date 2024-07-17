@@ -407,8 +407,6 @@ MonoBehaviour:
   comeBackTomorrowRect: {fileID: 6392167018614364505}
   shopSlotprefab: {fileID: 4057135972849668227, guid: 5444294735cba394db45013a45f61390, type: 3}
   exitButton: {fileID: 4340043259916616048}
-<<<<<<< Updated upstream
-=======
   removeAds: {fileID: 4504757143476193046}
   dailyRewardButton: {fileID: 6457989217512987463}
   removeAdsDict:
@@ -439,7 +437,6 @@ MonoBehaviour:
     _values:
     - "C\u1EA3m \u01A1n b\u1EA1n \u0111\xE3 \u1EE7ng h\u1ED9 ch\xFAng t\xF4i! ^^"
     - Thank you for shopping! ^^
->>>>>>> Stashed changes
 --- !u!1 &1978531622249516766
 GameObject:
   m_ObjectHideFlags: 0

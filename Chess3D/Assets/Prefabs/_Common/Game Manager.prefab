@@ -835,8 +835,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!1 &4815064330907599949
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,7 +882,6 @@ MonoBehaviour:
   canvasTrans: {fileID: 1187738467}
   uiAnnouncePrefab: {fileID: 8313982834413021706, guid: ff5a6c36bd653414abdb7c239d2a601e, type: 3}
   uiRewardPrefab: {fileID: 6420062906077677907, guid: 5c077c17b96de9546b8581d19d503653, type: 3}
->>>>>>> Stashed changes
 --- !u!1 &7369782133999644144
 GameObject:
   m_ObjectHideFlags: 0
