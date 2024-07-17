@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5c73da8f3b21741ae724187c62b01a, type: 3}
+  m_Name: ShopConfig
+  m_EditorClassIdentifier: 
+  shopSlotDatas:
+  - slotName: Turn+
+    amount: 5
+    costUSD: 4.99
+    costVND: 99000
+    icon: {fileID: -1571163338, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
+    bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+  - slotName: Turn+
+    amount: 15
+    costUSD: 9.98
+    costVND: 249000
+    icon: {fileID: -644057357, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
+    bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+  - slotName: Hint
+    amount: 5
+    costUSD: 4.99
+    costVND: 99000
+    icon: {fileID: 1132244785, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
+    bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+  - slotName: Hint
+    amount: 15
+    costUSD: 9.98
+    costVND: 249000
+    icon: {fileID: -417503445, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
+    bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+  - slotName: Turn+ & Hint
+    amount: 5
+    costUSD: 9.98
+    costVND: 249000
+    icon: {fileID: 261865918, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
+    bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+  - slotName: Turn+ & Hint
+    amount: 15
+    costUSD: 19.98
+    costVND: 498000
+    icon: {fileID: 1818130750, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
+    bg: {fileID: 21300000, guid: 67c5e095491edbd43b97e08e9a93636e, type: 3}

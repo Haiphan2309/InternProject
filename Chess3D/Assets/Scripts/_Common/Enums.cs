@@ -57,5 +57,11 @@ namespace GDC.Enums
         ENEMY_CHESS,
         PLAYER_CHESS,
     }
+
+    public enum Language
+    {
+        English,
+        Vietnamese,
+    }
     
 }
