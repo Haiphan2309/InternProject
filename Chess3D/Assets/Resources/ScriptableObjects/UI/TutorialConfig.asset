@@ -18,125 +18,829 @@ MonoBehaviour:
     tutorialSprite: {fileID: 21300000, guid: a0804ceb06b880b4da8970ce70c86681, type: 3}
     tutorialText: Welcome to CHESS 3D! The rules are simple, try to kill the enemy's
       KING and protect your KING from taken.
+    tutorialDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 0
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: a0804ceb06b880b4da8970ce70c86681, type: 3}
     tutorialText: You lose by losing out of turns, or your KING is taken.
+    tutorialDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - 
+      - 
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 667e03dae98da2d4084aad1bc46119db, type: 3}
     tutorialText: You win by taking the enemy's KING, as shown by the CASTLE's movement
       above.
+    tutorialDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 0
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 5eac29fb74aabf549a166042ab755e16, type: 3}
     tutorialText: The normal Enemy has these little dots that indicate its movements.
       Make sure to take a close look at it to plan your moves better.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 878de9fd59e68354da7ab28e8ea2b367, type: 3}
     tutorialText: The KING's movement is as follows
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: a1bd954164c57674ebdc751eb57f34b4, type: 3}
     tutorialText: This is the CASTLE, it can go in the straight lines if the line
       has no obstacles.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: 46164675f48ee5f4791496b76eae26d5, type: 3}
     tutorialText: The slopes are ways to get your pieces on a higher place.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: 59b99dedb4b865c46954d4b33416b533, type: 3}
     tutorialText: The slopes also allow the pieces to go to the lower places.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 2
     tutorialSprite: {fileID: 21300000, guid: fae0b1fd48182ca4382e60b253591e0a, type: 3}
     tutorialText: Introducing the KNIGHT. KNIGHT allows you to go high or low without
       slopes.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 2
     tutorialSprite: {fileID: 21300000, guid: 93cd1eabe58715e418460977177dd6d7, type: 3}
     tutorialText: But KNIGHT has its limit too. It can't jump into the very high
       places.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 3
     tutorialSprite: {fileID: 21300000, guid: bca6fe1052caed64e8919e7fde765fc8, type: 3}
     tutorialText: The water tiles blocks the pieces from moving in its directions.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 3
     tutorialSprite: {fileID: 21300000, guid: 9a11b3f07107cfc4b946a412d0d1690c, type: 3}
     tutorialText: Introducing the BISHOP. BISHOP can slide through the water tiles
       as shown below, making it usable if the level has many water tiles.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 0
     levelIndex: 4
     tutorialSprite: {fileID: 21300000, guid: 49832f66b2f490545b776639ab7a6e40, type: 3}
     tutorialText: The QUEEN is the strongest piece, its movements are shown above.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 2d5d5599233de1f4889a999f20aef62d, type: 3}
     tutorialText: The PAWN is the weakest piece, since it can move 1 tile straight
       and can only take another piece if it stands diagonally with it.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 2d5d5599233de1f4889a999f20aef62d, type: 3}
     tutorialText: But it has the ability to promote into a stronger piece such as
       CASTLE, KNIGHT, BISHOP or QUEEN, using the PROMOTE tile as shown above.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: cd7386abd03e2ad42bf1a1346477ffbb, type: 3}
     tutorialText: Introducing the BOX. The BOX is a movable object that can carry
       a piece to a higher place.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: bfe09632666eb2e4aaed91957b7ced65, type: 3}
     tutorialText: You can push a BOX in straight lines, as shown above where the
       CASTLE can push the BOXes around them,
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: eb74ac6f9bd4844459a3d9463ddac2ea, type: 3}
     tutorialText: But you can't push a BOX diagonally, as shown above where the BISHOP
       cannot move to the box's place.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 1
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: 60cacefc3e4e83c4c9a92734af3a99a4, type: 3}
     tutorialText: Just like other pieces, BOX can be moved up using the slopes.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 1
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: ff04ad84a0920d24ab960aefff76b26e, type: 3}
     tutorialText: Or be moved down using the slopes.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 1
     levelIndex: 2
     tutorialSprite: {fileID: 21300000, guid: e871440d15cf628449f826e9c0729530, type: 3}
     tutorialText: The BOX is a heavy object, so it can be dropped to block the road,
       or kill a piece as shown above.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 2
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 62c1eaeaaa5519643b8da3a83157e70a, type: 3}
     tutorialText: The PAWN has the ability to PROMOTE into the stronger pieces, such
       as CASTLE, KNIGHT, BISHOP and QUEEN.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 2
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: c2ce78a7bd0b4ba4784a2ed0390248b7, type: 3}
     tutorialText: Introducing the BOULDER, which is a heavy object that is pushable
       in a diagonal line.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 2
     levelIndex: 2
     tutorialSprite: {fileID: 21300000, guid: da0a9a2b1c29ebc44ba01d79f98a6340, type: 3}
     tutorialText: The BOULDER can roll down the slopes and destroy everything it
       lands on.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 3
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: c3d2f6eef8f20524da395ddaf0b13b7f, type: 3}
     tutorialText: Unlike the normal enemy that appears in previous levels, this enemy
       is more intelligent.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 3
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: c3d2f6eef8f20524da395ddaf0b13b7f, type: 3}
     tutorialText: 'The purple color means it is infected with the 4.0 mechanics:
       AI. With AI, it''s capable of moving on its own, albeit randomly.'
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
   - chapterIndex: 3
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 834a0c2ffb9fd9a468acccc45d7a58ba, type: 3}
     tutorialText: An example of an AI move which gets its to this position, although
       it's more unlikely to not see it.
+    tutorialDict:
+      reorderableList:
+        canAdd: 0
+        canRemove: 0
+        draggable: 0
+        expandable: 0
+        multipleSelection: 0
+        isExpanded: 0
+        label:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 0
+        footerHeight: 0
+        slideEasing: 0
+        verticalSpacing: 0
+        showDefaultBackground: 0
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 0
+      _keyValues: 
+      _keys: 
+      _values: []
