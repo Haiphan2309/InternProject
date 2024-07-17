@@ -115,6 +115,13 @@ public class GameplayManager : MonoBehaviour
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
     }
+
+    public void RewardTurn(int value)
+    {
+        SetRemainTurn(remainTurn + value);
+        isEndGame = false;
+        ChangeTurn(!enemyTurn);
+    }
     private IEnumerator Cor_EndTurn()
     {
         yield return new WaitUntil(() => isEndTurn);
