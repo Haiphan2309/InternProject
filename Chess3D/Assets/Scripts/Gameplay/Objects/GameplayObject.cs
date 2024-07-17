@@ -180,7 +180,8 @@ public class GameplayObject : MonoBehaviour
         if (isOnSlope) target = target - Vector3.up * 0.4f;
 
         transform.position = target;
-        transform.rotation = Quaternion.Euler(rotation);
+        //transform.rotation = Quaternion.Euler(rotation);
+        transform.DORotate(rotation, 0.3f);
     }
 
     protected virtual void AjustPosToGround(Vector3 newPosition, Vector3 target, Vector3 direction, bool isChessMan = false, bool isRoundInteger = false)
