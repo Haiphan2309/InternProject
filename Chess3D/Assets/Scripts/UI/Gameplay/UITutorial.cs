@@ -1,4 +1,6 @@
 using DG.Tweening;
+using GDC.Enums;
+using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +25,7 @@ public class UITutorial : MonoBehaviour
 
         TutorialData tutorialData = tutorialDataQueue.Dequeue();
         tutorialImage.sprite = tutorialData.tutorialSprite;
-        tutorialText.text = tutorialData.tutorialText;
+        tutorialText.text = tutorialData.tutorialDict[SaveLoadManager.Instance.GameData.language];
 
         tutorialImage.SetNativeSize();
         tutorialImage.rectTransform.sizeDelta = new Vector2(tutorialImage.rectTransform.sizeDelta.x * size, tutorialImage.rectTransform.sizeDelta.y * size);
