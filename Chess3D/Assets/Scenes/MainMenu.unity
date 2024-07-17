@@ -6537,6 +6537,7 @@ MonoBehaviour:
   levelSlotPrefab: {fileID: 8580983313438417203, guid: 3e03f05dac26bb443ad2a2ee61be744a, type: 3}
   creditPagePrefab: {fileID: 5452723834167467805, guid: b4ceba232ef52d04bb9871c0184993d6, type: 3}
   settingPagePrefab: {fileID: 5415166270283461433, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+  shopPagePrefab: {fileID: 8147749622554203198, guid: a678a18113d7b2e46b410ff763c721c0, type: 3}
 --- !u!1 &844376775
 GameObject:
   m_ObjectHideFlags: 0
@@ -12180,7 +12181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -960, y: 300}
+  m_AnchoredPosition: {x: -960.00006, y: 300}
   m_SizeDelta: {x: 0, y: 600}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1708460510
