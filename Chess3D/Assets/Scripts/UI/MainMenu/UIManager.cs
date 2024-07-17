@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     public Transform settingButton;
     public Transform returnButton;
     public Transform creditButton;
+    public Transform shopButton;
 
     public Transform pageSystem;
 
@@ -97,17 +98,17 @@ public class UIManager : MonoBehaviour
     // Setup
     private void Preset()
     {
-        StartCoroutine(Cor_MenuSetup());
-    }
-
-    IEnumerator Cor_MenuSetup()
-    {
         UIStack.Clear();
         TextPreset();
         SliderPreset();
         HolderPreset();
         ButtonPreset();
         ChapterPreset();
+        StartCoroutine(Cor_MenuSetup());
+    }
+
+    IEnumerator Cor_MenuSetup()
+    {
         yield return new WaitUntil(() => SoundManager.Instance != null);
         SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.MUSIC_MAIN_MENU);
         if (!isCustomLoad) mainMenu.Anim();
@@ -144,12 +145,14 @@ public class UIManager : MonoBehaviour
         settingButton.GetComponent<Button>().onClick.AddListener(SettingButton);
         returnButton.GetComponent<Button>().onClick.AddListener(ReturnButton);
         creditButton.GetComponent<Button>().onClick.AddListener(CreditButton);
+        shopButton.GetComponent<Button>().onClick.AddListener(ShopButton);
 
         // POSITION SETTTER
         startButton.GetComponent<RectTransform>().anchoredPosition = Vector3.right * hidePosition + Vector3.up * 25f;
         settingButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
         returnButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.up * 25f;
-        creditButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
+        creditButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 175f;
+        shopButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
 
         isButtonLoad = true;
     }
@@ -234,6 +237,12 @@ public class UIManager : MonoBehaviour
         creditPage.Show();
     }
 
+    private void ShopButton()
+    {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        Debug.Log("Shop");
+    }
+
     public void HideAllButtons()
     {
         for (int i = 0; i < levelButton.Count; ++i)
@@ -253,6 +262,7 @@ public class UIManager : MonoBehaviour
         }
         startButton.GetComponent<Button>().interactable = false;
         settingButton.GetComponent<Button>().interactable = false;
+        shopButton.GetComponent<Button>().interactable = false;
         returnButton.GetComponent<Button>().interactable = false;
         creditButton.GetComponent<Button>().interactable = false;
     }
@@ -270,6 +280,7 @@ public class UIManager : MonoBehaviour
         }
         startButton.GetComponent<Button>().interactable = true;
         settingButton.GetComponent<Button>().interactable = true;
+        shopButton.GetComponent<Button>().interactable = true;
         returnButton.GetComponent<Button>().interactable = true;
         creditButton.GetComponent<Button>().interactable = true;
     }
