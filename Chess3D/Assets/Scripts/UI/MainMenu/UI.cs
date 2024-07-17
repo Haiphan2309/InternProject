@@ -126,4 +126,22 @@ public class UI : MonoBehaviour
     {
         UIManager.Instance.chapter.DOAnchorPosY(textHidePosition, _timer).SetEase(Ease.OutBack);
     }
+
+    public void MenuButtonSystem()
+    {
+        UIManager.Instance.startButton.GetComponent<RectTransform>().DOAnchorPosX(-75, _timer);
+        UIManager.Instance.settingButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
+        UIManager.Instance.shopButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
+        UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
+        UIManager.Instance.creditButton.GetComponent<RectTransform>().DOAnchorPosX(225, _timer);
+    }
+
+    public void OtherButtonSystem()
+    {
+        UIManager.Instance.startButton.GetComponent<RectTransform>().DOAnchorPosX(600, _timer);
+        UIManager.Instance.settingButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
+        UIManager.Instance.shopButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
+        UIManager.Instance.returnButton.GetComponent<RectTransform>().DOAnchorPosX(75, _timer);
+        UIManager.Instance.creditButton.GetComponent<RectTransform>().DOAnchorPosX(-600, _timer);
+    }
 }
