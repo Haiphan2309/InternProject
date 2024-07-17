@@ -69,16 +69,16 @@ public class GameplayManager : MonoBehaviour
 
         uiGameplayManager.Setup();
         gridSateManager.Setup();
-        SetPowerUpNum();
+        //SetPowerUpNum();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
 
-    private void SetPowerUpNum()
-    {
-        SaveLoadManager.Instance.GameData.undoNum = 3;
-        SaveLoadManager.Instance.GameData.solveNum = 3;
-    }
+    //private void SetPowerUpNum()
+    //{
+    //    SaveLoadManager.Instance.GameData.undoNum = 3;
+    //    SaveLoadManager.Instance.GameData.solveNum = 3;
+    //}
     private void ResetEnemyPriorityLowestList()
     {
         if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();

@@ -79,6 +79,7 @@ public class UIShopManager : MonoBehaviour
     public void Hide()
     {
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
+        if (UIManager.Instance != null) UIManager.Instance.ShowAllButtons();
     }
 
     private void RemoveAds()
