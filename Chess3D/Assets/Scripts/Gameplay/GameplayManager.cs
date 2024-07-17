@@ -69,16 +69,16 @@ public class GameplayManager : MonoBehaviour
 
         uiGameplayManager.Setup();
         gridSateManager.Setup();
-        SetPowerUpNum();
+        //SetPowerUpNum();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
 
-    private void SetPowerUpNum()
-    {
-        SaveLoadManager.Instance.GameData.undoNum = 3;
-        SaveLoadManager.Instance.GameData.solveNum = 3;
-    }
+    //private void SetPowerUpNum()
+    //{
+    //    SaveLoadManager.Instance.GameData.undoNum = 3;
+    //    SaveLoadManager.Instance.GameData.solveNum = 3;
+    //}
     private void ResetEnemyPriorityLowestList()
     {
         if (listEnemyPriorityLowest == null) listEnemyPriorityLowest = new List<ChessMan>();
@@ -114,6 +114,13 @@ public class GameplayManager : MonoBehaviour
         remainTurn = value;
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
+    }
+
+    public void RewardTurn(int value)
+    {
+        SetRemainTurn(remainTurn + value);
+        isEndGame = false;
+        ChangeTurn(!enemyTurn);
     }
     private IEnumerator Cor_EndTurn()
     {
@@ -562,7 +569,7 @@ public class GameplayManager : MonoBehaviour
             moveListTmp.Add(moveList[0]);
             moveList.RemoveAt(0);
 
-            GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(0).position);
+            GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
             if (chessman == null) isShowHint = false;
         }
     }

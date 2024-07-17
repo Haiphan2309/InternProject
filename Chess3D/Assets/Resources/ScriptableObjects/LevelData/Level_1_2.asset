@@ -8238,4 +8238,33 @@ MonoBehaviour:
     movePosIndexs:
     - {x: 2, y: 3, z: 3}
     - {x: 3, y: 3, z: 3}
+  hintMoves:
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 6, y: 2, z: 6}
+    position: {x: 6, y: 2, z: 8}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 6, y: 2, z: 8}
+    position: {x: 5, y: 2, z: 8}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 5, y: 2, z: 8}
+    position: {x: 5, y: 2, z: 13}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 5, y: 2, z: 13}
+    position: {x: 3, y: 2, z: 13}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 3, y: 2, z: 13}
+    position: {x: 3, y: 3, z: 5}
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 6, y: 2, z: 3}
+    position: {x: 6, y: 2, z: 4}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 3, y: 3, z: 5}
+    position: {x: 3, y: 3, z: 3}
   thumbnail: {fileID: 21300000, guid: d6cbff7b5f2dbbe4dadda35f7b340809, type: 3}

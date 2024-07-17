@@ -131,7 +131,7 @@ public class CameraController : MonoBehaviour
 
     private void HandleSwipeCamera()
     {
-        if (Input.GetMouseButton(0)) Debug.Log("Mouse button down");
+        //if (Input.GetMouseButton(0)) Debug.Log("Mouse button down");
         //Debug.Log("Touch count: " + Input.touchCount.ToString());
         if ((Input.touchCount == 1 || Input.GetMouseButton(0)) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
@@ -221,10 +221,15 @@ public class CameraController : MonoBehaviour
 
     private void Move(float x, float y)
     {
-        
+        float targetX = framing.m_ScreenX ;
+        float targetY = framing.m_ScreenY ;
 
-        float targetX = framing.m_ScreenX + x;
-        float targetY = framing.m_ScreenY - y;
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            targetX -= x;
+            targetY +=  y;
+        }
+        
 
         targetX = Mathf.Clamp(targetX, moveMin, moveMax);
         targetY = Mathf.Clamp(targetY, moveMin, moveMax);
@@ -245,15 +250,17 @@ public class CameraController : MonoBehaviour
         isLocked = false;
     }
 
-    public void ChangeCameraMode()
+    public bool ChangeCameraMode()
     {
         if (cameraMode == CameraMode.Move)
         {
             cameraMode = CameraMode.Swipe;
+            return false;
         }
         else
         {
             cameraMode = CameraMode.Move;
+            return true;
         }
   
     }
