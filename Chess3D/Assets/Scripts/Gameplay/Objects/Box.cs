@@ -227,7 +227,7 @@ public class Box : GameplayObject
 
     public override void Defeated()
     {
-        Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
+        Vector3 posToDissapear = transform.position + Vector3.up * 0.5f;
         Instantiate(vfxDefeated, posToDissapear, Quaternion.identity);
         Destroy(gameObject);
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_DISAPPEAR);
