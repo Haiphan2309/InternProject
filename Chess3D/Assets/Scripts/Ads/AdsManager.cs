@@ -1,3 +1,4 @@
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,6 @@ public class AdsManager : MonoBehaviour
 
     [SerializeField] private AdsInitializer adsInitializer;
     [SerializeField] private InterstitialAdsButton interstitialAds;
-    public bool isPurchaseAds = false;
     [SerializeField] private int initLoadRemainToAds = 3;
     [SerializeField, ReadOnly] private int loadRemainToAds;
     private void Awake()
@@ -30,7 +30,7 @@ public class AdsManager : MonoBehaviour
     }
     public void CheckLoadToAds()
     {
-        if (isPurchaseAds) return;
+        if (SaveLoadManager.Instance.GameData.isPurchaseAds) return;
 
         loadRemainToAds--;
         Debug.Log("CHECK ADS " + loadRemainToAds);

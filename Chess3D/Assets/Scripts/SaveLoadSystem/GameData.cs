@@ -34,7 +34,9 @@ namespace GDC.Managers
         public int currentChapter;
         public int currentLevel; //start with 0
 
+        public Language language;
         public int undoNum, solveNum;
+        public bool isPurchaseAds;
         public void SetupData() //load
         {
             IsSaveLoadProcessing = true;
@@ -71,8 +73,11 @@ namespace GDC.Managers
             currentLevel = gameDataOrigin.currentLevel;
             currentChapter = gameDataOrigin.currentChapter;
 
+            language = (Language)gameDataOrigin.languageId;
             undoNum = gameDataOrigin.undoNum;
             solveNum = gameDataOrigin.solveNum;
+
+            isPurchaseAds = gameDataOrigin.isPurchaseAds;
 
             SaveLoadManager.Instance.GameDataOrigin = gameDataOrigin;
             IsSaveLoadProcessing = false;
@@ -99,8 +104,10 @@ namespace GDC.Managers
             gameDataOrigin.currentLevel = currentLevel;
             gameDataOrigin.currentChapter = currentChapter;
 
+            gameDataOrigin.languageId = (int)language;
             gameDataOrigin.undoNum = undoNum;
             gameDataOrigin.solveNum = solveNum;
+            gameDataOrigin.isPurchaseAds = isPurchaseAds;
 
             IsSaveLoadProcessing = false;
             return gameDataOrigin;
@@ -187,7 +194,9 @@ namespace GDC.Managers
         public int currentLevel;
         public int currentChapter;
 
+        public int languageId;
         public int undoNum, solveNum;
+        public bool isPurchaseAds;
     }
 
     [Serializable]

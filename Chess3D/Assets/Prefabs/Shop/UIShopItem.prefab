@@ -560,8 +560,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -46.347}
-  m_SizeDelta: {x: 0, y: 92.694}
+  m_AnchoredPosition: {x: 0, y: -32.500015}
+  m_SizeDelta: {x: -44.7016, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4128587232288628849
 CanvasRenderer:
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x5
+  m_text: Turn x5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
@@ -618,10 +618,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 49.25
+  m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -1059,9 +1059,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4128587233373858425}
   - component: {fileID: 4128587233373858423}
-  - component: {fileID: 4128587233373858422}
+  - component: {fileID: 4057135972849668227}
   m_Layer: 5
-  m_Name: ShopItem
+  m_Name: UIShopItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1096,7 +1096,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4128587233373858424}
   m_CullTransparentMesh: 1
---- !u!114 &4128587233373858422
+--- !u!114 &4057135972849668227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1105,65 +1105,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4128587233373858424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab969483e233a343909306dcc1fdbb2, type: 3}
+  m_Script: {fileID: 11500000, guid: a817669b5b1c38742ae21952b71b5c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelRect: {fileID: 4128587233373858425}
-  imageOriginColor:
-  - {r: 0, g: 0, b: 0, a: 0.39215687}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0.44949198, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0.9976784, g: 1, b: 0.56037736, a: 1}
-  - {r: 0.9976784, g: 1, b: 0.56037736, a: 1}
-  - {r: 0.9976784, g: 1, b: 0.56037736, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 0}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0, g: 0.4528302, b: 0.021650387, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 0.015686275}
-  - {r: 0.4666667, g: 0.9953013, b: 1, a: 1}
-  - {r: 0.4666667, g: 0.9953013, b: 1, a: 1}
-  - {r: 0.4666667, g: 0.9953013, b: 1, a: 1}
-  - {r: 0.4666667, g: 0.9953013, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 0.015686275}
-  - {r: 0.4660377, g: 1, b: 0.6226666, a: 1}
-  - {r: 0.4660377, g: 1, b: 0.6226666, a: 1}
-  - {r: 0.4660377, g: 1, b: 0.6226666, a: 1}
-  - {r: 0.4660377, g: 1, b: 0.6226666, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 0.015686275}
-  - {r: 1, g: 0.56082153, b: 0.4666667, a: 1}
-  - {r: 1, g: 0.56082153, b: 0.4666667, a: 1}
-  - {r: 1, g: 0.56082153, b: 0.4666667, a: 1}
-  - {r: 1, g: 0.56082153, b: 0.4666667, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  textOriginColor: []
-  tmpTextOriginColor:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
+  iconImage: {fileID: 4128587233401920013}
+  bgImage: {fileID: 4128587231555738689}
+  amountText: {fileID: 4128587232288628848}
+  costText: {fileID: 4128587233414371368}
+  shopSlotData:
+    slotName: 
+    amount: 0
+    costUSD: 0
+    costVND: 0
+    icon: {fileID: 0}
+    bg: {fileID: 0}
 --- !u!1 &4128587233401920015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,7 +1185,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 61585a847a39b6e488c383f75078d69c, type: 3}
+  m_Sprite: {fileID: 1818130750, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1273,10 +1228,10 @@ RectTransform:
   m_Father: {fileID: 4128587231947437474}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 260, y: 94.9939}
+  m_SizeDelta: {x: -68.21521, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4128587233414371369
 CanvasRenderer:
@@ -1306,7 +1261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5$
+  m_text: 99999 VND
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
@@ -1333,10 +1288,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 29.35
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
