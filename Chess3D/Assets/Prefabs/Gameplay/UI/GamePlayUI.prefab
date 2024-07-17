@@ -9550,6 +9550,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackBtn
       objectReference: {fileID: 0}
+    - target: {fileID: 4483945585922768197, guid: 7fac83871f14b80439233d38c59be377, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483945585922768197, guid: 7fac83871f14b80439233d38c59be377, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483945585922768197, guid: 7fac83871f14b80439233d38c59be377, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483945585922768197, guid: 7fac83871f14b80439233d38c59be377, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4921270123669995224, guid: 7fac83871f14b80439233d38c59be377, type: 3}
       propertyPath: m_Name
       value: BackContainer

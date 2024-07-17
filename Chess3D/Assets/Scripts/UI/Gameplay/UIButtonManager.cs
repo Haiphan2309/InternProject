@@ -70,6 +70,7 @@ public class UIButtonManager : MonoBehaviour
     private void OnSolveBtnClicked()
     {
         // Call Solve method from GamePlay
+        PlayHintAnim();
         GameplayManager.Instance.ShowHint();
         // Update Number
         UpdateNumber();
