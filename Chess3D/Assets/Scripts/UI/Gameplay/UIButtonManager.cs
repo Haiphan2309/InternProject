@@ -119,12 +119,12 @@ public class UIButtonManager : MonoBehaviour
         // Call anim when press Hint button
         hintEffectCanvas.SetActive(true);
         RectTransform iconTranfrom = hintEffectCanvas.transform.GetChild(0).GetComponent<RectTransform>();
-        iconTranfrom.DOScale(2f, 1.5f)
-            .SetEase(Ease.InOutBounce)
+        iconTranfrom.DOScale(2f, 0.5f)
+            .SetEase(Ease.OutBounce)
             .OnComplete(() =>
             {
                 iconTranfrom.DOScale(0f, 0.5f)
-                .SetEase(Ease.OutBack)
+                .SetEase(Ease.InBack)
                 .OnComplete(() => { hintEffectCanvas.SetActive(false); });
             });
 
