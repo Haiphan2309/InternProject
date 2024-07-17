@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     public UILevelSlot levelSlotPrefab;
     public UIPopupAnim creditPagePrefab;
     public UISetting settingPagePrefab;
+    public UIShopManager shopPagePrefab;
 
     private bool isButtonLoad = false;
     private bool isCustomLoad = false;
@@ -240,7 +241,10 @@ public class UIManager : MonoBehaviour
     private void ShopButton()
     {
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        HideAllButtons();
         Debug.Log("Shop");
+        UIShopManager shopPage = Instantiate(shopPagePrefab, pageSystem);
+        shopPage.Show();
     }
 
     public void HideAllButtons()
