@@ -8237,4 +8237,41 @@ MonoBehaviour:
     movePosIndexs:
     - {x: 10, y: 2, z: 10}
     - {x: 10, y: 2, z: 9}
+  hintMoves:
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 6, y: 2, z: 5}
+    position: {x: 7, y: 2, z: 5}
+  - playerArmy:
+      chessManType: 3
+      posIndex: {x: 10, y: 2, z: 1}
+    position: {x: 6, y: 2, z: 5}
+  - playerArmy:
+      chessManType: 3
+      posIndex: {x: 6, y: 2, z: 5}
+    position: {x: 3, y: 2, z: 2}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 2, y: 2, z: 1}
+    position: {x: 2, y: 2, z: 9}
+  - playerArmy:
+      chessManType: 3
+      posIndex: {x: 3, y: 2, z: 2}
+    position: {x: 0, y: 2, z: 5}
+  - playerArmy:
+      chessManType: 3
+      posIndex: {x: 0, y: 2, z: 5}
+    position: {x: 5, y: 2, z: 10}
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 2, y: 2, z: 9}
+    position: {x: 3, y: 2, z: 9}
+  - playerArmy:
+      chessManType: 3
+      posIndex: {x: 5, y: 2, z: 10}
+    position: {x: 8, y: 2, z: 7}
+  - playerArmy:
+      chessManType: 3
+      posIndex: {x: 8, y: 2, z: 7}
+    position: {x: 10, y: 2, z: 9}
   thumbnail: {fileID: 21300000, guid: a398ae767b2627d4ea07fb0f28e402dc, type: 3}
