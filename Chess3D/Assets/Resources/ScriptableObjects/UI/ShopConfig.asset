@@ -13,38 +13,74 @@ MonoBehaviour:
   m_Name: ShopConfig
   m_EditorClassIdentifier: 
   shopSlotDatas:
+<<<<<<< Updated upstream
   - slotName: Turn+
     amount: 5
+=======
+  - slotName: Undo x15
+    undoAmount: 15
+    solveAmount: 0
+>>>>>>> Stashed changes
     costUSD: 4.99
     costVND: 99000
     icon: {fileID: -1571163338, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
     bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+<<<<<<< Updated upstream
   - slotName: Turn+
     amount: 15
+=======
+  - slotName: Undo x35
+    undoAmount: 35
+    solveAmount: 0
+>>>>>>> Stashed changes
     costUSD: 9.98
     costVND: 249000
     icon: {fileID: -644057357, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
     bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+<<<<<<< Updated upstream
   - slotName: Hint
     amount: 5
+=======
+  - slotName: Hint x5
+    undoAmount: 0
+    solveAmount: 5
+>>>>>>> Stashed changes
     costUSD: 4.99
     costVND: 99000
     icon: {fileID: 1132244785, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
     bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+<<<<<<< Updated upstream
   - slotName: Hint
     amount: 15
+=======
+  - slotName: Hint x12
+    undoAmount: 0
+    solveAmount: 12
+>>>>>>> Stashed changes
     costUSD: 9.98
     costVND: 249000
     icon: {fileID: -417503445, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
     bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+<<<<<<< Updated upstream
   - slotName: Turn+ & Hint
     amount: 5
+=======
+  - slotName: Undo x15 & Hint x5
+    undoAmount: 15
+    solveAmount: 5
+>>>>>>> Stashed changes
     costUSD: 9.98
     costVND: 249000
     icon: {fileID: 261865918, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
     bg: {fileID: 21300000, guid: 617d1044b93a8eb48b893afbc96e86df, type: 3}
+<<<<<<< Updated upstream
   - slotName: Turn+ & Hint
     amount: 15
+=======
+  - slotName: Undo x35 & Hint x12
+    undoAmount: 35
+    solveAmount: 12
+>>>>>>> Stashed changes
     costUSD: 19.98
     costVND: 498000
     icon: {fileID: 1818130750, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
