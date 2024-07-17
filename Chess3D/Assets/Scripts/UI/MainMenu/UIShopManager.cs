@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GDC.Managers;
 
 public class UIShopManager : MonoBehaviour
 {
@@ -13,12 +14,8 @@ public class UIShopManager : MonoBehaviour
     [SerializeField] private RectTransform rect, contentRect, haloDailyRewardRect, comeBackTomorrowRect;
     [SerializeField] private UIShopSlot shopSlotprefab;
 
-<<<<<<< Updated upstream
-    [SerializeField] Button exitButton;
-=======
     [SerializeField] private Button exitButton, removeAds, dailyRewardButton;
     [SerializeField] private LanguageDictionary removeAdsDict;
->>>>>>> Stashed changes
 
     [Button]
     public void Show()
@@ -26,8 +23,6 @@ public class UIShopManager : MonoBehaviour
         exitButton.onClick.RemoveAllListeners();
         exitButton.onClick.AddListener(Hide);
 
-<<<<<<< Updated upstream
-=======
         removeAds.onClick.RemoveAllListeners();
         removeAds.onClick.AddListener(RemoveAds);
 
@@ -67,7 +62,6 @@ public class UIShopManager : MonoBehaviour
             comeBackTomorrowRect.gameObject.SetActive(false);
         }
 
->>>>>>> Stashed changes
         rect.localScale = Vector2.zero;
         rect.DOScale(1, 0.5f).SetEase(Ease.OutBack);
 
@@ -86,8 +80,6 @@ public class UIShopManager : MonoBehaviour
     {
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
     }
-<<<<<<< Updated upstream
-=======
 
     private void RemoveAds()
     {
@@ -106,5 +98,4 @@ public class UIShopManager : MonoBehaviour
         haloDailyRewardRect.gameObject.SetActive(false);
         comeBackTomorrowRect.gameObject.SetActive(true);
     }
->>>>>>> Stashed changes
 }

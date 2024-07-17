@@ -5,21 +5,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIShopSlot : MonoBehaviour
 {
+    [SerializeField] RectTransform rect;
     [SerializeField] Image iconImage, bgImage;
     [SerializeField] TMP_Text amountText, costText;
     [SerializeField, ReadOnly] ShopSlotData shopSlotData;
+    [SerializeField] LanguageDictionary thankYouDict, sorryDict;
 
     public void Setup(ShopSlotData shopSlotData)
     {
         this.shopSlotData = shopSlotData;
         iconImage.sprite = shopSlotData.icon;
         bgImage.sprite = shopSlotData.bg;
-<<<<<<< Updated upstream
-        amountText.text = shopSlotData.slotName + " x" + shopSlotData.amount.ToString();
-=======
+
         amountText.text = shopSlotData.slotName;
         //if (shopSlotData.undoAmount > 0)
         //{
@@ -30,7 +31,6 @@ public class UIShopSlot : MonoBehaviour
         //    amountText.text = shopSlotData.slotName + " x" + shopSlotData.solveAmount.ToString();
         //}   
 
->>>>>>> Stashed changes
         switch (SaveLoadManager.Instance.GameData.language)
         {
             case GDC.Enums.Language.English:
@@ -42,8 +42,7 @@ public class UIShopSlot : MonoBehaviour
         }
 
     }
-<<<<<<< Updated upstream
-=======
+
     public void OnDown()
     {
         rect.DOScale(0.9f, 0.2f);
@@ -62,5 +61,4 @@ public class UIShopSlot : MonoBehaviour
         //SaveLoadManager.Instance.GameData.solveNum += shopSlotData.solveAmount;      
         //SaveLoadManager.Instance.Save();
     }    
->>>>>>> Stashed changes
 }
