@@ -151,8 +151,8 @@ public class UIManager : MonoBehaviour
         startButton.GetComponent<RectTransform>().anchoredPosition = Vector3.right * hidePosition + Vector3.up * 25f;
         settingButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
         returnButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.up * 25f;
-        creditButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
-        shopButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 175f;
+        creditButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 175f;
+        shopButton.GetComponent<RectTransform>().anchoredPosition = Vector3.left * hidePosition + Vector3.down * 25f;
 
         isButtonLoad = true;
     }
