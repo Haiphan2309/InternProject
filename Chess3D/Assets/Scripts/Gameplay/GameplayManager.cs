@@ -1,4 +1,5 @@
-﻿using GDC.Enums;
+﻿using DG.Tweening;
+using GDC.Enums;
 using GDC.Managers;
 using NaughtyAttributes;
 using System;
@@ -9,6 +10,8 @@ using System.Runtime.InteropServices.ComTypes;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.UI;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -21,6 +24,7 @@ public class GameplayManager : MonoBehaviour
     //[SerializeField] TutorialConfig tutorialConfig;
 
     [SerializeField] private Transform availableMovePrefab;
+    [SerializeField] private GameObject posIcon;
     private List<Transform> availableMoveTrans = new List<Transform>();
 
     [HideInInspector] public LevelData levelData;
@@ -116,6 +120,11 @@ public class GameplayManager : MonoBehaviour
         if (remainTurn > levelData.maxTurn) remainTurn = levelData.maxTurn;
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
+
+        if (remainTurn <= levelSpawner.levelData.maxTurn)
+        {
+            uiGameplayManager.DisableSolveButton();
+        }
     }
 
     public void RewardTurn(int value)
@@ -567,10 +576,13 @@ public class GameplayManager : MonoBehaviour
         if (!enemyTurn)
         {
             GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveList.ElementAt(0).playerArmy.posIndex);
-            chessman.SetOutline(10, Color.cyan);
 
             Vector3 target = moveList.ElementAt(0).position;
-            GameObject moveTarget = Instantiate(availableMovePrefab, target, Quaternion.identity).gameObject;
+            GameObject moveTarget = Instantiate(posIcon, target, Quaternion.identity).gameObject;
+
+            moveTarget.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.cyan;
+
+            StartCoroutine(chessman.HintOutline(moveTarget, 10, Color.cyan));
 
             moveTarget = GameUtils.ChangeIndicatorAtPosition(moveTarget, target);
 
@@ -598,7 +610,6 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    [Button]
     public void ShowHint()
     {
         isShowHint = true;

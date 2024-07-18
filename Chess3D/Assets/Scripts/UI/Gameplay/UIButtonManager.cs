@@ -74,8 +74,8 @@ public class UIButtonManager : MonoBehaviour
         GameplayManager.Instance.ShowHint();
         // Update Number
         UpdateNumber();
-        
 
+        DisableHintButton();
     }
 
     private void UpdateNumber()

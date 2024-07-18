@@ -160,6 +160,7 @@ public class ChessMan : GameplayObject
 
     IEnumerator Cor_KnightMoveAnim(Vector3 target)
     {
+        isMove = true;
         Vector3 direction = (target - transform.position).normalized;
         targetPosition = target;
         //transform.rotation = Quaternion.Euler(Vector3.zero);
@@ -172,6 +173,7 @@ public class ChessMan : GameplayObject
         {
             AjustPosToGround(target);
             isStandOnSlope = isOnSlope;
+            isMove = false;
             SetPosIndex();
             CheckBox(target);
             GameplayManager.Instance.EndTurn();
@@ -256,6 +258,7 @@ public class ChessMan : GameplayObject
             Debug.Log("GameplayObject isAnim: " + objectInteract.isAnim);
             objectInteract.SetPosIndex();
         }
+        isMove = false;
 
         isStandOnSlope = isOnSlope;
 
@@ -263,7 +266,7 @@ public class ChessMan : GameplayObject
 
         CheckBox(target);
         StartCoroutine(CheckPromote());
-        isMove = false;
+        
     }
 
     private IEnumerator CheckPromote()
