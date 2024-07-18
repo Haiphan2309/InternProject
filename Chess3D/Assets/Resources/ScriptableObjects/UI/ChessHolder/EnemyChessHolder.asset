@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyChessHolder
   m_EditorClassIdentifier: 
   chessColor: {r: 0.9254902, g: 0.29403856, b: 0.019607816, a: 1}
-  defaultBorder: {r: 0.09718758, g: 0.990566, b: 0.5555265, a: 1}
+  defaultBorder: {r: 0.8490566, g: 0.011213911, b: 0.019408753, a: 1}
   defaultBackground: {r: 0.87810045, g: 0.8867924, b: 0.35471696, a: 1}
   activeBorder: {r: 0, g: 0, b: 0, a: 0}
   activeBackground: {r: 0, g: 0, b: 0, a: 0}
