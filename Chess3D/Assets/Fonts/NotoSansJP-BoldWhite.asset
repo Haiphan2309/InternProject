@@ -59,9 +59,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: NotoSansJP-BoldWhite
   m_EditorClassIdentifier: 
-  hashCode: 293772039
+  hashCode: 1058472032
   material: {fileID: 1578326750946727285}
-  materialHashCode: 1874973511
+  materialHashCode: 1519052480
   m_Version: 1.1.0
   m_SourceFontFileGUID: 45ae2a8f3794412448bf1b9c60b85bdf
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 45ae2a8f3794412448bf1b9c60b85bdf, type: 3}
@@ -1351,7 +1351,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
-        m_Texture: {fileID: 2800000, guid: 317709f2e39c098489afc502a63e7e6e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 0.53}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
