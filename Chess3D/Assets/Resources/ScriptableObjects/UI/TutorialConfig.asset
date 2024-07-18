@@ -45,8 +45,9 @@ MonoBehaviour:
       _values:
       - Welcome to CHESS 3D! The rules are simple, try to kill the enemy's KING and
         protect your KING from taken.
-      - Welcome to CHESS 3D! The rules are simple, try to kill the enemy's KING and
-        protect your KING from taken.
+      - "Ch\xE0o m\u1EEBng \u0111\u1EBFn v\u1EDBi CHESS 3D! Lu\u1EADt ch\u01A1i r\u1EA5t
+        \u0111\u01A1n gi\u1EA3n: c\u1ED1 g\u1EAFng b\u1EA3o v\u1EC7 VUA c\u1EE7a
+        m\xECnh v\xE0 \u0103n VUA c\u1EE7a b\xEAn kia."
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: a0804ceb06b880b4da8970ce70c86681, type: 3}
@@ -78,7 +79,8 @@ MonoBehaviour:
       _keys: 0000000001000000
       _values:
       - You lose by losing out of turns, or your KING is taken.
-      - You lose by losing out of turns, or your KING is taken.
+      - "B\u1EA1n thua khi VUA c\u1EE7a b\u1EA1n b\u1ECB \u0103n, ho\u1EB7c b\u1EA1n
+        h\u1EBFt l\u01B0\u1EE3t."
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 667e03dae98da2d4084aad1bc46119db, type: 3}
@@ -110,7 +112,8 @@ MonoBehaviour:
       _keys: 0000000001000000
       _values:
       - You win by taking the enemy's KING, as shown by the CASTLE's movement above.
-      - You win by taking the enemy's KING, as shown by the CASTLE's movement above.
+      - "B\u1EA1n th\u1EAFng khi b\u1EA1n \u0103n \u0111\u01B0\u1EE3c VUA c\u1EE7a
+        b\xEAn \u0111\u1ECBch."
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 5eac29fb74aabf549a166042ab755e16, type: 3}
@@ -143,8 +146,9 @@ MonoBehaviour:
       _values:
       - The normal Enemy has these little dots that indicate its movements. Make
         sure to take a close look at it to plan your moves better.
-      - The normal Enemy has these little dots that indicate its movements. Make
-        sure to take a close look at it to plan your moves better.
+      - "B\xEAn \u0111\u1ECBch s\u1EBD c\xF3 nh\u1EEFng d\u1EA5u ch\u1EA5m nh\u1ECF
+        th\u1EC3 hi\u1EC7n n\u01B0\u1EDBc \u0111i \u0111\u01B0\u1EE3c \u0111\u1ECBnh
+        s\u1EB5n, h\xE3y \u0111\u1EC3 \xFD nh\xE9."
   - chapterIndex: 0
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 878de9fd59e68354da7ab28e8ea2b367, type: 3}
@@ -206,7 +210,8 @@ MonoBehaviour:
       _keys: 0000000001000000
       _values:
       - This is the CASTLE, it can go in the straight lines if the line has no obstacles.
-      - This is the CASTLE, it can go in the straight lines if the line has no obstacles.
+      - "\u0110\xE2y l\xE0 qu\xE2n XE, XE c\xF3 th\u1EC3 \u0111i \u1EDF 4 h\u01B0\u1EDBng
+        ngang d\u1ECDc theo \u0111\u01B0\u1EDDng th\u1EB3ng."
   - chapterIndex: 0
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: 46164675f48ee5f4791496b76eae26d5, type: 3}
@@ -238,11 +243,12 @@ MonoBehaviour:
       _keys: 0000000001000000
       _values:
       - The slopes are ways to get your pieces on a higher place.
-      - The slopes are ways to get your pieces on a higher place.
+      - "M\u1ED9t s\u1ED1 m\xE0n s\u1EBD c\xF3 nh\u1EEFng c\xE1i g\u1EDD d\u1ED1c
+        cho ph\xE9p b\u1EA1n l\xEAn \u0111\u01B0\u1EE3c nh\u1EEFng n\u01A1i cao h\u01A1n"
   - chapterIndex: 0
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: 59b99dedb4b865c46954d4b33416b533, type: 3}
-    tutorialText: The slopes also allow the pieces to go to the lower places.
+    tutorialText: 
     tutorialDict:
       reorderableList:
         canAdd: 1
@@ -250,7 +256,7 @@ MonoBehaviour:
         draggable: 1
         expandable: 1
         multipleSelection: 1
-        isExpanded: 0
+        isExpanded: 1
         label:
           m_Text: Keys
           m_Image: {fileID: 0}
@@ -265,10 +271,13 @@ MonoBehaviour:
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - The slopes also allow the pieces to go to the lower places.
+      - "T\u01B0\u01A1ng t\u1EF1, b\u1EA1n c\xF3 th\u1EC3 \u0111\u01B0a c\xE1c qu\xE2n
+        c\u1EDD xu\u1ED1ng nh\u1EEFng n\u01A1i th\u1EA5p h\u01A1n."
   - chapterIndex: 0
     levelIndex: 2
     tutorialSprite: {fileID: 21300000, guid: fae0b1fd48182ca4382e60b253591e0a, type: 3}
@@ -300,7 +309,8 @@ MonoBehaviour:
       _keys: 0000000001000000
       _values:
       - Introducing the KNIGHT. KNIGHT allows you to go high or low without slopes.
-      - Introducing the KNIGHT. KNIGHT allows you to go high or low without slopes.
+      - "\u0110\xE2y l\xE0 qu\xE2n M\xC3, M\xC3 c\xF3 th\u1EC3 nh\u1EA3y cao t\u1EA7m
+        2 block, r\u1EA5t th\xEDch h\u1EE3p cho nh\u1EEFng m\xE0n cao."
   - chapterIndex: 0
     levelIndex: 2
     tutorialSprite: {fileID: 21300000, guid: 93cd1eabe58715e418460977177dd6d7, type: 3}
@@ -332,7 +342,8 @@ MonoBehaviour:
       _keys: 0000000001000000
       _values:
       - But KNIGHT has its limit too. It can't jump into the very high places.
-      - But KNIGHT has its limit too. It can't jump into the very high places.
+      - "M\xC3 kh\xF4ng th\u1EC3 nh\u1EA3y qu\xE1 cao ho\u1EB7c c\xF3 g\xEC \u0111\xF3
+        c\u1EA3n \u0111\u01B0\u1EDDng nh\u1EA3y c\u1EE7a n\xF3."
   - chapterIndex: 0
     levelIndex: 3
     tutorialSprite: {fileID: 21300000, guid: bca6fe1052caed64e8919e7fde765fc8, type: 3}
@@ -364,7 +375,8 @@ MonoBehaviour:
       _keys: 0000000001000000
       _values:
       - The water tiles blocks the pieces from moving in its directions.
-      - The water tiles blocks the pieces from moving in its directions.
+      - "M\u1ED9t s\u1ED1 m\xE0n ch\u01A1i s\u1EBD c\xF3 c\xE1c \xF4 n\u01B0\u1EDBc
+        ng\u0103n ch\u1EB7n \u0111\u01B0\u1EDDng \u0111i c\u1EE7a qu\xE2n c\u1EDD."
   - chapterIndex: 0
     levelIndex: 3
     tutorialSprite: {fileID: 21300000, guid: 9a11b3f07107cfc4b946a412d0d1690c, type: 3}
@@ -397,8 +409,10 @@ MonoBehaviour:
       _values:
       - Introducing the BISHOP. BISHOP can slide through the water tiles as shown
         below, making it usable if the level has many water tiles.
-      - Introducing the BISHOP. BISHOP can slide through the water tiles as shown
-        below, making it usable if the level has many water tiles.
+      - "Con T\u01AF\u1EE2NG c\xF3 th\u1EC3 \u0111i \u1EDF 4 h\u01B0\u1EDBng theo
+        \u0111\u01B0\u1EDDng ch\xE9o, \u0111i\u1EC1u n\xE0y cho ph\xE9p n\xF3 \u0111i
+        xuy\xEAn qua c\xE1c v\u1EADt th\u1EC3 m\xE0 c\xE1c qu\xE2n c\u1EDD kh\xE1c
+        kh\xF3 c\xF3 th\u1EC3 l\xE0m \u0111\u01B0\u1EE3c."
   - chapterIndex: 0
     levelIndex: 4
     tutorialSprite: {fileID: 21300000, guid: 49832f66b2f490545b776639ab7a6e40, type: 3}
@@ -430,7 +444,8 @@ MonoBehaviour:
       _keys: 0000000001000000
       _values:
       - The QUEEN is the strongest piece, its movements are shown above.
-      - The QUEEN is the strongest piece, its movements are shown above.
+      - "\u0110\xE2y l\xE0 qu\xE2n H\u1EACU v\u1EDBi kh\u1EA3 n\u0103ng c\u1EE7a
+        XE v\xE0 T\u01AF\u1EE2NG g\u1ED9p l\u1EA1i."
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 2d5d5599233de1f4889a999f20aef62d, type: 3}
@@ -463,8 +478,9 @@ MonoBehaviour:
       _values:
       - The PAWN is the weakest piece, since it can move 1 tile straight and can
         only take another piece if it stands diagonally with it.
-      - The PAWN is the weakest piece, since it can move 1 tile straight and can
-        only take another piece if it stands diagonally with it.
+      - "\u0110\xE2y l\xE0 qu\xE2n T\u1ED0T, l\xE0 qu\xE2n y\u1EBFu nh\u1EA5t khi
+        n\xF3 ch\u1EC9 c\xF3 th\u1EC3 \u0111i 1 \xF4 \u1EDF \u0111\u01B0\u1EDDng
+        th\u1EB3ng v\xE0 \u0103n 1 \xF4 \u1EDF \u0111\u01B0\u1EDDng ch\xE9o."
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 2d5d5599233de1f4889a999f20aef62d, type: 3}
@@ -497,8 +513,9 @@ MonoBehaviour:
       _values:
       - But it has the ability to promote into a stronger piece such as CASTLE, KNIGHT,
         BISHOP or QUEEN, using the PROMOTE tile as shown above.
-      - But it has the ability to promote into a stronger piece such as CASTLE, KNIGHT,
-        BISHOP or QUEEN, using the PROMOTE tile as shown above.
+      - "Nh\u01B0ng n\xF3 c\xF3 th\u1EC3 \u0111\u01B0\u1EE3c th\u0103ng ch\u1EE9c
+        th\xE0nh c\xE1c qu\xE2n c\u1EDD kh\xE1c tr\u1EEB VUA, \u0111i\u1EC1u n\xE0y
+        s\u1EBD \u0111\u01B0\u1EE3c c\u1EE5 th\u1EC3 h\u01A1n \u1EDF ph\u1EA7n sau."
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: cd7386abd03e2ad42bf1a1346477ffbb, type: 3}
@@ -531,8 +548,9 @@ MonoBehaviour:
       _values:
       - Introducing the BOX. The BOX is a movable object that can carry a piece to
         a higher place.
-      - Introducing the BOX. The BOX is a movable object that can carry a piece to
-        a higher place.
+      - "\u0110\xE2y l\xE0 c\xE1i H\u1ED8P, n\xF3 c\xF3 th\u1EC3 \u0111\u01B0\u1EE3c
+        s\u1EED d\u1EE5ng nh\u01B0 m\u1ED9t \xF4 di \u0111\u1ED9ng khi qu\xE2n c\u1EDD
+        c\xF3 th\u1EC3 \u0111\u1EE9ng tr\xEAn n\xF3."
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: bfe09632666eb2e4aaed91957b7ced65, type: 3}
@@ -565,7 +583,9 @@ MonoBehaviour:
       _values:
       - You can push a BOX in straight lines, as shown above where the CASTLE can
         push the BOXes around them,
-      - 
+      - "V\xE0 b\u1EA1n c\u0169ng c\xF3 th\u1EC3 \u0111\u1EA9y H\u1ED8P \u1EDF \u0111\u01B0\u1EDDng
+        th\u1EB3ng, cho ph\xE9p nhi\u1EC1u chi\u1EBFn thu\u1EADt \u0111\u01B0\u1EE3c
+        th\u1EF1c hi\u1EC7n."
   - chapterIndex: 1
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: eb74ac6f9bd4844459a3d9463ddac2ea, type: 3}
@@ -598,11 +618,12 @@ MonoBehaviour:
       _values:
       - But you can't push a BOX diagonally, as shown above where the BISHOP cannot
         move to the box's place.
-      - 
+      - "B\u1EA1n kh\xF4ng th\u1EC3 \u0111\u1EA9y H\u1ED8P \u1EDF \u0111\u01B0\u1EDDng
+        ch\xE9o."
   - chapterIndex: 1
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: 60cacefc3e4e83c4c9a92734af3a99a4, type: 3}
-    tutorialText: Just like other pieces, BOX can be moved up using the slopes.
+    tutorialText: 
     tutorialDict:
       reorderableList:
         canAdd: 1
@@ -610,7 +631,7 @@ MonoBehaviour:
         draggable: 1
         expandable: 1
         multipleSelection: 1
-        isExpanded: 0
+        isExpanded: 1
         label:
           m_Text: Keys
           m_Image: {fileID: 0}
@@ -625,14 +646,16 @@ MonoBehaviour:
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - Just like other pieces, BOX can be moved up using the slopes.
+      - "B\u1EA1n c\u0169ng c\xF3 th\u1EC3 \u0111\u01B0a H\u1ED8P l\xEAn d\u1ED1c."
   - chapterIndex: 1
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: ff04ad84a0920d24ab960aefff76b26e, type: 3}
-    tutorialText: Or be moved down using the slopes.
+    tutorialText: 
     tutorialDict:
       reorderableList:
         canAdd: 1
@@ -640,7 +663,7 @@ MonoBehaviour:
         draggable: 1
         expandable: 1
         multipleSelection: 1
-        isExpanded: 0
+        isExpanded: 1
         label:
           m_Text: Keys
           m_Image: {fileID: 0}
@@ -655,15 +678,16 @@ MonoBehaviour:
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - Or be moved down using the slopes.
+      - "Ho\u1EB7c xu\u1ED1ng d\u1ED1c."
   - chapterIndex: 1
     levelIndex: 2
     tutorialSprite: {fileID: 21300000, guid: e871440d15cf628449f826e9c0729530, type: 3}
-    tutorialText: The BOX is a heavy object, so it can be dropped to block the road,
-      or kill a piece as shown above.
+    tutorialText: 
     tutorialDict:
       reorderableList:
         canAdd: 1
@@ -671,7 +695,7 @@ MonoBehaviour:
         draggable: 1
         expandable: 1
         multipleSelection: 1
-        isExpanded: 0
+        isExpanded: 1
         label:
           m_Text: Keys
           m_Image: {fileID: 0}
@@ -686,15 +710,18 @@ MonoBehaviour:
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - The BOX is a heavy object, so it can be dropped to block the road, or kill
+        a piece as shown above.
+      - "V\xE0 b\u1EA1n c\u0169ng c\xF3 th\u1EC3 th\u1EA3 H\u1ED8P xu\u1ED1ng \u0111\u1EC3
+        \u0111\xE8 ch\u1EBFt qu\xE2n \u0111\u1ECBch."
   - chapterIndex: 2
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 62c1eaeaaa5519643b8da3a83157e70a, type: 3}
-    tutorialText: The PAWN has the ability to PROMOTE into the stronger pieces, such
-      as CASTLE, KNIGHT, BISHOP and QUEEN.
+    tutorialText: 
     tutorialDict:
       reorderableList:
         canAdd: 1
@@ -702,7 +729,7 @@ MonoBehaviour:
         draggable: 1
         expandable: 1
         multipleSelection: 1
-        isExpanded: 0
+        isExpanded: 1
         label:
           m_Text: Keys
           m_Image: {fileID: 0}
@@ -717,15 +744,18 @@ MonoBehaviour:
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - The PAWN has the ability to PROMOTE into the stronger pieces, such as CASTLE,
+        KNIGHT, BISHOP and QUEEN.
+      - "T\u1ED0T c\xF3 th\u1EC3 \u0111\u01B0\u1EE3c th\u0103ng ch\u1EE9c th\xE0nh
+        c\xE1c qu\xE2n kh\xE1c (tr\u1EEB VUA)"
   - chapterIndex: 2
     levelIndex: 1
     tutorialSprite: {fileID: 21300000, guid: c2ce78a7bd0b4ba4784a2ed0390248b7, type: 3}
-    tutorialText: Introducing the BOULDER, which is a heavy object that is pushable
-      in a diagonal line.
+    tutorialText: 
     tutorialDict:
       reorderableList:
         canAdd: 1
@@ -733,7 +763,7 @@ MonoBehaviour:
         draggable: 1
         expandable: 1
         multipleSelection: 1
-        isExpanded: 0
+        isExpanded: 1
         label:
           m_Text: Keys
           m_Image: {fileID: 0}
@@ -748,15 +778,19 @@ MonoBehaviour:
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - Introducing the BOULDER, which is a heavy object that is pushable in a diagonal
+        line.
+      - "\u0110\xE2y l\xE0 kh\u1ED1i C\u1EA6U, n\xF3 c\xF3 th\u1EC3 \u0111\u01B0\u1EE3c
+        \u0111\u1EA9y theo \u0111\u01B0\u1EDDng th\u1EB3ng v\xE0 c\u1EA3 \u0111\u01B0\u1EDDng
+        ch\xE9o n\u1EEFa."
   - chapterIndex: 2
     levelIndex: 2
     tutorialSprite: {fileID: 21300000, guid: da0a9a2b1c29ebc44ba01d79f98a6340, type: 3}
-    tutorialText: The BOULDER can roll down the slopes and destroy everything it
-      lands on.
+    tutorialText: 
     tutorialDict:
       reorderableList:
         canAdd: 1
@@ -764,7 +798,7 @@ MonoBehaviour:
         draggable: 1
         expandable: 1
         multipleSelection: 1
-        isExpanded: 0
+        isExpanded: 1
         label:
           m_Text: Keys
           m_Image: {fileID: 0}
@@ -779,100 +813,115 @@ MonoBehaviour:
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - The BOULDER can roll down the slopes and destroy everything it lands on.
+      - "Kh\u1ED1i C\u1EA6U c\xF3 th\u1EC3 l\u0103n xu\u1ED1ng d\u1ED1c v\xE0 \u0111\xE8
+        ch\u1EBFt c\xE1c qu\xE2n c\u1EDD."
   - chapterIndex: 3
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: c3d2f6eef8f20524da395ddaf0b13b7f, type: 3}
-    tutorialText: Unlike the normal enemy that appears in previous levels, this enemy
-      is more intelligent.
+    tutorialText: 
     tutorialDict:
       reorderableList:
-        canAdd: 0
-        canRemove: 0
-        draggable: 0
-        expandable: 0
-        multipleSelection: 0
-        isExpanded: 0
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
         label:
-          m_Text: 
+          m_Text: Keys
           m_Image: {fileID: 0}
           m_Tooltip: 
-        headerHeight: 0
-        footerHeight: 0
-        slideEasing: 0
-        verticalSpacing: 0
-        showDefaultBackground: 0
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
         elementDisplayType: 0
         elementNameProperty: 
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - Unlike the normal enemy that appears in previous levels, this enemy is more
+        intelligent.
+      - "M\u1ED9t th\u1EC3 lo\u1EA1i k\u1EBB th\xF9 kh\xE1c xu\u1EA5t hi\u1EC7n (m\xE0u
+        t\xEDm), k\u1EBB th\xF9 n\xE0y c\xF3 kh\u1EA3 n\u0103ng suy ngh\u0129 h\u01B0\u1EDBng
+        \u0111i n\xEAn s\u1EBD kh\xF4ng c\xF3 c\xE1c d\u1EA5u ch\u1EA5m tr\xEAn \u0111\u01B0\u1EDDng
+        \u0111i c\u1EE7a ch\xFAng."
   - chapterIndex: 3
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: c3d2f6eef8f20524da395ddaf0b13b7f, type: 3}
-    tutorialText: 'The purple color means it is infected with the 4.0 mechanics:
-      AI. With AI, it''s capable of moving on its own, albeit randomly.'
+    tutorialText: 
     tutorialDict:
       reorderableList:
-        canAdd: 0
-        canRemove: 0
-        draggable: 0
-        expandable: 0
-        multipleSelection: 0
-        isExpanded: 0
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
         label:
-          m_Text: 
+          m_Text: Keys
           m_Image: {fileID: 0}
           m_Tooltip: 
-        headerHeight: 0
-        footerHeight: 0
-        slideEasing: 0
-        verticalSpacing: 0
-        showDefaultBackground: 0
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
         elementDisplayType: 0
         elementNameProperty: 
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - 'The purple color means it is infected with the 4.0 mechanics: AI. With AI,
+        it''s capable of moving on its own, albeit randomly.'
+      - "M\xE0u t\xEDm ngh\u0129a l\xE0 n\xF3 \u0111\xE3 b\u1ECB v\u1EAFc xin h\xF3a
+        th\xE0nh th\u1EF1c th\u1EC3 c\xF3 \xFD th\u1EE9c, v\xE0 n\xF3 c\xF3 th\u1EC3
+        t\u1EF1 di chuy\u1EC3n."
   - chapterIndex: 3
     levelIndex: 0
     tutorialSprite: {fileID: 21300000, guid: 834a0c2ffb9fd9a468acccc45d7a58ba, type: 3}
-    tutorialText: An example of an AI move which gets its to this position, although
-      it's more unlikely to not see it.
+    tutorialText: 
     tutorialDict:
       reorderableList:
-        canAdd: 0
-        canRemove: 0
-        draggable: 0
-        expandable: 0
-        multipleSelection: 0
-        isExpanded: 0
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
         label:
-          m_Text: 
+          m_Text: Keys
           m_Image: {fileID: 0}
           m_Tooltip: 
-        headerHeight: 0
-        footerHeight: 0
-        slideEasing: 0
-        verticalSpacing: 0
-        showDefaultBackground: 0
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
         elementDisplayType: 0
         elementNameProperty: 
         elementNameOverride: 
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
-      isExpanded: 0
-      _keyValues: 
-      _keys: 
-      _values: []
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - An example of an AI move which gets its to this position, although it's more
+        unlikely to not see it.
+      - "H\xE3y c\u1EA9n th\u1EADn v\xEC c\xF3 th\u1EC3 ch\xFAng s\u1EBD bi\u1EBFt
+        c\xE1c trao \u0111\u1ED5i m\u1EE5c ti\xEAu."
