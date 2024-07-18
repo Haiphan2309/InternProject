@@ -1,4 +1,6 @@
+using DG.Tweening;
 using GDC.Managers;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,6 +16,11 @@ public class UIButtonManager : MonoBehaviour
     [SerializeField] TMP_Text backNumber;
     [SerializeField] Button solveBtn;
     [SerializeField] TMP_Text solveNumber;
+
+    [SerializeField] Sprite MoveIcon;
+    [SerializeField] Sprite RotateIcon;
+
+    [SerializeField] GameObject hintEffectCanvas;
 
     public void Setup()
     {
@@ -38,14 +45,23 @@ public class UIButtonManager : MonoBehaviour
     }
     private void OnCameraModeBtnClicked()
     {
-        GameplayManager.Instance.camController.ChangeCameraMode();
-        // Change button appearence when clicke 
+        bool isMove = GameplayManager.Instance.camController.ChangeCameraMode();
+        Image btnImg = cameraModeBtn.transform.GetChild(0).GetComponent<Image>();
+        // Change button appearence when clicked
+        if (isMove)
+        {
+            btnImg.sprite = MoveIcon;
+        }
+        else
+        {
+            btnImg.sprite = RotateIcon;
+        }
     }
 
     private void OnBackBtnClicked()
     {
         // Call Back method from GamePlay 
-
+            
         // Update Number
         UpdateNumber();
 
@@ -54,10 +70,11 @@ public class UIButtonManager : MonoBehaviour
     private void OnSolveBtnClicked()
     {
         // Call Solve method from GamePlay
+        PlayHintAnim();
         GameplayManager.Instance.ShowHint();
         // Update Number
         UpdateNumber();
-
+        
 
     }
 
@@ -65,5 +82,52 @@ public class UIButtonManager : MonoBehaviour
     {
         backNumber.text = SaveLoadManager.Instance.GameData.undoNum.ToString();
         solveNumber.text = SaveLoadManager.Instance.GameData.solveNum.ToString();
+        RecheckItemNumber();
+    }
+
+    public void RecheckItemNumber()
+    {
+        int undoNum = SaveLoadManager.Instance.GameData.undoNum;
+        int solveNum = SaveLoadManager.Instance.GameData.solveNum;
+        if (undoNum <= 0)
+        {
+            backBtn.interactable = false;
+        }
+        else
+        {
+            backBtn.interactable = true;
+        }
+
+        if (solveNum <= 0)
+        {
+            solveBtn.interactable= false;
+        }
+        else
+        {
+            solveBtn.interactable = true;
+            
+        }
+    }
+
+    public void DisableHintButton()
+    {
+        solveBtn.interactable = false;
+    }
+    [Button]
+    private void PlayHintAnim()
+    {
+        // Call anim when press Hint button
+        hintEffectCanvas.SetActive(true);
+        RectTransform iconTranfrom = hintEffectCanvas.transform.GetChild(0).GetComponent<RectTransform>();
+        iconTranfrom.DOScale(2f, 0.5f)
+            .SetEase(Ease.OutBounce)
+            .OnComplete(() =>
+            {
+                iconTranfrom.DOScale(0f, 0.5f)
+                .SetEase(Ease.InBack)
+                .OnComplete(() => { hintEffectCanvas.SetActive(false); });
+            });
+
+        
     }
 }

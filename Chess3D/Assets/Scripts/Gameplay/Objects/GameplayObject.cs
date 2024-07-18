@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GameplayObject : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class GameplayObject : MonoBehaviour
     public bool isOnSlope = false;
     public bool isStandOnSlope = false;
     public bool isFalling = false;
+    public bool isMove = false;
 
     public LayerMask objectLayer;
     [SerializeField] public GameObject vfxDefeated;
@@ -57,6 +59,31 @@ public class GameplayObject : MonoBehaviour
     {
         outline.OutlineColor = color;
         outline.OutlineWidth = width;
+    }
+
+    public IEnumerator HintOutline(float width, Color color)
+    {
+        outline.OutlineColor = color;
+        bool isComplete = false;
+        float tolerance = 0.5f;
+        float t = Time.deltaTime * 150f;
+        float velocity = 0f;
+        while (!isMove)
+        {
+            if (!isComplete)
+            {
+                outline.OutlineWidth = Mathf.SmoothDamp(outline.OutlineWidth, width, ref velocity, 0.3f);
+                if (outline.OutlineWidth >= width - tolerance) isComplete = true;
+            }
+
+            else
+            {
+                outline.OutlineWidth = Mathf.SmoothDamp(outline.OutlineWidth, 0, ref velocity, 0.3f);
+                if (outline.OutlineWidth <= 0 + tolerance) isComplete = false;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     protected void SetParentDefault()
@@ -180,7 +207,8 @@ public class GameplayObject : MonoBehaviour
         if (isOnSlope) target = target - Vector3.up * 0.4f;
 
         transform.position = target;
-        transform.rotation = Quaternion.Euler(rotation);
+        //transform.rotation = Quaternion.Euler(rotation);
+        transform.DORotate(rotation, 0.3f);
     }
 
     protected virtual void AjustPosToGround(Vector3 newPosition, Vector3 target, Vector3 direction, bool isChessMan = false, bool isRoundInteger = false)

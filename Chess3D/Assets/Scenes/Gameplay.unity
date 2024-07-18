@@ -5741,10 +5741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3df9fda57a29442bbb58f8cab7e87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHint: {fileID: 336271894}
-  availableMovePrefab: {fileID: 7245618113376876351, guid: 84568a093dba36641903864ef114cacc, type: 3}
-  moveList: []
-  moveListTmp: []
 --- !u!4 &1489613448
 Transform:
   m_ObjectHideFlags: 0
@@ -6115,6 +6111,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1398339970, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398339970, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398339970, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: simulationSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398339970, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: startDelay.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398339970, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398339970, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398339970, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398339970, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3727411769216220709, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2039303117}
+    - target: {fileID: 3727411769216220709, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186003393421279618, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5807779188169244651, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6170,6 +6210,18 @@ PrefabInstance:
     - target: {fileID: 5807779189582467516, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
       propertyPath: m_Name
       value: GamePlayUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967809469821621685, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967809469821621685, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967809469821621685, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}

@@ -162,11 +162,16 @@ public class ChessMan : GameplayObject
     {
         Vector3 direction = (target - transform.position).normalized;
         targetPosition = target;
+        //transform.rotation = Quaternion.Euler(Vector3.zero);
+        transform.DORotate(Vector3.zero, 0.3f);
         RotateToDirection(direction);
 
         yield return new WaitForSeconds(0.5f);
+
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
+            AjustPosToGround(target);
+            isStandOnSlope = isOnSlope;
             SetPosIndex();
             CheckBox(target);
             GameplayManager.Instance.EndTurn();
@@ -180,6 +185,7 @@ public class ChessMan : GameplayObject
 
     IEnumerator Cor_OtherMoveAnim(Vector3 target)
     {
+        isMove = true;
         // Unset Parent for chess piece
         SetParentDefault();
         target = GameUtils.SnapToGrid(target);
@@ -257,6 +263,7 @@ public class ChessMan : GameplayObject
 
         CheckBox(target);
         StartCoroutine(CheckPromote());
+        isMove = false;
     }
 
     private IEnumerator CheckPromote()
