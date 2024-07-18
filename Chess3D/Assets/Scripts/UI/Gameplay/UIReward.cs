@@ -29,6 +29,7 @@ public class UIReward : MonoBehaviour
         desText.gameObject.SetActive(false);
         SaveLoadManager.Instance.GameData.undoNum += dailyRewardConfig.rewards[rand].undoAmount;
         SaveLoadManager.Instance.GameData.solveNum += dailyRewardConfig.rewards[rand].solveAmount;
+        SaveLoadManager.Instance.GameData.turnNum += dailyRewardConfig.rewards[rand].turnAmount;
         SaveLoadManager.Instance.Save();
     }
     public void Show(ShopSlotData shopSlotData, string des)
@@ -43,6 +44,7 @@ public class UIReward : MonoBehaviour
         desText.text = des;
         SaveLoadManager.Instance.GameData.undoNum += shopSlotData.undoAmount;
         SaveLoadManager.Instance.GameData.solveNum += shopSlotData.solveAmount;
+        SaveLoadManager.Instance.GameData.turnNum += shopSlotData.turnAmount;
         SaveLoadManager.Instance.Save();
     }
     public void Hide()

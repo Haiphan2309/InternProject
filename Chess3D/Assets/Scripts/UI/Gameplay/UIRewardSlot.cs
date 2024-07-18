@@ -10,7 +10,7 @@ public class UIRewardSlot : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private Image iconImage;
 
-    [SerializeField] private Sprite undoSprite, solveSprite;
+    [SerializeField] private Sprite undoSprite, solveSprite, turnSprite;
     public void Setup(RewardData rewardData)
     {
         nameText.text = rewardData.rewardName;
@@ -18,9 +18,13 @@ public class UIRewardSlot : MonoBehaviour
         {
             iconImage.sprite = undoSprite;
         }
-        else //if (rewardData.solveAmount > 0)
+        else if (rewardData.solveAmount > 0)
         {
             iconImage.sprite = solveSprite;
+        }
+        else //if (rewardData.turnAmount > 0)
+        {
+            iconImage.sprite = turnSprite;
         }
     }
 
