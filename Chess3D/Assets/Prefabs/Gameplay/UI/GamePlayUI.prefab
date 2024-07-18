@@ -6250,6 +6250,8 @@ MonoBehaviour:
   backNumber: {fileID: 8556900950055513268}
   solveBtn: {fileID: 2299904205333324856}
   solveNumber: {fileID: 4488195101788024107}
+  turnBtn: {fileID: 29366062155397296}
+  turnNumber: {fileID: 2435312003331502499}
   MoveIcon: {fileID: 21300000, guid: fe82483b8b97f2846bf43184adfa815e, type: 3}
   RotateIcon: {fileID: 21300000, guid: 933df765a6ca7cf4faa2a18dfaa51e8a, type: 3}
   hintEffectCanvas: {fileID: 5186003393421279618}
@@ -8009,6 +8011,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fac83871f14b80439233d38c59be377, type: 3}
+--- !u!114 &29366062155397296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 504931745225094727, guid: 7fac83871f14b80439233d38c59be377, type: 3}
+  m_PrefabInstance: {fileID: 534157008514633463}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2435312003331502499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2783861896172633940, guid: 7fac83871f14b80439233d38c59be377, type: 3}
+  m_PrefabInstance: {fileID: 534157008514633463}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5568517261074104967 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5345469335651011696, guid: 7fac83871f14b80439233d38c59be377, type: 3}

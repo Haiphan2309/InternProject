@@ -121,7 +121,7 @@ public class GameplayManager : MonoBehaviour
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
 
-        if (remainTurn <= levelSpawner.levelData.maxTurn)
+        if (remainTurn < levelSpawner.levelData.maxTurn)
         {
             uiGameplayManager.DisableSolveButton();
         }

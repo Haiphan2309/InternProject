@@ -64,7 +64,7 @@ public class UIButtonManager : MonoBehaviour
     private void OnBackBtnClicked()
     {
         // Call Back method from GamePlay 
-            
+        GameplayManager.Instance.Undo();
         // Update Number
         UpdateNumber();
 
