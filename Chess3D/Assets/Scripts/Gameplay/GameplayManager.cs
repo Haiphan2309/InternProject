@@ -411,6 +411,8 @@ public class GameplayManager : MonoBehaviour
         isAnimMoving = true;
         isEndTurn = false;
 
+        if (remainTurn < levelSpawner.levelData.maxTurn) uiGameplayManager.DisableSolveButton();
+
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
         {
@@ -553,7 +555,7 @@ public class GameplayManager : MonoBehaviour
         if (!enemyTurn)
         {
             GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveList.ElementAt(0).playerArmy.posIndex);
-            chessman.SetOutline(10, Color.cyan);
+            ChessManHintOutline(chessman);
 
             Vector3 target = moveList.ElementAt(0).position;
             GameObject moveTarget = Instantiate(availableMovePrefab, target, Quaternion.identity).gameObject;
@@ -584,10 +586,16 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    private void ChessManHintOutline(GameplayObject chessman)
+    {
+        StartCoroutine(chessman.HintOutline(10, Color.cyan));
+    }
+
     [Button]
     public void ShowHint()
     {
         isShowHint = true;
+
         ShowHintMove();
     }
 

@@ -121,6 +121,11 @@ public class UIGameplayManager : MonoBehaviour
         uiPawnPromotion.Open();
     }
 
+    public void DisableSolveButton()
+    {
+        uIButtonManager.DisableHintButton();
+    }
+
     public ChessManType GetPromoteType()
     {
         return uiPawnPromotion.GetPromoteType();

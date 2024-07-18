@@ -71,11 +71,11 @@ public class UIButtonManager : MonoBehaviour
     {
         // Call Solve method from GamePlay
         PlayHintAnim();
-        GameplayManager.Instance.ShowHint();
+
         // Update Number
         UpdateNumber();
-        
 
+        DisableHintButton();
     }
 
     private void UpdateNumber()
@@ -119,13 +119,17 @@ public class UIButtonManager : MonoBehaviour
         // Call anim when press Hint button
         hintEffectCanvas.SetActive(true);
         RectTransform iconTranfrom = hintEffectCanvas.transform.GetChild(0).GetComponent<RectTransform>();
-        iconTranfrom.DOScale(2f, 1.5f)
+
+        iconTranfrom.DOScale(2f, 1f)
             .SetEase(Ease.InOutBounce)
             .OnComplete(() =>
             {
+                Time.timeScale = 1f;
                 iconTranfrom.DOScale(0f, 0.5f)
                 .SetEase(Ease.OutBack)
-                .OnComplete(() => { hintEffectCanvas.SetActive(false); });
+                .OnComplete(() => { hintEffectCanvas.SetActive(false);
+                    GameplayManager.Instance.ShowHint();
+                });
             });
 
         

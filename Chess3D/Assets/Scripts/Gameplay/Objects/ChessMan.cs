@@ -185,6 +185,7 @@ public class ChessMan : GameplayObject
 
     IEnumerator Cor_OtherMoveAnim(Vector3 target)
     {
+        isMove = true;
         // Unset Parent for chess piece
         SetParentDefault();
         target = GameUtils.SnapToGrid(target);
@@ -262,6 +263,7 @@ public class ChessMan : GameplayObject
 
         CheckBox(target);
         StartCoroutine(CheckPromote());
+        isMove = false;
     }
 
     private IEnumerator CheckPromote()
