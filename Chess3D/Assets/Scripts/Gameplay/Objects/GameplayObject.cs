@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class GameplayObject : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class GameplayObject : MonoBehaviour
         float velocity = 0f;
         posIcon.SetActive(true);
 
-        while (!isMove)
+        while (!isMove && GameplayManager.Instance.isShowHint)
         {
             if (!isComplete)
             {
@@ -86,6 +87,8 @@ public class GameplayObject : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+
+        outline.OutlineWidth = 0f;
         posIcon.SetActive(false);
     }
 

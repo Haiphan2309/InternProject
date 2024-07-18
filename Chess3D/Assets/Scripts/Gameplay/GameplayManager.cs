@@ -555,8 +555,8 @@ public class GameplayManager : MonoBehaviour
         SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
         SaveLoadManager.Instance.Save();
+
         isShowHint = false;
-        uiGameplayManager.DisableSolveButton();
     }
     [Button]
     public void IncreaseTurn()
