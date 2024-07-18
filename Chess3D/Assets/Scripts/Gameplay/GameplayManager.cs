@@ -112,6 +112,8 @@ public class GameplayManager : MonoBehaviour
     private void SetRemainTurn(int value, bool isSetTurnSlider = true)
     {
         remainTurn = value;
+        if (remainTurn < 0) remainTurn = 0;
+        if (remainTurn > levelData.maxTurn) remainTurn = levelData.maxTurn;
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
     }
@@ -411,8 +413,6 @@ public class GameplayManager : MonoBehaviour
         isAnimMoving = true;
         isEndTurn = false;
 
-        if (remainTurn < levelSpawner.levelData.maxTurn) uiGameplayManager.DisableSolveButton();
-
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
         {
@@ -545,8 +545,20 @@ public class GameplayManager : MonoBehaviour
         SaveLoadManager.Instance.GameData.undoNum--;
         SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
+        SaveLoadManager.Instance.Save();
     }
-
+    [Button]
+    public void IncreaseTurn()
+    {
+        if (SaveLoadManager.Instance.GameData.turnNum <=0)
+        {
+            Debug.Log("Da het tang turn");
+            return;
+        }
+        SaveLoadManager.Instance.GameData.turnNum--;
+        SetRemainTurn(remainTurn + 1);
+        SaveLoadManager.Instance.Save();
+    }
     public void ShowHintMove()
     {
         if (!isShowHint) return;
@@ -555,7 +567,7 @@ public class GameplayManager : MonoBehaviour
         if (!enemyTurn)
         {
             GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveList.ElementAt(0).playerArmy.posIndex);
-            ChessManHintOutline(chessman);
+            chessman.SetOutline(10, Color.cyan);
 
             Vector3 target = moveList.ElementAt(0).position;
             GameObject moveTarget = Instantiate(availableMovePrefab, target, Quaternion.identity).gameObject;
@@ -586,17 +598,13 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    private void ChessManHintOutline(GameplayObject chessman)
-    {
-        StartCoroutine(chessman.HintOutline(10, Color.cyan));
-    }
-
     [Button]
     public void ShowHint()
     {
         isShowHint = true;
-
+        SaveLoadManager.Instance.GameData.solveNum--;
         ShowHintMove();
+        SaveLoadManager.Instance.Save();
     }
 
     private List<HintMove> CopyList(List<HintMove> target)
