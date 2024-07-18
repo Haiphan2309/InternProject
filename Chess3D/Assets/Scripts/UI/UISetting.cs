@@ -1,7 +1,10 @@
+using GDC.Enums;
 using GDC.Managers;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +15,7 @@ public class UISetting : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private Button menuBtn, replayBtn, hideButton;
     [SerializeField] private Slider musicSlider, soundSlider;
+    [SerializeField] private TMP_Dropdown languageDropdown;
     private Coroutine hideCor;
     [SerializeField] private int maxVolume = 10;
     private bool isAreadySetup;
@@ -42,6 +46,8 @@ public class UISetting : MonoBehaviour
 
         musicSlider.onValueChanged.AddListener(delegate { OnChangeMusicVolume(); });
         soundSlider.onValueChanged.AddListener(delegate { OnChangeSoundVolume(); });
+        languageDropdown.onValueChanged.AddListener(delegate { OnChangeLanguage(); });
+
         musicSlider.maxValue = maxVolume;
         soundSlider.maxValue = maxVolume;
         musicSlider.value = SoundManager.Instance.GetMusicVolume() * maxVolume;
@@ -51,6 +57,16 @@ public class UISetting : MonoBehaviour
         {
             levelText.text = "Level " + (GameplayManager.Instance.chapterData.id + 1).ToString() + "-" + (GameplayManager.Instance.levelData.id + 1).ToString();
         }
+
+        languageDropdown.ClearOptions();
+        List<string> optionDatas = new List<string>();
+        foreach (var enumValue in Enum.GetValues(typeof(Language)).Cast<Language>())
+        {
+            optionDatas.Add(enumValue.ToString());
+        }
+        languageDropdown.AddOptions(optionDatas);
+        languageDropdown.value = (int)SaveLoadManager.Instance.GameData.language;
+        //Debug.Log("SETUP " + languageDropdown.value + SaveLoadManager.Instance.GameData.language);
     }
     public void Hide()
     {
@@ -58,10 +74,17 @@ public class UISetting : MonoBehaviour
         {
             UIManager.Instance.ShowAllButtons();
         }
+        menuBtn.onClick.RemoveAllListeners();
+        replayBtn.onClick.RemoveAllListeners();
+        hideButton.onClick.RemoveAllListeners();
+
+        musicSlider.onValueChanged.RemoveAllListeners();
+        soundSlider.onValueChanged.RemoveAllListeners();
+        languageDropdown.onValueChanged.RemoveAllListeners();
         uiPopupAnim.Hide();
         hideCor = StartCoroutine(Cor_Hide());
     }
-    IEnumerator Cor_Hide()
+    private IEnumerator Cor_Hide()
     {
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
@@ -96,15 +119,22 @@ public class UISetting : MonoBehaviour
             true);
     }
 
-    void OnChangeMusicVolume()
+    private void OnChangeMusicVolume()
     {
         //SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1, (float)musicSlider.value / maxVolume);
         SoundManager.Instance.SetMusicVolume((float)musicSlider.value/maxVolume);
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
     }
-    void OnChangeSoundVolume()
+    private void OnChangeSoundVolume()
     {
         SoundManager.Instance.SetSFXVolume((float)soundSlider.value / maxVolume);
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+    }
+    private void OnChangeLanguage()
+    {
+        //Debug.Log("new value " + languageDropdown.value);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        SaveLoadManager.Instance.GameData.language = (Language)(languageDropdown.value);
+        SaveLoadManager.Instance.Save();
     }
 }

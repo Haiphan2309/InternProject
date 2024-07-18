@@ -662,8 +662,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294934528
-  m_fontColor: {r: 0, g: 0.5026951, b: 1, a: 1}
+    rgba: 4294947584
+  m_fontColor: {r: 0, g: 0.703217, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -680,7 +680,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 18
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1179,6 +1179,7 @@ MonoBehaviour:
     slotName: 
     undoAmount: 0
     solveAmount: 0
+    turnAmount: 0
     costUSD: 0
     costVND: 0
     icon: {fileID: 0}
@@ -1409,7 +1410,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.35
+  m_fontSize: 18
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1

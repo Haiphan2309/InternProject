@@ -16,6 +16,8 @@ public class UIButtonManager : MonoBehaviour
     [SerializeField] TMP_Text backNumber;
     [SerializeField] Button solveBtn;
     [SerializeField] TMP_Text solveNumber;
+    [SerializeField] Button turnBtn;
+    [SerializeField] TMP_Text turnNumber;
 
     [SerializeField] Sprite MoveIcon;
     [SerializeField] Sprite RotateIcon;
@@ -29,6 +31,7 @@ public class UIButtonManager : MonoBehaviour
         cameraModeBtn.onClick.AddListener(OnCameraModeBtnClicked);
         backBtn.onClick.AddListener(OnBackBtnClicked);
         solveBtn.onClick.AddListener(OnSolveBtnClicked);
+        turnBtn.onClick.AddListener(OnTurnBtnClicked);
         //
         UpdateNumber();
     }
@@ -78,10 +81,18 @@ public class UIButtonManager : MonoBehaviour
         DisableHintButton();
     }
 
+    
+
+    private void OnTurnBtnClicked()
+    {
+        GameplayManager.Instance.IncreaseTurn();
+        UpdateNumber();
+    }
     private void UpdateNumber()
     {
         backNumber.text = SaveLoadManager.Instance.GameData.undoNum.ToString();
         solveNumber.text = SaveLoadManager.Instance.GameData.solveNum.ToString();
+        turnNumber.text = SaveLoadManager.Instance.GameData.turnNum.ToString();
         RecheckItemNumber();
     }
 
@@ -89,24 +100,13 @@ public class UIButtonManager : MonoBehaviour
     {
         int undoNum = SaveLoadManager.Instance.GameData.undoNum;
         int solveNum = SaveLoadManager.Instance.GameData.solveNum;
-        if (undoNum <= 0)
-        {
-            backBtn.interactable = false;
-        }
-        else
-        {
-            backBtn.interactable = true;
-        }
+        int turnNum = SaveLoadManager.Instance.GameData.turnNum;
 
-        if (solveNum <= 0)
-        {
-            solveBtn.interactable= false;
-        }
-        else
-        {
-            solveBtn.interactable = true;
-            
-        }
+        //
+        backBtn.interactable = undoNum > 0;
+        solveBtn.interactable= solveNum > 0;
+        turnBtn.interactable = turnNum > 0;
+
     }
 
     public void DisableHintButton()
