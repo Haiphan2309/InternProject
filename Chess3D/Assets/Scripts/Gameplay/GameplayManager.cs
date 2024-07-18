@@ -42,6 +42,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject baseHint;
 
     public bool isShowHint = true;
+    private Coroutine Cor_HintAnim;
 
     private void Awake()
     {
@@ -555,8 +556,16 @@ public class GameplayManager : MonoBehaviour
         SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
         SaveLoadManager.Instance.Save();
-
-        isShowHint = false;
+        BackHintMove();
+        
+        if (remainTurn == levelSpawner.levelData.maxTurn)
+        {
+            isShowHint = true;
+        }
+        else
+        {
+            isShowHint = false;
+        }
     }
     [Button]
     public void IncreaseTurn()
@@ -592,7 +601,7 @@ public class GameplayManager : MonoBehaviour
             moveTarget.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.cyan;
 
             // Hint Animation
-            StartCoroutine(chessman.HintOutline(moveTarget, 10, Color.cyan));
+            Cor_HintAnim = StartCoroutine(chessman.HintOutline(moveTarget, 10, Color.cyan));
 
             // Rotate the Indicator
             moveTarget = GameUtils.ChangeIndicatorAtPosition(moveTarget, target);
@@ -617,6 +626,28 @@ public class GameplayManager : MonoBehaviour
             GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
             if (chessman == null) isShowHint = false;
         }
+    }
+
+    private void BackHintMove()
+    {
+        if (moveListTmp.Count <= 0) return;
+
+        if (isShowHint) ResetChessManAfterAnim();
+
+        moveList.Insert(0, moveListTmp[moveListTmp.Count - 1]);
+        moveListTmp.RemoveAt(moveListTmp.Count - 1);
+
+        DestroyAllChildren(baseHint.gameObject);
+        StopCoroutine(Cor_HintAnim);
+
+    }
+
+    private void ResetChessManAfterAnim()
+    {
+        if (moveListTmp.Count <= 0) return;
+
+        GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).playerArmy.posIndex);
+        chessman.outline.OutlineWidth = 0f;
     }
 
     public void DestroyAllChildren(GameObject parent)
