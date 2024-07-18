@@ -41,7 +41,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private List<HintMove> moveListTmp;
     [SerializeField] private GameObject baseHint;
 
-    private bool isShowHint = false;
+    public bool isShowHint = true;
 
     private void Awake()
     {
@@ -555,6 +555,8 @@ public class GameplayManager : MonoBehaviour
         SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
         SaveLoadManager.Instance.Save();
+        isShowHint = false;
+        uiGameplayManager.DisableSolveButton();
     }
     [Button]
     public void IncreaseTurn()
@@ -570,31 +572,48 @@ public class GameplayManager : MonoBehaviour
     }
     public void ShowHintMove()
     {
+        // If not required to show hint --> skip
         if (!isShowHint) return;
+
+        // If dont have any hint (AI level) --> skip
         if (moveList.Count <= 0) return;
 
+        // Player turn
         if (!enemyTurn)
         {
+            // Get the Chess Piece of hint move
             GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveList.ElementAt(0).playerArmy.posIndex);
-
+            
+            // Get the target position to move and instantiate
             Vector3 target = moveList.ElementAt(0).position;
             GameObject moveTarget = Instantiate(posIcon, target, Quaternion.identity).gameObject;
 
+            // Change color of indicator
             moveTarget.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.cyan;
 
+            // Hint Animation
             StartCoroutine(chessman.HintOutline(moveTarget, 10, Color.cyan));
 
+            // Rotate the Indicator
             moveTarget = GameUtils.ChangeIndicatorAtPosition(moveTarget, target);
 
+            // Set the parent for indicator for easy management
             moveTarget.transform.SetParent(baseHint.transform);
         }
 
+        // Enemy turn
         else
         {
+            // Destroy all indicator in base
             DestroyAllChildren(baseHint.gameObject);
+
+            // Add old hint move to tmp list
             moveListTmp.Add(moveList[0]);
+
+            // Remove old move in movelist
             moveList.RemoveAt(0);
 
+            // Check if the player move to target or not --> if not turn off hint
             GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
             if (chessman == null) isShowHint = false;
         }
