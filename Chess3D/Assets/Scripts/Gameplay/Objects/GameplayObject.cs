@@ -61,13 +61,15 @@ public class GameplayObject : MonoBehaviour
         outline.OutlineWidth = width;
     }
 
-    public IEnumerator HintOutline(float width, Color color)
+    public IEnumerator HintOutline(GameObject posIcon, float width, Color color)
     {
         outline.OutlineColor = color;
         bool isComplete = false;
         float tolerance = 0.5f;
         float t = Time.deltaTime * 150f;
         float velocity = 0f;
+        posIcon.SetActive(true);
+
         while (!isMove)
         {
             if (!isComplete)
@@ -84,6 +86,7 @@ public class GameplayObject : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+        posIcon.SetActive(false);
     }
 
     protected void SetParentDefault()
