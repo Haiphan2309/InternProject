@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8904540564170910105}
   - component: {fileID: 7336152135530231832}
   - component: {fileID: 5310172246281672520}
+  - component: {fileID: 5279297935694565288}
   m_Layer: 5
   m_Name: Halo
   m_TagString: Untagged
@@ -76,6 +77,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &5279297935694565288
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824785599600304455}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 745998902ba67354d87e54aca76e441c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1146474671024288632
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +153,7 @@ MonoBehaviour:
   iconImage: {fileID: 2891023934625549425}
   undoSprite: {fileID: -1571163338, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
   solveSprite: {fileID: 1132244785, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
+  turnSprite: {fileID: 0}
 --- !u!1 &2263380455112052485
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +165,7 @@ GameObject:
   - component: {fileID: 8636814911565648706}
   - component: {fileID: 3184579278782020447}
   - component: {fileID: 2891023934625549425}
+  - component: {fileID: 3332698454120797942}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -208,6 +231,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &3332698454120797942
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2263380455112052485}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7b6a1f81643777f478ee86bc3dc556c4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &9165884864439319456
 GameObject:
   m_ObjectHideFlags: 0
