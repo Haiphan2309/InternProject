@@ -437,6 +437,8 @@ MonoBehaviour:
     _values:
     - "C\u1EA3m \u01A1n b\u1EA1n \u0111\xE3 \u1EE7ng h\u1ED9 ch\xFAng t\xF4i! ^^"
     - Thank you for shopping! ^^
+  dailyRewardOpenSprite: {fileID: 21300000, guid: d89ed3682a2967646ba365ec9695f512, type: 3}
+  dailyRewardCloseSprite: {fileID: 21300000, guid: 312764b6d55c5af4f9c46ea1b5bff0a8, type: 3}
 --- !u!1 &1978531622249516766
 GameObject:
   m_ObjectHideFlags: 0
@@ -2694,8 +2696,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 4504757143863989516}
     m_Modifications:
     - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_text
+      value: Turn x5 & Turn x5 & Hint x5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_fontSize
-      value: 36
+      value: 24.5
       objectReference: {fileID: 0}
     - target: {fileID: 4128587233373858424, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_Name

@@ -16,6 +16,7 @@ public class UIShopManager : MonoBehaviour
 
     [SerializeField] private Button exitButton, removeAds, dailyRewardButton;
     [SerializeField] private LanguageDictionary removeAdsDict;
+    [SerializeField] private Sprite dailyRewardOpenSprite, dailyRewardCloseSprite;
 
     [Button]
     public void Show()
@@ -44,22 +45,16 @@ public class UIShopManager : MonoBehaviour
             string dayLastReceive = PlayerPrefs.GetString("DailyRewardDate", dayReceive);
             if (dayReceive.CompareTo(dayLastReceive) == 0)
             {
-                dailyRewardButton.interactable = false;
-                haloDailyRewardRect.gameObject.SetActive(false);
-                comeBackTomorrowRect.gameObject.SetActive(true);
+                SetOpenDailyReward(false);
             }
             else
             {
-                dailyRewardButton.interactable = true;
-                haloDailyRewardRect.gameObject.SetActive(true);
-                comeBackTomorrowRect.gameObject.SetActive(false);
+                SetOpenDailyReward(true);
             }
         }
         else
         {
-            dailyRewardButton.interactable = true;
-            haloDailyRewardRect.gameObject.SetActive(true);
-            comeBackTomorrowRect.gameObject.SetActive(false);
+            SetOpenDailyReward(true);
         }
 
         rect.localScale = Vector2.zero;
@@ -95,8 +90,25 @@ public class UIShopManager : MonoBehaviour
         PopupManager.Instance.ShowDailyReward(dailyRewardConfig);
         string dayReceive = DateTime.Now.Date.ToString();
         PlayerPrefs.SetString("DailyRewardDate", dayReceive);
-        dailyRewardButton.interactable = false;
-        haloDailyRewardRect.gameObject.SetActive(false);
-        comeBackTomorrowRect.gameObject.SetActive(true);
+        SetOpenDailyReward(false);
+    }
+    private void SetOpenDailyReward(bool isOpen)
+    {
+        if (isOpen)
+        {
+            dailyRewardButton.interactable = true;
+            haloDailyRewardRect.gameObject.SetActive(true);
+            comeBackTomorrowRect.gameObject.SetActive(false);
+            dailyRewardButton.image.sprite = dailyRewardOpenSprite;
+            dailyRewardButton.GetComponent<Animator>().enabled = true;
+        }
+        else
+        {
+            dailyRewardButton.interactable = false;
+            haloDailyRewardRect.gameObject.SetActive(false);
+            comeBackTomorrowRect.gameObject.SetActive(true);
+            dailyRewardButton.image.sprite = dailyRewardCloseSprite;
+            dailyRewardButton.GetComponent<Animator>().enabled = false;
+        }
     }
 }

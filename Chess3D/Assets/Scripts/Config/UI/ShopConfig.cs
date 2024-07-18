@@ -7,7 +7,7 @@ using UnityEngine;
 public class ShopSlotData
 {
     public string slotName;
-    public int undoAmount, solveAmount;
+    public int undoAmount, solveAmount, turnAmount;
     public float costUSD, costVND;
     public Sprite icon, bg;
 }
