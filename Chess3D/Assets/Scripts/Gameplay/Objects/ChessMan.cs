@@ -161,6 +161,7 @@ public class ChessMan : GameplayObject
     IEnumerator Cor_KnightMoveAnim(Vector3 target)
     {
         isMove = true;
+        SetParentDefault();
         Vector3 direction = (target - transform.position).normalized;
         targetPosition = target;
         //transform.rotation = Quaternion.Euler(Vector3.zero);
