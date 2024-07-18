@@ -638,7 +638,8 @@ public class GameplayManager : MonoBehaviour
         moveListTmp.RemoveAt(moveListTmp.Count - 1);
 
         DestroyAllChildren(baseHint.gameObject);
-        StopCoroutine(Cor_HintAnim);
+
+        if (Cor_HintAnim != null) StopCoroutine(Cor_HintAnim);
 
     }
 
