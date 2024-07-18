@@ -113,6 +113,13 @@ public class UIButtonManager : MonoBehaviour
     {
         solveBtn.interactable = false;
     }
+
+    public void DisableAllButtons()
+    {
+        backBtn.interactable = false;
+        solveBtn.interactable = false;
+        turnBtn.interactable = false;
+    } 
     [Button]
     private void PlayHintAnim()
     {
