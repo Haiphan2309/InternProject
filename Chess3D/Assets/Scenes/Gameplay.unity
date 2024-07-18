@@ -5640,7 +5640,7 @@ MonoBehaviour:
   yMaxLimit: 80
   smoothTime: 0.2
   chess: {fileID: 0}
-  zoomSpeed: 3
+  zoomSpeed: 0.002
   moveSpeedX: 8
   moveSpeedY: 8
 --- !u!114 &1349836854
