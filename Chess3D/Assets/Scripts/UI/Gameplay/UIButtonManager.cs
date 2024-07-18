@@ -107,6 +107,8 @@ public class UIButtonManager : MonoBehaviour
         solveBtn.interactable= solveNum > 0;
         turnBtn.interactable = turnNum > 0;
 
+        if (!GameplayManager.Instance.isShowHint) DisableHintButton();
+
     }
 
     public void DisableHintButton()
