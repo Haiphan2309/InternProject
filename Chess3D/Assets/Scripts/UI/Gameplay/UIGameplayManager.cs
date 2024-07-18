@@ -146,5 +146,16 @@ public class UIGameplayManager : MonoBehaviour
             uIInformationPanel.ChangeToPlayerTurn();
         }
     }
+
+    public void DisableAllButton()
+    {
+        uIButtonManager.DisableAllButtons();
+
+    }
+
+    public void RecheckItems()
+    {
+        uIButtonManager.RecheckItemNumber();
+    }
    
 }

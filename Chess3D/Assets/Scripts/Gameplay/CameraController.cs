@@ -31,6 +31,7 @@ public class CameraController : MonoBehaviour
     private float targetX;
     private float targetY;
     private float targetDistance;
+    private bool lockSwipe = false;
     
 
     [SerializeField] Transform chess;
@@ -131,9 +132,9 @@ public class CameraController : MonoBehaviour
 
     private void HandleSwipeCamera()
     {
-        //if (Input.GetMouseButton(0)) Debug.Log("Mouse button down");
-        //Debug.Log("Touch count: " + Input.touchCount.ToString());
-        if ((Input.touchCount == 1 || Input.GetMouseButton(0)) && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
+        
+        if (Input.touchCount == 0) lockSwipe = false;
+        if ((Input.touchCount == 1 || Input.GetMouseButton(0)) && !lockSwipe && !EventSystem.current.IsPointerOverGameObject()) // Kiểm tra xem nút chuột trái có được nhấn không
         {
         
             targetX += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
@@ -145,7 +146,6 @@ public class CameraController : MonoBehaviour
         x = Mathf.SmoothDamp(x, targetX, ref velocityX, smoothTime);
         y = Mathf.SmoothDamp(y, targetY, ref velocityY, smoothTime);
        
-
 
          Quaternion rotation = Quaternion.Euler(y, x, 0);
          //Debug.Log(rotation * new Vector3(0.0f, 0.0f, -targetDistance) + " SADAS  " + targetDistance.ToString());
@@ -163,7 +163,8 @@ public class CameraController : MonoBehaviour
     {
         if (Input.touchCount == 2 && !EventSystem.current.IsPointerOverGameObject())
         {
-         
+            
+            lockSwipe = true;
             Touch touchFirst = Input.GetTouch(0);
             Touch touchSecond = Input.GetTouch(1);
 
@@ -172,24 +173,14 @@ public class CameraController : MonoBehaviour
 
             Vector2 touchFirstVector = touchFirst.position - touchFirstPrePos;
             Vector2 touchSecondVector = touchSecond.position - touchSecondPrePos;
-            //if (cameraMode == CameraMode.Move) // Move Camera
-            //{
-            //    Vector2 moveVector = Vector2.Lerp(touchFirstVector, touchSecondVector, 0.5f).normalized;
-            //    Move(moveVector.x, moveVector.y);
-            //}
-           // else // Zoom Camera
-           // {
-                float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
-                float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
-                float diff = currentMagnitude - preMagnitude;
 
-                Zoom(diff * zoomSpeed);
-            //}
+            float preMagnitude = (touchFirstPrePos - touchSecondPrePos).magnitude;
+            float currentMagnitude = (touchFirst.position - touchSecond.position).magnitude;
+            float diff = currentMagnitude - preMagnitude;
 
-            //
+            Zoom(diff * zoomSpeed);
 
 
-            
         }
         #if UNITY_EDITOR
         Zoom(Input.GetAxis("Mouse ScrollWheel")*zoomSpeed);
@@ -197,7 +188,7 @@ public class CameraController : MonoBehaviour
     }
     private void Zoom(float inc)
     {
-    
+        Debug.Log(inc);
         zoom -= inc;
         zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
         _camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, zoom,  ref zoomVelocity, smoothZoomTime);
