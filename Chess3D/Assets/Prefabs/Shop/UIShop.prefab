@@ -68,15 +68,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: SHOP
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fe513a27327918e44ac8ca7ecb3ebdec, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: fe513a27327918e44ac8ca7ecb3ebdec, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294934528
-  m_fontColor: {r: 0, g: 0.5026951, b: 1, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1829,8 +1829,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Remove Ads
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1e24843195895de48883fbbddde19677, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: 1e24843195895de48883fbbddde19677, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2304,8 +2304,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Comeback tomorrow!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1fd642c50482e534fb9835f5e07968db, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: 1fd642c50482e534fb9835f5e07968db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2329,8 +2329,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 26
+  m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2701,7 +2701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_fontSize
-      value: 24.5
+      value: 22.4
       objectReference: {fileID: 0}
     - target: {fileID: 4128587233373858424, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_Name

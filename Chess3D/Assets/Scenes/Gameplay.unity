@@ -288,6 +288,7 @@ MonoBehaviour:
   moveList: []
   moveListTmp: []
   baseHint: {fileID: 336271894}
+  isShowHint: 1
   logTestPos: {x: 0, y: 0, z: 0}
 --- !u!4 &386281600
 Transform:
@@ -1246,7 +1247,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 20, y: 20, z: 20}
+    m_Scale: {x: 22, y: 22, z: 22}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -1444,7 +1445,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 18
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5325,7 +5326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181472798}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 4, y: 0, z: 4}
+  m_LocalPosition: {x: 5, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
