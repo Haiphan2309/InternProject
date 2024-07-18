@@ -9002,6 +9002,154 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.size
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: tmpTextOriginColor.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[15].a
+      value: 0.015686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[16].b
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[16].g
+      value: 0.50468445
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[16].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[17].b
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[17].g
+      value: 0.50468445
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[18].b
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[18].g
+      value: 0.50468445
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[18].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[19].b
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[19].g
+      value: 0.50468445
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[22].a
+      value: 0.015686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[22].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[22].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[22].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[23].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[23].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[23].g
+      value: 0.9953013
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[23].r
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[24].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[24].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[24].g
+      value: 0.9953013
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[24].r
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[25].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[25].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[25].g
+      value: 0.9953013
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[25].r
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[26].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[26].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[26].g
+      value: 0.9953013
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[26].r
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[27].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[27].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[27].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067947979241008979, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
+      propertyPath: imageOriginColor.Array.data[27].r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6147672629604995048, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
