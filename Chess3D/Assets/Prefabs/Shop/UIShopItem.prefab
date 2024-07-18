@@ -1385,8 +1385,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 99999 VND
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1e24843195895de48883fbbddde19677, type: 2}
-  m_sharedMaterial: {fileID: 1578326750946727285, guid: 1e24843195895de48883fbbddde19677, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c6ad172890398014fb49477c43803ae5, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: c6ad172890398014fb49477c43803ae5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
