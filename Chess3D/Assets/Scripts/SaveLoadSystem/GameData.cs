@@ -35,7 +35,7 @@ namespace GDC.Managers
         public int currentLevel; //start with 0
 
         public Language language;
-        public int undoNum, solveNum;
+        public int undoNum, solveNum, turnNum;
         public bool isPurchaseAds;
         public void SetupData() //load
         {
@@ -76,6 +76,7 @@ namespace GDC.Managers
             language = (Language)gameDataOrigin.languageId;
             undoNum = gameDataOrigin.undoNum;
             solveNum = gameDataOrigin.solveNum;
+            turnNum = gameDataOrigin.turnNum;
 
             isPurchaseAds = gameDataOrigin.isPurchaseAds;
 
@@ -107,6 +108,7 @@ namespace GDC.Managers
             gameDataOrigin.languageId = (int)language;
             gameDataOrigin.undoNum = undoNum;
             gameDataOrigin.solveNum = solveNum;
+            gameDataOrigin.turnNum = turnNum;
             gameDataOrigin.isPurchaseAds = isPurchaseAds;
 
             IsSaveLoadProcessing = false;
@@ -195,7 +197,7 @@ namespace GDC.Managers
         public int currentChapter;
 
         public int languageId;
-        public int undoNum, solveNum;
+        public int undoNum, solveNum, turnNum;
         public bool isPurchaseAds;
     }
 

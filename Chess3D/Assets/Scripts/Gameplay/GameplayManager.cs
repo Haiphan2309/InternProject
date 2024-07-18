@@ -112,6 +112,8 @@ public class GameplayManager : MonoBehaviour
     private void SetRemainTurn(int value, bool isSetTurnSlider = true)
     {
         remainTurn = value;
+        if (remainTurn < 0) remainTurn = 0;
+        if (remainTurn > levelData.maxTurn) remainTurn = levelData.maxTurn;
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
     }
@@ -543,8 +545,20 @@ public class GameplayManager : MonoBehaviour
         SaveLoadManager.Instance.GameData.undoNum--;
         SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
+        SaveLoadManager.Instance.Save();
     }
-
+    [Button]
+    public void IncreaseTurn()
+    {
+        if (SaveLoadManager.Instance.GameData.turnNum <=0)
+        {
+            Debug.Log("Da het tang turn");
+            return;
+        }
+        SaveLoadManager.Instance.GameData.turnNum--;
+        SetRemainTurn(remainTurn + 1);
+        SaveLoadManager.Instance.Save();
+    }
     public void ShowHintMove()
     {
         if (!isShowHint) return;
@@ -588,7 +602,9 @@ public class GameplayManager : MonoBehaviour
     public void ShowHint()
     {
         isShowHint = true;
+        SaveLoadManager.Instance.GameData.solveNum--;
         ShowHintMove();
+        SaveLoadManager.Instance.Save();
     }
 
     private List<HintMove> CopyList(List<HintMove> target)
