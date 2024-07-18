@@ -16,9 +16,28 @@ MonoBehaviour:
   - rewardName: Undo x3
     undoAmount: 3
     solveAmount: 0
+    turnAmount: 0
   - rewardName: Hint x1
     undoAmount: 0
     solveAmount: 1
+    turnAmount: 0
   - rewardName: Undo x3 & Hint x1
     undoAmount: 3
     solveAmount: 1
+    turnAmount: 0
+  - rewardName: Turn x2
+    undoAmount: 0
+    solveAmount: 0
+    turnAmount: 2
+  - rewardName: Undo x2 & Turn x1
+    undoAmount: 2
+    solveAmount: 0
+    turnAmount: 1
+  - rewardName: Turn x1 & Hint x1
+    undoAmount: 0
+    solveAmount: 1
+    turnAmount: 1
+  - rewardName: Undo x3 & Turn x1 & Hint x1
+    undoAmount: 3
+    solveAmount: 1
+    turnAmount: 1
