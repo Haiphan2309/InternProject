@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
     private readonly Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
 
     private readonly Color leftChessPieceColor = new Color(0f, 0.5f, 1f);
-    private readonly Color rightChessPieceColor = new Color(1f, 0.5f, 0f);
+    private readonly Color rightChessPieceColor = new Color(1f, 0f, 0f);
 
     private readonly Stack<UI> UIStack = new Stack<UI>();
     private readonly List<Button> chapterButton = new List<Button>();
