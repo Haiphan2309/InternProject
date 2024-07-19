@@ -77,6 +77,7 @@ public class UIButtonManager : MonoBehaviour
         GameplayManager.Instance.ShowHint();
         // Update Number
         UpdateNumber();
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_STAR);
 
         DisableHintButton();
     }
@@ -107,7 +108,7 @@ public class UIButtonManager : MonoBehaviour
         solveBtn.interactable= solveNum > 0;
         turnBtn.interactable = turnNum > 0;
 
-        if (!GameplayManager.Instance.isShowHint) DisableHintButton();
+        if (!GameplayManager.Instance.canHint) DisableHintButton();
 
     }
 

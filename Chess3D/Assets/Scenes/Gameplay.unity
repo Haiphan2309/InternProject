@@ -288,7 +288,8 @@ MonoBehaviour:
   moveList: []
   moveListTmp: []
   baseHint: {fileID: 336271894}
-  isShowHint: 1
+  isShowHint: 0
+  canHint: 1
   logTestPos: {x: 0, y: 0, z: 0}
 --- !u!4 &386281600
 Transform:

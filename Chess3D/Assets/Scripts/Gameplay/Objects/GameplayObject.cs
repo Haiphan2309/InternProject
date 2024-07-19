@@ -309,6 +309,7 @@ public class GameplayObject : MonoBehaviour
     [Button]
     public virtual void Defeated()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_CHESSMAN);
         Vector3 posToDissapear = transform.position + new Vector3(Random.Range(0, 2), 2, Random.Range(0, 2));
         transform.DOMove(posToDissapear, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {

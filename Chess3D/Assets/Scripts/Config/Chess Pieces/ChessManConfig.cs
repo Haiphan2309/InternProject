@@ -67,7 +67,7 @@ public class ChessManConfig : ScriptableObject
     {
         bool canStandOn = true;
         TileType tileData = GameUtils.GetTileBelowObject(currentMove);
-        Debug.Log(currentMove.ToString() + " " + tileData);
+        //Debug.Log(currentMove.ToString() + " " + tileData);
         // Object can only stand on GROUND / BOX / SLOPES
         switch (tileData)
         {

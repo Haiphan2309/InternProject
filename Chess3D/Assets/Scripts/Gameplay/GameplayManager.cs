@@ -41,7 +41,8 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private List<HintMove> moveListTmp;
     [SerializeField] private GameObject baseHint;
 
-    public bool isShowHint = true;
+    public bool isShowHint = false;
+    public bool canHint = true;
     private Coroutine Cor_HintAnim;
 
     private void Awake()
@@ -51,7 +52,7 @@ public class GameplayManager : MonoBehaviour
 
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
-        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1);
+        LoadMusicFollowChapter(chapterIndex);
 
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
@@ -74,9 +75,29 @@ public class GameplayManager : MonoBehaviour
 
         uiGameplayManager.Setup();
         gridSateManager.Setup();
+        uiGameplayManager.ChangeTurn(enemyTurn);
         //SetPowerUpNum();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
+    }
+
+    private void LoadMusicFollowChapter(int chapterIndex) //play music tuy theo tung chapter
+    {
+        switch (chapterIndex)
+        {
+            case 0:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1);
+                break;
+            case 1:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_2);
+                break;
+            case 2:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_3);
+                break;
+            case 3:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_4);
+                break;
+        }
     }
 
     //private void SetPowerUpNum()
@@ -118,13 +139,19 @@ public class GameplayManager : MonoBehaviour
     {
         remainTurn = value;
         if (remainTurn < 0) remainTurn = 0;
-        if (remainTurn > levelData.maxTurn) remainTurn = levelData.maxTurn;
+
+        if (remainTurn >= levelData.maxTurn)
+        {
+            remainTurn = levelData.maxTurn;
+        }
+
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
 
         if (remainTurn < levelSpawner.levelData.maxTurn)
         {
             uiGameplayManager.DisableSolveButton();
+            canHint = false;
         }
     }
 
@@ -160,11 +187,12 @@ public class GameplayManager : MonoBehaviour
 
         this.enemyTurn = enemyTurn;
         uiGameplayManager.ChangeTurn(enemyTurn);
+        uiGameplayManager.RecheckItems();
 
         // TEST
         ShowHintMove();
         // IT WORKS :)))
-        
+
         if (enemyTurn)
         {
             EnemyTurn();
@@ -422,6 +450,14 @@ public class GameplayManager : MonoBehaviour
 
         isAnimMoving = true;
         isEndTurn = false;
+        uiGameplayManager.DisableAllButton();
+
+        if (!enemyTurn && moveList.Count > 0)
+        {
+            Debug.Log("Pos: " + posIndexToMove + " Move: " + moveList[0].position);
+            if (!GameUtils.CompareVector3(posIndexToMove, moveList[0].position))
+                isShowHint = false;
+        }
 
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
@@ -503,7 +539,7 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         uiGameplayManager.ShowLose();
     }
-    bool CheckLose()
+    private bool CheckLose()
     {
         bool isHaveKing = false;
         foreach(var chess in playerArmy)
@@ -517,7 +553,7 @@ public class GameplayManager : MonoBehaviour
         if (playerArmy.Count == 0 || isHaveKing == false || remainTurn <=0) return true;
         return false;
     }
-    bool CheckWin()
+    private bool CheckWin()
     {
         bool isHaveKing = false;
         foreach (var chess in enemyArmy)
@@ -531,14 +567,14 @@ public class GameplayManager : MonoBehaviour
         if (isHaveKing == false) return true;
         return false;
     }
-    IEnumerator Cor_DefeatedChessMan(ChessMan defeatChessMan, ChessMan defeatedChessMan)
+    private IEnumerator Cor_DefeatedChessMan(ChessMan defeatChessMan, ChessMan defeatedChessMan)
     {
         yield return new WaitUntil(() => Vector3.Distance(defeatChessMan.transform.position, defeatedChessMan.transform.position) < 1);
         defeatedChessMan.Defeated();
     }
-    [SerializeField] Vector3 logTestPos;
+    [SerializeField] private Vector3 logTestPos;
     [Button]
-    void LogTileInfo()
+    private void LogTileInfo()
     {
         TileInfo tileInfo = levelData.GetTileInfoNoDeep(logTestPos);
         Debug.Log(tileInfo.tileType);
@@ -560,12 +596,14 @@ public class GameplayManager : MonoBehaviour
         
         if (remainTurn == levelSpawner.levelData.maxTurn)
         {
-            isShowHint = true;
+            canHint = true;
         }
         else
         {
-            isShowHint = false;
+            canHint = false;
+            
         }
+        isShowHint = false;
     }
     [Button]
     public void IncreaseTurn()
@@ -623,8 +661,8 @@ public class GameplayManager : MonoBehaviour
             moveList.RemoveAt(0);
 
             // Check if the player move to target or not --> if not turn off hint
-            GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
-            if (chessman == null) isShowHint = false;
+            //GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
+            //if (chessman == null) isShowHint = false;
         }
     }
 
@@ -664,6 +702,7 @@ public class GameplayManager : MonoBehaviour
     public void ShowHint()
     {
         isShowHint = true;
+        canHint = false;
         SaveLoadManager.Instance.GameData.solveNum--;
         ShowHintMove();
         SaveLoadManager.Instance.Save();
@@ -680,5 +719,12 @@ public class GameplayManager : MonoBehaviour
         }
 
         return result;
+    }
+
+    public ChessManType GetPromoteHint()
+    {
+        if (moveList.Count <= 0) return ChessManType.PAWN;
+
+        return moveList[0].promoteType;
     }
 }
