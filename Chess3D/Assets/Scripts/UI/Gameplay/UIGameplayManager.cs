@@ -155,7 +155,12 @@ public class UIGameplayManager : MonoBehaviour
 
     public void RecheckItems()
     {
-        uIButtonManager.RecheckItemNumber();
+        uIButtonManager.RecheckItems();
+    }
+
+    public bool CheckCanUndo()
+    {
+        return uIButtonManager.ChekcCanUndo();
     }
    
 }
