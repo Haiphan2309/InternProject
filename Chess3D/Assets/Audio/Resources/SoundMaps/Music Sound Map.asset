@@ -21,3 +21,12 @@ MonoBehaviour:
   - name: GAMEPLAY_1
     Id: 151
     Data: {fileID: 11400000, guid: 9672e3109f83b9e43847d54a30d5803c, type: 2}
+  - name: GAMEPLAY_2
+    Id: 152
+    Data: {fileID: 11400000, guid: 880f83e710e77cc428c5d31434960259, type: 2}
+  - name: GAMEPLAY_3
+    Id: 153
+    Data: {fileID: 11400000, guid: 9e15d27492484744f976701463a6ca46, type: 2}
+  - name: GAMEPLAY_4
+    Id: 154
+    Data: {fileID: 11400000, guid: 9a5deb33447f6864691b3dd4cbb35195, type: 2}

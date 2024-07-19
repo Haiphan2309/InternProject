@@ -52,7 +52,7 @@ public class GameplayManager : MonoBehaviour
 
     public void LoadLevel(int chapterIndex, int levelIndex)
     {
-        SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1);
+        LoadMusicFollowChapter(chapterIndex);
 
         levelSpawner.SpawnLevel(chapterIndex, levelIndex);
         DeepCopyLevelData(levelSpawner.levelData,out levelData);
@@ -78,6 +78,25 @@ public class GameplayManager : MonoBehaviour
         //SetPowerUpNum();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
+    }
+
+    private void LoadMusicFollowChapter(int chapterIndex) //play music tuy theo tung chapter
+    {
+        switch (chapterIndex)
+        {
+            case 0:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_1);
+                break;
+            case 1:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_2);
+                break;
+            case 2:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_3);
+                break;
+            case 3:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_4);
+                break;
+        }
     }
 
     //private void SetPowerUpNum()
@@ -512,7 +531,7 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         uiGameplayManager.ShowLose();
     }
-    bool CheckLose()
+    private bool CheckLose()
     {
         bool isHaveKing = false;
         foreach(var chess in playerArmy)
@@ -526,7 +545,7 @@ public class GameplayManager : MonoBehaviour
         if (playerArmy.Count == 0 || isHaveKing == false || remainTurn <=0) return true;
         return false;
     }
-    bool CheckWin()
+    private bool CheckWin()
     {
         bool isHaveKing = false;
         foreach (var chess in enemyArmy)
@@ -540,14 +559,14 @@ public class GameplayManager : MonoBehaviour
         if (isHaveKing == false) return true;
         return false;
     }
-    IEnumerator Cor_DefeatedChessMan(ChessMan defeatChessMan, ChessMan defeatedChessMan)
+    private IEnumerator Cor_DefeatedChessMan(ChessMan defeatChessMan, ChessMan defeatedChessMan)
     {
         yield return new WaitUntil(() => Vector3.Distance(defeatChessMan.transform.position, defeatedChessMan.transform.position) < 1);
         defeatedChessMan.Defeated();
     }
-    [SerializeField] Vector3 logTestPos;
+    [SerializeField] private Vector3 logTestPos;
     [Button]
-    void LogTileInfo()
+    private void LogTileInfo()
     {
         TileInfo tileInfo = levelData.GetTileInfoNoDeep(logTestPos);
         Debug.Log(tileInfo.tileType);
