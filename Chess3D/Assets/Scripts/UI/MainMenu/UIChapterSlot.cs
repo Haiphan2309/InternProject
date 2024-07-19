@@ -27,7 +27,7 @@ public class UIChapterSlot : MonoBehaviour
         chapterData = GameUtils.GetChapterData(this.chapterIndex);
         GameData gameData = SaveLoadManager.Instance.GameData;
 
-        if (chapterIndex > gameData.currentChapter || chapterData.starRequire > gameData.GetAllStar())
+        if (chapterData.starRequire > gameData.GetAllStar())
         {
             transform.GetComponent<Image>().color = Color.gray;
             isAvailable = false;

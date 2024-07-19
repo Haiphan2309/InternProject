@@ -36,7 +36,7 @@ public class UILevelSlot : MonoBehaviour
         levelData = GameUtils.GetLevelData(chapterIndex, levelIndex);
         GameData gameData = SaveLoadManager.Instance.GameData;
 
-        if (levelIndex > gameData.currentLevel)
+        if (levelIndex > gameData.currentLevelOfChapters[chapterIndex])
         {
             this.isAvailable = false;
             transform.GetComponent<Image>().color = Color.gray;
