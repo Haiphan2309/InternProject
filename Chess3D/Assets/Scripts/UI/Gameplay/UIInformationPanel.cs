@@ -27,7 +27,7 @@ public class UIInformationPanel : MonoBehaviour
    
     public void SetUITurn(int turn)
     {
-        turnRemainText.text = "Turn: " + turn.ToString();
+        turnRemainText.text = turn.ToString();
         uIGameplaySlider.ChangeValueFromTurn(turn, GameplayManager.Instance.levelData.maxTurn);
     }
 
