@@ -167,6 +167,7 @@ public class GameplayManager : MonoBehaviour
 
         this.enemyTurn = enemyTurn;
         uiGameplayManager.ChangeTurn(enemyTurn);
+        uiGameplayManager.RecheckItems();
 
         // TEST
         ShowHintMove();
@@ -429,6 +430,7 @@ public class GameplayManager : MonoBehaviour
 
         isAnimMoving = true;
         isEndTurn = false;
+        uiGameplayManager.DisableAllButton();
 
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)

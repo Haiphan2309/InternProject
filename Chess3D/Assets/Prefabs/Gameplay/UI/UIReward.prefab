@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rect: {fileID: 4506354687864534298}
+  desContainRect: {fileID: 1995860399850474851}
   uiRewardSlotPrefab: {fileID: 3132116962658704442, guid: 06de9bbfb077c97478cf0f9b10ea20de, type: 3}
   contentTrans: {fileID: 7038155306194845192}
   desText: {fileID: 1499116216162950427}

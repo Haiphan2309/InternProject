@@ -151,9 +151,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 7640145857065178852}
   iconImage: {fileID: 2891023934625549425}
-  undoSprite: {fileID: -1571163338, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
+  undoSprite: {fileID: 261865918, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
   solveSprite: {fileID: 1132244785, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
-  turnSprite: {fileID: 0}
+  turnSprite: {fileID: -1571163338, guid: 9f523d37501b6694094092bec0e50d30, type: 3}
 --- !u!1 &2263380455112052485
 GameObject:
   m_ObjectHideFlags: 0
