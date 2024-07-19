@@ -604,6 +604,7 @@ public class GameplayManager : MonoBehaviour
         if (remainTurn == levelSpawner.levelData.maxTurn)
         {
             canHint = true;
+            isBeginRound = true;
         }
         else
         {
