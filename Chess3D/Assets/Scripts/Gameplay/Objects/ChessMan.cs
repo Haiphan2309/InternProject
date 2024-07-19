@@ -410,6 +410,7 @@ public class ChessMan : GameplayObject
             return;
         }
         gameObject.GetComponentInChildren<MeshFilter>().mesh = newMesh;
+        outline.LoadSmoothNormals();
     }
 
 #if UNITY_EDITOR
