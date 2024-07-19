@@ -39,8 +39,8 @@ public class UILevelSlot : MonoBehaviour
         if (levelIndex > gameData.currentLevel)
         {
             this.isAvailable = false;
-            transform.GetComponent<Image>().color = Color.black;
-            levelImage.color = Color.black;
+            transform.GetComponent<Image>().color = Color.gray;
+            levelImage.color = Color.gray;
         }
         else
         {
@@ -60,14 +60,15 @@ public class UILevelSlot : MonoBehaviour
     private void SpriteSetup()
     {
         Sprite sprite;
-        if (isAvailable)
-        {
-            sprite = levelData.thumbnail;
-        }
-        else
-        {
-            sprite = Resources.Load<Sprite>("UI/DefaultAsset/LoadingScreenGradient.png");
-        }
+        //if (isAvailable)
+        //{
+        //    sprite = levelData.thumbnail;
+        //}
+        //else
+        //{
+        //    sprite = Resources.Load<Sprite>("UI/DefaultAsset/LoadingScreenGradient.png");
+        //}
+        sprite = levelData.thumbnail;
         levelImage.sprite = sprite;
         // Debug.Log("Level " + levelIndex + " is available " + isAvailable);
     }

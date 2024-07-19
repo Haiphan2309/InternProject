@@ -29,9 +29,9 @@ public class UIChapterSlot : MonoBehaviour
 
         if (chapterIndex > gameData.currentChapter || chapterData.starRequire > gameData.GetAllStar())
         {
-            transform.GetComponent<Image>().color = Color.black;
+            transform.GetComponent<Image>().color = Color.gray;
             isAvailable = false;
-            chapterImage.color = Color.black;
+            chapterImage.color = Color.gray;
         }
         else
         {
@@ -49,15 +49,15 @@ public class UIChapterSlot : MonoBehaviour
 
     private void SpriteSetup()
     {
-        Sprite sprite;
-        if (isAvailable)
-        {
-            sprite = chapterData.thumbnail;
-        }
-        else
-        {
-            sprite = Resources.Load<Sprite>("UI/DefaultAsset/LoadingScreenGradient.png");
-        }
+        Sprite sprite = chapterData.thumbnail;
+        //if (isAvailable)
+        //{
+        //    sprite = chapterData.thumbnail;
+        //}
+        //else
+        //{
+        //    sprite = Resources.Load<Sprite>("UI/DefaultAsset/LoadingScreenGradient.png");
+        //}
         chapterImage.sprite = sprite;
         Debug.Log("Chapter " + chapterIndex + " is available " + isAvailable);
     }
