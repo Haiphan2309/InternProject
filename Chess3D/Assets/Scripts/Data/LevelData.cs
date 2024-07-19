@@ -68,11 +68,15 @@ public class HintMove
 {
     public PlayerArmy playerArmy;
     public Vector3 position;
+    public bool isPromote;
+    public ChessManType promoteType;
 
-    public HintMove(PlayerArmy playerArmy, Vector3 position)
+    public HintMove(PlayerArmy playerArmy, Vector3 position, ChessManType promoteType, bool isPromote = false)
     {
         this.playerArmy = playerArmy;
         this.position = position;
+        this.isPromote = isPromote;
+        this.promoteType = promoteType;
     }
 }
 
