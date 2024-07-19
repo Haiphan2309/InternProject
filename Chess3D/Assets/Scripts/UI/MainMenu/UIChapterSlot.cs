@@ -31,6 +31,7 @@ public class UIChapterSlot : MonoBehaviour
         {
             transform.GetComponent<Image>().color = Color.black;
             isAvailable = false;
+            chapterImage.color = Color.black;
         }
         else
         {
@@ -39,7 +40,7 @@ public class UIChapterSlot : MonoBehaviour
         }
 
         // EASY ACCESS PURPORSE
-        isAvailable = true;
+        // isAvailable = true;
 
         SpriteSetup();
         ButtonSetup();
@@ -55,7 +56,7 @@ public class UIChapterSlot : MonoBehaviour
         }
         else
         {
-            sprite = null;
+            sprite = Resources.Load<Sprite>("UI/DefaultAsset/LoadingScreenGradient.png");
         }
         chapterImage.sprite = sprite;
         Debug.Log("Chapter " + chapterIndex + " is available " + isAvailable);
