@@ -75,6 +75,7 @@ public class GameplayManager : MonoBehaviour
 
         uiGameplayManager.Setup();
         gridSateManager.Setup();
+        uiGameplayManager.ChangeTurn(enemyTurn);
         //SetPowerUpNum();
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
