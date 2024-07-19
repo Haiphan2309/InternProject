@@ -55,6 +55,7 @@ MonoBehaviour:
   isOnSlope: 0
   isStandOnSlope: 0
   isFalling: 0
+  isMove: 0
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -64,6 +65,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   testPromoteType: 0
+  vfxPromote: {fileID: 8258073853793232866, guid: 8920408abf49ec2439d11773d68f2ee4, type: 3}
   isEnemy: 0
   moveIndex: 0
   deltaMoveIndex: 1

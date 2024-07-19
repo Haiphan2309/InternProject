@@ -172,7 +172,7 @@ public class GameplayManager : MonoBehaviour
         // TEST
         ShowHintMove();
         // IT WORKS :)))
-        
+
         if (enemyTurn)
         {
             EnemyTurn();
@@ -574,7 +574,9 @@ public class GameplayManager : MonoBehaviour
         else
         {
             canHint = false;
+            
         }
+        isShowHint = false;
     }
     [Button]
     public void IncreaseTurn()

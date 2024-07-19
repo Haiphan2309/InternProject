@@ -19,6 +19,8 @@ public class ChessMan : GameplayObject
     [SerializeField] LayerMask groundLayerMask;
     public ChessManType testPromoteType;
 
+    [SerializeField] private GameObject vfxPromote;
+
     public bool isEnemy;
     //public int index;
     public int moveIndex; //Dung de xac dinh index cua nuoc di ke tiep, danh rieng cho enemy
@@ -275,11 +277,19 @@ public class ChessMan : GameplayObject
         GameObject promoteGround = GameUtils.GetObjectByPosition(GameUtils.SnapToGrid(transform.position) + Vector3.down);
         if (config.chessManType == ChessManType.PAWN && promoteGround.name == "150(Clone)")
         {
-            UIGameplayManager.Instance.ShowPromote();
-            while (testPromoteType == ChessManType.PAWN)
+            if (!GameplayManager.Instance.isShowHint || !GameplayManager.Instance.canHint)
             {
-                testPromoteType = UIGameplayManager.Instance.GetPromoteType();
-                yield return null;
+                UIGameplayManager.Instance.ShowPromote();
+                while (testPromoteType == ChessManType.PAWN)
+                {
+                    testPromoteType = UIGameplayManager.Instance.GetPromoteType();
+                    yield return null;
+                }
+            }
+            
+            else
+            {
+                testPromoteType = GameplayManager.Instance.GetPromoteHint();
             }
 
             Promote(testPromoteType);
@@ -329,6 +339,7 @@ public class ChessMan : GameplayObject
         //
         GameplayManager.Instance.HideAvailableMove();
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_PHONG);
+        Instantiate(vfxPromote, transform.position, Quaternion.identity);
     }
     private ChessManConfig GetConfigFromType(ChessManType type)
     {
