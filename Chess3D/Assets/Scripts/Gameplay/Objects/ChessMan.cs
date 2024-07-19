@@ -277,7 +277,7 @@ public class ChessMan : GameplayObject
         GameObject promoteGround = GameUtils.GetObjectByPosition(GameUtils.SnapToGrid(transform.position) + Vector3.down);
         if (config.chessManType == ChessManType.PAWN && promoteGround.name == "150(Clone)")
         {
-            if (!GameplayManager.Instance.isShowHint || !GameplayManager.Instance.canHint)
+            if (!GameplayManager.Instance.isShowHint)
             {
                 UIGameplayManager.Instance.ShowPromote();
                 while (testPromoteType == ChessManType.PAWN)
