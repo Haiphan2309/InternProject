@@ -8229,24 +8229,25 @@ MonoBehaviour:
     - {x: 5, y: 2, z: 5}
     - {x: 3, y: 2, z: 6}
   - chessManType: 0
-    posIndex: {x: 2, y: 2, z: 9}
+    posIndex: {x: 8, y: 2, z: 9}
     isAI: 0
     priority: 1
     movePosIndexs:
-    - {x: 2, y: 2, z: 10}
-    - {x: 2, y: 2, z: 9}
-  - chessManType: 0
-    posIndex: {x: 8, y: 2, z: 9}
-    isAI: 0
-    priority: 0
-    movePosIndexs:
     - {x: 7, y: 2, z: 9}
     - {x: 8, y: 2, z: 9}
-  - chessManType: 5
-    posIndex: {x: 1, y: 2, z: 10}
+  - chessManType: 0
+    posIndex: {x: 2, y: 2, z: 9}
     isAI: 0
     priority: 2
     movePosIndexs:
+    - {x: 2, y: 2, z: 10}
+    - {x: 2, y: 2, z: 9}
+  - chessManType: 5
+    posIndex: {x: 1, y: 2, z: 10}
+    isAI: 0
+    priority: 3
+    movePosIndexs:
     - {x: 1, y: 2, z: 9}
     - {x: 1, y: 2, z: 10}
+  hintMoves: []
   thumbnail: {fileID: 21300000, guid: 8f6103293a3f5394b9b3b656b111e2b3, type: 3}

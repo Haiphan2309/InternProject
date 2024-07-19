@@ -580,6 +580,10 @@ public class GameplayManager : MonoBehaviour
         Debug.Log(tileInfo.tileType);
     }
 
+    public bool CheckCanUndo()
+    {
+        return gridSateManager.CheckCanUndo();
+    }
     [Button]
     public void Undo()
     {

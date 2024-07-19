@@ -138,11 +138,19 @@ public class GridStateManager : MonoBehaviour
         GridState newGridState = new GridState(tileInfos, playerArmy, enemyArmy, listEnemyPriorityLowest);
         gridStateStack.Push(newGridState);
     }
-    public void Undo()
+    public bool CheckCanUndo()
     {
         if (gridStateStack.Count <= 0)
         {
             Debug.Log("Da het nuoc di de undo");
+            return false;
+        }
+        return true;
+    }
+    public void Undo()
+    {
+        if (CheckCanUndo() == false)
+        {
             return;
         }
         GridState gridState = gridStateStack.Pop();      
