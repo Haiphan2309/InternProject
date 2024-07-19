@@ -451,6 +451,13 @@ public class GameplayManager : MonoBehaviour
         isEndTurn = false;
         uiGameplayManager.DisableAllButton();
 
+        if (!enemyTurn && moveList.Count > 0)
+        {
+            Debug.Log("Pos: " + posIndexToMove + " Move: " + moveList[0].position);
+            if (!GameUtils.CompareVector3(posIndexToMove, moveList[0].position))
+                isShowHint = false;
+        }
+
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
         {
@@ -653,8 +660,8 @@ public class GameplayManager : MonoBehaviour
             moveList.RemoveAt(0);
 
             // Check if the player move to target or not --> if not turn off hint
-            GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
-            if (chessman == null) isShowHint = false;
+            //GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
+            //if (chessman == null) isShowHint = false;
         }
     }
 
