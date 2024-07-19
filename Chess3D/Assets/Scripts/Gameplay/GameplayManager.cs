@@ -41,7 +41,8 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private List<HintMove> moveListTmp;
     [SerializeField] private GameObject baseHint;
 
-    public bool isShowHint = true;
+    public bool isShowHint = false;
+    public bool canHint = true;
     private Coroutine Cor_HintAnim;
 
     private void Awake()
@@ -137,13 +138,19 @@ public class GameplayManager : MonoBehaviour
     {
         remainTurn = value;
         if (remainTurn < 0) remainTurn = 0;
-        if (remainTurn > levelData.maxTurn) remainTurn = levelData.maxTurn;
+
+        if (remainTurn >= levelData.maxTurn)
+        {
+            remainTurn = levelData.maxTurn;
+        }
+
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
 
         if (remainTurn < levelSpawner.levelData.maxTurn)
         {
             uiGameplayManager.DisableSolveButton();
+            canHint = false;
         }
     }
 
@@ -184,7 +191,7 @@ public class GameplayManager : MonoBehaviour
         // TEST
         ShowHintMove();
         // IT WORKS :)))
-        
+
         if (enemyTurn)
         {
             EnemyTurn();
@@ -581,12 +588,14 @@ public class GameplayManager : MonoBehaviour
         
         if (remainTurn == levelSpawner.levelData.maxTurn)
         {
-            isShowHint = true;
+            canHint = true;
         }
         else
         {
-            isShowHint = false;
+            canHint = false;
+            
         }
+        isShowHint = false;
     }
     [Button]
     public void IncreaseTurn()
@@ -685,6 +694,7 @@ public class GameplayManager : MonoBehaviour
     public void ShowHint()
     {
         isShowHint = true;
+        canHint = false;
         SaveLoadManager.Instance.GameData.solveNum--;
         ShowHintMove();
         SaveLoadManager.Instance.Save();
@@ -701,5 +711,12 @@ public class GameplayManager : MonoBehaviour
         }
 
         return result;
+    }
+
+    public ChessManType GetPromoteHint()
+    {
+        if (moveList.Count <= 0) return ChessManType.PAWN;
+
+        return moveList[0].promoteType;
     }
 }
