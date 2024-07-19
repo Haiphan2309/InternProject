@@ -17,6 +17,8 @@ public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance { get; private set; }
 
+    public bool isBeginRound = true;
+
     [SerializeField] private LevelSpawner levelSpawner;
     [SerializeField] private GridStateManager gridSateManager;
     public CameraController camController;
@@ -443,6 +445,7 @@ public class GameplayManager : MonoBehaviour
     }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
+        isBeginRound = false;
         if (chessMan.isEnemy == false) //Nếu là player thì lưu vết để có thể undo nước đi được
         {
             gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest);
