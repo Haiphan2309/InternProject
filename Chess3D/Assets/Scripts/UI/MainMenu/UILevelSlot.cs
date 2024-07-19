@@ -40,6 +40,7 @@ public class UILevelSlot : MonoBehaviour
         {
             this.isAvailable = false;
             transform.GetComponent<Image>().color = Color.black;
+            levelImage.color = Color.black;
         }
         else
         {
@@ -48,7 +49,7 @@ public class UILevelSlot : MonoBehaviour
         }
 
         // EASY ACCESS PURPORSE
-        isAvailable = true;
+        // isAvailable = true;
 
         SpriteSetup();
         ButtonSetup();
@@ -65,7 +66,7 @@ public class UILevelSlot : MonoBehaviour
         }
         else
         {
-            sprite = null;
+            sprite = Resources.Load<Sprite>("UI/DefaultAsset/LoadingScreenGradient.png");
         }
         levelImage.sprite = sprite;
         // Debug.Log("Level " + levelIndex + " is available " + isAvailable);
