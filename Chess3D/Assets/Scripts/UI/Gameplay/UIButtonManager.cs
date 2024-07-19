@@ -99,8 +99,13 @@ public class UIButtonManager : MonoBehaviour
 
     public void RecheckItems()
     {
+        
         RecheckItemNumber();
         ChekcCanUndo();
+        if (GameplayManager.Instance.isBeginRound)
+        {
+            backBtn.interactable = false;
+        }
     }
     public void RecheckItemNumber()
     {
@@ -123,7 +128,7 @@ public class UIButtonManager : MonoBehaviour
         int maxTurn = GameplayManager.Instance.levelData.maxTurn;
         if (remainTurn >= maxTurn)
         {
-            backBtn.interactable = false;
+            
             turnBtn.interactable = false;
             return false;
         }
