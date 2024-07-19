@@ -6,8 +6,8 @@ using UnityEngine;
 [Serializable]
 public class RewardData
 {
-    public string rewardName;
-    public int undoAmount, solveAmount;
+    //public string rewardName;
+    public int undoAmount, solveAmount, turnAmount;
 }
 [Serializable]
 [CreateAssetMenu(menuName = "Config/DailyRewardConfig")]

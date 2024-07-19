@@ -164,8 +164,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "PH\u1EA0M PH\xDA KHANG"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c6ad172890398014fb49477c43803ae5, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: c6ad172890398014fb49477c43803ae5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -375,8 +375,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "PHAN THANH H\u1EA2I"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c6ad172890398014fb49477c43803ae5, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: c6ad172890398014fb49477c43803ae5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -590,15 +590,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: CREDIT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1e24843195895de48883fbbddde19677, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: 1e24843195895de48883fbbddde19677, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288794700
-  m_fontColor: {r: 0.29803923, g: 0.81568635, b: 0.6313726, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1106,8 +1106,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "PH\u1EA0M NGUY\u1EC4N QUANG NH\xC2N"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c6ad172890398014fb49477c43803ae5, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: c6ad172890398014fb49477c43803ae5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1241,8 +1241,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "PHAN DUY CH\u01AF\u01A0NG"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 36fe0eb306d4a5d4f9e92a57dc67afd8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c6ad172890398014fb49477c43803ae5, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: c6ad172890398014fb49477c43803ae5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

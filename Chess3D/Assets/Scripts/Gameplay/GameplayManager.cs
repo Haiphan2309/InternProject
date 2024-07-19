@@ -1,4 +1,5 @@
-﻿using GDC.Enums;
+﻿using DG.Tweening;
+using GDC.Enums;
 using GDC.Managers;
 using NaughtyAttributes;
 using System;
@@ -9,6 +10,8 @@ using System.Runtime.InteropServices.ComTypes;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.UI;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -21,6 +24,7 @@ public class GameplayManager : MonoBehaviour
     //[SerializeField] TutorialConfig tutorialConfig;
 
     [SerializeField] private Transform availableMovePrefab;
+    [SerializeField] private GameObject posIcon;
     private List<Transform> availableMoveTrans = new List<Transform>();
 
     [HideInInspector] public LevelData levelData;
@@ -37,7 +41,8 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private List<HintMove> moveListTmp;
     [SerializeField] private GameObject baseHint;
 
-    private bool isShowHint = false;
+    public bool isShowHint = true;
+    private Coroutine Cor_HintAnim;
 
     private void Awake()
     {
@@ -112,8 +117,15 @@ public class GameplayManager : MonoBehaviour
     private void SetRemainTurn(int value, bool isSetTurnSlider = true)
     {
         remainTurn = value;
+        if (remainTurn < 0) remainTurn = 0;
+        if (remainTurn > levelData.maxTurn) remainTurn = levelData.maxTurn;
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
+
+        if (remainTurn < levelSpawner.levelData.maxTurn)
+        {
+            uiGameplayManager.DisableSolveButton();
+        }
     }
 
     public void RewardTurn(int value)
@@ -148,6 +160,7 @@ public class GameplayManager : MonoBehaviour
 
         this.enemyTurn = enemyTurn;
         uiGameplayManager.ChangeTurn(enemyTurn);
+        uiGameplayManager.RecheckItems();
 
         // TEST
         ShowHintMove();
@@ -410,6 +423,7 @@ public class GameplayManager : MonoBehaviour
 
         isAnimMoving = true;
         isEndTurn = false;
+        uiGameplayManager.DisableAllButton();
 
         chessMan.Move(posIndexToMove);
         if (defeatedChessMan != null)
@@ -543,35 +557,100 @@ public class GameplayManager : MonoBehaviour
         SaveLoadManager.Instance.GameData.undoNum--;
         SetRemainTurn(remainTurn + 1);
         gridSateManager.Undo();
+        SaveLoadManager.Instance.Save();
+        BackHintMove();
+        
+        if (remainTurn == levelSpawner.levelData.maxTurn)
+        {
+            isShowHint = true;
+        }
+        else
+        {
+            isShowHint = false;
+        }
     }
-
+    [Button]
+    public void IncreaseTurn()
+    {
+        if (SaveLoadManager.Instance.GameData.turnNum <=0)
+        {
+            Debug.Log("Da het tang turn");
+            return;
+        }
+        SaveLoadManager.Instance.GameData.turnNum--;
+        SetRemainTurn(remainTurn + 1);
+        SaveLoadManager.Instance.Save();
+    }
     public void ShowHintMove()
     {
+        // If not required to show hint --> skip
         if (!isShowHint) return;
+
+        // If dont have any hint (AI level) --> skip
         if (moveList.Count <= 0) return;
 
+        // Player turn
         if (!enemyTurn)
         {
+            // Get the Chess Piece of hint move
             GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveList.ElementAt(0).playerArmy.posIndex);
-            chessman.SetOutline(10, Color.cyan);
-
+            
+            // Get the target position to move and instantiate
             Vector3 target = moveList.ElementAt(0).position;
-            GameObject moveTarget = Instantiate(availableMovePrefab, target, Quaternion.identity).gameObject;
+            GameObject moveTarget = Instantiate(posIcon, target, Quaternion.identity).gameObject;
 
+            // Change color of indicator
+            moveTarget.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.cyan;
+
+            // Hint Animation
+            Cor_HintAnim = StartCoroutine(chessman.HintOutline(moveTarget, 10, Color.cyan));
+
+            // Rotate the Indicator
             moveTarget = GameUtils.ChangeIndicatorAtPosition(moveTarget, target);
 
+            // Set the parent for indicator for easy management
             moveTarget.transform.SetParent(baseHint.transform);
         }
 
+        // Enemy turn
         else
         {
+            // Destroy all indicator in base
             DestroyAllChildren(baseHint.gameObject);
+
+            // Add old hint move to tmp list
             moveListTmp.Add(moveList[0]);
+
+            // Remove old move in movelist
             moveList.RemoveAt(0);
 
+            // Check if the player move to target or not --> if not turn off hint
             GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).position);
             if (chessman == null) isShowHint = false;
         }
+    }
+
+    private void BackHintMove()
+    {
+        if (moveListTmp.Count <= 0) return;
+
+        if (isShowHint) ResetChessManAfterAnim();
+
+        moveList.Insert(0, moveListTmp[moveListTmp.Count - 1]);
+        moveListTmp.RemoveAt(moveListTmp.Count - 1);
+
+        DestroyAllChildren(baseHint.gameObject);
+
+        if (Cor_HintAnim != null) StopCoroutine(Cor_HintAnim);
+
+    }
+
+    private void ResetChessManAfterAnim()
+    {
+        if (moveListTmp.Count <= 0) return;
+
+        GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).playerArmy.posIndex);
+        chessman.outline.OutlineWidth = 0f;
     }
 
     public void DestroyAllChildren(GameObject parent)
@@ -584,11 +663,12 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    [Button]
     public void ShowHint()
     {
         isShowHint = true;
+        SaveLoadManager.Instance.GameData.solveNum--;
         ShowHintMove();
+        SaveLoadManager.Instance.Save();
     }
 
     private List<HintMove> CopyList(List<HintMove> target)

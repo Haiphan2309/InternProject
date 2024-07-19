@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class UIReward : MonoBehaviour
 {
-    [SerializeField] private RectTransform rect;
+    [SerializeField] private RectTransform rect, desContainRect;
     
     [SerializeField] private UIRewardSlot uiRewardSlotPrefab;
     [SerializeField] private Transform contentTrans;
@@ -26,9 +26,10 @@ public class UIReward : MonoBehaviour
         UIRewardSlot slot = Instantiate(uiRewardSlotPrefab, contentTrans);
         slot.Setup(dailyRewardConfig.rewards[rand]);
 
-        desText.gameObject.SetActive(false);
+        desContainRect.gameObject.SetActive(false);
         SaveLoadManager.Instance.GameData.undoNum += dailyRewardConfig.rewards[rand].undoAmount;
         SaveLoadManager.Instance.GameData.solveNum += dailyRewardConfig.rewards[rand].solveAmount;
+        SaveLoadManager.Instance.GameData.turnNum += dailyRewardConfig.rewards[rand].turnAmount;
         SaveLoadManager.Instance.Save();
     }
     public void Show(ShopSlotData shopSlotData, string des)
@@ -37,12 +38,34 @@ public class UIReward : MonoBehaviour
         exitButton.onClick.AddListener(Hide);
         rect.localScale = Vector2.zero;
         rect.DOScale(1, 0.5f).SetEase(Ease.OutBack);
-        UIRewardSlot slot = Instantiate(uiRewardSlotPrefab, contentTrans);
-        slot.Setup(shopSlotData);
-        desText.gameObject.SetActive(true);
+
+        if (shopSlotData.undoAmount > 0)
+        {
+            RewardData rewardData = new RewardData();
+            rewardData.undoAmount = shopSlotData.undoAmount;
+            UIRewardSlot slot = Instantiate(uiRewardSlotPrefab, contentTrans);
+            slot.Setup(rewardData);
+        }
+        if (shopSlotData.solveAmount > 0)
+        {
+            RewardData rewardData = new RewardData();
+            rewardData.solveAmount = shopSlotData.solveAmount;
+            UIRewardSlot slot = Instantiate(uiRewardSlotPrefab, contentTrans);
+            slot.Setup(rewardData);
+        }
+        if (shopSlotData.turnAmount > 0)
+        {
+            RewardData rewardData = new RewardData();
+            rewardData.turnAmount = shopSlotData.turnAmount;
+            UIRewardSlot slot = Instantiate(uiRewardSlotPrefab, contentTrans);
+            slot.Setup(rewardData);
+        }
+
+        desContainRect.gameObject.SetActive(true);
         desText.text = des;
         SaveLoadManager.Instance.GameData.undoNum += shopSlotData.undoAmount;
         SaveLoadManager.Instance.GameData.solveNum += shopSlotData.solveAmount;
+        SaveLoadManager.Instance.GameData.turnNum += shopSlotData.turnAmount;
         SaveLoadManager.Instance.Save();
     }
     public void Hide()
