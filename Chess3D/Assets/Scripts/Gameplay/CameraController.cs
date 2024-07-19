@@ -188,7 +188,7 @@ public class CameraController : MonoBehaviour
     }
     private void Zoom(float inc)
     {
-        Debug.Log(inc);
+        //Debug.Log(inc);
         zoom -= inc;
         zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
         _camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, zoom,  ref zoomVelocity, smoothZoomTime);
