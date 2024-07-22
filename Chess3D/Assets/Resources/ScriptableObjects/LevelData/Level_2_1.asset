@@ -8230,6 +8230,8 @@ MonoBehaviour:
     - {x: 4, y: 2, z: 7}
     - {x: 8, y: 2, z: 3}
     - {x: 5, y: 2, z: 0}
+    - {x: 4, y: 2, z: 1}
+    - {x: 5, y: 2, z: 0}
   - chessManType: 5
     posIndex: {x: 8, y: 3, z: 8}
     isAI: 0
@@ -8237,4 +8239,5 @@ MonoBehaviour:
     movePosIndexs:
     - {x: 7, y: 3, z: 9}
     - {x: 8, y: 3, z: 8}
+  hintMoves: []
   thumbnail: {fileID: 21300000, guid: 587da6a22575b80498c7d544dea31726, type: 3}

@@ -450,6 +450,7 @@ public class GameplayManager : MonoBehaviour
         {
             gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest);
         }
+        camController.MovingFocus(chessMan.transform);
 
         isAnimMoving = true;
         isEndTurn = false;
@@ -502,6 +503,7 @@ public class GameplayManager : MonoBehaviour
     }
     public void EndTurn() //Duoc goi sau khi ket thuc luot
     {
+        camController.MovingUnFocus();
         isEndTurn = true;
         ChangeTurn();
     }
