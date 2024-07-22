@@ -44,9 +44,10 @@ public class UIManager : MonoBehaviour
     public UISetting settingPagePrefab;
     public UIShopManager shopPagePrefab;
 
+    public bool isClick = false;
+
     private bool isButtonLoad = false;
     private bool isCustomLoad = false;
-    //private bool isPopupLoad = false;
 
     private readonly Color leftCircleColor = new Color(200f / 255f, 150f / 255f, 1f);
     private readonly Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
@@ -167,6 +168,7 @@ public class UIManager : MonoBehaviour
             chapterSlot.ChapterSetup(chapterIndex);
             chapterButton.Add(chapterSlot.GetComponent<Button>());
         }
+        isClick = false;
     }
 
     public void LevelPreset(int chapterIndex, int maxLevelIndex)
@@ -181,6 +183,7 @@ public class UIManager : MonoBehaviour
             levelSlot.LevelSetup(chapterIndex,levelIndex);
             levelButton.Add(levelSlot.GetComponent<Button>());
         }
+        isClick = false;
         levelMenu.Anim();
     }
 
