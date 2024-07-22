@@ -138,11 +138,19 @@ public class GridStateManager : MonoBehaviour
         GridState newGridState = new GridState(tileInfos, playerArmy, enemyArmy, listEnemyPriorityLowest);
         gridStateStack.Push(newGridState);
     }
-    public void Undo()
+    public bool CheckCanUndo()
     {
         if (gridStateStack.Count <= 0)
         {
             Debug.Log("Da het nuoc di de undo");
+            return false;
+        }
+        return true;
+    }
+    public void Undo()
+    {
+        if (CheckCanUndo() == false)
+        {
             return;
         }
         GridState gridState = gridStateStack.Pop();      
@@ -181,7 +189,7 @@ public class GridStateManager : MonoBehaviour
         GameplayManager.Instance.enemyArmy.Clear();
         foreach (var chessManData in gridState.enemyChessManDatas)
         {
-            ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true);
+            ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true, chessManData.isAI);
             chessMan.SetChessManData(chessManData);
             GameplayManager.Instance.enemyArmy.Add(chessMan);
         }

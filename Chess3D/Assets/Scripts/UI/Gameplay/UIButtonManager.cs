@@ -94,9 +94,19 @@ public class UIButtonManager : MonoBehaviour
         backNumber.text = SaveLoadManager.Instance.GameData.undoNum.ToString();
         solveNumber.text = SaveLoadManager.Instance.GameData.solveNum.ToString();
         turnNumber.text = SaveLoadManager.Instance.GameData.turnNum.ToString();
-        RecheckItemNumber();
+        RecheckItems();
     }
 
+    public void RecheckItems()
+    {
+        
+        RecheckItemNumber();
+        ChekcCanUndo();
+        if (GameplayManager.Instance.isBeginRound)
+        {
+            backBtn.interactable = false;
+        }
+    }
     public void RecheckItemNumber()
     {
         int undoNum = SaveLoadManager.Instance.GameData.undoNum;
@@ -112,6 +122,22 @@ public class UIButtonManager : MonoBehaviour
 
     }
 
+    public bool ChekcCanUndo()
+    {
+        int remainTurn = GameplayManager.Instance.remainTurn;
+        int maxTurn = GameplayManager.Instance.levelData.maxTurn;
+        if (remainTurn >= maxTurn)
+        {
+            
+            turnBtn.interactable = false;
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public void DisableHintButton()
     {
         solveBtn.interactable = false;
@@ -123,6 +149,8 @@ public class UIButtonManager : MonoBehaviour
         solveBtn.interactable = false;
         turnBtn.interactable = false;
     } 
+
+
     [Button]
     private void PlayHintAnim()
     {

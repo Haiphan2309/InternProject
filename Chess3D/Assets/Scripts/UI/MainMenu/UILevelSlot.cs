@@ -36,10 +36,11 @@ public class UILevelSlot : MonoBehaviour
         levelData = GameUtils.GetLevelData(chapterIndex, levelIndex);
         GameData gameData = SaveLoadManager.Instance.GameData;
 
-        if (levelIndex > gameData.currentLevel)
+        if (levelIndex > gameData.currentLevelOfChapters[chapterIndex])
         {
             this.isAvailable = false;
-            transform.GetComponent<Image>().color = Color.black;
+            transform.GetComponent<Image>().color = Color.gray;
+            levelImage.color = Color.gray;
         }
         else
         {
@@ -48,7 +49,7 @@ public class UILevelSlot : MonoBehaviour
         }
 
         // EASY ACCESS PURPORSE
-        isAvailable = true;
+        // isAvailable = true;
 
         SpriteSetup();
         ButtonSetup();
@@ -59,14 +60,15 @@ public class UILevelSlot : MonoBehaviour
     private void SpriteSetup()
     {
         Sprite sprite;
-        if (isAvailable)
-        {
-            sprite = levelData.thumbnail;
-        }
-        else
-        {
-            sprite = null;
-        }
+        //if (isAvailable)
+        //{
+        //    sprite = levelData.thumbnail;
+        //}
+        //else
+        //{
+        //    sprite = Resources.Load<Sprite>("UI/DefaultAsset/LoadingScreenGradient.png");
+        //}
+        sprite = levelData.thumbnail;
         levelImage.sprite = sprite;
         // Debug.Log("Level " + levelIndex + " is available " + isAvailable);
     }

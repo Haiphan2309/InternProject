@@ -9,14 +9,16 @@ using DG.Tweening;
 
 public class UIShopSlot : MonoBehaviour
 {
-    [SerializeField] RectTransform rect;
-    [SerializeField] Image iconImage, bgImage;
-    [SerializeField] TMP_Text amountText, costText;
-    [SerializeField, ReadOnly] ShopSlotData shopSlotData;
-    [SerializeField] LanguageDictionary thankYouDict, sorryDict;
+    private UIShopManager uiShopManager;
+    [SerializeField] private RectTransform rect;
+    [SerializeField] private Image iconImage, bgImage;
+    [SerializeField] private TMP_Text amountText, costText;
+    [SerializeField, ReadOnly] private ShopSlotData shopSlotData;
+    [SerializeField] private LanguageDictionary thankYouDict, sorryDict;
 
-    public void Setup(ShopSlotData shopSlotData)
+    public void Setup(ShopSlotData shopSlotData, UIShopManager uiShopManager)
     {
+        this.uiShopManager = uiShopManager;
         this.shopSlotData = shopSlotData;
         iconImage.sprite = shopSlotData.icon;
         bgImage.sprite = shopSlotData.bg;
@@ -57,6 +59,7 @@ public class UIShopSlot : MonoBehaviour
         Debug.Log("Da thanh toan so tien " + costText.text + " va mua duoc " + amountText.text);
         //PopupManager.Instance.ShowAnnounce(thankYouDict[SaveLoadManager.Instance.GameData.language]);
         PopupManager.Instance.ShowShopReward(shopSlotData, thankYouDict[SaveLoadManager.Instance.GameData.language]);
+        uiShopManager.UpdatePlayerInfo();
         //SaveLoadManager.Instance.GameData.undoNum += shopSlotData.undoAmount;
         //SaveLoadManager.Instance.GameData.solveNum += shopSlotData.solveAmount;      
         //SaveLoadManager.Instance.Save();

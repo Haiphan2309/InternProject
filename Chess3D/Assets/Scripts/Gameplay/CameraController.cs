@@ -49,10 +49,11 @@ public class CameraController : MonoBehaviour
     private float moveVelocityY = 0f;
     private float moveMax = 1f;
     private float moveMin = 0f;
-    private float smoothMoveTime = 0.25f;
+    private float smoothMoveTime = 0.2f;
     private float pinchMoveAngle = 90f;
-    [SerializeField] private float moveSpeedX = 8f;
-    [SerializeField] private float moveSpeedY = 8f;
+    private Vector3 preTouchPos = Vector3.zero;
+    [SerializeField] private float moveSpeedX = 0.4f;
+    [SerializeField] private float moveSpeedY = 0.5f;
 
     private bool isLocked = false;
     private enum CameraMode { Swipe, Move};
@@ -188,7 +189,7 @@ public class CameraController : MonoBehaviour
     }
     private void Zoom(float inc)
     {
-        //Debug.Log(inc);
+      
         zoom -= inc;
         zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
         _camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize, zoom,  ref zoomVelocity, smoothZoomTime);
@@ -196,40 +197,61 @@ public class CameraController : MonoBehaviour
 
     private void HandleMoveCamera()
     {
-        Debug.Log("Move");
+
         if (Input.GetMouseButtonDown(0))
         {
-            touchStart = Camera.main.ViewportToScreenPoint(Input.mousePosition);
+            touchStart = Input.mousePosition;
         }
         if (Input.GetMouseButton(0))
         {
-            Vector3 direction = touchStart - Camera.main.ViewportToScreenPoint(Input.mousePosition);
+            Vector3 direction = touchStart - Input.mousePosition;
             direction = direction.normalized;
             if (EventSystem.current.IsPointerOverGameObject()) direction = Vector3.zero;
+
             Move(direction.x * moveSpeedX * 0.02f, direction.y * moveSpeedY * 0.02f);
+            touchStart = Input.mousePosition;
         }
+        if (Input.GetMouseButtonUp(0))
+        {
+            touchStart = Vector3.zero;
+        }
+        //if (Input.touchCount == 1)
+        //{
+        //    Debug.Log("Touching");
+        //    Touch touch = Input.GetTouch(0);
+        //    if (touch.phase == TouchPhase.Moved)
+        //    {
+        //        Vector2 direction = preTouchPos - touch.position;
+        //        direction = direction.normalized;
+        //        Move(direction.x * moveSpeedX * 0.02f, direction.y * moveSpeedY * 0.02f);
+        //    }
+        //}
+
     }
 
     private void Move(float x, float y)
     {
+     
         float targetX = framing.m_ScreenX ;
         float targetY = framing.m_ScreenY ;
-
+        
+        
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             targetX -= x;
-            targetY +=  y;
+            targetY += y;
         }
-        
 
+        
         targetX = Mathf.Clamp(targetX, moveMin, moveMax);
         targetY = Mathf.Clamp(targetY, moveMin, moveMax);
 
-        float smoothX = Mathf.SmoothDamp(framing.m_ScreenX, targetX, ref moveVelocityX, smoothMoveTime);
-        float smoothY = Mathf.SmoothDamp(framing.m_ScreenY, targetY, ref moveVelocityY, smoothMoveTime);
 
-        framing.m_ScreenX = smoothX;
-        framing.m_ScreenY = smoothY;
+        //float smoothX = Mathf.SmoothDamp(framing.m_ScreenX, targetX, ref moveVelocityX, smoothMoveTime);
+        //float smoothY = Mathf.SmoothDamp(framing.m_ScreenY, targetY, ref moveVelocityY, smoothMoveTime);
+
+        framing.m_ScreenX = targetX;
+        framing.m_ScreenY = targetY;
     }
     public void Lock()
     {

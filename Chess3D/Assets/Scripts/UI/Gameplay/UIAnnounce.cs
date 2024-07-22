@@ -18,6 +18,7 @@ public class UIAnnounce : MonoBehaviour
     }
     void Hide()
     {
+        PopupManager.Instance.HideBlackBg();
         uiPopupAnim.Hide();
         Destroy(gameObject, 1);
     }
