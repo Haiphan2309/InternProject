@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
 
     private bool isButtonLoad = false;
     private bool isCustomLoad = false;
+    private bool isPopupLoad = false;
 
     private readonly Color leftCircleColor = new Color(200f / 255f, 150f / 255f, 1f);
     private readonly Color rightCircleColor = new Color(1f, 150f / 255f, 200f / 255f);
@@ -58,7 +59,6 @@ public class UIManager : MonoBehaviour
     private readonly List<Button> levelButton = new List<Button>();
 
     private readonly float hidePosition = 600f;
-
     private void Awake()
     {
         Instance = this;
@@ -198,16 +198,6 @@ public class UIManager : MonoBehaviour
         UIStack.Push(mainMenu);
         chapterMenu.Anim();
     }
-
-    private void SettingButton()
-    {
-        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
-        HideAllButtons();
-        Debug.Log("Settings");
-        UISetting settingPage = Instantiate(settingPagePrefab, pageSystem);
-        settingPage.Show();
-    }
-
     private void ReturnButton()
     {
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
@@ -229,22 +219,37 @@ public class UIManager : MonoBehaviour
         UIStack.Pop().Anim();
     }
 
+    private void SettingButton()
+    {
+        if (isPopupLoad) return;
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+        HideAllButtons();
+        Debug.Log("Settings");
+        UISetting settingPage = Instantiate(settingPagePrefab, pageSystem);
+        settingPage.Show();
+        isPopupLoad = true;
+    }
+
     private void CreditButton()
     {
+        if (isPopupLoad) return;
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Credit");
         UIPopupAnim creditPage = Instantiate(creditPagePrefab, pageSystem);
         creditPage.Show();
+        isPopupLoad = true;
     }
 
     private void ShopButton()
     {
+        if (isPopupLoad) return;
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Shop");
         UIShopManager shopPage = Instantiate(shopPagePrefab, pageSystem);
         shopPage.Show();
+        isPopupLoad = true;
     }
 
     public void HideAllButtons()
@@ -287,5 +292,15 @@ public class UIManager : MonoBehaviour
         shopButton.GetComponent<Button>().interactable = true;
         returnButton.GetComponent<Button>().interactable = true;
         creditButton.GetComponent<Button>().interactable = true;
+    }
+
+    public void ClearPopup()
+    {
+        if (!isPopupLoad) return;
+        for (int i = 0; i < pageSystem.childCount; ++i)
+        {
+            Destroy(pageSystem.GetChild(i).gameObject);
+        }
+        isPopupLoad = false;
     }
 }
