@@ -8249,5 +8249,71 @@ MonoBehaviour:
     movePosIndexs:
     - {x: 1, y: 2, z: 9}
     - {x: 1, y: 2, z: 10}
-  hintMoves: []
+  hintMoves:
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 9, y: 3, z: 2}
+    position: {x: 7, y: 3, z: 2}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 4, y: 3, z: 3}
+    position: {x: 5, y: 3, z: 3}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 7, y: 3, z: 2}
+    position: {x: 7, y: 2, z: 6}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 7, y: 2, z: 6}
+    position: {x: 7, y: 3, z: 2}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 5, y: 3, z: 3}
+    position: {x: 6, y: 3, z: 3}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 6, y: 3, z: 3}
+    position: {x: 5, y: 3, z: 3}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 7, y: 3, z: 2}
+    position: {x: 7, y: 2, z: 7}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 7, y: 2, z: 7}
+    position: {x: 7, y: 2, z: 9}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 7, y: 2, z: 9}
+    position: {x: 5, y: 2, z: 9}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 5, y: 2, z: 9}
+    position: {x: 5, y: 2, z: 10}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 5, y: 2, z: 10}
+    position: {x: 1, y: 2, z: 10}
+    isPromote: 0
+    promoteType: 0
   thumbnail: {fileID: 21300000, guid: 8f6103293a3f5394b9b3b656b111e2b3, type: 3}

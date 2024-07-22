@@ -212,6 +212,21 @@ public class Box : GameplayObject
         if (gameplayObject != null)
         {
             GameplayManager.Instance.UpdateTile(posIndex + Vector3.up);
+            gameplayObject.transform.parent = null;
+
+            if (gameplayObject is ChessMan)
+            {
+                ChessMan chessManGO = (ChessMan)gameplayObject;
+                GameplayManager.Instance.uiGameplayManager.uIChessManPanel.DisableChess(chessManGO);
+                if (chessManGO.isEnemy)
+                {
+                    GameplayManager.Instance.DefeatEnemyChessMan(chessManGO.index);
+                }
+                else
+                {
+                    GameplayManager.Instance.DefeatPlayerChessMan(chessManGO.index);
+                }
+            }
             gameplayObject.Defeated();
         }
         

@@ -8267,40 +8267,60 @@ MonoBehaviour:
       chessManType: 1
       posIndex: {x: 8, y: 2, z: 10}
     position: {x: 8, y: 2, z: 7}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 4
       posIndex: {x: 10, y: 2, z: 4}
     position: {x: 10, y: 4, z: 0}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 2
       posIndex: {x: 6, y: 2, z: 8}
     position: {x: 5, y: 2, z: 6}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 1
       posIndex: {x: 8, y: 2, z: 7}
     position: {x: 6, y: 2, z: 7}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 1
       posIndex: {x: 6, y: 2, z: 7}
-    position: {x: 4, y: 2, z: 7}
+    position: {x: 6, y: 2, z: 5}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 4
       posIndex: {x: 10, y: 4, z: 0}
     position: {x: 9, y: 4, z: 0}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 4
       posIndex: {x: 9, y: 4, z: 0}
     position: {x: 9, y: 4, z: 3}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 4
       posIndex: {x: 9, y: 4, z: 3}
     position: {x: 8, y: 4, z: 3}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 4
       posIndex: {x: 8, y: 4, z: 3}
     position: {x: 8, y: 4, z: 2}
+    isPromote: 0
+    promoteType: 0
   - playerArmy:
       chessManType: 4
       posIndex: {x: 8, y: 4, z: 2}
     position: {x: 0, y: 2, z: 10}
+    isPromote: 0
+    promoteType: 0
   thumbnail: {fileID: 21300000, guid: a9e7f5258d92994428115e1017785dc3, type: 3}

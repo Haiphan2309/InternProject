@@ -49,6 +49,7 @@ public class GameplayObject : MonoBehaviour
         posIndex = gameplayObjectData.posIndex;
         //index = gameplayObjectData.index;
         //transform.position = posIndex;
+        // transform.parent = null;
         AjustPosToGround(posIndex);
     }
     public void SetOutline(float width)
