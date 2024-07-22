@@ -70,6 +70,7 @@ public class UIReward : MonoBehaviour
     }
     public void Hide()
     {
+        PopupManager.Instance.HideBlackBg();
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
     }
 }
