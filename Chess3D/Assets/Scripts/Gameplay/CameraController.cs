@@ -56,6 +56,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float moveSpeedY = 0.5f;
 
     private bool isLocked = false;
+    private Transform previousTarget;
+    private Transform currentTarget;
     private enum CameraMode { Swipe, Move};
     private CameraMode cameraMode = CameraMode.Swipe;
 
@@ -96,12 +98,28 @@ public class CameraController : MonoBehaviour
         zoom = Camera.main.orthographicSize;
         ChangeToDefaultMove();
 
-
     }
     public void ChangeToDefaultMove()
     {
         framing.m_ScreenX = 0.5f;
         framing.m_ScreenY = 0.5f;
+    }
+
+    /*
+     * Method call when a chess is moving
+     */
+    public void MovingFocus(Transform target)
+    {
+        previousTarget = _camera.Follow;
+        ChangeFollow(target);
+    }
+    /*
+     * Method call when a chess stop moving
+     * Call after MovingFocus()
+     */
+    public void MovingUnFocus()
+    {
+        ChangeFollow(previousTarget);
     }
     void LateUpdate()
     {
@@ -279,4 +297,19 @@ public class CameraController : MonoBehaviour
     }
 
     
+#if UNITY_EDITOR
+    [Button]
+    private void Testing1()
+    {
+        MovingFocus(chess);
+    }
+
+    [Button]
+    private void Testing2()
+    {
+        MovingUnFocus();
+    }
+
+#endif
+
 }

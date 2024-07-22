@@ -93,7 +93,8 @@ public class UIGameplayManager : MonoBehaviour
     }
     public void OnSetting()
     {
-        uiSetting.Show();
+        //uiSetting.Show();
+        PopupManager.Instance.ShowSetting();
     }
     public void OnToggleBtnClicked()
     {

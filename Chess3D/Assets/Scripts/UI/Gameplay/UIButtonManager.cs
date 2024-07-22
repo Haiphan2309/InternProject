@@ -24,6 +24,7 @@ public class UIButtonManager : MonoBehaviour
 
     [SerializeField] GameObject hintEffectCanvas;
 
+
     public void Setup()
     {
         settingBtn.onClick.AddListener(OnSetting);
@@ -38,16 +39,20 @@ public class UIButtonManager : MonoBehaviour
 
     private void OnSetting()
     {
+  
+        
+        PlayClickAnim(settingBtn);
         UIGameplayManager.Instance.OnSetting();
     }
     private void OnToggleBtnClicked()
     {
-
+        PlayClickAnim(toggleChessManBtn);
         UIGameplayManager.Instance.OnToggleBtnClicked();
 
     }
     private void OnCameraModeBtnClicked()
     {
+        PlayClickAnim(cameraModeBtn);
         bool isMove = GameplayManager.Instance.camController.ChangeCameraMode();
         Image btnImg = cameraModeBtn.transform.GetChild(0).GetComponent<Image>();
         // Change button appearence when clicked
@@ -63,6 +68,7 @@ public class UIButtonManager : MonoBehaviour
 
     private void OnBackBtnClicked()
     {
+        PlayClickAnim(backBtn);
         // Call Back method from GamePlay 
         GameplayManager.Instance.Undo();
         // Update Number
@@ -74,6 +80,7 @@ public class UIButtonManager : MonoBehaviour
     {
         // Call Solve method from GamePlay
         PlayHintAnim();
+        PlayClickAnim(solveBtn);
         GameplayManager.Instance.ShowHint();
         // Update Number
         UpdateNumber();
@@ -99,8 +106,13 @@ public class UIButtonManager : MonoBehaviour
 
     public void RecheckItems()
     {
+        
         RecheckItemNumber();
         ChekcCanUndo();
+        if (GameplayManager.Instance.isBeginRound)
+        {
+            backBtn.interactable = false;
+        }
     }
     public void RecheckItemNumber()
     {
@@ -123,7 +135,7 @@ public class UIButtonManager : MonoBehaviour
         int maxTurn = GameplayManager.Instance.levelData.maxTurn;
         if (remainTurn >= maxTurn)
         {
-            backBtn.interactable = false;
+            
             turnBtn.interactable = false;
             return false;
         }
@@ -161,6 +173,12 @@ public class UIButtonManager : MonoBehaviour
                 .OnComplete(() => { hintEffectCanvas.SetActive(false); });
             });
 
-        
+    }
+    private void PlayClickAnim(Button button)
+    {
+        Debug.Log("Play anim");
+        var sequence = DOTween.Sequence();
+        sequence.Append(button.gameObject.GetComponent<RectTransform>().DOScale(0.8f, 0.15f).SetEase(Ease.InBounce))
+                .Append(button.gameObject.GetComponent<RectTransform>().DOScale(1f, 0.15f).SetEase(Ease.OutBounce));
     }
 }

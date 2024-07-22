@@ -6,17 +6,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using GDC.Managers;
+using TMPro;
 
 public class UIShopManager : MonoBehaviour
 {
     [SerializeField] private ShopConfig shopConfig;
     [SerializeField] private DailyRewardConfig dailyRewardConfig;
-    [SerializeField] private RectTransform rect, contentRect, haloDailyRewardRect, comeBackTomorrowRect;
+    [SerializeField] private RectTransform rect, contentRect, haloDailyRewardRect, comeBackTomorrowRect, playerInfoRect;
     [SerializeField] private UIShopSlot shopSlotprefab;
 
     [SerializeField] private Button exitButton, removeAds, dailyRewardButton;
     [SerializeField] private LanguageDictionary removeAdsDict;
     [SerializeField] private Sprite dailyRewardOpenSprite, dailyRewardCloseSprite;
+
+    [Header("Player Item Info")]
+    [SerializeField] private TMP_Text undoNumText;
+    [SerializeField] private TMP_Text hintNumText, turnNumText;
 
     [Button]
     public void Show()
@@ -60,6 +65,8 @@ public class UIShopManager : MonoBehaviour
         rect.localScale = Vector2.zero;
         rect.DOScale(1, 0.5f).SetEase(Ease.OutBack);
 
+        playerInfoRect.DOAnchorPosY(-60, 0.5f);
+
         for (int i = 0; i < contentRect.childCount; i++)
         {
             Destroy(contentRect.GetChild(i).gameObject);
@@ -67,13 +74,16 @@ public class UIShopManager : MonoBehaviour
         foreach(var shopSlotData in shopConfig.shopSlotDatas)
         {
             UIShopSlot slot = Instantiate(shopSlotprefab, contentRect);
-            slot.Setup(shopSlotData);
+            slot.Setup(shopSlotData, this);
         }
+        UpdatePlayerInfo();
     }
     [Button]
     public void Hide()
     {
+        playerInfoRect.DOAnchorPosY(200, 0.5f);
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
+        PopupManager.Instance.HideBlackBg();
         if (UIManager.Instance != null) UIManager.Instance.ShowAllButtons();
     }
 
@@ -84,6 +94,13 @@ public class UIShopManager : MonoBehaviour
         SaveLoadManager.Instance.Save();
         removeAds.interactable = false;
     }
+
+    public void UpdatePlayerInfo()
+    {
+        hintNumText.text = SaveLoadManager.Instance.GameData.solveNum.ToString();
+        turnNumText.text = SaveLoadManager.Instance.GameData.turnNum.ToString();
+        undoNumText.text = SaveLoadManager.Instance.GameData.undoNum.ToString();
+    }    
 
     private void DailyReward()
     {

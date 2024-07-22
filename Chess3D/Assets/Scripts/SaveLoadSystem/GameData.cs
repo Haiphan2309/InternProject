@@ -31,8 +31,12 @@ namespace GDC.Managers
         //public int coin;
         //public string playerName;
         public List<PlayerLevelData> playerLevelDatas;
-        public int currentChapter;
-        public int currentLevel; //start with 0
+
+        //2 bien nay se khong su dung nua
+        //public int currentChapter;
+        //public int currentLevel; //start with 0
+
+        public List<int> currentLevelOfChapters;
 
         public Language language;
         public int undoNum, solveNum, turnNum;
@@ -70,8 +74,28 @@ namespace GDC.Managers
                 playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i], gameDataOrigin.isPlayBefores[i]));
             }
 
-            currentLevel = gameDataOrigin.currentLevel;
-            currentChapter = gameDataOrigin.currentChapter;
+            //currentLevel = gameDataOrigin.currentLevel;
+            //currentChapter = gameDataOrigin.currentChapter;
+
+            if (gameDataOrigin.currentLevelOfChapters == null || gameDataOrigin.currentLevelOfChapters.Count == 0)
+            {
+                gameDataOrigin.currentLevelOfChapters = new List<int>();
+                for (int i = 0; i < GameConstants.MAX_CHAPTER; i++)
+                {
+                    gameDataOrigin.currentLevelOfChapters.Add(0);
+                }
+            }       
+
+            if (currentLevelOfChapters == null || currentLevelOfChapters.Count == 0)
+            {
+                currentLevelOfChapters = new List<int>();
+                for (int i = 0; i < GameConstants.MAX_CHAPTER; i++)
+                {
+                    currentLevelOfChapters.Add(0);
+                }
+            }
+
+            
 
             language = (Language)gameDataOrigin.languageId;
             undoNum = gameDataOrigin.undoNum;
@@ -102,8 +126,9 @@ namespace GDC.Managers
                     gameDataOrigin.isPlayBefores.Add(playerLevelData.isPlayBefore);
                 }
             }
-            gameDataOrigin.currentLevel = currentLevel;
-            gameDataOrigin.currentChapter = currentChapter;
+            //gameDataOrigin.currentLevel = currentLevel;
+            //gameDataOrigin.currentChapter = currentChapter;
+            gameDataOrigin.currentLevelOfChapters = currentLevelOfChapters;
 
             gameDataOrigin.languageId = (int)language;
             gameDataOrigin.undoNum = undoNum;
@@ -165,20 +190,32 @@ namespace GDC.Managers
         }
         public void CheckSetCurrentLevel(int winChapterId, int winLevelId)
         {
-            int oldIndex = this.currentChapter + GameConstants.MAX_LEVEL + this.currentLevel;
+            //int oldIndex = this.currentChapter * GameConstants.MAX_LEVEL + this.currentLevel;
 
-            winLevelId++;
-            if (winLevelId == GameConstants.MAX_LEVEL)
+            //winLevelId++;
+            //if (winLevelId == GameUtils.GetChapterData(winChapterId).levelDatas.Count)
+            //{
+            //    winLevelId = 0;
+            //    winChapterId++;
+            //}
+            //int index = winChapterId * GameConstants.MAX_LEVEL + winLevelId;
+            //Debug.Log(winChapterId + " " + winLevelId + " " + index + " " + oldIndex);
+
+            //if (index > oldIndex)
+            //{
+            //    this.currentChapter = winChapterId;
+            //    this.currentLevel = winLevelId;
+            //}
+
+            Debug.Log(winLevelId + " " + (GameUtils.GetChapterData(winChapterId).levelDatas.Count - 1));
+            if (winLevelId < GameUtils.GetChapterData(winChapterId).levelDatas.Count - 1)
             {
-                winLevelId = 0;
-                winChapterId++;
+                winLevelId++;
+                Debug.Log("Increase win level index");
             }
-            int index = winChapterId * GameConstants.MAX_LEVEL + winLevelId;
-
-            if (index > oldIndex)
+            if (currentLevelOfChapters[winChapterId] < winLevelId)
             {
-                this.currentChapter = winChapterId;
-                this.currentLevel = winLevelId;
+                currentLevelOfChapters[winChapterId] = winLevelId;
             }
         }
         #endregion
@@ -193,8 +230,9 @@ namespace GDC.Managers
         public List<int> playerLevelHighScores;
         public List<int> playerLevelStars;
         public List<bool> isPlayBefores;
-        public int currentLevel;
-        public int currentChapter;
+        //public int currentLevel;
+        //public int currentChapter;
+        public List<int> currentLevelOfChapters;
 
         public int languageId;
         public int undoNum, solveNum, turnNum;

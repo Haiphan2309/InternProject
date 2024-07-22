@@ -82,13 +82,14 @@ public class UISetting : MonoBehaviour
         soundSlider.onValueChanged.RemoveAllListeners();
         languageDropdown.onValueChanged.RemoveAllListeners();
         uiPopupAnim.Hide();
-        hideCor = StartCoroutine(Cor_Hide());
+        PopupManager.Instance.HideBlackBg();
+        //hideCor = StartCoroutine(Cor_Hide());
     }
-    private IEnumerator Cor_Hide()
-    {
-        yield return new WaitForSeconds(1f);
-        gameObject.SetActive(false);
-    }
+    //private IEnumerator Cor_Hide()
+    //{
+    //    yield return new WaitForSeconds(1f);
+        
+    //}
     public void OnMenu()
     {
         int curChapterIndex = GameplayManager.Instance.chapterData.id;
