@@ -161,51 +161,7 @@ public class GridStateManager : MonoBehaviour
             levelData.tileInfo[i].tileInfo = gridState.tileInfos[i];
         }
 
-        foreach(var chessManData in gridState.playerChessManDatas)
-        {
-            bool isFind = false;
-            foreach(var gameplayPlayer in GameplayManager.Instance.playerArmy)
-            {
-                if (gameplayPlayer.index == chessManData.index)
-                {
-                    gameplayPlayer.SetChessManData(chessManData);
-                    isFind = true;
-                    break;
-                }
-            }
-            
-            if (isFind == false) //ChessMan này đã bị hủy, cần phải sinh ra lại
-            {
-                ChessMan chessMan = SpawnChessMan(chessManData.chessManType, false);
-                chessMan.SetChessManData(chessManData);
-                GameplayManager.Instance.playerArmy.Add(chessMan);
-            }
-        }
-
-        foreach (var enemy in GameplayManager.Instance.enemyArmy)
-        {
-            Destroy(enemy.gameObject);
-        }
-        GameplayManager.Instance.enemyArmy.Clear();
-        foreach (var chessManData in gridState.enemyChessManDatas)
-        {
-            ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true, chessManData.isAI);
-            chessMan.SetChessManData(chessManData);
-            GameplayManager.Instance.enemyArmy.Add(chessMan);
-        }
-
-        GameplayManager.Instance.listEnemyPriorityLowest.Clear();
-        foreach(var chessManData in gridState.enemyChessManDataPrioritys)
-        {
-            foreach(var enemy in GameplayManager.Instance.enemyArmy)
-            {
-                if (enemy.index == chessManData.index)
-                {
-                    GameplayManager.Instance.listEnemyPriorityLowest.Add(enemy);
-                    break;
-                }
-            }
-        }
+        
 
         List<GameplayObject> objs = FindObjectsOfType<GameplayObject>().OfType<GameplayObject>().ToList();
         List<GameplayObject> gameplayObjs = objs.FindAll(x => x.CompareTag("Object"));
@@ -228,6 +184,52 @@ public class GridStateManager : MonoBehaviour
             {
                 GameplayObject obj = SpawnGameplayObject(gameplayObjData.objName);
                 obj.SetGameplayObjectData(gameplayObjData);
+            }
+        }
+
+        foreach (var chessManData in gridState.playerChessManDatas)
+        {
+            bool isFind = false;
+            foreach (var gameplayPlayer in GameplayManager.Instance.playerArmy)
+            {
+                if (gameplayPlayer.index == chessManData.index)
+                {
+                    gameplayPlayer.SetChessManData(chessManData);
+                    isFind = true;
+                    break;
+                }
+            }
+
+            if (isFind == false) //ChessMan này đã bị hủy, cần phải sinh ra lại
+            {
+                ChessMan chessMan = SpawnChessMan(chessManData.chessManType, false);
+                chessMan.SetChessManData(chessManData);
+                GameplayManager.Instance.playerArmy.Add(chessMan);
+            }
+        }
+
+        foreach (var enemy in GameplayManager.Instance.enemyArmy)
+        {
+            Destroy(enemy.gameObject);
+        }
+        GameplayManager.Instance.enemyArmy.Clear();
+        foreach (var chessManData in gridState.enemyChessManDatas)
+        {
+            ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true);
+            chessMan.SetChessManData(chessManData);
+            GameplayManager.Instance.enemyArmy.Add(chessMan);
+        }
+
+        GameplayManager.Instance.listEnemyPriorityLowest.Clear();
+        foreach (var chessManData in gridState.enemyChessManDataPrioritys)
+        {
+            foreach (var enemy in GameplayManager.Instance.enemyArmy)
+            {
+                if (enemy.index == chessManData.index)
+                {
+                    GameplayManager.Instance.listEnemyPriorityLowest.Add(enemy);
+                    break;
+                }
             }
         }
     }

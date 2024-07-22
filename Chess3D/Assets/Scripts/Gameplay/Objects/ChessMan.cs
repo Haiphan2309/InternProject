@@ -57,8 +57,11 @@ public class ChessMan : GameplayObject
         posIndex = chessManData.posIndex;
         isEnemy = false;
 
+        // transform.parent = null;
+
         //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
         AjustPosToGround(posIndex);
+        CheckBox(posIndex);
     }
     public void SetChessManData(EnemyChessManData chessManData)
     {
@@ -70,8 +73,10 @@ public class ChessMan : GameplayObject
         isEnemy = true;
         isAI = chessManData.isAI;
 
+        // transform.parent = null;
         //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
         AjustPosToGround(posIndex);
+        CheckBox(posIndex);
     }
 
     public bool EnemyMove()
