@@ -201,9 +201,9 @@ public class CameraController : MonoBehaviour
 
 
         }
-        #if UNITY_EDITOR
-        Zoom(Input.GetAxis("Mouse ScrollWheel")*zoomSpeed);
-        #endif
+        //#if UNITY_EDITOR
+        Zoom(Input.GetAxis("Vertical")*zoomSpeed);
+        //#endif
     }
     private void Zoom(float inc)
     {
