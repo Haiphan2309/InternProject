@@ -72,10 +72,10 @@ public class PopupManager : MonoBehaviour
         UIShopManager uiShopManager = Instantiate(uiShopManagerPrefab, canvasTrans);
         uiShopManager.Show();
     }
-    public void ShowSetting()
+    public void ShowSetting(bool isGameplay = false)
     {
         ShowBlackBg();
         UISetting uiSetting = Instantiate(uiSettingPrefab, canvasTrans);
-        uiSetting.Show();
+        uiSetting.Show(isGameplay);
     }
 }

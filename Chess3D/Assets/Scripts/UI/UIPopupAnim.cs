@@ -114,8 +114,7 @@ public class UIPopupAnim : MonoBehaviour
         panelRect.DOScale(0, 0.5f).SetEase(Ease.InBack);
     }
 
-    [Button]
-    public void ReloadOriginColor()
+    public void ReloadOriginImageColor()
     {
         if (imageOriginColor == null) imageOriginColor = new List<Color>();
         imageOriginColor.Clear();
@@ -124,6 +123,11 @@ public class UIPopupAnim : MonoBehaviour
         {
             imageOriginColor.Add(image.color);
         }
+    }
+    [Button]
+    public void ReloadOriginColor()
+    {
+        ReloadOriginColor();
 
         if (textOriginColor == null) textOriginColor = new List<Color>();
         textOriginColor.Clear();

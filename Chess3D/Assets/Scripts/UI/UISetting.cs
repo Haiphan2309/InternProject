@@ -13,6 +13,7 @@ public class UISetting : MonoBehaviour
 {
     [SerializeField] private UIPopupAnim uiPopupAnim;
     [SerializeField] private TMP_Text levelText;
+    [SerializeField] RectTransform bottomGroupRect;
     [SerializeField] private Button menuBtn, replayBtn, hideButton;
     [SerializeField] private Slider musicSlider, soundSlider;
     [SerializeField] private TMP_Dropdown languageDropdown;
@@ -21,9 +22,18 @@ public class UISetting : MonoBehaviour
     private bool isAreadySetup;
 
     [Button]
-    public void Show()
+    public void Show(bool isGameplay = false)
     {
         gameObject.SetActive(true);
+        if (isGameplay)
+        {
+            bottomGroupRect.gameObject.SetActive(true);
+            uiPopupAnim.ReloadOriginImageColor();
+        }
+        else
+        {
+            bottomGroupRect.gameObject.SetActive(false);
+        }
 
         if (isAreadySetup == false)
         {
@@ -103,6 +113,7 @@ public class UISetting : MonoBehaviour
                 GameManager.Instance.LoadMenuLevel(curChapterIndex);
             },
             true);
+        Hide();
     }
 
     public void OnReplay()
@@ -118,6 +129,7 @@ public class UISetting : MonoBehaviour
                 GDC.Managers.GameManager.Instance.SetInitData(currentChapterIndex, currentLevelIndex);
             },
             true);
+        Hide();
     }
 
     private void OnChangeMusicVolume()

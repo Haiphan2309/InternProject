@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SHOP
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fe513a27327918e44ac8ca7ecb3ebdec, type: 2}
-  m_sharedMaterial: {fileID: 1578326750946727285, guid: fe513a27327918e44ac8ca7ecb3ebdec, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 36275af37d08c7642bd8be1ad2c438df, type: 2}
+  m_sharedMaterial: {fileID: 1578326750946727285, guid: 36275af37d08c7642bd8be1ad2c438df, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2810,8 +2810,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_fontSize
-      value: 22.4
+      value: 24.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4128587233373858424, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_Name
       value: ShopItem
@@ -3172,6 +3180,14 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 36
       objectReference: {fileID: 0}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4128587233373858424, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_Name
       value: ShopItem (1)
@@ -3282,6 +3298,14 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 36
       objectReference: {fileID: 0}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4128587233373858424, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_Name
       value: ShopItem (2)
@@ -3392,6 +3416,14 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 36
       objectReference: {fileID: 0}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4128587233373858424, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_Name
       value: ShopItem (3)
@@ -3502,6 +3534,14 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 36
       objectReference: {fileID: 0}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 4128587232288628848, guid: 5444294735cba394db45013a45f61390, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4128587233373858424, guid: 5444294735cba394db45013a45f61390, type: 3}
       propertyPath: m_Name
       value: ShopItem (4)
