@@ -826,6 +826,7 @@ GameObject:
   - component: {fileID: 6053777928406639310}
   - component: {fileID: 6053777928406639305}
   - component: {fileID: 5452723834167467805}
+  - component: {fileID: 7210046055432815651}
   m_Layer: 5
   m_Name: UICredit
   m_TagString: Untagged
@@ -904,6 +905,20 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &7210046055432815651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6053777928406639311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8407fe3f1e92aa47b93d1a4a2b951d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPopupAnim: {fileID: 5452723834167467805}
+  hideButton: {fileID: 8274991885172332095}
 --- !u!1 &6220935930819305873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,19 +1040,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6220935930819305878}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5452723834167467805}
-        m_TargetAssemblyTypeName: UIPopupAnim, Assembly-CSharp
-        m_MethodName: Hide
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6358643544913172864
 GameObject:
   m_ObjectHideFlags: 0

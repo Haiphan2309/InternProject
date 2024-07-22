@@ -13,6 +13,9 @@ public class PopupManager : MonoBehaviour
     private Stack<Image> blackBgStack = new Stack<Image>();
     [SerializeField] private UIAnnounce uiAnnouncePrefab;
     [SerializeField] private UIReward uiRewardPrefab;
+    [SerializeField] private UISetting uiSettingPrefab;
+    [SerializeField] private UIShopManager uiShopManagerPrefab;
+    [SerializeField] private UICredit uiCredit;
     private void Awake()
     {
         if (Instance != null)
@@ -56,5 +59,23 @@ public class PopupManager : MonoBehaviour
         ShowBlackBg();
         UIReward uiReward = Instantiate(uiRewardPrefab, canvasTrans);
         uiReward.Show(config);
+    }
+    public void ShowCredit()
+    {
+        ShowBlackBg();
+        UICredit uICredit = Instantiate(uiCredit, canvasTrans);
+        uICredit.Show();
+    }
+    public void ShowShop()
+    {
+        ShowBlackBg();
+        UIShopManager uiShopManager = Instantiate(uiShopManagerPrefab, canvasTrans);
+        uiShopManager.Show();
+    }
+    public void ShowSetting()
+    {
+        ShowBlackBg();
+        UISetting uiSetting = Instantiate(uiSettingPrefab, canvasTrans);
+        uiSetting.Show();
     }
 }

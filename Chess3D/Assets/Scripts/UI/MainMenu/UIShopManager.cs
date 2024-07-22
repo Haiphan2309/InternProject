@@ -83,6 +83,7 @@ public class UIShopManager : MonoBehaviour
     {
         playerInfoRect.DOAnchorPosY(200, 0.5f);
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
+        PopupManager.Instance.HideBlackBg();
         if (UIManager.Instance != null) UIManager.Instance.ShowAllButtons();
     }
 
