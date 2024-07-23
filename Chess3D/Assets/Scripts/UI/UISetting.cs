@@ -64,7 +64,7 @@ public class UISetting : MonoBehaviour
         cameraSpeedSlider.maxValue = maxVolume;
         musicSlider.value = SoundManager.Instance.GetMusicVolume() * maxVolume;
         soundSlider.value = SoundManager.Instance.GetSFXVolume() * maxVolume;
-        cameraSpeedSlider.value = PlayerPrefs.GetInt("CameraTargetSpeed", 5);
+        cameraSpeedSlider.value = PlayerPrefs.GetInt("CameraTargetSpeed", 8);
 
         if (levelText.gameObject.activeSelf)
         {
