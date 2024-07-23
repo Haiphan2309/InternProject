@@ -106,6 +106,11 @@ public class CameraController : MonoBehaviour
         framing.m_ScreenY = 0.5f;
     }
 
+    public void ChangeTargetSpeedValue(int value) //Value nhan gia tri tu 0->10 (speed camera tang dan, 0 la dung yen)
+    {
+
+    }
+
     /*
      * Method call when a chess is moving
      */
