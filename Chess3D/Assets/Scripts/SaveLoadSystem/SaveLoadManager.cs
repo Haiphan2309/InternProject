@@ -38,7 +38,10 @@ namespace GDC.Managers
         [Button]
         public void Load()
         {
+#if UNITY_WEBGL
+#else
             SaveLoadSystem.LoadData(GameDataOrigin);
+#endif
             GameData.SetupData();
 
             //StartCoroutine(Cor_LoadPlayer());
@@ -60,7 +63,10 @@ namespace GDC.Managers
         IEnumerator Cor_SaveLoadProgress(string progressStr)
         {
             yield return new WaitUntil(() => this.GameData.IsSaveLoadProcessing == false);
+#if UNITY_WEBGL
+#else
             SaveLoadSystem.SaveData(GameDataOrigin);
+#endif
             Debug.Log(progressStr);
         }
         IEnumerator Cor_ResetData()

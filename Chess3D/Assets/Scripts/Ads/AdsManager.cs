@@ -21,25 +21,25 @@ public class AdsManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        adsInitializer.InitializeAds();
+        //adsInitializer.InitializeAds();
     }
-    private void Start()
-    {
-        loadRemainToAds = initLoadRemainToAds;
-        Debug.Log("init ads manager");
-    }
+    //private void Start()
+    //{
+    //    loadRemainToAds = initLoadRemainToAds;
+    //    Debug.Log("init ads manager");
+    //}
     public void CheckLoadToAds()
     {
-        if (SaveLoadManager.Instance.GameData.isPurchaseAds) return;
+        //if (SaveLoadManager.Instance.GameData.isPurchaseAds) return;
 
-        loadRemainToAds--;
-        Debug.Log("CHECK ADS " + loadRemainToAds);
-        if (loadRemainToAds <=0)
-        {
-            //show ads
-            interstitialAds.LoadAd();
-            interstitialAds.ShowAd();
-            loadRemainToAds = initLoadRemainToAds;
-        }
+        //loadRemainToAds--;
+        //Debug.Log("CHECK ADS " + loadRemainToAds);
+        //if (loadRemainToAds <=0)
+        //{
+        //    //show ads
+        //    interstitialAds.LoadAd();
+        //    interstitialAds.ShowAd();
+        //    loadRemainToAds = initLoadRemainToAds;
+        //}
     }
 }
