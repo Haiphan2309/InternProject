@@ -108,6 +108,7 @@ public class UIShopManager : MonoBehaviour
         string dayReceive = DateTime.Now.Date.ToString();
         PlayerPrefs.SetString("DailyRewardDate", dayReceive);
         SetOpenDailyReward(false);
+        UpdatePlayerInfo();
     }
     private void SetOpenDailyReward(bool isOpen)
     {

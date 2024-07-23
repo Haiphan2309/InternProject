@@ -77,6 +77,7 @@ public class CameraController : MonoBehaviour
     public void ChangeToDefaultCamera()
     {
         ChangeFollow(worldTarget);
+        _camera.m_Lens.OrthographicSize = zoomMax;
     }
     // Method to change camera follower
     public void ChangeFollow(Transform followTarget)
@@ -201,9 +202,9 @@ public class CameraController : MonoBehaviour
 
 
         }
-        #if UNITY_EDITOR
-        Zoom(Input.GetAxis("Mouse ScrollWheel")*zoomSpeed);
-        #endif
+        //#if UNITY_EDITOR
+        //Zoom(Input.GetAxis("Mouse ScrollWheel")*zoomSpeed);
+        //#endif
     }
     private void Zoom(float inc)
     {
