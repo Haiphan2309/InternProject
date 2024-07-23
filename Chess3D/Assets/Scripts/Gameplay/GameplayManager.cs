@@ -150,7 +150,7 @@ public class GameplayManager : MonoBehaviour
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
 
-        if (remainTurn < levelSpawner.levelData.maxTurn)
+        if (remainTurn < levelSpawner.levelData.maxTurn || moveList.Count <= 0)
         {
             uiGameplayManager.DisableSolveButton();
             canHint = false;
@@ -461,6 +461,7 @@ public class GameplayManager : MonoBehaviour
             Debug.Log("Pos: " + posIndexToMove + " Move: " + moveList[0].position);
             if (!GameUtils.CompareVector3(posIndexToMove, moveList[0].position))
                 isShowHint = false;
+            if (!GameUtils.CompareVector3(chessMan.posIndex, moveList[0].playerArmy.posIndex)) isShowHint = false;
         }
 
         chessMan.Move(posIndexToMove);
