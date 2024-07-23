@@ -55,6 +55,7 @@ public class UIShopSlot : MonoBehaviour
     }
     public void OnClick()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_PURCHASE);
         rect.DOScale(1, 0.25f).SetEase(Ease.OutBack);
         Debug.Log("Da thanh toan so tien " + costText.text + " va mua duoc " + amountText.text);
         //PopupManager.Instance.ShowAnnounce(thankYouDict[SaveLoadManager.Instance.GameData.language]);

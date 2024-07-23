@@ -38,5 +38,7 @@ namespace AudioPlayer
         SFX_TRANSITION_IN,
         SFX_TRANSITION_OUT,
         SFX_STAR,
+        SFX_PURCHASE,
+        SFX_OPEN_CHEST,
     }
 }
