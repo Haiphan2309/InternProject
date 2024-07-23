@@ -56,6 +56,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float moveSpeedY = 0.5f;
 
     private bool isLocked = false;
+    private bool canChangeMove = true;
     private Transform previousTarget;
     private Transform currentTarget;
     private enum CameraMode { Swipe, Move};
@@ -102,13 +103,20 @@ public class CameraController : MonoBehaviour
     }
     public void ChangeToDefaultMove()
     {
+       
         framing.m_ScreenX = 0.5f;
         framing.m_ScreenY = 0.5f;
     }
-
-    public void ChangeTargetSpeedValue(int value) //Value nhan gia tri tu 0->10 (speed camera tang dan, 0 la dung yen)
+    /*
+     * To change speed of camera when chess moving
+     * Value nhan gia tri tu 0->10 (speed camera tang dan, 0 la dung yen)
+     */
+    public void ChangeTargetSpeedValue(int value) 
     {
-
+        canChangeMove = (value > 0) ;
+        framing.m_XDamping = 11-value;
+        framing.m_YDamping = 11-value;
+        framing.m_ZDamping = 11-value;
     }
 
     /*
@@ -116,6 +124,7 @@ public class CameraController : MonoBehaviour
      */
     public void MovingFocus(Transform target)
     {
+        if (!canChangeMove) return;
         previousTarget = _camera.Follow;
         ChangeFollow(target);
     }
@@ -125,6 +134,7 @@ public class CameraController : MonoBehaviour
      */
     public void MovingUnFocus()
     {
+        if (!canChangeMove) return;
         ChangeFollow(previousTarget);
     }
     void LateUpdate()
