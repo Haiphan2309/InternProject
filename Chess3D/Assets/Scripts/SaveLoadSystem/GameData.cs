@@ -24,17 +24,13 @@ namespace GDC.Managers
     }
 
     [Serializable]
-    public struct GameData
+    public struct GameData //Chua cac data su dung trong game
     {
         public bool IsSaveLoadProcessing;
 
         //public int coin;
         //public string playerName;
         public List<PlayerLevelData> playerLevelDatas;
-
-        //2 bien nay se khong su dung nua
-        //public int currentChapter;
-        //public int currentLevel; //start with 0
 
         public List<int> currentLevelOfChapters;
 
@@ -74,9 +70,6 @@ namespace GDC.Managers
                 playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i], gameDataOrigin.isPlayBefores[i]));
             }
 
-            //currentLevel = gameDataOrigin.currentLevel;
-            //currentChapter = gameDataOrigin.currentChapter;
-
             if (gameDataOrigin.currentLevelOfChapters == null || gameDataOrigin.currentLevelOfChapters.Count == 0)
             {
                 gameDataOrigin.currentLevelOfChapters = new List<int>();
@@ -89,13 +82,11 @@ namespace GDC.Managers
             if (currentLevelOfChapters == null || currentLevelOfChapters.Count == 0)
             {
                 currentLevelOfChapters = new List<int>();
-                for (int i = 0; i < GameConstants.MAX_CHAPTER; i++)
-                {
-                    currentLevelOfChapters.Add(0);
-                }
             }
-
-            
+            for (int i = 0; i < GameConstants.MAX_CHAPTER; i++)
+            {
+                currentLevelOfChapters.Add(gameDataOrigin.currentLevelOfChapters[i]);
+            }
 
             language = (Language)gameDataOrigin.languageId;
             undoNum = gameDataOrigin.undoNum;
@@ -126,8 +117,6 @@ namespace GDC.Managers
                     gameDataOrigin.isPlayBefores.Add(playerLevelData.isPlayBefore);
                 }
             }
-            //gameDataOrigin.currentLevel = currentLevel;
-            //gameDataOrigin.currentChapter = currentChapter;
             gameDataOrigin.currentLevelOfChapters = currentLevelOfChapters;
 
             gameDataOrigin.languageId = (int)language;
@@ -222,7 +211,7 @@ namespace GDC.Managers
     }
 
     [Serializable]
-    public struct GameDataOrigin
+    public struct GameDataOrigin //Chua cac data luu xuong thanh dang .bin
     {
         public bool IsHaveSaveData;
         //public int coin;
@@ -230,8 +219,6 @@ namespace GDC.Managers
         public List<int> playerLevelHighScores;
         public List<int> playerLevelStars;
         public List<bool> isPlayBefores;
-        //public int currentLevel;
-        //public int currentChapter;
         public List<int> currentLevelOfChapters;
 
         public int languageId;
@@ -240,7 +227,7 @@ namespace GDC.Managers
     }
 
     [Serializable]
-    public struct CacheData
+    public struct CacheData //Luu cac data tam thoi trong game, ko luu khi tat
     {
 
     }
