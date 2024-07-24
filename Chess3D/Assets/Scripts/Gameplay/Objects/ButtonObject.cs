@@ -10,6 +10,7 @@ public class ButtonObject : GameplayObject
     public void Setup(List<ToggleBlock> blocks)
     {
         toggleBlocks = blocks;
+        posIndex = transform.position;
     }
     [Button]
     public void ActiveButton()
