@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b3d9e92cc2adf49a5c0db558d31053, type: 3}
   m_Name: Level Brush
   m_EditorClassIdentifier: 
-  targetTilemapName: Floor_4
+  targetTilemapName: Floor_2
   prefabs:
   - {fileID: 4051196245707785669, guid: 83585b764e054e645b2a034f4f319ca6, type: 3}
   - {fileID: 4051196245707785669, guid: 3b4f722e848a45d4cb07dc7109972df2, type: 3}
@@ -48,6 +48,13 @@ MonoBehaviour:
   - {fileID: 4051196245707785669, guid: 3b4f722e848a45d4cb07dc7109972df2, type: 3}
   - {fileID: 4051196245707785669, guid: 0ccca27998cb9f249b56aa8a930a8e6f, type: 3}
   - {fileID: 8998501177938085803, guid: e6a6601d969993746869974ab4ef725f, type: 3}
-  selectedIndex: 2
+  - {fileID: 4051196245707785669, guid: 91d33311352a3f34a8071659490a150a, type: 3}
+  - {fileID: 4051196245707785669, guid: 79414ffb0557ec54d9442c6e97f8e7d8, type: 3}
+  - {fileID: 2773410193484695969, guid: 4b4f738e01a56c9498554969b9e1389f, type: 3}
+  - {fileID: 2773410193484695969, guid: 8201e906f4f732e4fb2888a5aa1317fe, type: 3}
+  - {fileID: 6790502167011976086, guid: 8b302dfe26775bc40a72ce6bbe54a1ab, type: 3}
+  - {fileID: 4051196245707785669, guid: a87cd6e72117b9f4cbc9acf9aecdaeaa, type: 3}
+  - {fileID: 8998501177938085803, guid: d500d98053bafd04e87ef8786736f27c, type: 3}
+  selectedIndex: 5
   manualOffset: 0
   manualOffsetValue: 0

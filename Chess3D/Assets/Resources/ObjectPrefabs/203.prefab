@@ -148,6 +148,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b390686991f2d84fbc08345eb6108f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posIndex: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  isAnim: 0
+  index: 0
+  defaultSpeed: 0
+  outline: {fileID: 1249440887912763412}
+  isOnSlope: 0
+  isStandOnSlope: 0
+  isFalling: 0
+  isMove: 0
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  vfxDefeated: {fileID: 0}
+  toggleBlocks: []
+  isActive: 0
 --- !u!1001 &6726138045936176383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,7 +222,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 6015cf74cfa112145ae85bd3b6a81fc5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 23cebd9b3b2be42498d89d0257cc2ad8, type: 2}
+      objectReference: {fileID: 2100000, guid: c04f7b655b441584799f4f0f16af0562, type: 2}
     - target: {fileID: -7511558181221131132, guid: 6015cf74cfa112145ae85bd3b6a81fc5, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 

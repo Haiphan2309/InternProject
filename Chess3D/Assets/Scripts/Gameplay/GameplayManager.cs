@@ -32,9 +32,12 @@ public class GameplayManager : MonoBehaviour
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public ChapterData chapterData;
 
-    [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
+    [ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
     [SerializeField, ReadOnly] private List<ChessMan> outlineChessMan;
     [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
+    [SerializeField, ReadOnly] private List<ButtonObject> buttonObjects;
+    [ReadOnly] public List<ToggleBlock> toggleBlocks;
+
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     [HideInInspector] public bool isAnimMoving, isEndTurn, isEndGame;
@@ -63,6 +66,8 @@ public class GameplayManager : MonoBehaviour
 
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
+        toggleBlocks = levelSpawner.toggleBlockList;
+        buttonObjects = levelSpawner.buttonList;
         SetRemainTurn(levelSpawner.levelData.maxTurn, false);
         camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
 
@@ -445,12 +450,26 @@ public class GameplayManager : MonoBehaviour
         }
         return false;
     }    
+    public void CheckActiveButtonObjects()
+    {
+        foreach(var button in buttonObjects)
+        {
+            if (GameUtils.GetTile(button.posIndex) != TileType.NONE)
+            {
+                button.ActiveButton();
+            }
+            else
+            {
+                button.InActiveButton();
+            }
+        }
+    }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
         isBeginRound = false;
         if (chessMan.isEnemy == false) //Nếu là player thì lưu vết để có thể undo nước đi được
         {
-            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest);
+            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest, toggleBlocks);
         }
         camController.MovingFocus(chessMan.transform);
 
@@ -536,7 +555,7 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         uiGameplayManager.ShowWin(isNewRecord);
     }
-    void Lose()
+    private void Lose()
     {
         Debug.Log("Lose");
         isEndGame = true;
