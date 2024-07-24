@@ -266,7 +266,7 @@ public class ChessMan : GameplayObject
 
         if (objectInteract != null && objectInteract.CompareTag("Object"))
         {
-            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + gameplayObject.isAnim);
+            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + objectInteract.isAnim);
             yield return new WaitUntil(() => objectInteract.isAnim == false);
             Debug.Log("GameplayObject isAnim: " + objectInteract.isAnim);
             objectInteract.SetPosIndex();
@@ -276,8 +276,13 @@ public class ChessMan : GameplayObject
         isStandOnSlope = isOnSlope;
 
         SetPosIndex();
-
+        
         CheckBox(target);
+
+        Debug.Log(GameUtils.GetTile(posIndex));
+
+        GameplayManager.Instance.CheckActiveButtonObjects();
+
         StartCoroutine(CheckPromote());
         
     }

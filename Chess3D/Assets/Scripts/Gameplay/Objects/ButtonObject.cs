@@ -11,6 +11,7 @@ public class ButtonObject : GameplayObject
     {
         toggleBlocks = blocks;
         posIndex = transform.position;
+        targetPosition = posIndex;
     }
     [Button]
     public void ActiveButton()

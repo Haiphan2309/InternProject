@@ -523,6 +523,10 @@ public class GameplayManager : MonoBehaviour
     {
         levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
     }
+    public void SetTile(Vector3 pos, TileType tileType)
+    {
+        levelData.SetTileInfoNoDeep(pos, 0, tileType);
+    }
     public void EndTurn() //Duoc goi sau khi ket thuc luot
     {
         camController.MovingUnFocus();
