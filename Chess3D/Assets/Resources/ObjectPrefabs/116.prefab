@@ -60,16 +60,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 65c8c523001b1ce4b8d98dc206dc0a8f, type: 2}
+      objectReference: {fileID: 2100000, guid: c04f7b655b441584799f4f0f16af0562, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: fd174ca9343c7e14a9ea850dbee005ea, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: c04f7b655b441584799f4f0f16af0562, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -7828087911369100623, guid: fca2df16015b58c419a9de19a4f2c7ba, type: 3}
     - target: {fileID: 919132149155446097, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
       propertyPath: m_Name
-      value: 123
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -82,7 +98,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 18ac895fb80ccba45975b75ed281e138, type: 3}
   m_PrefabInstance: {fileID: 3817315618844194964}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &8643861302597859415
+--- !u!65 &-135403146177344644
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +107,7 @@ BoxCollider:
   m_GameObject: {fileID: 4051196245707785669}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 0.99660826, z: 1.0000002}
   m_Center: {x: 0, y: 0.5000001, z: 0}
