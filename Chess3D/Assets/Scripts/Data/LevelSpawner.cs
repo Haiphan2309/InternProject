@@ -16,14 +16,14 @@ public class LevelSpawner : MonoBehaviour
     // chapter x, level y -> Level_x_y 
     //load chapter x -> level[y] -> id -> Level_x_id 
     //
-    string chapterDataPath = "Assets/Resources/ScriptableObjects/ChapterData";
-    string levelDataPath;
-    string objectPrefabPath = "ObjectPrefabs";
-    string chessPrefabPath = "ChessManPrefabs";
+    private string chapterDataPath = "Assets/Resources/ScriptableObjects/ChapterData";
+    private string levelDataPath;
+    private string objectPrefabPath = "ObjectPrefabs";
+    private string chessPrefabPath = "ChessManPrefabs";
 
-    Dictionary<int, GameObject> tilePrefabDic = new Dictionary<int, GameObject>();
-    Dictionary<int, GameObject> chessPrefabDic = new Dictionary<int, GameObject>();
-    Dictionary<ChessManType, int> chessDic;
+    private Dictionary<int, GameObject> tilePrefabDic = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> chessPrefabDic = new Dictionary<int, GameObject>();
+    private Dictionary<ChessManType, int> chessDic;
     void Setup(int chapterId, int levelId)
     {
         chessDic = new Dictionary<ChessManType, int> 
