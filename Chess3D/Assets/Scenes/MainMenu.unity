@@ -6538,6 +6538,7 @@ MonoBehaviour:
   creditPagePrefab: {fileID: 5452723834167467805, guid: b4ceba232ef52d04bb9871c0184993d6, type: 3}
   settingPagePrefab: {fileID: 5415166270283461433, guid: d4f7f7a5c19d71940b20584d168f1a3e, type: 3}
   shopPagePrefab: {fileID: 8147749622554203198, guid: a678a18113d7b2e46b410ff763c721c0, type: 3}
+  isClick: 0
 --- !u!1 &844376775
 GameObject:
   m_ObjectHideFlags: 0
@@ -11387,7 +11388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8453140993742590063, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
       propertyPath: buildSubTime
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}

@@ -124,11 +124,8 @@ public class UIPopupAnim : MonoBehaviour
             imageOriginColor.Add(image.color);
         }
     }
-    [Button]
-    public void ReloadOriginColor()
+    public void ReloadOriginTextColor()
     {
-        ReloadOriginColor();
-
         if (textOriginColor == null) textOriginColor = new List<Color>();
         textOriginColor.Clear();
         Text[] texts = panelRect.GetComponentsInChildren<Text>();
@@ -136,14 +133,23 @@ public class UIPopupAnim : MonoBehaviour
         {
             textOriginColor.Add(text.color);
         }
-        
+    }
+    public void ReloadOriginTextMeshColor()
+    {
         if (tmpTextOriginColor == null) tmpTextOriginColor = new List<Color>();
         tmpTextOriginColor.Clear();
         TMP_Text[] tmpTexts = panelRect.GetComponentsInChildren<TMP_Text>();
-        foreach (var text in texts)
+        foreach (var text in tmpTexts)
         {
             tmpTextOriginColor.Add(text.color);
         }
+    }
+    [Button]
+    public void ReloadOriginColor()
+    {
+        ReloadOriginImageColor();
+        ReloadOriginTextColor();
+        ReloadOriginTextMeshColor();
     }
     public void AddButtonDisable(Button button)
     {

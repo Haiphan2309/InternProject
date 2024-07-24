@@ -88,6 +88,11 @@ public class ChessMan : GameplayObject
             if (config.chessManType != ChessManType.KING)
             {
                 posIndexToMove = config.MoveByDefault(posIndex);
+                // Check if it's unmovable to prevent softlocks
+                if (posIndexToMove == posIndex)
+                {
+                    return false;
+                }
             }
             else //Neu la king thi chay tron
             {

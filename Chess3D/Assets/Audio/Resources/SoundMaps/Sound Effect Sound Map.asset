@@ -54,3 +54,9 @@ MonoBehaviour:
   - name: SFX_STAR
     Id: 506
     Data: {fileID: 11400000, guid: 4d967faa05981ac4889297583f489261, type: 2}
+  - name: SFX_PURCHASE
+    Id: 507
+    Data: {fileID: 11400000, guid: fab5342bdb097db4ab28f481ddaaf2f2, type: 2}
+  - name: SFX_OPEN_CHEST
+    Id: 508
+    Data: {fileID: 11400000, guid: 92f2677f4a590c3418b79b9d7b653b1c, type: 2}

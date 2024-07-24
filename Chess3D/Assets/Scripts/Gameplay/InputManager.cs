@@ -201,6 +201,7 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         //Enemy khong the an duoc
+                        isPicking = false;
                         CheckShowOutlineChessMan();
                     }
                 }

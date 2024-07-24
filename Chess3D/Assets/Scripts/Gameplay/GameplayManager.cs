@@ -79,6 +79,8 @@ public class GameplayManager : MonoBehaviour
         gridSateManager.Setup();
         uiGameplayManager.ChangeTurn(enemyTurn);
         //SetPowerUpNum();
+        int cameraSpeed = PlayerPrefs.GetInt("CameraTargetSpeed", 8);
+        camController.ChangeTargetSpeedValue(cameraSpeed);
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
