@@ -40,7 +40,9 @@ public class UIChapterSlot : MonoBehaviour
         }
 
         // EASY ACCESS PURPORSE
-        // isAvailable = true;
+#if UNITY_EDITOR
+        isAvailable = true;
+#endif
 
         SpriteSetup();
         ButtonSetup();

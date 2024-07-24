@@ -265,33 +265,6 @@ public class GameplayObject : MonoBehaviour
             }
         }
 
-        //switch (tileType)
-        //{
-        //    case TileType.SLOPE_0:
-        //        rotation.x = 45 * (Mathf.Round(direction.normalized.z));
-        //        isOnSlope = true;
-        //        break;
-        //    case TileType.SLOPE_90:
-        //        rotation.x = -45 * (Mathf.Round(direction.normalized.x));
-        //        isOnSlope = true;
-        //        break;
-        //    case TileType.SLOPE_180:
-        //        rotation.x = -45 * (Mathf.Round(direction.normalized.z));
-        //        isOnSlope = true;
-        //        break;
-        //    case TileType.SLOPE_270:
-        //        rotation.x = 45 * (Mathf.Round(direction.normalized.x));
-        //        isOnSlope = true;
-        //        break;
-
-        //    default:
-        //        rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
-        //        isOnSlope = false;
-        //        break;
-        //}
-
-
-
         if (isOnSlope) target = target - Vector3.up * 0.4f;
         newPosition = Vector3.MoveTowards(transform.position, target, 5f * Time.deltaTime);
 
