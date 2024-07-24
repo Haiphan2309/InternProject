@@ -96,7 +96,7 @@ public class LevelSpawner : MonoBehaviour
                     {
                         // 205, 207: Off
                         // 206, 208: On
-                        bool isOn = (tileId == 206 && tileId == 208);
+                        bool isOn = (tileId == 206 || tileId == 208);
 
                         tile.GetComponent<ToggleBlock>().Setup(isOn);
                     }
