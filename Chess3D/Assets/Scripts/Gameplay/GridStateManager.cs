@@ -83,8 +83,9 @@ public class GridState
     public List<PlayerChessManData> playerChessManDatas;
     public List<EnemyChessManData> enemyChessManDatas, enemyChessManDataPrioritys;
     public List<GameplayObjectData> gameplayObjectDatas;
+    public List<bool> isActiveToggleBlocks;
 
-    public GridState(List<TileInfo> tileInfos, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest)
+    public GridState(List<TileInfo> tileInfos, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest, List<ToggleBlock> toggleBlocks)
     {
         this.tileInfos = new List<TileInfo>();
         foreach (TileInfo tileInfo in tileInfos)
@@ -114,6 +115,12 @@ public class GridState
         List<GameplayObject> objs = GameObject.FindObjectsOfType<GameplayObject>().OfType<GameplayObject>().ToList();
         List<GameplayObject> gameplayObjs = objs.FindAll(x => x.CompareTag("Object"));
 
+        this.isActiveToggleBlocks = new List<bool>();
+        foreach (ToggleBlock toggleBlock in toggleBlocks)
+        {
+            this.isActiveToggleBlocks.Add(toggleBlock.isOn);
+        }
+
         foreach (var gameplayObj in gameplayObjs)
         {
             this.gameplayObjectDatas.Add(new GameplayObjectData(gameplayObj));
@@ -128,14 +135,14 @@ public class GridStateManager : MonoBehaviour
     {
         gridStateStack = new Stack<GridState>();
     }
-    public void AddState(List<TileData> tileDatas, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest)
+    public void AddState(List<TileData> tileDatas, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest, List<ToggleBlock> toggleBlocks)
     {
         List<TileInfo> tileInfos = new List<TileInfo>();
         foreach(var tileData in tileDatas)
         {
             tileInfos.Add(tileData.tileInfo);
         }
-        GridState newGridState = new GridState(tileInfos, playerArmy, enemyArmy, listEnemyPriorityLowest);
+        GridState newGridState = new GridState(tileInfos, playerArmy, enemyArmy, listEnemyPriorityLowest, toggleBlocks);
         gridStateStack.Push(newGridState);
     }
     public bool CheckCanUndo()
@@ -161,8 +168,6 @@ public class GridStateManager : MonoBehaviour
             levelData.tileInfo[i].tileInfo = gridState.tileInfos[i];
         }
 
-        
-
         List<GameplayObject> objs = FindObjectsOfType<GameplayObject>().OfType<GameplayObject>().ToList();
         List<GameplayObject> gameplayObjs = objs.FindAll(x => x.CompareTag("Object"));
         //List<GameplayObject> gameplayObjs = GameObject.FindGameObjectsWithTag("Object").OfType<GameplayObject>().ToList();
@@ -180,7 +185,7 @@ public class GridStateManager : MonoBehaviour
                 }
             }
 
-            if (isFind == false) //Gameplay này đã bị hủy, cần phải sinh ra lại
+            if (isFind == false) //GameplayObject này đã bị hủy, cần phải sinh ra lại
             {
                 GameplayObject obj = SpawnGameplayObject(gameplayObjData.objName);
                 obj.SetGameplayObjectData(gameplayObjData);
@@ -232,7 +237,13 @@ public class GridStateManager : MonoBehaviour
                 }
             }
         }
+
+        for (int i = 0; i < GameplayManager.Instance.toggleBlocks.Count; i++) 
+        {
+            GameplayManager.Instance.toggleBlocks[i].Setup(gridState.isActiveToggleBlocks[i]);
+        }
     }
+
     ChessMan SpawnChessMan(ChessManType chessManType, bool isEnemy, bool isAI = false)
     {
         GameObject chessManObj = null;

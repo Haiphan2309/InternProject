@@ -32,9 +32,11 @@ public class GameplayManager : MonoBehaviour
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public ChapterData chapterData;
 
-    [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
+    [ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
     [SerializeField, ReadOnly] private List<ChessMan> outlineChessMan;
     [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
+    [ReadOnly] public List<ToggleBlock> toggleBlocks;
+
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     [HideInInspector] public bool isAnimMoving, isEndTurn, isEndGame;
@@ -65,6 +67,7 @@ public class GameplayManager : MonoBehaviour
         enemyArmy = levelSpawner.enemyArmy;
         SetRemainTurn(levelSpawner.levelData.maxTurn, false);
         camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
+        toggleBlocks = levelSpawner.toggleBlockList;
 
         ResetEnemyPriorityLowestList();
         
@@ -450,7 +453,7 @@ public class GameplayManager : MonoBehaviour
         isBeginRound = false;
         if (chessMan.isEnemy == false) //Nếu là player thì lưu vết để có thể undo nước đi được
         {
-            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest);
+            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest, toggleBlocks);
         }
         camController.MovingFocus(chessMan.transform);
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ToggleBlock : MonoBehaviour
 {
-    [SerializeField, ReadOnly] private bool isOn;
+    [ReadOnly] public bool isOn;
     public void Setup(bool isOn)
     {
         this.isOn = isOn;
