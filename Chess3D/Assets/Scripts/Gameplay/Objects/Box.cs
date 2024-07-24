@@ -13,6 +13,7 @@ public class Box : GameplayObject
     private bool isDestroy = false;
     private int destroyPositionY = -3;
     private bool isDropToWater = false;
+    private int boxCount = 0;
 
     [SerializeField] private GameObject vfxWaterSplash;
 
