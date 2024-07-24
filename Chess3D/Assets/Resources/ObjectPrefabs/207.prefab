@@ -66,11 +66,15 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 7dd278952f3cb5441b7cfa2ce48cfa4e, type: 2}
     - target: {fileID: -7511558181221131132, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 7c01cd57461b8964ba135630f5a2a3c8, type: 2}
+    - target: {fileID: -5754084199372789682, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -2595130509732629779, guid: afa70b0e284ce1149a882c0751035656, type: 3}
     - target: {fileID: 919132149155446097, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_Name
       value: 207
@@ -81,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_TagString
-      value: Object
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_StaticEditorFlags
