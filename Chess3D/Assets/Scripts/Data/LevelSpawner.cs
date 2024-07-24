@@ -92,13 +92,18 @@ public class LevelSpawner : MonoBehaviour
                     {
                         tile.GetComponent<Boulder>().Setup(GameUtils.SnapToGrid(tile.transform.position));
                     }
+                    else if(tileId == 203 || tileId == 204) // Button
+                    {
+                        buttonList.Add(tile.GetComponent<ButtonObject>());
+                    }
                     else if (tileId >= 205 && tileId <= 208) // ToggleBlock
                     {
                         // 205, 207: Off
                         // 206, 208: On
                         bool isOn = (tileId == 206 || tileId == 208);
-
-                        tile.GetComponent<ToggleBlock>().Setup(isOn);
+                        ToggleBlock block = tile.GetComponent<ToggleBlock>();
+                        block.Setup(isOn);
+                        toggleBlockList.Add(block);
                     }
                     
                     tile.transform.parent = floor.transform;
