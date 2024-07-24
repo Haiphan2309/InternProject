@@ -48,55 +48,7 @@ public class LevelExtractor : MonoBehaviour
     }
     private TileType GetTileTypeById(int id)
     {
-        //if (id == 0)
-        //{
-        //    return TileType.NONE;
-        //}
-        //if (id == 100 || id == 101 || id == 103 || id == 202 || id == 203)
-        //{
-        //    return TileType.GROUND;
-        //}
-        //if (id == 102)
-        //{
-        //    return TileType.WATER;
-        //}
-        //if (id == 104)
-        //{
-        //    return TileType.SLOPE_0;
-        //}
-        //if (id == 105)
-        //{
-        //    return TileType.SLOPE_90;
-        //}
-        //if (id == 106)
-        //{
-        //    return TileType.SLOPE_180;
-        //}
-        //if (id == 107)
-        //{
-        //    return TileType.SLOPE_270;
-        //}
-        //if (id >= 110 && id <= 120)
-        //{
-        //    return TileType.OBJECT;
-        //}
-        //if (id == 200)
-        //{
-        //    return TileType.BOX;
-        //}
-        //if (id == 201)
-        //{
-        //    return TileType.BOULDER;
-        //}
-        //if (id >=300 && id < 400)
-        //{
-        //    return TileType.PLAYER_CHESS;
-        //}
-        //if (id >=400 && id < 500)
-        //{
-        //    return TileType.ENEMY_CHESS;
-        //}
-        //return TileType.NONE;
+        
         foreach (var data in tileTypeData.tileTypeDatas)
         {
             if (data.idList.Contains(id))

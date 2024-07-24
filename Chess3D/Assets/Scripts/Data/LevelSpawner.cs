@@ -11,19 +11,21 @@ public class LevelSpawner : MonoBehaviour
 {
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public List<ChessMan> playerArmy, enemyArmy;
+    [HideInInspector] public List<ToggleBlock> toggleBlockList;
+    [HideInInspector] public List<ButtonObject> buttonList;
     //[HideInInspector] public string spawnLevelName = "";
     
     // chapter x, level y -> Level_x_y 
     //load chapter x -> level[y] -> id -> Level_x_id 
     //
-    string chapterDataPath = "Assets/Resources/ScriptableObjects/ChapterData";
-    string levelDataPath;
-    string objectPrefabPath = "ObjectPrefabs";
-    string chessPrefabPath = "ChessManPrefabs";
+    private string chapterDataPath = "Assets/Resources/ScriptableObjects/ChapterData";
+    private string levelDataPath;
+    private string objectPrefabPath = "ObjectPrefabs";
+    private string chessPrefabPath = "ChessManPrefabs";
 
-    Dictionary<int, GameObject> tilePrefabDic = new Dictionary<int, GameObject>();
-    Dictionary<int, GameObject> chessPrefabDic = new Dictionary<int, GameObject>();
-    Dictionary<ChessManType, int> chessDic;
+    private Dictionary<int, GameObject> tilePrefabDic = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> chessPrefabDic = new Dictionary<int, GameObject>();
+    private Dictionary<ChessManType, int> chessDic;
     void Setup(int chapterId, int levelId)
     {
         chessDic = new Dictionary<ChessManType, int> 
@@ -36,6 +38,8 @@ public class LevelSpawner : MonoBehaviour
             { ChessManType.KING,    5 }
         };
         levelData = GetLevelData(chapterId, levelId);
+        toggleBlockList = new List<ToggleBlock>();
+        buttonList = new List<ButtonObject>();
     }
 
     [Button]
@@ -65,6 +69,7 @@ public class LevelSpawner : MonoBehaviour
         {
             GameObject floor = new GameObject("Floor_" + j);
             floor.transform.parent = levelObject.transform;
+
             //Instantiate(floor);
             for (int i = 0; i < dim0; i++) 
             {
@@ -73,23 +78,39 @@ public class LevelSpawner : MonoBehaviour
                     TileInfo tileInfo = map[i, j, k];
                     int tileId = tileInfo.id;
                     Vector3 spawnPos = Vector3.up * j  + Vector3.right * i + Vector3.forward * k;
-                    //
+                    
                     if (tileInfo == null) continue;
-                    if (tileInfo.tileType == TileType.NONE) continue;
-                    //
+                    if (tileId == 0) continue;
                     if (tileId < 0 || tileId > GameConstants.obstacleIdBoundary.y) continue;
+
                     GameObject tile = Instantiate(tilePrefabDic[tileId], spawnPos, tilePrefabDic[tileId].transform.rotation);
-                    if (tileId == 200)
+                    if (tileId == 200) // Box
                     {
                         tile.GetComponent<Box>().Setup(GameUtils.SnapToGrid(tile.transform.position));
                     }
-                    else if (tileId == 201)
+                    else if (tileId == 201) // Boulder
                     {
                         tile.GetComponent<Boulder>().Setup(GameUtils.SnapToGrid(tile.transform.position));
                     }
+                    else if (tileId >= 205 && tileId <= 208) // ToggleBlock
+                    {
+                        // 205, 207: Off
+                        // 206, 208: On
+                        bool isOn = (tileId == 206 && tileId == 208);
+
+                        tile.GetComponent<ToggleBlock>().Setup(isOn);
+                    }
+                    
                     tile.transform.parent = floor.transform;
                 }
             }
+
+            //Set up button
+            foreach(ButtonObject button in buttonList)
+            {
+                button.Setup(toggleBlockList);
+            }
+
             // If Floor does not have block
             if (floor.transform.childCount <= 0)
             {
@@ -106,15 +127,18 @@ public class LevelSpawner : MonoBehaviour
         foreach (var army in playerArmies)
         {
             ChessManType armyType = army.chessManType;
-            int armyId = chessDic[armyType] + (int)GameConstants.playerChessIdBoundary.x;
             Vector3 spawnPos = army.posIndex;
+
+            int armyId = chessDic[armyType] + (int)GameConstants.playerChessIdBoundary.x;
+            
             if (army == null) continue;
             GameObject armyObject = Instantiate(chessPrefabDic[armyId], spawnPos, chessPrefabDic[armyId].transform.rotation);
             armyObject.transform.parent = playerChessObject.transform;
+
             // Setup Player Army
             armyObject.GetComponent<ChessMan>().Setup(army, index, army.posIndex);
             playerArmy.Add(armyObject.GetComponent<ChessMan>());
-            //
+
             index++;
         }
     }
@@ -126,15 +150,21 @@ public class LevelSpawner : MonoBehaviour
         foreach (var army in enemyArmies)
         {
             ChessManType armyType = army.chessManType;
-            int armyId = chessDic[armyType] + (int)GameConstants.enemyChessIdBoundary.x;
-            if (army.isAI) armyId += 6;
             Vector3 spawnPos = army.posIndex;
+
+            int armyId = chessDic[armyType] + (int)GameConstants.enemyChessIdBoundary.x;
+
+            if (army.isAI) armyId += 6;
+            
             if (army == null) continue;
+
             GameObject armyObject = Instantiate(chessPrefabDic[armyId], spawnPos, chessPrefabDic[armyId].transform.rotation);
             armyObject.transform.parent = enemyChessObject.transform;
+
             // Setup Player Army
             armyObject.GetComponent<ChessMan>().Setup(army, index, army.posIndex);
             enemyArmy.Add(armyObject.GetComponent<ChessMan>());
+
             //
             index++;
         }
@@ -160,23 +190,28 @@ public class LevelSpawner : MonoBehaviour
     {
         GameObject[] objectPrefabsList =  Resources.LoadAll<GameObject>(objectPrefabPath);
         GameObject[] chessPrefabsList = Resources.LoadAll<GameObject>(chessPrefabPath);
+
         for (int i = 0; i < objectPrefabsList.Length; i++)
         {
             int prefabId = 0;
+
             if (!int.TryParse(objectPrefabsList[i].name, out prefabId))
             {
                 Debug.LogError("Prefab name is not correct, must be an integer: " + objectPrefabsList[i].name);
             }
+
             GameObject prefab = objectPrefabsList[i] as GameObject;
             tilePrefabDic.Add(prefabId, prefab);
         }
         for (int i = 0; i < chessPrefabsList.Length; i++)
         {
             int prefabId = 0;
+
             if (!int.TryParse(chessPrefabsList[i].name, out prefabId))
             {
                 Debug.LogError("Prefab name is not correct, must be an integer: " + chessPrefabsList[i].name);
             }
+
             GameObject prefab = chessPrefabsList[i] as GameObject;
             //tilePrefabDic.Add(prefabId, prefab);
             chessPrefabDic.Add(prefabId, prefab);
