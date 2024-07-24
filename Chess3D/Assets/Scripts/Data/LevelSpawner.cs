@@ -113,7 +113,20 @@ public class LevelSpawner : MonoBehaviour
             //Set up button
             foreach(ButtonObject button in buttonList)
             {
-                button.Setup(toggleBlockList);
+                List<ToggleBlock> list;
+                if (button.gameObject.name.Contains("203"))
+                {
+                    list = toggleBlockList.FindAll(
+                        block => (block.gameObject.name.Contains("205") || block.gameObject.name.Contains("206"))
+                    );
+                }
+                else
+                {
+                    list = toggleBlockList.FindAll(
+                        block => (block.gameObject.name.Contains("207") || block.gameObject.name.Contains("208"))
+                    );
+                }
+                button.Setup(list);
             }
 
             // If Floor does not have block
