@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileTypeDatas:
   - tileType: 0
-    idList: 00000000
+    idList: 00000000cd000000cf000000cb000000cc000000
   - tileType: 1
-    idList: 640000006500000079000000ca000000960000007a0000007b000000
+    idList: 640000006500000079000000ca000000960000007a0000007b000000ce000000d0000000
   - tileType: 3
     idList: 6600000067000000
   - tileType: 6
