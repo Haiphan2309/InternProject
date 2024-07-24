@@ -15,11 +15,14 @@ public class Box : GameplayObject
     private bool isDropToWater = false;
     private int boxCount = 0;
 
+    private GameObject holder;
+
     [SerializeField] private GameObject vfxWaterSplash;
 
     public void Setup(Vector3 posIndex)
     {
         this.posIndex = posIndex;
+        this.holder = transform.parent.gameObject;
     }
     
     public override void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
@@ -31,6 +34,9 @@ public class Box : GameplayObject
 
     IEnumerator Cor_BoxMoveAnim(Vector3 target, Vector3 direction)
     {
+        transform.parent = holder.transform;
+
+
         isAnim = true;
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
@@ -87,6 +93,9 @@ public class Box : GameplayObject
 
         isAnim = false;
         isDropToWater = false;
+
+        CheckBox(target);
+
     }
 
     private Vector3 CalculateTarget(Vector3 target, Vector3 direction)
@@ -174,6 +183,17 @@ public class Box : GameplayObject
         }
 
         transform.DORotate(rotation, 0.3f);
+    }
+
+    private void CheckBox(Vector3 target)
+    {
+        Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(target + Vector3.down);
+        GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+
+        if (gameplayObject != null && GameUtils.GetTile(gameplayObject.transform.position) == TileType.BOX)
+        {
+            transform.SetParent(gameplayObject.transform);
+        }
     }
 
     private void CheckChessman(GameplayObject gameplayObject, Vector3 oldPos, Vector3 target)
