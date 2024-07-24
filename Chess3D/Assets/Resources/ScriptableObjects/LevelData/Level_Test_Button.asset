@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level_Test_Button
   m_EditorClassIdentifier: 
   id: 0
-  center: {x: 5, y: 0, z: 5}
-  distance: 15
-  maxTurn: 99
+  center: {x: 0, y: 0, z: 0}
+  distance: 0
+  maxTurn: 0
   starTurn2: 0
   starTurn3: 0
   tileInfo:
@@ -8221,8 +8221,6 @@ MonoBehaviour:
     posIndex: {x: 2, y: 2, z: 9}
     isAI: 0
     priority: 0
-    movePosIndexs:
-    - {x: 3, y: 2, z: 9}
-    - {x: 2, y: 2, z: 9}
+    movePosIndexs: []
   hintMoves: []
   thumbnail: {fileID: 0}

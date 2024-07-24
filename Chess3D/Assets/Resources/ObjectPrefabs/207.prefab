@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_TagString
@@ -107,51 +107,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &-7137522642283028524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2773410193484695969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff01bc00e97d4a4db1fe07ea48eba6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  posIndex: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
-  isAnim: 0
-  index: 0
-  defaultSpeed: 5
-  outline: {fileID: 154858078353309136}
-  isOnSlope: 0
-  isStandOnSlope: 0
-  isFalling: 0
-  isMove: 0
-  objectLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
-  vfxWaterSplash: {fileID: 6452308133831282335, guid: 9dc490e9a5d005340b0235c461e1d668, type: 3}
---- !u!114 &154858078353309136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2773410193484695969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &-3712031235658701867
 MonoBehaviour:
   m_ObjectHideFlags: 0
