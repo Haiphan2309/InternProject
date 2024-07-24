@@ -35,6 +35,7 @@ public class GameplayManager : MonoBehaviour
     [ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
     [SerializeField, ReadOnly] private List<ChessMan> outlineChessMan;
     [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
+    [SerializeField, ReadOnly] private List<ButtonObject> buttonObjects;
     [ReadOnly] public List<ToggleBlock> toggleBlocks;
 
     [ReadOnly] public int remainTurn;
@@ -65,9 +66,10 @@ public class GameplayManager : MonoBehaviour
 
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
+        toggleBlocks = levelSpawner.toggleBlockList;
+        buttonObjects = levelSpawner.buttonList;
         SetRemainTurn(levelSpawner.levelData.maxTurn, false);
         camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
-        toggleBlocks = levelSpawner.toggleBlockList;
 
         ResetEnemyPriorityLowestList();
         
@@ -448,6 +450,11 @@ public class GameplayManager : MonoBehaviour
         }
         return false;
     }    
+    public bool CheckActiveButtonObject()
+    {
+        //todo
+        return false;
+    }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
         isBeginRound = false;
@@ -539,7 +546,7 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         uiGameplayManager.ShowWin(isNewRecord);
     }
-    void Lose()
+    private void Lose()
     {
         Debug.Log("Lose");
         isEndGame = true;
