@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonObject : MonoBehaviour
 {
     private List<ToggleBlock> toggleBlocks = new List<ToggleBlock>();
-    void Setup(List<ToggleBlock> blocks)
+    public void Setup(List<ToggleBlock> blocks)
     {
         toggleBlocks = blocks;
     }    
