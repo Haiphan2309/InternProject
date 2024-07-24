@@ -214,6 +214,7 @@ public class GameplayObject : MonoBehaviour
         if (isOnSlope) target = target - Vector3.up * 0.4f;
 
         transform.position = target;
+
         //transform.rotation = Quaternion.Euler(rotation);
         transform.DORotate(rotation, 0.3f);
     }
