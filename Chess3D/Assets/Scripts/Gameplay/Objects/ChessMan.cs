@@ -37,12 +37,15 @@ public class ChessMan : GameplayObject
         this.posIndex = posIndex;
 
         testPromoteType = config.chessManType;
+        parentObject = transform.parent.gameObject;
     }
     public void Setup(EnemyArmy enemyArmy, int index, Vector3 posIndex)
     {
         isEnemy = true;
         this.index = index;
         this.posIndex = posIndex;
+
+        parentObject = transform.parent.gameObject;
     }
     public void SetChessManData(PlayerChessManData chessManData)
     {
