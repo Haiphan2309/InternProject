@@ -37,6 +37,12 @@ public class ToggleBlock : MonoBehaviour
             Vector3 posIndex = GameUtils.SnapToGrid(transform.position);
             GameplayManager.Instance.SetTile(posIndex, GDC.Enums.TileType.NONE);
         }
+
+        Vector3 upperPos = GameUtils.SnapToGrid(transform.position) + Vector3.up;
+
+        GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(upperPos);
+
+        if (gameplayObject != null) gameplayObject.Drop();
     }
     public void Toggle()
     {

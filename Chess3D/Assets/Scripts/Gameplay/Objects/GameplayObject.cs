@@ -109,9 +109,18 @@ public class GameplayObject : MonoBehaviour
 
         while (current != end)
         {
+            TileType tile = GameUtils.GetTileBelowObject(current);
+            while (tile == TileType.NONE)
+            {
+                path.Add(current);
+                current.y -= 1;
+                tile = GameUtils.GetTileBelowObject(current);
+                if (current == end) break;
+            }
+
             MoveToNextPath(ref current, end);
              
-            TileType tile = GameUtils.GetTile(current);
+            tile = GameUtils.GetTile(current);
 
             if (GameUtils.CheckSlope(tile))
             {
@@ -261,5 +270,10 @@ public class GameplayObject : MonoBehaviour
 
         posIndex = targetPosition;
 
+    }
+
+    public virtual void Drop()
+    {
+        
     }
 }

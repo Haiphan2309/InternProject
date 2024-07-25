@@ -286,6 +286,11 @@ public class Box : GameplayObject
         this.Defeated();
     }
 
+    public override void Drop()
+    {
+        StartCoroutine(Cor_BoxMoveAnim(GameUtils.SnapToGrid(transform.position + Vector3.down), Vector3.down));
+    }
+
     public override void SetPosIndex()
     {
         GameplayObject gameplayObject = GetChessman(this.posIndex, targetPosition, Vector3.up);
