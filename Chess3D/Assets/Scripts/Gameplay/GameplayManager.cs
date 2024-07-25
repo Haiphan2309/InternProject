@@ -32,9 +32,12 @@ public class GameplayManager : MonoBehaviour
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public ChapterData chapterData;
 
-    [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
+    [ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
     [SerializeField, ReadOnly] private List<ChessMan> outlineChessMan;
     [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
+    [SerializeField, ReadOnly] private List<ButtonObject> buttonObjects;
+    [ReadOnly] public List<ToggleBlock> toggleBlocks;
+
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     [HideInInspector] public bool isAnimMoving, isEndTurn, isEndGame;
@@ -63,6 +66,8 @@ public class GameplayManager : MonoBehaviour
 
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
+        toggleBlocks = levelSpawner.toggleBlockList;
+        buttonObjects = levelSpawner.buttonList;
         SetRemainTurn(levelSpawner.levelData.maxTurn, false);
         camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
 
@@ -79,6 +84,8 @@ public class GameplayManager : MonoBehaviour
         gridSateManager.Setup();
         uiGameplayManager.ChangeTurn(enemyTurn);
         //SetPowerUpNum();
+        int cameraSpeed = PlayerPrefs.GetInt("CameraTargetSpeed", 8);
+        camController.ChangeTargetSpeedValue(cameraSpeed);
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
@@ -150,7 +157,7 @@ public class GameplayManager : MonoBehaviour
         if (isSetTurnSlider)
             uiGameplayManager.uIInformationPanel.SetUITurn(remainTurn);
 
-        if (remainTurn < levelSpawner.levelData.maxTurn)
+        if (remainTurn < levelSpawner.levelData.maxTurn || moveList.Count <= 0)
         {
             uiGameplayManager.DisableSolveButton();
             canHint = false;
@@ -443,12 +450,26 @@ public class GameplayManager : MonoBehaviour
         }
         return false;
     }    
+    public void CheckActiveButtonObjects()
+    {
+        foreach(var button in buttonObjects)
+        {
+            if (GameUtils.GetTile(button.posIndex) != TileType.NONE)
+            {
+                button.ActiveButton();
+            }
+            else
+            {
+                button.InActiveButton();
+            }
+        }
+    }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
         isBeginRound = false;
         if (chessMan.isEnemy == false) //Nếu là player thì lưu vết để có thể undo nước đi được
         {
-            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest);
+            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest, toggleBlocks);
         }
         camController.MovingFocus(chessMan.transform);
 
@@ -461,6 +482,7 @@ public class GameplayManager : MonoBehaviour
             Debug.Log("Pos: " + posIndexToMove + " Move: " + moveList[0].position);
             if (!GameUtils.CompareVector3(posIndexToMove, moveList[0].position))
                 isShowHint = false;
+            if (!GameUtils.CompareVector3(chessMan.posIndex, moveList[0].playerArmy.posIndex)) isShowHint = false;
         }
 
         chessMan.Move(posIndexToMove);
@@ -501,6 +523,10 @@ public class GameplayManager : MonoBehaviour
     {
         levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
     }
+    public void SetTile(Vector3 pos, TileType tileType)
+    {
+        levelData.SetTileInfoNoDeep(pos, 0, tileType);
+    }
     public void EndTurn() //Duoc goi sau khi ket thuc luot
     {
         camController.MovingUnFocus();
@@ -533,7 +559,7 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         uiGameplayManager.ShowWin(isNewRecord);
     }
-    void Lose()
+    private void Lose()
     {
         Debug.Log("Lose");
         isEndGame = true;

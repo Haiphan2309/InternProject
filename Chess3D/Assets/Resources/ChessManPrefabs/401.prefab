@@ -47,11 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   posIndex: {x: 6, y: 3, z: 4}
+  targetPosition: {x: 0, y: 0, z: 0}
+  isAnim: 0
+  index: 0
   defaultSpeed: 0
   outline: {fileID: 183277108}
   isOnSlope: 0
-  isOnPathSlope: 0
+  isStandOnSlope: 0
   isFalling: 0
+  isMove: 0
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -60,10 +64,12 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  testPromoteType: 0
+  vfxPromote: {fileID: 0}
   isEnemy: 0
-  index: 0
-  isTouchBox: 0
-  isTouchBoulder: 0
+  moveIndex: 0
+  deltaMoveIndex: 1
+  isAI: 0
 --- !u!65 &1652286005729679838
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126,6 +132,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}
+      propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 0d6e1c841f5401b4ea9881c192c61427, type: 3}

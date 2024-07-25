@@ -38,7 +38,7 @@ namespace GDC.Managers
         [Button]
         public void Load()
         {
-            SaveLoadSystem.LoadData(GameDataOrigin);
+            SaveLoadSystem.LoadData(out GameDataOrigin);
             GameData.SetupData();
 
             //StartCoroutine(Cor_LoadPlayer());

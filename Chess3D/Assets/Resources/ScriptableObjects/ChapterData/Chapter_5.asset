@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099aa8a6650a6104897cda843f7c859d, type: 3}
+  m_Name: Chapter_5
+  m_EditorClassIdentifier: 
+  id: 4
+  levelDatas:
+  - {fileID: 11400000, guid: 27a3b4ad0892b054c85f124e3cfdb513, type: 2}
+  - {fileID: 11400000, guid: 5b2f3fa1a67cdb641bd1578426139480, type: 2}
+  - {fileID: 11400000, guid: 505b37d0fc9b2804bb2792feb255d9e9, type: 2}
+  thumbnail: {fileID: 21300000, guid: 15dc58ac1c3789040885332577dea503, type: 3}
+  skyBox: {fileID: 2100000, guid: 792d1cc73129a2b44993cfe2902e7a38, type: 2}
+  starRequire: 0

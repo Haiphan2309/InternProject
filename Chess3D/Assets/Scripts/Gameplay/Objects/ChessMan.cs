@@ -37,12 +37,15 @@ public class ChessMan : GameplayObject
         this.posIndex = posIndex;
 
         testPromoteType = config.chessManType;
+        parentObject = transform.parent.gameObject;
     }
     public void Setup(EnemyArmy enemyArmy, int index, Vector3 posIndex)
     {
         isEnemy = true;
         this.index = index;
         this.posIndex = posIndex;
+
+        parentObject = transform.parent.gameObject;
     }
     public void SetChessManData(PlayerChessManData chessManData)
     {
@@ -88,6 +91,11 @@ public class ChessMan : GameplayObject
             if (config.chessManType != ChessManType.KING)
             {
                 posIndexToMove = config.MoveByDefault(posIndex);
+                // Check if it's unmovable to prevent softlocks
+                if (posIndexToMove == posIndex)
+                {
+                    return false;
+                }
             }
             else //Neu la king thi chay tron
             {
@@ -261,7 +269,7 @@ public class ChessMan : GameplayObject
 
         if (objectInteract != null && objectInteract.CompareTag("Object"))
         {
-            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + gameplayObject.isAnim);
+            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + objectInteract.isAnim);
             yield return new WaitUntil(() => objectInteract.isAnim == false);
             Debug.Log("GameplayObject isAnim: " + objectInteract.isAnim);
             objectInteract.SetPosIndex();
@@ -271,8 +279,13 @@ public class ChessMan : GameplayObject
         isStandOnSlope = isOnSlope;
 
         SetPosIndex();
-
+        
         CheckBox(target);
+
+        Debug.Log(GameUtils.GetTile(posIndex));
+
+        GameplayManager.Instance.CheckActiveButtonObjects();
+
         StartCoroutine(CheckPromote());
         
     }

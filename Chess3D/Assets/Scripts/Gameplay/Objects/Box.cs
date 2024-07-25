@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using GDC;
 using GDC.Enums;
 using GDC.Managers;
 using System.Collections;
@@ -13,12 +14,16 @@ public class Box : GameplayObject
     private bool isDestroy = false;
     private int destroyPositionY = -3;
     private bool isDropToWater = false;
+    private int boxCount = 0;
+
+    private GameObject holder;
 
     [SerializeField] private GameObject vfxWaterSplash;
 
     public void Setup(Vector3 posIndex)
     {
         this.posIndex = posIndex;
+        this.holder = transform.parent.gameObject;
     }
     
     public override void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
@@ -30,6 +35,9 @@ public class Box : GameplayObject
 
     IEnumerator Cor_BoxMoveAnim(Vector3 target, Vector3 direction)
     {
+        transform.parent = holder.transform;
+
+
         isAnim = true;
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
@@ -86,6 +94,9 @@ public class Box : GameplayObject
 
         isAnim = false;
         isDropToWater = false;
+
+        CheckBox(target);
+
     }
 
     private Vector3 CalculateTarget(Vector3 target, Vector3 direction)
@@ -175,6 +186,17 @@ public class Box : GameplayObject
         transform.DORotate(rotation, 0.3f);
     }
 
+    private void CheckBox(Vector3 target)
+    {
+        Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(target + Vector3.down);
+        GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+
+        if (gameplayObject != null && GameUtils.GetTile(gameplayObject.transform.position) == TileType.BOX)
+        {
+            transform.SetParent(gameplayObject.transform);
+        }
+    }
+
     private void CheckChessman(GameplayObject gameplayObject, Vector3 oldPos, Vector3 target)
     {
         Vector3 chessmanPosIdx = posIndex + Vector3.up;
@@ -189,6 +211,20 @@ public class Box : GameplayObject
         }
     }
 
+    private void CheckBoxUpper(GameplayObject gameplayObject, Vector3 oldPosm, Vector3 target)
+    {
+        Vector3 boxPosIdx = posIndex + Vector3.up;
+        Vector3 boxTarget = target + Vector3.up;
+
+        if (gameplayObject != null && GameUtils.CheckBox(GameUtils.GetTile(boxPosIdx)))
+        {
+            TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(boxPosIdx);
+
+            GameplayManager.Instance.UpdateTile(boxPosIdx, boxTarget, tileInfo);
+            gameplayObject.posIndex = boxTarget;
+        }
+    }
+
     private GameplayObject GetChessman(Vector3 oldPos, Vector3 target, Vector3 moveVector)
     {
         Vector3 chessmanPosIdx = oldPos + moveVector;
@@ -198,6 +234,23 @@ public class Box : GameplayObject
         GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
 
         if (gameplayObject != null && GameUtils.CheckChess(GameUtils.GetTile(chessmanPosIdx)))
+        {
+            TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(chessmanPosIdx);
+            return gameplayObject;
+        }
+
+        return null;
+    }
+
+    private GameplayObject GetBox(Vector3 oldPos, Vector3 target, Vector3 moveVector)
+    {
+        Vector3 chessmanPosIdx = oldPos + moveVector;
+        Vector3 chessmanTarget = target + moveVector;
+
+        Vector3 gameplayObjectPosition = GameUtils.SnapToGrid(chessmanTarget);
+        GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(gameplayObjectPosition);
+
+        if (gameplayObject != null && GameUtils.CheckBox(GameUtils.GetTile(chessmanPosIdx)))
         {
             TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(chessmanPosIdx);
             return gameplayObject;
@@ -236,7 +289,9 @@ public class Box : GameplayObject
     public override void SetPosIndex()
     {
         GameplayObject gameplayObject = GetChessman(this.posIndex, targetPosition, Vector3.up);
+        GameplayObject box = GetBox(this.posIndex, targetPosition, Vector3.up);
         CheckChessman(gameplayObject, this.posIndex, targetPosition);
+        CheckBoxUpper(box, this.posIndex, targetPosition);
         base.SetPosIndex();
     }
 

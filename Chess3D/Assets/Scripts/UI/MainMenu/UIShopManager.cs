@@ -26,6 +26,7 @@ public class UIShopManager : MonoBehaviour
     [Button]
     public void Show()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_UI_SHOW);
         exitButton.onClick.RemoveAllListeners();
         exitButton.onClick.AddListener(Hide);
 
@@ -81,6 +82,7 @@ public class UIShopManager : MonoBehaviour
     [Button]
     public void Hide()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         playerInfoRect.DOAnchorPosY(200, 0.5f);
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
         PopupManager.Instance.HideBlackBg();
@@ -89,6 +91,7 @@ public class UIShopManager : MonoBehaviour
 
     private void RemoveAds()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         PopupManager.Instance.ShowAnnounce(removeAdsDict[SaveLoadManager.Instance.GameData.language]);
         SaveLoadManager.Instance.GameData.isPurchaseAds = true;
         SaveLoadManager.Instance.Save();
@@ -104,10 +107,12 @@ public class UIShopManager : MonoBehaviour
 
     private void DailyReward()
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_OPEN_CHEST);
         PopupManager.Instance.ShowDailyReward(dailyRewardConfig);
         string dayReceive = DateTime.Now.Date.ToString();
         PlayerPrefs.SetString("DailyRewardDate", dayReceive);
         SetOpenDailyReward(false);
+        UpdatePlayerInfo();
     }
     private void SetOpenDailyReward(bool isOpen)
     {

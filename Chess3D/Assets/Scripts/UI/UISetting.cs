@@ -15,7 +15,7 @@ public class UISetting : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
     [SerializeField] RectTransform bottomGroupRect;
     [SerializeField] private Button menuBtn, replayBtn, hideButton;
-    [SerializeField] private Slider musicSlider, soundSlider;
+    [SerializeField] private Slider musicSlider, soundSlider, cameraSpeedSlider;
     [SerializeField] private TMP_Dropdown languageDropdown;
     private Coroutine hideCor;
     [SerializeField] private int maxVolume = 10;
@@ -56,12 +56,15 @@ public class UISetting : MonoBehaviour
 
         musicSlider.onValueChanged.AddListener(delegate { OnChangeMusicVolume(); });
         soundSlider.onValueChanged.AddListener(delegate { OnChangeSoundVolume(); });
+        cameraSpeedSlider.onValueChanged.AddListener(delegate { OnChangeCameraSpeed(); });
         languageDropdown.onValueChanged.AddListener(delegate { OnChangeLanguage(); });
 
         musicSlider.maxValue = maxVolume;
         soundSlider.maxValue = maxVolume;
+        cameraSpeedSlider.maxValue = maxVolume;
         musicSlider.value = SoundManager.Instance.GetMusicVolume() * maxVolume;
         soundSlider.value = SoundManager.Instance.GetSFXVolume() * maxVolume;
+        cameraSpeedSlider.value = PlayerPrefs.GetInt("CameraTargetSpeed", 8);
 
         if (levelText.gameObject.activeSelf)
         {
@@ -90,6 +93,7 @@ public class UISetting : MonoBehaviour
 
         musicSlider.onValueChanged.RemoveAllListeners();
         soundSlider.onValueChanged.RemoveAllListeners();
+        cameraSpeedSlider.onValueChanged.RemoveAllListeners();
         languageDropdown.onValueChanged.RemoveAllListeners();
         uiPopupAnim.Hide();
         PopupManager.Instance.HideBlackBg();
@@ -149,5 +153,15 @@ public class UISetting : MonoBehaviour
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         SaveLoadManager.Instance.GameData.language = (Language)(languageDropdown.value);
         SaveLoadManager.Instance.Save();
+    }
+
+    private void OnChangeCameraSpeed()
+    {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+        if (GameplayManager.Instance != null)
+        {
+            GameplayManager.Instance.camController.ChangeTargetSpeedValue((int)cameraSpeedSlider.value);
+        }
+        PlayerPrefs.SetInt("CameraTargetSpeed", (int)cameraSpeedSlider.value);
     }
 }

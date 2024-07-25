@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498196610ab39a642a7a775d3d6ace2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBeginRound: 1
   levelSpawner: {fileID: 1220447863}
   gridSateManager: {fileID: 2133746357}
   camController: {fileID: 1349836853}
@@ -495,9 +496,9 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 2
+  m_YDamping: 2
+  m_ZDamping: 2
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
