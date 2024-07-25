@@ -8239,4 +8239,4 @@ MonoBehaviour:
     - {x: 7, y: 2, z: 2}
     - {x: 7, y: 2, z: 1}
   hintMoves: []
-  thumbnail: {fileID: 0}
+  thumbnail: {fileID: 21300000, guid: 783f0c458a8c77748be9f0e954f577d9, type: 3}
