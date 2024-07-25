@@ -16,8 +16,8 @@ MonoBehaviour:
   center: {x: 5, y: 0, z: 5}
   distance: 15
   maxTurn: 20
-  starTurn2: 5
-  starTurn3: 10
+  starTurn2: 4
+  starTurn3: 8
   tileInfo:
   - pos: {x: 0, y: 0, z: 0}
     tileInfo:
@@ -1645,8 +1645,8 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 3, y: 1, z: 6}
     tileInfo:
-      id: 120
-      tileType: 1
+      id: 205
+      tileType: 0
   - pos: {x: 3, y: 1, z: 7}
     tileInfo:
       id: 120
@@ -1702,7 +1702,7 @@ MonoBehaviour:
   - pos: {x: 3, y: 2, z: 4}
     tileInfo:
       id: 115
-      tileType: 0
+      tileType: 2
   - pos: {x: 3, y: 2, z: 5}
     tileInfo:
       id: 116
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   - pos: {x: 3, y: 2, z: 8}
     tileInfo:
       id: 115
-      tileType: 0
+      tileType: 2
   - pos: {x: 3, y: 2, z: 9}
     tileInfo:
       id: 0
@@ -2157,8 +2157,8 @@ MonoBehaviour:
       tileType: 1
   - pos: {x: 4, y: 1, z: 6}
     tileInfo:
-      id: 120
-      tileType: 1
+      id: 205
+      tileType: 0
   - pos: {x: 4, y: 1, z: 7}
     tileInfo:
       id: 120
@@ -2198,7 +2198,7 @@ MonoBehaviour:
   - pos: {x: 4, y: 2, z: 0}
     tileInfo:
       id: 115
-      tileType: 0
+      tileType: 2
   - pos: {x: 4, y: 2, z: 1}
     tileInfo:
       id: 301
@@ -2206,7 +2206,7 @@ MonoBehaviour:
   - pos: {x: 4, y: 2, z: 2}
     tileInfo:
       id: 115
-      tileType: 0
+      tileType: 2
   - pos: {x: 4, y: 2, z: 3}
     tileInfo:
       id: 116
@@ -2226,7 +2226,7 @@ MonoBehaviour:
   - pos: {x: 4, y: 2, z: 7}
     tileInfo:
       id: 115
-      tileType: 0
+      tileType: 2
   - pos: {x: 4, y: 2, z: 8}
     tileInfo:
       id: 0
@@ -3765,8 +3765,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 115
+      tileType: 2
   - pos: {x: 7, y: 2, z: 9}
     tileInfo:
       id: 0
@@ -8236,7 +8236,77 @@ MonoBehaviour:
     isAI: 0
     priority: 1
     movePosIndexs:
-    - {x: 7, y: 2, z: 2}
+    - {x: 6, y: 2, z: 1}
     - {x: 7, y: 2, z: 1}
-  hintMoves: []
-  thumbnail: {fileID: 21300000, guid: 783f0c458a8c77748be9f0e954f577d9, type: 3}
+  hintMoves:
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 0, y: 2, z: 2}
+    position: {x: 1, y: 2, z: 2}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 1, y: 2, z: 2}
+    position: {x: 2, y: 2, z: 2}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 4, y: 2, z: 1}
+    position: {x: 1, y: 2, z: 1}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 1, y: 2, z: 1}
+    position: {x: 1, y: 2, z: 7}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 1, y: 2, z: 7}
+    position: {x: 1, y: 2, z: 6}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 2, y: 2, z: 2}
+    position: {x: 1, y: 2, z: 1}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 1, y: 2, z: 6}
+    position: {x: 5, y: 2, z: 6}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 5, y: 2, z: 6}
+    position: {x: 7, y: 2, z: 6}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 1, y: 2, z: 1}
+    position: {x: 2, y: 2, z: 1}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 5
+      posIndex: {x: 2, y: 2, z: 1}
+    position: {x: 2, y: 2, z: 2}
+    isPromote: 0
+    promoteType: 0
+  - playerArmy:
+      chessManType: 1
+      posIndex: {x: 7, y: 2, z: 6}
+    position: {x: 7, y: 2, z: 1}
+    isPromote: 0
+    promoteType: 0
+  thumbnail: {fileID: 21300000, guid: f1eafcee350d87f4788a071de2a138bb, type: 3}
+  posEdit: {x: 7, y: 2, z: 8}
+  tileInfoEdit:
+    id: 115
+    tileType: 2
