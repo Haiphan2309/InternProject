@@ -124,3 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOn: 0
+  materialOn0: {fileID: 2100000, guid: 23cebd9b3b2be42498d89d0257cc2ad8, type: 2}
+  materialOn1: {fileID: 2100000, guid: 9d809fe2e2b00dd4d9b6a3bc3fb09a8c, type: 2}
+  materialOff: {fileID: 2100000, guid: 7dd278952f3cb5441b7cfa2ce48cfa4e, type: 2}

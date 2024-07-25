@@ -27,6 +27,7 @@ public class ChessMan : GameplayObject
 
     public int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
     public bool isAI;
+    public bool isDrop;
 
     List<Vector3> showPath = new List<Vector3>();
 
@@ -37,12 +38,15 @@ public class ChessMan : GameplayObject
         this.posIndex = posIndex;
 
         testPromoteType = config.chessManType;
+        parentObject = transform.parent.gameObject;
     }
     public void Setup(EnemyArmy enemyArmy, int index, Vector3 posIndex)
     {
         isEnemy = true;
         this.index = index;
         this.posIndex = posIndex;
+
+        parentObject = transform.parent.gameObject;
     }
     public void SetChessManData(PlayerChessManData chessManData)
     {
@@ -56,6 +60,8 @@ public class ChessMan : GameplayObject
         index = chessManData.index;
         posIndex = chessManData.posIndex;
         isEnemy = false;
+
+        SetParentDefault();
 
         // transform.parent = null;
 
@@ -72,6 +78,8 @@ public class ChessMan : GameplayObject
         deltaMoveIndex = chessManData.deltaMoveIndex;
         isEnemy = true;
         isAI = chessManData.isAI;
+
+        SetParentDefault();
 
         // transform.parent = null;
         //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
@@ -266,7 +274,7 @@ public class ChessMan : GameplayObject
 
         if (objectInteract != null && objectInteract.CompareTag("Object"))
         {
-            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + gameplayObject.isAnim);
+            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + objectInteract.isAnim);
             yield return new WaitUntil(() => objectInteract.isAnim == false);
             Debug.Log("GameplayObject isAnim: " + objectInteract.isAnim);
             objectInteract.SetPosIndex();
@@ -276,8 +284,13 @@ public class ChessMan : GameplayObject
         isStandOnSlope = isOnSlope;
 
         SetPosIndex();
-
+        
         CheckBox(target);
+
+        Debug.Log(GameUtils.GetTile(posIndex));
+
+        GameplayManager.Instance.CheckActiveButtonObjects();
+
         StartCoroutine(CheckPromote());
         
     }
@@ -305,8 +318,8 @@ public class ChessMan : GameplayObject
             Promote(testPromoteType);
             GameplayManager.Instance.uiGameplayManager.UpdateHolder(this);
         }
-
-        GameplayManager.Instance.EndTurn();
+        if (!isDrop) GameplayManager.Instance.EndTurn();
+        isDrop = false;
     }
 
     void RotateToDirection(Vector3 direction)
@@ -421,6 +434,75 @@ public class ChessMan : GameplayObject
         }
         gameObject.GetComponentInChildren<MeshFilter>().mesh = newMesh;
         outline.LoadSmoothNormals();
+    }
+
+    public override void Drop()
+    {
+        Vector3 currentPos = GameUtils.SnapToGrid(posIndex);
+
+        TileType tileType = GameUtils.GetTileBelowObject(currentPos);
+
+        while (tileType == TileType.NONE)
+        {
+            currentPos.y--;
+
+            if (currentPos.y <= -3)
+            {
+                break;
+            }
+
+            tileType = GameUtils.GetTileBelowObject(currentPos);
+        }
+
+        StartCoroutine(Cor_DropAnim(currentPos));
+    }
+
+    private IEnumerator Cor_DropAnim(Vector3 target)
+    {
+        isMove = true;
+        isDrop = true;
+        // Unset Parent for chess piece
+        SetParentDefault();
+        target = GameUtils.SnapToGrid(target);
+
+        // Store current position and current index
+        Vector3 currPos = transform.position;
+        Vector3 currIdx = posIndex;
+
+        Vector3 direction = (target - currIdx).normalized;
+
+
+        // Calculate Path from First Pos to Target Pos
+        List<Vector3> path = CalculatePath(currIdx, target);
+
+        targetPosition = target;
+
+        // Move
+        foreach (var gridCell in path)
+        {
+            while (currPos != gridCell)
+            {
+                AjustPosToGround(transform.position, gridCell, direction, true);
+
+                if (!isOnSlope) currPos = transform.position;
+                else currPos = transform.position + Vector3.up * 0.4f;
+
+                yield return null;
+            }
+        }
+
+        yield return null;
+        isMove = false;
+
+        isStandOnSlope = isOnSlope;
+
+        SetPosIndex();
+
+        CheckBox(target);
+
+        GameplayManager.Instance.CheckActiveButtonObjects();
+
+        StartCoroutine(CheckPromote());
     }
 
 #if UNITY_EDITOR

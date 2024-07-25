@@ -84,6 +84,7 @@ public class LevelSpawner : MonoBehaviour
                     if (tileId < 0 || tileId > GameConstants.obstacleIdBoundary.y) continue;
 
                     GameObject tile = Instantiate(tilePrefabDic[tileId], spawnPos, tilePrefabDic[tileId].transform.rotation);
+                    tile.transform.parent = floor.transform;
                     if (tileId == 200) // Box
                     {
                         tile.GetComponent<Box>().Setup(GameUtils.SnapToGrid(tile.transform.position));
@@ -106,7 +107,6 @@ public class LevelSpawner : MonoBehaviour
                         toggleBlockList.Add(block);
                     }
                     
-                    tile.transform.parent = floor.transform;
                 }
             }
 

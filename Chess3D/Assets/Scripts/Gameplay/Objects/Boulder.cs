@@ -118,6 +118,25 @@ public class Boulder : GameplayObject
         while (GameUtils.CheckSlope(tileBelow))
         {
             nextCell.y -= 1;
+
+            switch (tileBelow)
+            {
+                case TileType.SLOPE_0:
+                    direction = Vector3.forward;
+                    break;
+                case TileType.SLOPE_180:
+                    direction = Vector3.back;
+                    break;
+                case TileType.SLOPE_90:
+                    direction = Vector3.left;
+                    break;
+                case TileType.SLOPE_270:
+                    direction = Vector3.right;
+                    break;
+                default:
+                    break;
+            }
+
             nextCell += direction;
 
             tileBelow = GameUtils.GetTileBelowObject(nextCell);
@@ -234,5 +253,10 @@ public class Boulder : GameplayObject
         CheckChessman(gameplayObject, this.posIndex, targetPosition);
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_DISAPPEAR);
         base.SetPosIndex();
+    }
+
+    public override void Drop()
+    {
+        StartCoroutine(Cor_BoulderMoveAnim(GameUtils.SnapToGrid(transform.position + Vector3.down), Vector3.down));
     }
 }
