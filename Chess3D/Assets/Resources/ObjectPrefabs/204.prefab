@@ -153,7 +153,7 @@ MonoBehaviour:
   isAnim: 0
   index: 0
   defaultSpeed: 0
-  outline: {fileID: 1249440887912763412, guid: 8b302dfe26775bc40a72ce6bbe54a1ab, type: 3}
+  outline: {fileID: 1249440887912763412}
   isOnSlope: 0
   isStandOnSlope: 0
   isFalling: 0
@@ -162,6 +162,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   vfxDefeated: {fileID: 0}
+  parentObject: {fileID: 0}
   toggleBlocks: []
   isActive: 0
 --- !u!1001 &6726138045936176383
@@ -226,7 +227,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 6015cf74cfa112145ae85bd3b6a81fc5, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 23cebd9b3b2be42498d89d0257cc2ad8, type: 2}
     - target: {fileID: 919132149155446097, guid: 6015cf74cfa112145ae85bd3b6a81fc5, type: 3}
       propertyPath: m_Name
       value: button
