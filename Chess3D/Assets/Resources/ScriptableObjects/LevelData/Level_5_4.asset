@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0ea2989c52f4fd49821c3f2b28b28bd, type: 3}
-  m_Name: Level_5_6
+  m_Name: Level_5_4
   m_EditorClassIdentifier: 
   id: 3
-  center: {x: 0, y: 9, z: 0}
+  center: {x: 3, y: 9, z: 3}
   distance: 9
   maxTurn: 35
   starTurn2: 9
@@ -3285,12 +3285,12 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 3, z: 0}
     tileInfo:
-      id: 401
-      tileType: 10
-  - pos: {x: 6, y: 3, z: 1}
-    tileInfo:
       id: 0
       tileType: 0
+  - pos: {x: 6, y: 3, z: 1}
+    tileInfo:
+      id: 401
+      tileType: 10
   - pos: {x: 6, y: 3, z: 2}
     tileInfo:
       id: 0
@@ -3321,12 +3321,12 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 3, z: 9}
     tileInfo:
-      id: 0
-      tileType: 0
-  - pos: {x: 6, y: 3, z: 10}
-    tileInfo:
       id: 401
       tileType: 10
+  - pos: {x: 6, y: 3, z: 10}
+    tileInfo:
+      id: 0
+      tileType: 0
   - pos: {x: 6, y: 3, z: 11}
     tileInfo:
       id: 0
@@ -3733,8 +3733,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 2, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 202
+      tileType: 1
   - pos: {x: 7, y: 2, z: 1}
     tileInfo:
       id: 0
@@ -3773,8 +3773,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 2, z: 10}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 202
+      tileType: 1
   - pos: {x: 7, y: 2, z: 11}
     tileInfo:
       id: 0
@@ -4309,7 +4309,7 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 3, z: 0}
     tileInfo:
-      id: 408
+      id: 407
       tileType: 10
   - pos: {x: 8, y: 3, z: 1}
     tileInfo:
@@ -4349,7 +4349,7 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 3, z: 10}
     tileInfo:
-      id: 408
+      id: 407
       tileType: 10
   - pos: {x: 8, y: 3, z: 11}
     tileInfo:
@@ -8221,34 +8221,34 @@ MonoBehaviour:
   - chessManType: 1
     posIndex: {x: 0, y: 2, z: 5}
   enemyArmies:
-  - chessManType: 2
+  - chessManType: 1
     posIndex: {x: 8, y: 3, z: 0}
     isAI: 1
     priority: 0
     movePosIndexs: []
-  - chessManType: 2
+  - chessManType: 1
     posIndex: {x: 8, y: 3, z: 10}
     isAI: 1
     priority: 0
     movePosIndexs: []
   - chessManType: 1
-    posIndex: {x: 6, y: 3, z: 10}
+    posIndex: {x: 6, y: 3, z: 9}
     isAI: 0
     priority: 2
     movePosIndexs: []
   - chessManType: 1
-    posIndex: {x: 6, y: 3, z: 0}
+    posIndex: {x: 6, y: 3, z: 1}
     isAI: 0
     priority: 2
     movePosIndexs: []
   - chessManType: 5
     posIndex: {x: 10, y: 2, z: 5}
     isAI: 0
-    priority: 0
+    priority: 1
     movePosIndexs: []
   hintMoves: []
-  thumbnail: {fileID: 0}
-  posEdit: {x: 6, y: 3, z: 10}
+  thumbnail: {fileID: 21300000, guid: 221663bca7c2df148a84bc80593634da, type: 3}
+  posEdit: {x: 6, y: 3, z: 1}
   tileInfoEdit:
     id: 401
     tileType: 10
