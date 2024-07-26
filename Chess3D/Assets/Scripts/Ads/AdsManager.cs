@@ -37,8 +37,8 @@ public class AdsManager : MonoBehaviour
         if (loadRemainToAds <=0)
         {
             //show ads
-            interstitialAds.LoadAd();
-            interstitialAds.ShowAd();
+            //interstitialAds.LoadAd();
+            //interstitialAds.ShowAd();
             loadRemainToAds = initLoadRemainToAds;
         }
     }

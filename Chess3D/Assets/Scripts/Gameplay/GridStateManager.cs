@@ -242,6 +242,7 @@ public class GridStateManager : MonoBehaviour
         {
             GameplayManager.Instance.toggleBlocks[i].Setup(gridState.isActiveToggleBlocks[i]);
         }
+        GameplayManager.Instance.CheckActiveButtonObjects(true);
     }
 
     ChessMan SpawnChessMan(ChessManType chessManType, bool isEnemy, bool isAI = false)

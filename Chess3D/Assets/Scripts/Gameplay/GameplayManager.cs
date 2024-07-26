@@ -453,18 +453,11 @@ public class GameplayManager : MonoBehaviour
         }
         return false;
     }    
-    public void CheckActiveButtonObjects()
+    public void CheckActiveButtonObjects(bool isUndo = false)
     {
         foreach(var button in buttonObjects)
         {
-            if (GameUtils.GetTile(button.posIndex) != TileType.NONE)
-            {
-                button.ActiveButton();
-            }
-            else
-            {
-                button.InActiveButton();
-            }
+            button.CheckActiveButton(isUndo);
         }
     }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
