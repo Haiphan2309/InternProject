@@ -1,3 +1,4 @@
+using GDC.Enums;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,32 @@ public class ToggleBlock : MonoBehaviour
         Material[] mat = { materialOn0, materialOn1 };
         this.transform.GetComponent<MeshRenderer>().materials = mat;
         transform.GetComponent<BoxCollider>().enabled = true;
+
+        Vector3 pos = GameUtils.SnapToGrid(transform.position);
+
+        GameplayObject gameplayObject = GameUtils.GetGameplayObjectByPosition(pos);
+
+        if (gameplayObject != null) 
+        {
+            TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(pos));
+
+            Debug.Log("Tile: " + tile);
+
+            if (tile == TileType.ENEMY_CHESS)
+            {
+                GameplayManager.Instance.DefeatEnemyChessMan(gameplayObject.index);
+            }
+            else if (tile == TileType.PLAYER_CHESS)
+            {
+                GameplayManager.Instance.DefeatPlayerChessMan(gameplayObject.index);
+            }
+            else if (tile == TileType.BOX)
+            {
+                GameplayManager.Instance.UpdateTile(pos);
+            }
+
+            gameplayObject.Defeated();
+        }
 
         if (!isLoadInit)
         {
