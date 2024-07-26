@@ -6,6 +6,7 @@ using System.ComponentModel;
 using GDC.Constants;
 using Unity.VisualScripting;
 using RotaryHeart.Lib.SerializableDictionary;
+using NaughtyAttributes;
 
 [Serializable]
 public class TileInfo
@@ -231,4 +232,17 @@ public class LevelData : ScriptableObject
 
         return newArray;
     }
+
+#if UNITY_EDITOR
+    [Header("Danh cho muon sua lai 1 tile nao do ma khong can phai gen map lai")]
+    //Editor only
+    [SerializeField] private Vector3 posEdit;
+    [SerializeField] TileInfo tileInfoEdit;
+    [Button]
+    private void EditTileInfo()
+    {
+        Debug.Log("Edit tile success");
+        SetTileInfoNoDeep(posEdit, tileInfoEdit.id, tileInfoEdit.tileType);
+    }
+#endif
 }

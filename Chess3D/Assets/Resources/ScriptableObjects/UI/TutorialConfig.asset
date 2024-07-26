@@ -927,3 +927,108 @@ MonoBehaviour:
         unlikely to not see it.
       - "H\xE3y c\u1EA9n th\u1EADn v\xEC c\xF3 th\u1EC3 ch\xFAng s\u1EBD bi\u1EBFt
         c\xE1c trao \u0111\u1ED5i m\u1EE5c ti\xEAu."
+  - chapterIndex: 4
+    levelIndex: 0
+    tutorialSprite: {fileID: 21300000, guid: 3e226d3c548264d4c92b08e5b5a64316, type: 3}
+    tutorialText: 
+    tutorialDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - One of the new mechanics introduced in the version 1.1.0 is the BUTTON! It's
+        used to toggle on or off some blocks, where if toggle on is a solid block,
+        and if toggle off it's nothing but a skeleton that you can go through.
+      - "C\u01A1 ch\u1EBF m\u1EDBi xu\u1EA5t hi\u1EC7n trong phi\xEAn b\u1EA3n 1.1.0
+        l\xE0 n\xFAt b\u1EA5m, cho ph\xE9p b\u1EA1n b\u1EADt ho\u1EB7c t\u1EAFt m\u1ED9t
+        s\u1ED1 block \u0111\u1EC3 ph\xE1t tri\u1EC3n chi\u1EBFn thu\u1EADt."
+  - chapterIndex: 4
+    levelIndex: 1
+    tutorialSprite: {fileID: 21300000, guid: 3e226d3c548264d4c92b08e5b5a64316, type: 3}
+    tutorialText: 
+    tutorialDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - The BUTTON can be hold using BOX or BOULDER.
+      - "B\u1EA1n c\xF3 th\u1EC3 s\u1EED d\u1EE5ng kh\u1ED1I H\u1ED8P ho\u1EB7c kh\u1ED1i
+        C\u1EA6U \u0111\u1EC3 \u0111\xE8 n\xFAt."
+  - chapterIndex: 4
+    levelIndex: 2
+    tutorialSprite: {fileID: 21300000, guid: fa069025a31aba44ca836657851ad242, type: 3}
+    tutorialText: 
+    tutorialDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0000000001000000
+      _keys: 0000000001000000
+      _values:
+      - There are 2 kinds of BUTTON, and with that there are 2 types of toggle blocks
+        too. I don't know why they put another kind of button in, maybe it's the
+        dev's intention of making such a simple game like this much harder, maybe
+        they want to mess with players.
+      - "S\u1EBD c\xF3 2 lo\u1EA1i n\xFAt t\u01B0\u01A1ng \u1EE9ng v\u1EDBi 2 lo\u1EA1i
+        block c\xF3 th\u1EC3 b\u1EADt t\u1EAFt. H\xE3y \u0111\u1EC3 \xFD nh\xE9."
