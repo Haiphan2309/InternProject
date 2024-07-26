@@ -88,6 +88,9 @@ public class UIShopManager : MonoBehaviour
     [Button]
     public void Hide()
     {
+        exitButton.onClick.RemoveAllListeners();
+        removeAds.onClick.RemoveAllListeners();
+        dailyRewardButton.onClick.RemoveAllListeners();
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         playerInfoRect.DOAnchorPosY(200, 0.5f);
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
