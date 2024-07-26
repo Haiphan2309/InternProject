@@ -20,6 +20,7 @@ public class ToggleBlock : MonoBehaviour
     {
         Material[] mat = { materialOn0, materialOn1 };
         this.transform.GetComponent<MeshRenderer>().materials = mat;
+        transform.GetComponent<BoxCollider>().enabled = true;
 
         if (!isLoadInit)
         {
@@ -31,6 +32,8 @@ public class ToggleBlock : MonoBehaviour
     {
         Material[] mat = { materialOff };
         this.transform.GetComponent<MeshRenderer>().materials = mat;
+
+        transform.GetComponent<BoxCollider>().enabled = false;
 
         if (!isLoadInit)
         {

@@ -48,7 +48,7 @@ public class ChessMan : GameplayObject
 
         parentObject = transform.parent.gameObject;
     }
-    public void SetChessManData(PlayerChessManData chessManData)
+    public void SetChessManData(PlayerChessManData chessManData, Transform parentTransform = null)
     {
         if (config.chessManType != chessManData.chessManType)
         {
@@ -61,6 +61,7 @@ public class ChessMan : GameplayObject
         posIndex = chessManData.posIndex;
         isEnemy = false;
 
+        SetParentObject(parentTransform.gameObject);
         SetParentDefault();
 
         // transform.parent = null;
@@ -69,7 +70,7 @@ public class ChessMan : GameplayObject
         AjustPosToGround(posIndex);
         CheckBox(posIndex);
     }
-    public void SetChessManData(EnemyChessManData chessManData)
+    public void SetChessManData(EnemyChessManData chessManData, Transform parentTransform = null)
     {
         config = GetConfigFromType(chessManData.chessManType);
         index = chessManData.index;
@@ -79,6 +80,7 @@ public class ChessMan : GameplayObject
         isEnemy = true;
         isAI = chessManData.isAI;
 
+        SetParentObject(parentTransform.gameObject);
         SetParentDefault();
 
         // transform.parent = null;
