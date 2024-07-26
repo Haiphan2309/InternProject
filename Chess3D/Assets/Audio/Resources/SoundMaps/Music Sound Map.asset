@@ -30,3 +30,6 @@ MonoBehaviour:
   - name: GAMEPLAY_4
     Id: 154
     Data: {fileID: 11400000, guid: 9a5deb33447f6864691b3dd4cbb35195, type: 2}
+  - name: GAMEPLAY_5
+    Id: 155
+    Data: {fileID: 11400000, guid: 30c43dc5597d8a943838bef89d86dff2, type: 2}

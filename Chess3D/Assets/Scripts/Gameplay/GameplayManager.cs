@@ -106,6 +106,9 @@ public class GameplayManager : MonoBehaviour
             case 3:
                 SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_4);
                 break;
+            case 4:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_5);
+                break;
         }
     }
 
