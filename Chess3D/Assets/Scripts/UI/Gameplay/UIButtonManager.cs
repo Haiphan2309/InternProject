@@ -9,20 +9,21 @@ using UnityEngine.UI;
 
 public class UIButtonManager : MonoBehaviour
 {
-    [SerializeField] Button settingBtn;
-    [SerializeField] Button toggleChessManBtn;
-    [SerializeField] Button cameraModeBtn;
-    [SerializeField] Button backBtn;
-    [SerializeField] TMP_Text backNumber;
-    [SerializeField] Button solveBtn;
-    [SerializeField] TMP_Text solveNumber;
-    [SerializeField] Button turnBtn;
-    [SerializeField] TMP_Text turnNumber;
+    [SerializeField] private Button settingBtn;
+    [SerializeField] private Button toggleChessManBtn;
+    [SerializeField] private Button cameraModeBtn;
+    [SerializeField] private Button backBtn;
+    [SerializeField] private TMP_Text backNumber;
+    [SerializeField] private Button solveBtn;
+    [SerializeField] private TMP_Text solveNumber;
+    [SerializeField] private Button turnBtn;
+    [SerializeField] private TMP_Text turnNumber;
 
-    [SerializeField] Sprite MoveIcon;
-    [SerializeField] Sprite RotateIcon;
+    [SerializeField] private Sprite MoveIcon;
+    [SerializeField] private Sprite RotateIcon;
 
-    [SerializeField] GameObject hintEffectCanvas;
+    [SerializeField] private GameObject hintEffectCanvas;
+    [SerializeField] private GameObject turnEffectCanvas;
 
 
     public void Setup()
@@ -79,7 +80,7 @@ public class UIButtonManager : MonoBehaviour
     private void OnSolveBtnClicked()
     {
         // Call Solve method from GamePlay
-        PlayHintAnim();
+        PlayButtonAnim(hintEffectCanvas);
         PlayClickAnim(solveBtn);
         GameplayManager.Instance.ShowHint();
         // Update Number
@@ -93,6 +94,8 @@ public class UIButtonManager : MonoBehaviour
 
     private void OnTurnBtnClicked()
     {
+        PlayButtonAnim(turnEffectCanvas);
+        PlayClickAnim(turnBtn);
         GameplayManager.Instance.IncreaseTurn();
         UpdateNumber();
     }
@@ -158,19 +161,19 @@ public class UIButtonManager : MonoBehaviour
     } 
 
 
-    [Button]
-    private void PlayHintAnim()
+
+    private void PlayButtonAnim(GameObject canvas)
     {
-        // Call anim when press Hint button
-        hintEffectCanvas.SetActive(true);
-        RectTransform iconTranfrom = hintEffectCanvas.transform.GetChild(0).GetComponent<RectTransform>();
+        // Call anim when press  button
+        canvas.SetActive(true);
+        RectTransform iconTranfrom = canvas.transform.GetChild(0).GetComponent<RectTransform>();
         iconTranfrom.DOScale(2f, 0.5f)
             .SetEase(Ease.OutBounce)
             .OnComplete(() =>
             {
                 iconTranfrom.DOScale(0f, 0.5f)
                 .SetEase(Ease.InBack)
-                .OnComplete(() => { hintEffectCanvas.SetActive(false); });
+                .OnComplete(() => { canvas.SetActive(false); });
             });
 
     }
