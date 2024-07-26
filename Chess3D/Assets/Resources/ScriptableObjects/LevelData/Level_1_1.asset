@@ -8253,3 +8253,7 @@ MonoBehaviour:
     isPromote: 0
     promoteType: 1
   thumbnail: {fileID: 21300000, guid: c37673b254013424b924bfeb2dc14362, type: 3}
+  posEdit: {x: 0, y: 0, z: 0}
+  tileInfoEdit:
+    id: 0
+    tileType: 0

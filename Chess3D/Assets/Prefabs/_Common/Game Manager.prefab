@@ -498,6 +498,7 @@ Transform:
   m_Children:
   - {fileID: 8333223094363355458}
   - {fileID: 1321677995802706761}
+  - {fileID: 5027254777013679463}
   m_Father: {fileID: 7186807886058418985}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -515,6 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adsInitializer: {fileID: 2364242401449601938}
   interstitialAds: {fileID: 1365570378028404781}
+  rewardedAds: {fileID: 1971504109685754261}
   initLoadRemainToAds: 3
   loadRemainToAds: 0
 --- !u!1 &2051113583596249667
@@ -1171,6 +1173,52 @@ MonoBehaviour:
   SFX_MixerGroup: {fileID: 243859828884416902, guid: 4ad4b2f79c990a44491a73419100832b, type: 2}
   Music_MixerGroup: {fileID: 243261478563552786, guid: 4ad4b2f79c990a44491a73419100832b, type: 2}
   LOG_TAG: SoundMgr
+--- !u!1 &8512599857570209676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5027254777013679463}
+  - component: {fileID: 1971504109685754261}
+  m_Layer: 0
+  m_Name: RewardAds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5027254777013679463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8512599857570209676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4299247175380299841}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1971504109685754261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8512599857570209676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92af0cb1a324c24498a4b123816d3625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Rewarded_Android
+  _iOSAdUnitId: Rewarded_iOS
 --- !u!1 &8736170849433291915
 GameObject:
   m_ObjectHideFlags: 0

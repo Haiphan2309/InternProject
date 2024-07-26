@@ -15,5 +15,6 @@ public class ShopSlotData
 [CreateAssetMenu(menuName = "Config/ShopConfig")]
 public class ShopConfig : ScriptableObject
 {
+    public int maxDailyAdsLimit;
     public List<ShopSlotData> shopSlotDatas = new List<ShopSlotData>();
 }

@@ -172,6 +172,7 @@ public class GameplayManager : MonoBehaviour
         SetRemainTurn(remainTurn + value);
         isEndGame = false;
         ChangeTurn(!enemyTurn);
+        AdsManager.Instance.ON_REWARD_TURN -= RewardTurn;
     }
     private IEnumerator Cor_EndTurn()
     {
