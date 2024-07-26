@@ -35,6 +35,11 @@ public class GameplayObject : MonoBehaviour
 
     [SerializeField] protected GameObject parentObject;
 
+    //private void Start()
+    //{
+    //    parentObject = transform.parent.gameObject;
+    //}
+
     public virtual void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     {
         
@@ -83,6 +88,11 @@ public class GameplayObject : MonoBehaviour
 
         outline.OutlineWidth = 0f;
         posIcon.SetActive(false);
+    }
+
+    public void SetParentObject(GameObject parentObject)
+    {
+        this.parentObject = parentObject;
     }
 
     protected void SetParentDefault()
