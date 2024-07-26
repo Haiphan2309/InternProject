@@ -112,7 +112,7 @@ public class UIButtonManager : MonoBehaviour
         
         RecheckItemNumber();
         ChekcCanUndo();
-        if (GameplayManager.Instance.isBeginRound)
+        if (GameplayManager.Instance.isBeginRound == 0)
         {
             backBtn.interactable = false;
         }

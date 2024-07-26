@@ -126,6 +126,7 @@ public class GameplayObject : MonoBehaviour
                 current.y -= 1;
                 tile = GameUtils.GetTileBelowObject(current);
                 if (current == end) break;
+                if (current.y <= -3) return path;
             }
 
             MoveToNextPath(ref current, end);
@@ -146,6 +147,7 @@ public class GameplayObject : MonoBehaviour
                 current.y -= 1;
                 tile = GameUtils.GetTileBelowObject(current);
                 if (current == end) break;
+                if (current.y <= -3) return path;
             }
 
             if (GameUtils.CheckSlope(tile))

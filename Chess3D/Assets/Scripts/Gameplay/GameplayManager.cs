@@ -17,7 +17,7 @@ public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance { get; private set; }
 
-    public bool isBeginRound = true;
+    public int isBeginRound = 0;
 
     [SerializeField] private LevelSpawner levelSpawner;
     [SerializeField] private GridStateManager gridSateManager;
@@ -152,7 +152,7 @@ public class GameplayManager : MonoBehaviour
         remainTurn = value;
         if (remainTurn < 0) remainTurn = 0;
 
-        if (remainTurn >= levelData.maxTurn)
+        if (remainTurn > levelData.maxTurn)
         {
             remainTurn = levelData.maxTurn;
         }
@@ -463,9 +463,10 @@ public class GameplayManager : MonoBehaviour
     }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
-        isBeginRound = false;
+        
         if (chessMan.isEnemy == false) //Nếu là player thì lưu vết để có thể undo nước đi được
         {
+            isBeginRound++;
             gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest, toggleBlocks);
         }
         camController.MovingFocus(chessMan.transform);
@@ -625,11 +626,12 @@ public class GameplayManager : MonoBehaviour
         gridSateManager.Undo();
         SaveLoadManager.Instance.Save();
         BackHintMove();
-        
-        if (remainTurn == levelSpawner.levelData.maxTurn)
+
+        isBeginRound--;
+
+        if (isBeginRound == 0)
         {
             canHint = true;
-            isBeginRound = true;
         }
         else
         {
@@ -701,17 +703,15 @@ public class GameplayManager : MonoBehaviour
 
     private void BackHintMove()
     {
-        if (moveListTmp.Count <= 0) return;
-
+        if (Cor_HintAnim != null) StopCoroutine(Cor_HintAnim);
         if (isShowHint) ResetChessManAfterAnim();
+
+        if (moveListTmp.Count <= 0) return;
 
         moveList.Insert(0, moveListTmp[moveListTmp.Count - 1]);
         moveListTmp.RemoveAt(moveListTmp.Count - 1);
 
         DestroyAllChildren(baseHint.gameObject);
-
-        if (Cor_HintAnim != null) StopCoroutine(Cor_HintAnim);
-
     }
 
     private void ResetChessManAfterAnim()
@@ -719,6 +719,10 @@ public class GameplayManager : MonoBehaviour
         if (moveListTmp.Count <= 0) return;
 
         GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).playerArmy.posIndex);
+        chessman.outline.OutlineWidth = 0f;
+
+        if (moveList.Count <= 0) return;
+        chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(0).playerArmy.posIndex);
         chessman.outline.OutlineWidth = 0f;
     }
 
