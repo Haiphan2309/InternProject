@@ -504,6 +504,12 @@ public class ChessMan : GameplayObject
 
         GameplayManager.Instance.CheckActiveButtonObjects();
 
+        if (GameUtils.SnapToGrid(transform.position).y <= -3)
+        {
+            isAnim = false;
+            this.Defeated();
+        }
+
         StartCoroutine(CheckPromote());
     }
 

@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498196610ab39a642a7a775d3d6ace2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBeginRound: 1
+  isBeginRound: 0
   levelSpawner: {fileID: 1220447863}
   gridSateManager: {fileID: 2133746357}
   camController: {fileID: 1349836853}
@@ -6010,6 +6010,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2039303117}
+    - target: {fileID: 5807779188169244651, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807779188169244651, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5807779189582467139, guid: 9ebee293af6c045408cc4a19351d49dd, type: 3}
       propertyPath: m_RootOrder
       value: 7
