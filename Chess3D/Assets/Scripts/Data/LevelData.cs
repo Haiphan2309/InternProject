@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using GDC.Enums;
 using System;
@@ -85,17 +85,17 @@ public class HintMove
 [Serializable]
 public class LevelData : ScriptableObject
 {
-    public int id;
-    public Vector3 center;
-    public float distance;
-    public int maxTurn;
-    public int starTurn2;
-    public int starTurn3;
-    public List<TileData> tileInfo;
+    public int id; //id của level
+    public Vector3 center; //vị trí trung tâm cho camera
+    public float distance; //khoảng cách từ camera đến map
+    public int maxTurn; //Số lượt chơi tối đa của màn
+    public int starTurn2; //Số lượt chơi còn lại ít nhất để đạt 2 sao
+    public int starTurn3; //Số lượt chơi còn lại ít nhất để đạt 3 sao
+    public List<TileData> tileInfo; //Chứa list các tile (dữ liệu chính của map)
     [SerializeField] private List<PlayerArmy> playerArmies;
     [SerializeField] private List<EnemyArmy> enemyArmies;
 
-    public List<HintMove> hintMoves;
+    public List<HintMove> hintMoves; //Chứa cách giải puzzle của màn
 
     public Sprite thumbnail;
 
