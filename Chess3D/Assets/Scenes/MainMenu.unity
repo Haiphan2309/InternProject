@@ -11330,6 +11330,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 500799157, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
+      propertyPath: GameDataOrigin.IsHaveSaveData
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2051113583596249667, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
       propertyPath: m_Name
       value: Game Manager
