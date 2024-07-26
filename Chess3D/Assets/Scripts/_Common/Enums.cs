@@ -45,8 +45,8 @@ namespace GDC.Enums
     public enum TileType
     {
         NONE, //Ko co gi
-        GROUND, //Dung duoc
-        OBJECT, //Khong di qua duoc va khong dung duoc
+        GROUND, //Stand duoc
+        OBJECT, //Khong di qua duoc va khong stand duoc
         WATER, //Nuoc
         BOX, //Box
         BOULDER, //Boulder
