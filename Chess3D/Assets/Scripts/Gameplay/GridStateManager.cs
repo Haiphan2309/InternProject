@@ -1,9 +1,8 @@
 ﻿using GDC.Enums;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameplayObjectData
@@ -130,6 +129,8 @@ public class GridState
 public class GridStateManager : MonoBehaviour
 {
     private Stack<GridState> gridStateStack;
+    [SerializeField, ReadOnly] private GameObject playerParent;
+    [SerializeField, ReadOnly] private GameObject enemyParent;
 
     public void Setup()
     {
@@ -156,6 +157,9 @@ public class GridStateManager : MonoBehaviour
     }
     public void Undo()
     {
+        playerParent = GameObject.Find("PlayerChessObject").gameObject;
+        enemyParent = GameObject.Find("EnemyChessObject").gameObject;
+
         if (CheckCanUndo() == false)
         {
             return;
@@ -199,7 +203,7 @@ public class GridStateManager : MonoBehaviour
             {
                 if (gameplayPlayer.index == chessManData.index)
                 {
-                    gameplayPlayer.SetChessManData(chessManData);
+                    gameplayPlayer.SetChessManData(chessManData, playerParent.transform);
                     isFind = true;
                     break;
                 }
@@ -208,7 +212,7 @@ public class GridStateManager : MonoBehaviour
             if (isFind == false) //ChessMan này đã bị hủy, cần phải sinh ra lại
             {
                 ChessMan chessMan = SpawnChessMan(chessManData.chessManType, false);
-                chessMan.SetChessManData(chessManData);
+                chessMan.SetChessManData(chessManData, playerParent.transform);
                 GameplayManager.Instance.playerArmy.Add(chessMan);
             }
         }
@@ -221,7 +225,7 @@ public class GridStateManager : MonoBehaviour
         foreach (var chessManData in gridState.enemyChessManDatas)
         {
             ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true);
-            chessMan.SetChessManData(chessManData);
+            chessMan.SetChessManData(chessManData, enemyParent.transform);
             GameplayManager.Instance.enemyArmy.Add(chessMan);
         }
 
@@ -305,7 +309,9 @@ public class GridStateManager : MonoBehaviour
                     chessManObj = Resources.Load<GameObject>("ChessManPrefabs/305");
                 break;
         }
-        return Instantiate(chessManObj).GetComponent<ChessMan>();
+
+        GameObject parentObject = isEnemy ? enemyParent : playerParent;
+        return Instantiate(chessManObj, parentObject.transform).GetComponent<ChessMan>();
     }
     GameplayObject SpawnGameplayObject(string objName) //200 is box, 201 is boulder
     {
