@@ -27,9 +27,8 @@ public class AdsManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-#if UNITY_EDITOR
-        adsInitializer.InitializeAds();
-#endif
+
+        //adsInitializer.InitializeAds();
     }
     private void Start()
     {
@@ -45,22 +44,17 @@ public class AdsManager : MonoBehaviour
         if (loadRemainToAds <=0)
         {
             //show ads
-#if UNITY_EDITOR
-            interstitialAds.LoadAd();
-            interstitialAds.ShowAd();
-#endif
+            //interstitialAds.LoadAd();
+            //interstitialAds.ShowAd();
             loadRemainToAds = initLoadRemainToAds;
         }
     }
     public void ShowRewardAds()
     {
-#if UNITY_EDITOR
-        rewardedAds.LoadAd();
-        rewardedAds.ShowAd();
-        //#else
-#else
-        ON_REWARD_DAILY_ADS.Invoke();
-        ON_REWARD_TURN.Invoke(GameConstants.TURN_REWARD);
-#endif
+        //rewardedAds.LoadAd();
+        //rewardedAds.ShowAd();
+
+        ON_REWARD_DAILY_ADS?.Invoke();
+        ON_REWARD_TURN?.Invoke(GameConstants.TURN_REWARD);
     }
 }
