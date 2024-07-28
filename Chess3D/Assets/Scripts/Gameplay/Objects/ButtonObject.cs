@@ -54,9 +54,7 @@ public class ButtonObject : GameplayObject
                 InactiveButton();
             }
             isActive = false;
-        }
-
-        GameplayManager.Instance.EndTurn();
+        }    
     }
 
 }

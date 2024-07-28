@@ -320,8 +320,8 @@ public class ChessMan : GameplayObject
             Promote(testPromoteType);
             GameplayManager.Instance.uiGameplayManager.UpdateHolder(this);
         }
-        //if (!isDrop) GameplayManager.Instance.EndTurn();
-        //isDrop = false;
+        if (!isDrop) GameplayManager.Instance.EndTurn();
+        isDrop = false;
     }
 
     void RotateToDirection(Vector3 direction)
