@@ -17,7 +17,7 @@ public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance { get; private set; }
 
-    public bool isBeginRound = true;
+    public int isBeginRound = 0;
 
     [SerializeField] private LevelSpawner levelSpawner;
     [SerializeField] private GridStateManager gridSateManager;
@@ -32,9 +32,12 @@ public class GameplayManager : MonoBehaviour
     [HideInInspector] public LevelData levelData;
     [HideInInspector] public ChapterData chapterData;
 
-    [SerializeField, ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
+    [ReadOnly] public List<ChessMan> playerArmy, enemyArmy, listEnemyPriorityLowest;
     [SerializeField, ReadOnly] private List<ChessMan> outlineChessMan;
     [SerializeField, ReadOnly] private List<GameplayObject> outlineGameplayObj;
+    [SerializeField, ReadOnly] private List<ButtonObject> buttonObjects;
+    [ReadOnly] public List<ToggleBlock> toggleBlocks;
+
     [ReadOnly] public int remainTurn;
     [ReadOnly] public bool enemyTurn;
     [HideInInspector] public bool isAnimMoving, isEndTurn, isEndGame;
@@ -63,6 +66,8 @@ public class GameplayManager : MonoBehaviour
 
         playerArmy = levelSpawner.playerArmy;
         enemyArmy = levelSpawner.enemyArmy;
+        toggleBlocks = levelSpawner.toggleBlockList;
+        buttonObjects = levelSpawner.buttonList;
         SetRemainTurn(levelSpawner.levelData.maxTurn, false);
         camController.Setup(levelSpawner.levelData.center, levelSpawner.levelData.distance);
 
@@ -79,6 +84,8 @@ public class GameplayManager : MonoBehaviour
         gridSateManager.Setup();
         uiGameplayManager.ChangeTurn(enemyTurn);
         //SetPowerUpNum();
+        int cameraSpeed = PlayerPrefs.GetInt("CameraTargetSpeed", 8);
+        camController.ChangeTargetSpeedValue(cameraSpeed);
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }
@@ -98,6 +105,9 @@ public class GameplayManager : MonoBehaviour
                 break;
             case 3:
                 SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_4);
+                break;
+            case 4:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_5);
                 break;
         }
     }
@@ -142,7 +152,7 @@ public class GameplayManager : MonoBehaviour
         remainTurn = value;
         if (remainTurn < 0) remainTurn = 0;
 
-        if (remainTurn >= levelData.maxTurn)
+        if (remainTurn > levelData.maxTurn)
         {
             remainTurn = levelData.maxTurn;
         }
@@ -162,6 +172,7 @@ public class GameplayManager : MonoBehaviour
         SetRemainTurn(remainTurn + value);
         isEndGame = false;
         ChangeTurn(!enemyTurn);
+        AdsManager.Instance.ON_REWARD_TURN -= RewardTurn;
     }
     private IEnumerator Cor_EndTurn()
     {
@@ -443,12 +454,20 @@ public class GameplayManager : MonoBehaviour
         }
         return false;
     }    
+    public void CheckActiveButtonObjects(bool isUndo = false)
+    {
+        foreach(var button in buttonObjects)
+        {
+            button.CheckActiveButton(isUndo);
+        }
+    }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
-        isBeginRound = false;
+        
         if (chessMan.isEnemy == false) //Nếu là player thì lưu vết để có thể undo nước đi được
         {
-            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest);
+            isBeginRound++;
+            gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest, toggleBlocks);
         }
         camController.MovingFocus(chessMan.transform);
 
@@ -502,6 +521,10 @@ public class GameplayManager : MonoBehaviour
     {
         levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
     }
+    public void SetTile(Vector3 pos, TileType tileType)
+    {
+        levelData.SetTileInfoNoDeep(pos, 0, tileType);
+    }
     public void EndTurn() //Duoc goi sau khi ket thuc luot
     {
         camController.MovingUnFocus();
@@ -534,7 +557,7 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         uiGameplayManager.ShowWin(isNewRecord);
     }
-    void Lose()
+    private void Lose()
     {
         Debug.Log("Lose");
         isEndGame = true;
@@ -603,11 +626,12 @@ public class GameplayManager : MonoBehaviour
         gridSateManager.Undo();
         SaveLoadManager.Instance.Save();
         BackHintMove();
-        
-        if (remainTurn == levelSpawner.levelData.maxTurn)
+
+        isBeginRound--;
+
+        if (isBeginRound == 0)
         {
             canHint = true;
-            isBeginRound = true;
         }
         else
         {
@@ -679,17 +703,15 @@ public class GameplayManager : MonoBehaviour
 
     private void BackHintMove()
     {
-        if (moveListTmp.Count <= 0) return;
-
+        if (Cor_HintAnim != null) StopCoroutine(Cor_HintAnim);
         if (isShowHint) ResetChessManAfterAnim();
+
+        if (moveListTmp.Count <= 0) return;
 
         moveList.Insert(0, moveListTmp[moveListTmp.Count - 1]);
         moveListTmp.RemoveAt(moveListTmp.Count - 1);
 
         DestroyAllChildren(baseHint.gameObject);
-
-        if (Cor_HintAnim != null) StopCoroutine(Cor_HintAnim);
-
     }
 
     private void ResetChessManAfterAnim()
@@ -697,6 +719,10 @@ public class GameplayManager : MonoBehaviour
         if (moveListTmp.Count <= 0) return;
 
         GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).playerArmy.posIndex);
+        chessman.outline.OutlineWidth = 0f;
+
+        if (moveList.Count <= 0) return;
+        chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(0).playerArmy.posIndex);
         chessman.outline.OutlineWidth = 0f;
     }
 

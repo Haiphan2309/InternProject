@@ -1,3 +1,4 @@
+using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,6 +19,7 @@ public class UIAnnounce : MonoBehaviour
     }
     void Hide()
     {
+        hideButton.onClick.RemoveAllListeners();
         PopupManager.Instance.HideBlackBg();
         uiPopupAnim.Hide();
         Destroy(gameObject, 1);

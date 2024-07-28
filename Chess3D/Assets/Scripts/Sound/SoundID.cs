@@ -20,6 +20,7 @@ namespace AudioPlayer
         GAMEPLAY_2,
         GAMEPLAY_3,
         GAMEPLAY_4,
+        GAMEPLAY_5,
         
         //SOUND EFFECT
         _____GAMEPLAY________ = 400, //ko goi cai nay
@@ -38,5 +39,7 @@ namespace AudioPlayer
         SFX_TRANSITION_IN,
         SFX_TRANSITION_OUT,
         SFX_STAR,
+        SFX_PURCHASE,
+        SFX_OPEN_CHEST,
     }
 }

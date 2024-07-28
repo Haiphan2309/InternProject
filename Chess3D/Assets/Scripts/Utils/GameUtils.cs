@@ -37,6 +37,11 @@ public static class GameUtils
         return tileType == TileType.PLAYER_CHESS || tileType == TileType.ENEMY_CHESS;
     }
 
+    public static bool CheckBox(TileType tileType)
+    {
+        return tileType == TileType.BOX;
+    }
+
     public static TileType GetTileBelowObject(Vector3 position)
     {
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(position + Vector3.down);

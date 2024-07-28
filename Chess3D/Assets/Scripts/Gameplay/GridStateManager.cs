@@ -1,9 +1,8 @@
 ﻿using GDC.Enums;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameplayObjectData
@@ -83,8 +82,9 @@ public class GridState
     public List<PlayerChessManData> playerChessManDatas;
     public List<EnemyChessManData> enemyChessManDatas, enemyChessManDataPrioritys;
     public List<GameplayObjectData> gameplayObjectDatas;
+    public List<bool> isActiveToggleBlocks;
 
-    public GridState(List<TileInfo> tileInfos, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest)
+    public GridState(List<TileInfo> tileInfos, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest, List<ToggleBlock> toggleBlocks)
     {
         this.tileInfos = new List<TileInfo>();
         foreach (TileInfo tileInfo in tileInfos)
@@ -114,6 +114,12 @@ public class GridState
         List<GameplayObject> objs = GameObject.FindObjectsOfType<GameplayObject>().OfType<GameplayObject>().ToList();
         List<GameplayObject> gameplayObjs = objs.FindAll(x => x.CompareTag("Object"));
 
+        this.isActiveToggleBlocks = new List<bool>();
+        foreach (ToggleBlock toggleBlock in toggleBlocks)
+        {
+            this.isActiveToggleBlocks.Add(toggleBlock.isOn);
+        }
+
         foreach (var gameplayObj in gameplayObjs)
         {
             this.gameplayObjectDatas.Add(new GameplayObjectData(gameplayObj));
@@ -123,19 +129,21 @@ public class GridState
 public class GridStateManager : MonoBehaviour
 {
     private Stack<GridState> gridStateStack;
+    [SerializeField, ReadOnly] private GameObject playerParent;
+    [SerializeField, ReadOnly] private GameObject enemyParent;
 
     public void Setup()
     {
         gridStateStack = new Stack<GridState>();
     }
-    public void AddState(List<TileData> tileDatas, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest)
+    public void AddState(List<TileData> tileDatas, List<ChessMan> playerArmy, List<ChessMan> enemyArmy, List<ChessMan> listEnemyPriorityLowest, List<ToggleBlock> toggleBlocks)
     {
         List<TileInfo> tileInfos = new List<TileInfo>();
         foreach(var tileData in tileDatas)
         {
             tileInfos.Add(tileData.tileInfo);
         }
-        GridState newGridState = new GridState(tileInfos, playerArmy, enemyArmy, listEnemyPriorityLowest);
+        GridState newGridState = new GridState(tileInfos, playerArmy, enemyArmy, listEnemyPriorityLowest, toggleBlocks);
         gridStateStack.Push(newGridState);
     }
     public bool CheckCanUndo()
@@ -149,6 +157,9 @@ public class GridStateManager : MonoBehaviour
     }
     public void Undo()
     {
+        playerParent = GameObject.Find("PlayerChessObject").gameObject;
+        enemyParent = GameObject.Find("EnemyChessObject").gameObject;
+
         if (CheckCanUndo() == false)
         {
             return;
@@ -160,8 +171,6 @@ public class GridStateManager : MonoBehaviour
         {
             levelData.tileInfo[i].tileInfo = gridState.tileInfos[i];
         }
-
-        
 
         List<GameplayObject> objs = FindObjectsOfType<GameplayObject>().OfType<GameplayObject>().ToList();
         List<GameplayObject> gameplayObjs = objs.FindAll(x => x.CompareTag("Object"));
@@ -180,7 +189,7 @@ public class GridStateManager : MonoBehaviour
                 }
             }
 
-            if (isFind == false) //Gameplay này đã bị hủy, cần phải sinh ra lại
+            if (isFind == false) //GameplayObject này đã bị hủy, cần phải sinh ra lại
             {
                 GameplayObject obj = SpawnGameplayObject(gameplayObjData.objName);
                 obj.SetGameplayObjectData(gameplayObjData);
@@ -194,7 +203,7 @@ public class GridStateManager : MonoBehaviour
             {
                 if (gameplayPlayer.index == chessManData.index)
                 {
-                    gameplayPlayer.SetChessManData(chessManData);
+                    gameplayPlayer.SetChessManData(chessManData, playerParent.transform);
                     isFind = true;
                     break;
                 }
@@ -203,7 +212,7 @@ public class GridStateManager : MonoBehaviour
             if (isFind == false) //ChessMan này đã bị hủy, cần phải sinh ra lại
             {
                 ChessMan chessMan = SpawnChessMan(chessManData.chessManType, false);
-                chessMan.SetChessManData(chessManData);
+                chessMan.SetChessManData(chessManData, playerParent.transform);
                 GameplayManager.Instance.playerArmy.Add(chessMan);
             }
         }
@@ -216,7 +225,7 @@ public class GridStateManager : MonoBehaviour
         foreach (var chessManData in gridState.enemyChessManDatas)
         {
             ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true);
-            chessMan.SetChessManData(chessManData);
+            chessMan.SetChessManData(chessManData, enemyParent.transform);
             GameplayManager.Instance.enemyArmy.Add(chessMan);
         }
 
@@ -232,7 +241,14 @@ public class GridStateManager : MonoBehaviour
                 }
             }
         }
+
+        for (int i = 0; i < GameplayManager.Instance.toggleBlocks.Count; i++) 
+        {
+            GameplayManager.Instance.toggleBlocks[i].Setup(gridState.isActiveToggleBlocks[i]);
+        }
+        GameplayManager.Instance.CheckActiveButtonObjects(true);
     }
+
     ChessMan SpawnChessMan(ChessManType chessManType, bool isEnemy, bool isAI = false)
     {
         GameObject chessManObj = null;
@@ -293,7 +309,9 @@ public class GridStateManager : MonoBehaviour
                     chessManObj = Resources.Load<GameObject>("ChessManPrefabs/305");
                 break;
         }
-        return Instantiate(chessManObj).GetComponent<ChessMan>();
+
+        GameObject parentObject = isEnemy ? enemyParent : playerParent;
+        return Instantiate(chessManObj, parentObject.transform).GetComponent<ChessMan>();
     }
     GameplayObject SpawnGameplayObject(string objName) //200 is box, 201 is boulder
     {

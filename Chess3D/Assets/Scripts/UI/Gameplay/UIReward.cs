@@ -16,6 +16,7 @@ public class UIReward : MonoBehaviour
     [SerializeField] private Button exitButton;
     public void Show(DailyRewardConfig dailyRewardConfig)
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_UI_SHOW);
         exitButton.onClick.RemoveAllListeners();
         exitButton.onClick.AddListener(Hide);
 
@@ -34,6 +35,7 @@ public class UIReward : MonoBehaviour
     }
     public void Show(ShopSlotData shopSlotData, string des)
     {
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_UI_SHOW);
         exitButton.onClick.RemoveAllListeners();
         exitButton.onClick.AddListener(Hide);
         rect.localScale = Vector2.zero;
@@ -70,6 +72,8 @@ public class UIReward : MonoBehaviour
     }
     public void Hide()
     {
+        exitButton.onClick.RemoveAllListeners();
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         PopupManager.Instance.HideBlackBg();
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
     }

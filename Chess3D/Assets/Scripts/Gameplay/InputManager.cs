@@ -153,6 +153,7 @@ public class InputManager : MonoBehaviour
 
         if (GameplayManager.Instance.enemyTurn == false && GameplayManager.Instance.isAnimMoving == false && isPicking)
         {
+            isPicking = false;
             if (GameplayManager.Instance.CheckMove(curChessMan.config, curChessMan.posIndex, hitObject.posIndex))
             {
                 Debug.Log("Object duoc tuong tac");
@@ -201,6 +202,7 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         //Enemy khong the an duoc
+                        isPicking = false;
                         CheckShowOutlineChessMan();
                     }
                 }
