@@ -1,3 +1,4 @@
+using GDC.Constants;
 using GDC.Managers;
 using NaughtyAttributes;
 using System;
@@ -26,7 +27,9 @@ public class AdsManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+#if UNITY_EDITOR
         adsInitializer.InitializeAds();
+#endif
     }
     private void Start()
     {
@@ -42,14 +45,22 @@ public class AdsManager : MonoBehaviour
         if (loadRemainToAds <=0)
         {
             //show ads
-            //interstitialAds.LoadAd();
-            //interstitialAds.ShowAd();
+#if UNITY_EDITOR
+            interstitialAds.LoadAd();
+            interstitialAds.ShowAd();
+#endif
             loadRemainToAds = initLoadRemainToAds;
         }
     }
     public void ShowRewardAds()
     {
+#if UNITY_EDITOR
         rewardedAds.LoadAd();
         rewardedAds.ShowAd();
+        //#else
+#else
+        ON_REWARD_DAILY_ADS.Invoke();
+        ON_REWARD_TURN.Invoke(GameConstants.TURN_REWARD);
+#endif
     }
 }
