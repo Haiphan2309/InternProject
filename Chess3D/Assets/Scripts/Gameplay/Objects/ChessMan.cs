@@ -11,6 +11,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using static UnityEditor.PlayerSettings;
 
 public class ChessMan : GameplayObject
 {
@@ -320,8 +321,8 @@ public class ChessMan : GameplayObject
             Promote(testPromoteType);
             GameplayManager.Instance.uiGameplayManager.UpdateHolder(this);
         }
-        //if (!isDrop) GameplayManager.Instance.EndTurn();
-        //isDrop = false;
+        if (!isDrop) GameplayManager.Instance.EndTurn();
+        isDrop = false;
     }
 
     void RotateToDirection(Vector3 direction)
@@ -498,17 +499,31 @@ public class ChessMan : GameplayObject
 
         isStandOnSlope = isOnSlope;
 
+        if (GameUtils.SnapToGrid(transform.position).y <= -3)
+        {
+            isAnim = false;
+
+            TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(posIndex));
+
+            Debug.Log("Tile: " + tile);
+
+            if (tile == TileType.ENEMY_CHESS)
+            {
+                GameplayManager.Instance.DefeatEnemyChessMan(index);
+            }
+            else if (tile == TileType.PLAYER_CHESS)
+            {
+                GameplayManager.Instance.DefeatPlayerChessMan(index);
+            }
+
+            this.Defeated();
+        }
+
         SetPosIndex();
 
         CheckBox(target);
 
         GameplayManager.Instance.CheckActiveButtonObjects();
-
-        if (GameUtils.SnapToGrid(transform.position).y <= -3)
-        {
-            isAnim = false;
-            this.Defeated();
-        }
 
         StartCoroutine(CheckPromote());
     }
