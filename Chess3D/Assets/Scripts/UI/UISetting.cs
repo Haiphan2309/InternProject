@@ -28,6 +28,7 @@ public class UISetting : MonoBehaviour
         if (isGameplay)
         {
             bottomGroupRect.gameObject.SetActive(true);
+            levelText.gameObject.SetActive(true);
             uiPopupAnim.ReloadOriginImageColor();
         }
         else

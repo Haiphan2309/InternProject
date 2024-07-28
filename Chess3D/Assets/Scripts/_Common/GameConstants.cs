@@ -17,5 +17,7 @@ namespace GDC.Constants
 
         public const int MAX_LEVEL = 8;
         public const int MAX_CHAPTER = 5;
+
+        public const int TURN_REWARD = 5;
     }
 }

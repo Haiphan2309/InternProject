@@ -1,5 +1,6 @@
 using GDC.Managers;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,12 @@ public class AdsManager : MonoBehaviour
 
     [SerializeField] private AdsInitializer adsInitializer;
     [SerializeField] private InterstitialAdsButton interstitialAds;
+    [SerializeField] private RewardedAdsButton rewardedAds;
     [SerializeField] private int initLoadRemainToAds = 3;
     [SerializeField, ReadOnly] private int loadRemainToAds;
+
+    public Action<int> ON_REWARD_TURN;
+    public Action ON_REWARD_DAILY_ADS;
     private void Awake()
     {
         if (Instance != null)
@@ -37,9 +42,14 @@ public class AdsManager : MonoBehaviour
         if (loadRemainToAds <=0)
         {
             //show ads
-            interstitialAds.LoadAd();
-            interstitialAds.ShowAd();
+            //interstitialAds.LoadAd();
+            //interstitialAds.ShowAd();
             loadRemainToAds = initLoadRemainToAds;
         }
+    }
+    public void ShowRewardAds()
+    {
+        rewardedAds.LoadAd();
+        rewardedAds.ShowAd();
     }
 }

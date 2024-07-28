@@ -14,25 +14,49 @@ public class ButtonObject : GameplayObject
         targetPosition = posIndex;
     }
     [Button]
-    public void ActiveButton()
+    private void ActiveButton()
     {
         if (isActive == true) return;
 
-        isActive = true;
+        //isActive = true;
         foreach (ToggleBlock block in toggleBlocks)
         {
             block.Toggle();
         }
     }
     [Button]
-    public void InActiveButton()
+    private void InactiveButton()
     {
         if (isActive == false) return;
 
-        isActive = false;
+        //isActive = false;
         foreach (ToggleBlock block in toggleBlocks)
         {
             block.Toggle();
         }
     }
+
+    //Bien isUndo de check sau khi undo chi set lai bien isActive phu hop
+    public void CheckActiveButton(bool isUndo = false) 
+    {
+        if (GameUtils.GetTile(posIndex) != GDC.Enums.TileType.NONE)
+        {
+            if (isUndo == false)
+            {
+                ActiveButton();
+            }
+            isActive = true;
+        }    
+        else
+        {
+            if (isUndo == false)
+            {
+                InactiveButton();
+            }
+            isActive = false;
+        }
+
+        GameplayManager.Instance.EndTurn();
+    }
+
 }

@@ -5,15 +5,13 @@ using UnityEngine;
 using UnityEngine.Audio;
 using System.Text;
 using AudioPlayer;
-using DG.Tweening;
-using Unity.VisualScripting;
 
 namespace GDC.Managers
 {
     public class SoundManager : MonoBehaviour
     {
-        public static SoundManager Instance {get; private set;}
-        [SerializeField] GameObject sfxPrefab;        
+        public static SoundManager Instance { get; private set; }
+        [SerializeField] GameObject sfxPrefab;
         [SerializeField] SoundMapConfig soundMapConfig;
         [SerializeField] int numberOfDefaultSFX = 8;
 
@@ -46,8 +44,8 @@ namespace GDC.Managers
 
         private List<SoundMap> soundMaps;
         public static System.Action ON_FINISH_LOADING_SOUNDMAP;
-        private Coroutine introCoroutine, dialogueCoroutine;
-        private List<SoundID> currentMusicIDPlaying;
+
+        private AudioSource currentMusicAudioSource;
         private void Awake()
         {
             if (Instance != null)
@@ -71,8 +69,6 @@ namespace GDC.Managers
             LoadCommonSoundMaps();
 
             StartCoroutine(Init());
-
-            currentMusicIDPlaying = new List<SoundID>();
         }
 
         public IEnumerator Init()
@@ -88,35 +84,35 @@ namespace GDC.Managers
             ON_FINISH_LOADING_SOUNDMAP?.Invoke();
         }
 
-        // private void OnAdPauseUserMusic()
-        // {
-        //     if (!isAdPauseUserMusic)
-        //     {
-        //         isAdPauseUserMusic = true;
-        //         SetMute(isAdPauseUserMusic);
-        //     }
-        // }
+        private void OnAdPauseUserMusic()
+        {
+            if (!isAdPauseUserMusic)
+            {
+                isAdPauseUserMusic = true;
+                SetMute(isAdPauseUserMusic);
+            }
+        }
 
-        // private void OnAdResumeUserMusic()
-        // {
-        //     if (isAdPauseUserMusic)
-        //     {
-        //         isAdPauseUserMusic = false;
-        //         SetMute(isAdPauseUserMusic);
-        //     }
-        // }
+        private void OnAdResumeUserMusic()
+        {
+            if (isAdPauseUserMusic)
+            {
+                isAdPauseUserMusic = false;
+                SetMute(isAdPauseUserMusic);
+            }
+        }
 
-        //void Update()
-        //{
-// #if UNITY_EDITOR || UNITY_STANDALONE
-//             if( Input.GetKeyDown( KeyCode.M ) )
-//             {
-//                 // * Mute key cheat
-//                 Debug.Log( "M key was pressed." );
-//                 TriggerDisableMusic();
-//             }
-// #endif
-        //}
+        void Update()
+        {
+#if UNITY_EDITOR || UNITY_STANDALONE
+            if( Input.GetKeyDown( KeyCode.M ) )
+            {
+                // * Mute key cheat
+                Debug.Log( "M key was pressed." );
+                TriggerDisableMusic();
+            }
+#endif
+        }
 
         void TriggerDisableMusic()
         {
@@ -193,7 +189,7 @@ namespace GDC.Managers
                 else
                 {
                     sfxAudioSrcChannel.Remove(controller);
-                    audioSource = controller.audioSource;;
+                    audioSource = controller.audioSource;
                 }
                 aloneAudioSourceChannel.Add(soundID, audioSource);
             }
@@ -202,6 +198,71 @@ namespace GDC.Managers
         private AudioSource GetNewSFXChannel()
         {
             return Instantiate(sfxPrefab, transform, false).GetComponent<AudioSource>();
+        }
+        public AudioSource PlaySound(SoundClipData sfxData)
+        {
+            return PlaySound(sfxData, 1.0f);
+        }
+        string _logSoundClipDataFormat = "Frame <color=#FF00D9>{0}</color> Play SoundClipData <color=#FF00D9>{1} - {2}</color>";
+        public AudioSource PlaySound(SoundClipData sfxData, float volume)
+        {
+            AudioSource sfxAudioSrc;
+
+            sfxAudioSrc = GetFreeSFXChannel(sfxData.IsLowPriority);
+            if (sfxAudioSrc == null)
+                return null;
+
+            sfxAudioSrc.timeSamples = 0;
+            sfxAudioSrc.spatialBlend = 0f;
+            sfxAudioSrc.panStereo = 0.0f;
+            sfxAudioSrc.volume = volume;
+            sfxAudioSrc.loop = sfxData.IsLoop;
+
+            sfxAudioSrc.outputAudioMixerGroup = sfxData.SpecificMixerGroup != null ? sfxData.SpecificMixerGroup : SFX_MixerGroup;
+
+            if (sfxData.IsPitch)
+                sfxAudioSrc.pitch = Random.Range(0.94f, 1.06f);
+            else
+                sfxAudioSrc.pitch = 1.0f;
+
+            sfxAudioSrc.clip = sfxData.GetClip();
+            sfxAudioSrc.gameObject.SetActive(true);
+            sfxAudioSrc.Play();
+
+            this.Log(string.Format(this._logSoundClipDataFormat, Time.frameCount, sfxData.name, sfxAudioSrc.clip.name));
+
+            if ((sfxData.IsAlone || sfxData.IsContinues) && sfxData.FadeInTime > 0f)
+            {
+                StartCoroutine(Coroutine_FadeInSFX(sfxAudioSrc, sfxData.FadeInTime, null));
+            }
+            return sfxAudioSrc;
+        }
+
+        string _logAudioClipFormat = "Frame <color=#00FFD2>{0}</color> Play AudioClip <color=#00FFD2>{1}</color>";
+        public AudioSource PlaySound(AudioClip audioClip, float volume = 1f)
+        {
+            AudioSource sfxAudioSrc;
+
+            sfxAudioSrc = GetFreeSFXChannel();
+            if (sfxAudioSrc == null)
+                return null;
+
+            sfxAudioSrc.timeSamples = 0;
+            sfxAudioSrc.spatialBlend = 0f;
+            sfxAudioSrc.panStereo = 0.0f;
+            sfxAudioSrc.volume = volume;
+            sfxAudioSrc.loop = false;
+
+            sfxAudioSrc.outputAudioMixerGroup = this.SFX_MixerGroup;
+
+            sfxAudioSrc.pitch = 1.0f;
+
+            sfxAudioSrc.clip = audioClip;
+            sfxAudioSrc.gameObject.SetActive(true);
+            sfxAudioSrc.Play();
+
+            this.Log(string.Format(this._logAudioClipFormat, Time.frameCount, Time.frameCount, sfxAudioSrc.clip.name));
+            return sfxAudioSrc;
         }
 
         string _logSoundIDFormat = "Frame <color=#00FF30>{0}</color> Play SoundID: <color=#00FF30>{1}</color> - <color=#00FF30>{2}</color>";
@@ -238,106 +299,8 @@ namespace GDC.Managers
             {
                 if (m_soundIDPlayedInCurrentFrame[i] == soundID)
                 {
-                    // string warningLog = string.Format("SoundMgr {0} already played in this frame!", soundID.ToString());
-                    // Debug.LogWarning(warningLog);
-                    return null;
-                }
-            }
-            SoundClipData sfxData;
-            sfxData = soundMapping.Data;
-
-            AudioSource sfxAudioSrc;
-            if (sfxData.IsAlone || sfxData.IsContinues)
-            {
-                sfxAudioSrc = GetAloneAudioSource(soundID);
-            }
-            else
-                sfxAudioSrc = GetFreeSFXChannel(sfxData.IsLowPriority);
-
-            if (sfxAudioSrc == null) return null;
-
-            if (soundMapping == null)
-            {
-                Debug.LogWarning("Can't find data!");
-                return null;
-            }
-
-            sfxAudioSrc.timeSamples = 0;
-            sfxAudioSrc.spatialBlend = 0f;
-            sfxAudioSrc.panStereo = 0.0f;
-            sfxAudioSrc.volume = volume * GetSFXVolume();
-            sfxAudioSrc.loop = sfxData.IsLoop;
-
-            sfxAudioSrc.outputAudioMixerGroup = sfxData.SpecificMixerGroup != null ? sfxData.SpecificMixerGroup : SFX_MixerGroup;
-
-            if (sfxData.IsPitch)
-                // sfxAudioSrc.pitch = Random.Range(0.94f, 1.06f);
-            {
-                float rand = Random.Range(2f,10f);
-                sfxAudioSrc.pitch = rand;
-            }
-            else
-                sfxAudioSrc.pitch = 1.0f;
-
-            sfxAudioSrc.clip = sfxData.GetClip();
-            sfxAudioSrc.gameObject.SetActive(true);
-            sfxAudioSrc.Play();
-            m_soundIDPlayedInCurrentFrame.Add(soundID);
-
-            this.Log(string.Format(this._logSoundIDFormat, Time.frameCount ,soundID, sfxAudioSrc.clip.name));
-
-            if ((sfxData.IsAlone || sfxData.IsContinues) && sfxData.FadeInTime > 0f)
-                StartCoroutine(Coroutine_FadeInSFX(sfxAudioSrc, sfxData.FadeInTime, null));
-            return sfxAudioSrc;
-        }
-
-        public AudioSource PlaySoundRelatedToCamera(Vector3 position, SoundID soundID, float volume = 1f)
-        {
-            float distance = Vector2.Distance(position, Camera.main.transform.position);
-            float rate;
-            if (distance <= 2f && distance >= 0f) rate = 1;
-            else rate = Mathf.Clamp(-2f/15 * distance + 19f/15, 0, 1);
-            return PlaySound(soundID, volume * rate);
-        }
-        
-        /// <summary>
-        /// Dont worry about this method
-        /// </summary>
-        public AudioSource PlaySoundHelper(SoundID soundID, float volume = 1f)
-        {
-            if (soundID == SoundID.NONE) return null;
-
-            SoundMapping soundMapping = null;
-            bool foundSound = false;
-            foreach (var soundMap in this.soundMaps)
-            {
-                foreach (var sound in soundMap.SoundMappingList)
-                {
-                    if (sound.Id == soundID)
-                    {
-                        soundMapping = sound;
-                        foundSound = true;
-                        break;
-                    }
-                }
-
-                if (foundSound)
-                    break;
-            }
-            if (soundMapping == null)
-            {
-                string errorLog = string.Format("SoundMgr {0} missing mapping !", soundID.ToString());
-                Debug.LogError(errorLog);
-                this.Log(errorLog);
-                return null;
-            }
-
-            for (int i = 0; i < m_soundIDPlayedInCurrentFrame.Count; i++)
-            {
-                if (m_soundIDPlayedInCurrentFrame[i] == soundID)
-                {
-                    // string warningLog = string.Format("SoundMgr {0} already played in this frame!", soundID.ToString());
-                    // Debug.LogWarning(warningLog);
+                    string warningLog = string.Format("SoundMgr {0} already played in this frame!", soundID.ToString());
+                    Debug.LogWarning(warningLog);
                     return null;
                 }
             }
@@ -366,8 +329,7 @@ namespace GDC.Managers
             sfxAudioSrc.volume = volume;
             sfxAudioSrc.loop = sfxData.IsLoop;
 
-            // sfxAudioSrc.outputAudioMixerGroup = sfxData.SpecificMixerGroup != null ? sfxData.SpecificMixerGroup : SFX_MixerGroup;
-            sfxAudioSrc.outputAudioMixerGroup = this.Music_MixerGroup;
+            sfxAudioSrc.outputAudioMixerGroup = sfxData.SpecificMixerGroup != null ? sfxData.SpecificMixerGroup : SFX_MixerGroup;
 
             if (sfxData.IsPitch)
                 sfxAudioSrc.pitch = Random.Range(0.94f, 1.06f);
@@ -379,37 +341,46 @@ namespace GDC.Managers
             sfxAudioSrc.Play();
             m_soundIDPlayedInCurrentFrame.Add(soundID);
 
-            this.Log(string.Format(this._logSoundIDFormat, Time.frameCount ,soundID, sfxAudioSrc.clip.name));
+            this.Log(string.Format(this._logSoundIDFormat, Time.frameCount, soundID, sfxAudioSrc.clip.name));
 
             if ((sfxData.IsAlone || sfxData.IsContinues) && sfxData.FadeInTime > 0f)
                 StartCoroutine(Coroutine_FadeInSFX(sfxAudioSrc, sfxData.FadeInTime, null));
             return sfxAudioSrc;
         }
 
-        public AudioSource PlayMusic(SoundID soundID, float volume = 1f, float previousMusicFadeOutTime = 0)
+        public AudioSource PlayMusic(SoundID soundID)
         {
-            foreach (var i in currentMusicIDPlaying)
+            if (currentMusicAudioSource)
             {
-                if (i == soundID)
-                {
-                    print("Current music is playing");
-                    return null;
-                }
+                currentMusicAudioSource.Stop();
             }
-            StopAllMusicPlaying(previousMusicFadeOutTime);
-            currentMusicIDPlaying.Add(soundID);
+            currentMusicAudioSource = this.PlaySound(soundID);
+            currentMusicAudioSource.outputAudioMixerGroup = this.Music_MixerGroup;
 
-            AudioSource audioSource = null;
-            var go = new GameObject();
-            go.transform.DOMove(Vector2.zero, previousMusicFadeOutTime).OnComplete(() => {
+            return currentMusicAudioSource;
+        }
+        public AudioSource PlayMusic(SoundID soundID, float volume = 1f)
+        {
+            if (currentMusicAudioSource)
+            {
+                currentMusicAudioSource.Stop();
+            }
+            currentMusicAudioSource = this.PlaySound(soundID, volume);
+            currentMusicAudioSource.outputAudioMixerGroup = this.Music_MixerGroup;
 
-                audioSource = this.PlaySoundHelper(soundID, volume * GetMusicVolume());
-                audioSource.outputAudioMixerGroup = this.Music_MixerGroup;
+            return currentMusicAudioSource;
+        }
+        public AudioSource PlayMusic(AudioClip audioClip, float volume = 1f)
+        {
+            if (currentMusicAudioSource)
+            {
+                currentMusicAudioSource.Stop();
+            }
+            currentMusicAudioSource = this.PlaySound(audioClip, volume);
+            currentMusicAudioSource.loop = true;
+            currentMusicAudioSource.outputAudioMixerGroup = this.Music_MixerGroup;
 
-                Destroy(go, 0.2f);
-            });
-            
-            return audioSource;
+            return currentMusicAudioSource;
         }
 
         public void UnPauseSFX(SoundID soundID)
@@ -441,7 +412,8 @@ namespace GDC.Managers
 
             if (sfxData.IsAlone)
             {
-                if (aloneAudioSourceChannel.TryGetValue(soundID, out AudioSource sfxAudioSrc))
+                AudioSource sfxAudioSrc;
+                if (aloneAudioSourceChannel.TryGetValue(soundID, out sfxAudioSrc))
                 {
                     if (sfxAudioSrc.isPlaying) return;
 
@@ -533,7 +505,8 @@ namespace GDC.Managers
 
             SoundClipData sfxData;
             sfxData = soundMapping.Data;
-            if (aloneAudioSourceChannel.TryGetValue(soundID, out AudioSource sfxAudioSrc) && sfxAudioSrc.isPlaying)
+            AudioSource sfxAudioSrc;
+            if (aloneAudioSourceChannel.TryGetValue(soundID, out sfxAudioSrc) && sfxAudioSrc.isPlaying)
             {
                 if (sfxData.IsAlone)
                 {
@@ -547,8 +520,6 @@ namespace GDC.Managers
                     coroutine = Coroutine_FadeOutSFX(sfxAudioSrc, sfxData.FadeOutTime, () => sfxAudioSrc.Pause());
                     aloneAudioSourceFadeCommand.Add(soundID, coroutine);
                     StartCoroutine(coroutine);
-
-                    if (introCoroutine != null) StopCoroutine(introCoroutine);
                 }
 
                 if (sfxData.IsContinues)
@@ -562,99 +533,8 @@ namespace GDC.Managers
                     {
                         sfxAudioSrc.Stop();
                     }));
-
-                    if (introCoroutine != null) StopCoroutine(introCoroutine);
                 }
             }
-        }
-        
-        /// <summary>
-        /// Stop SFX immediately, not depends on anything, with fade out.
-        /// </summary>
-        public void StopSFX(SoundID soundID, float fadeOutTime = 0)
-        {
-            SoundMapping soundMapping = null;
-            bool foundSound = false;
-            foreach (var soundMap in this.soundMaps)
-            {
-                foreach (var sound in soundMap.SoundMappingList)
-                {
-                    if (sound.Id == soundID)
-                    {
-                        soundMapping = sound;
-                        foundSound = true;
-                        break;
-                    }
-                }
-                if (foundSound)
-                    break;
-            }
-            if (soundMapping == null)
-            {
-                Debug.LogWarning("Can't find data!");
-                return;
-            }
-
-            SoundClipData sfxData;
-            sfxData = soundMapping.Data;
-
-
-            if (aloneAudioSourceChannel.TryGetValue(soundID, out AudioSource sfxAudioSrc))
-            {
-                aloneAudioSourceChannel.Remove(soundID);
-                sfxAudioSrc.DOFade(0, fadeOutTime).OnComplete(() => {
-                    sfxAudioSrc.Stop();
-                    Destroy(sfxAudioSrc.gameObject);
-                    AudioSourceController newSFX = Instantiate(sfxPrefab, transform, false).GetComponent<AudioSourceController>();
-                    sfxAudioSrcChannel.Add(newSFX);
-                });
-            }
-
-            // if (aloneAudioSourceFadeCommand.TryGetValue(soundID, out IEnumerator coroutine))
-            // {
-            //     aloneAudioSourceFadeCommand.Remove(soundID);
-            //     StopCoroutine(coroutine);
-            // }
-                    
-            foreach (var sfx in sfxAudioSrcChannel)
-            {
-                if (sfx.gameObject.activeSelf == false) continue;
-                if (sfx.audioSource.clip == sfxData.GetClip()) 
-                {
-                    // sfx.audioSource.Stop();
-                    sfx.audioSource.DOFade(0, fadeOutTime).OnComplete(() => {
-                        sfx.audioSource.Stop();
-                    });
-                    return;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Stop SFX after a period of time, not depends on anything, with fade out.
-        /// </summary>
-        public void StopSFXAfterDelay(SoundID soundID, float delayTime, float fadeOutTime = 0)
-        {
-            StartCoroutine(Cor_StopSFXAfterDelay(soundID, delayTime, fadeOutTime));
-        }
-
-        /// <summary>
-        /// Stop all music playing, with fade out
-        /// </summary>
-        public void StopAllMusicPlaying(float fadeOutTime = 0)
-        {
-            if (introCoroutine != null) {
-                StopCoroutine(introCoroutine);
-            }
-            foreach (var id in currentMusicIDPlaying) {
-                StopSFX(id, fadeOutTime);
-            }
-            currentMusicIDPlaying.Clear();
-        }
-        IEnumerator Cor_StopSFXAfterDelay(SoundID soundID, float delayTime, float fadeOutTime = 0)
-        {
-            yield return new WaitForSeconds(delayTime);
-            StopSFX(soundID, fadeOutTime);
         }
 
         void SetVolume(string name, float value)
@@ -720,7 +600,7 @@ namespace GDC.Managers
             Save();
         }
 
-        public bool LoadSave()
+        private void LoadSave()
         {
             sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME, 1.0f);
             musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1.0f);
@@ -728,8 +608,6 @@ namespace GDC.Managers
             SetVolume(MUSIC_VOLUME, musicVolume);
             SetVolume(SFX_VOLUME, sfxVolume);
             SetVolume(AMBIENCE_VOLUME, sfxVolume);
-            
-            return true;
         }
         void Save()
         {
@@ -741,13 +619,13 @@ namespace GDC.Managers
         public string LOG_TAG = "SoundMgr";
         void Log(string log)
         {
-            if(this._logQueue.Count > 20)
+            if (this._logQueue.Count > 20)
                 this._logQueue.Dequeue();
 
             this._logQueue.Enqueue(log);
 
             this._logStringBuilder.Clear();
-            foreach(string item in this._logQueue)
+            foreach (string item in this._logQueue)
             {
                 this._logStringBuilder.AppendLine(item);
             }
@@ -760,9 +638,11 @@ namespace GDC.Managers
 
         private void LoadCommonSoundMaps()
         {
-            LoadSoundMap(SoundType.MUSIC);
-            LoadSoundMap(SoundType.SOUND_EFFECT);
             LoadSoundMap(SoundType.COMMON);
+            LoadSoundMap(SoundType.MUSIC);
+            // LoadSoundMap(SoundType.MUSIC);
+            LoadSoundMap(SoundType.SOUND_EFFECT);
+            // LoadSoundMap(SoundType.AR);
         }
 
         public void LoadSoundMap(SoundType soundType)
@@ -798,52 +678,6 @@ namespace GDC.Managers
                 }
             }
         }
-        /// <summary>
-        /// All soundmaps will be deleted, except COMMON SoundMap
-        /// </summary>
-        public void ClearSoundMapExceptCommonSoundMap()
-        {
-            foreach (var cur in currentMusicIDPlaying)
-            {
-                var temp = GetSoundClipData(cur);
-                if (temp == null) break;
-                for (int i = 0; i < sfxAudioSrcChannel.Count; i++)
-                {
-                    AudioSourceController item = sfxAudioSrcChannel[i];
-                    if (item.gameObject.activeSelf && item.audioSource.clip == temp.GetClip())
-                        item.audioSource.DOFade(0, 1.5f).OnComplete(() => item.gameObject.SetActive(false));
-                }
-            }
-            for (int i = 0; i < soundMaps.Count; i++)
-            {
-                if (soundMaps[i].soundType == SoundType.COMMON) continue;
-                Resources.UnloadAsset(soundMaps[i]);
-                soundMaps.RemoveAt(i);
-            }
-        }
-        /// <summary>
-        /// All soundmaps will be deleted
-        /// </summary>
-        public void ClearSoundMap()
-        {
-            foreach (var cur in currentMusicIDPlaying)
-            {
-                var temp = GetSoundClipData(cur);
-                if (temp == null) break;
-                for (int i = 0; i < sfxAudioSrcChannel.Count; i++)
-                {
-                    AudioSourceController item = sfxAudioSrcChannel[i];
-                    if (item.gameObject.activeSelf && item.audioSource.clip == temp.GetClip())
-                        item.audioSource.DOFade(0, 1.5f).OnComplete(() => item.gameObject.SetActive(false));
-                }
-            }
-
-            for (int i = 0; i < this.soundMaps.Count; i++)
-            {
-                Resources.UnloadAsset(this.soundMaps[i]);
-                this.soundMaps.RemoveAt(i);
-            }
-        }
 
         public SoundClipData GetSoundClipData(SoundID soundID)
         {
@@ -862,57 +696,9 @@ namespace GDC.Managers
 
             return null;
         }
-        public void PlayMusicWithIntro(SoundID introMusic, SoundID music, float volume = 1f, float previousMusicFadeOutTime = 0)
+        public void StopAllMusicPlaying()
         {
-            foreach (var soundID in currentMusicIDPlaying)
-            {
-                if (soundID == introMusic || soundID == music) 
-                {
-                    print("Current music is playing");
-                    return;
-                }
-            }
-            introCoroutine = StartCoroutine(Cor_WaitEndIntro(introMusic, music, volume, previousMusicFadeOutTime));
-        }
-        IEnumerator Cor_WaitEndIntro(SoundID introMusic, SoundID music, float volume, float previousMusicFadeOutTime = 0f)
-        {
-            var soundClipData = GetSoundClipData(introMusic);
 
-            var audioSource = PlayMusic(introMusic, volume, previousMusicFadeOutTime);
-            // audioSource.loop = false;
-            yield return new WaitForSecondsRealtime(soundClipData.GetClip().length + previousMusicFadeOutTime);
-            StopSFX(introMusic);
-            audioSource = PlayMusicWithoutClear(music, volume);
-            aloneAudioSourceChannel.Remove(introMusic);
-            // audioSource.loop = true;
-        }
-        AudioSource PlayMusicWithoutClear(SoundID soundID, float volume = 1f)
-        {
-            currentMusicIDPlaying.Add(soundID);
-            var audioSource = PlaySound(soundID, volume);
-            audioSource.outputAudioMixerGroup = Music_MixerGroup;
-
-            return audioSource;
-        }
-    
-        public void PlaySoundDialogue(SoundID soundID, int frequency)
-        {
-            dialogueCoroutine = StartCoroutine(Cor_PlaySoundWithFrequency(soundID, frequency));
-        }
-        IEnumerator Cor_PlaySoundWithFrequency(SoundID soundID, int frequency)
-        {
-            while (true)
-            {
-                for (int i=0; i<frequency; i++)
-                {
-                    PlaySound(soundID);
-                    yield return new WaitForSeconds(1f/frequency);
-                }
-            }
-        }
-        public void StopSoundDialogue()
-        {
-            StopCoroutine(dialogueCoroutine);
         }
     }
 }

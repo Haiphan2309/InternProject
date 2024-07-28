@@ -5,7 +5,6 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -34,6 +33,11 @@ public class GameplayObject : MonoBehaviour
     [SerializeField] public GameObject vfxDefeated;
 
     [SerializeField] protected GameObject parentObject;
+
+    //private void Start()
+    //{
+    //    parentObject = transform.parent.gameObject;
+    //}
 
     public virtual void MoveAnim(Vector3 posIndexToMove, Vector3 direction, float speed)
     {
@@ -85,6 +89,11 @@ public class GameplayObject : MonoBehaviour
         posIcon.SetActive(false);
     }
 
+    public void SetParentObject(GameObject parentObject)
+    {
+        this.parentObject = parentObject;
+    }
+
     protected void SetParentDefault()
     {
         transform.SetParent(parentObject.transform);
@@ -116,6 +125,7 @@ public class GameplayObject : MonoBehaviour
                 current.y -= 1;
                 tile = GameUtils.GetTileBelowObject(current);
                 if (current == end) break;
+                if (current.y <= -3) return path;
             }
 
             MoveToNextPath(ref current, end);
@@ -136,6 +146,7 @@ public class GameplayObject : MonoBehaviour
                 current.y -= 1;
                 tile = GameUtils.GetTileBelowObject(current);
                 if (current == end) break;
+                if (current.y <= -3) return path;
             }
 
             if (GameUtils.CheckSlope(tile))

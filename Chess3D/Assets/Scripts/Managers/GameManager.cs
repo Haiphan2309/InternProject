@@ -167,7 +167,7 @@ namespace GDC.Managers
         {
             if (soundType != SoundType.NONE)
             {
-                SoundManager.Instance.ClearSoundMapExceptCommonSoundMap();
+                //SoundManager.Instance.ClearSoundMapExceptCommonSoundMap();
                 SoundManager.Instance.LoadSoundMap(soundType);
             }
 

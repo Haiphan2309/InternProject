@@ -12,12 +12,15 @@ public class UIShopManager : MonoBehaviour
 {
     [SerializeField] private ShopConfig shopConfig;
     [SerializeField] private DailyRewardConfig dailyRewardConfig;
-    [SerializeField] private RectTransform rect, contentRect, haloDailyRewardRect, comeBackTomorrowRect, playerInfoRect;
+    [SerializeField] private RectTransform rect, contentRect, haloDailyRewardRect, comeBackTomorrowRect, playerInfoRect, dailyAdsLimitRect;
     [SerializeField] private UIShopSlot shopSlotprefab;
 
     [SerializeField] private Button exitButton, removeAds, dailyRewardButton;
     [SerializeField] private LanguageDictionary removeAdsDict;
     [SerializeField] private Sprite dailyRewardOpenSprite, dailyRewardCloseSprite;
+    //[SerializeField] private int maxAdsLimit;
+    [SerializeField,ReadOnly] private int numAdsRemainCanWatch;
+    [SerializeField] private TMP_Text adsLimitText;
 
     [Header("Player Item Info")]
     [SerializeField] private TMP_Text undoNumText;
@@ -34,7 +37,7 @@ public class UIShopManager : MonoBehaviour
         removeAds.onClick.AddListener(RemoveAds);
 
         dailyRewardButton.onClick.RemoveAllListeners();
-        dailyRewardButton.onClick.AddListener(DailyReward);
+        dailyRewardButton.onClick.AddListener(OnClickDailyReward);
 
         if (SaveLoadManager.Instance.GameData.isPurchaseAds)
         {
@@ -49,12 +52,15 @@ public class UIShopManager : MonoBehaviour
         if (PlayerPrefs.HasKey("DailyRewardDate"))
         {
             string dayLastReceive = PlayerPrefs.GetString("DailyRewardDate", dayReceive);
+            numAdsRemainCanWatch = PlayerPrefs.GetInt("AdsRewardRemain", shopConfig.maxDailyAdsLimit);
             if (dayReceive.CompareTo(dayLastReceive) == 0)
             {
-                SetOpenDailyReward(false);
+                CheckAdsRemainCanWatch();
             }
             else
             {
+                PlayerPrefs.SetInt("AdsRewardRemain", shopConfig.maxDailyAdsLimit);
+                numAdsRemainCanWatch = PlayerPrefs.GetInt("AdsRewardRemain", shopConfig.maxDailyAdsLimit);
                 SetOpenDailyReward(true);
             }
         }
@@ -82,6 +88,9 @@ public class UIShopManager : MonoBehaviour
     [Button]
     public void Hide()
     {
+        exitButton.onClick.RemoveAllListeners();
+        removeAds.onClick.RemoveAllListeners();
+        dailyRewardButton.onClick.RemoveAllListeners();
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         playerInfoRect.DOAnchorPosY(200, 0.5f);
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);
@@ -105,16 +114,62 @@ public class UIShopManager : MonoBehaviour
         undoNumText.text = SaveLoadManager.Instance.GameData.undoNum.ToString();
     }    
 
-    private void DailyReward()
+    private void OnClickDailyReward()
+    {
+        string dayReceive = DateTime.Now.Date.ToString();
+        if (PlayerPrefs.HasKey("DailyRewardDate"))
+        {
+            string dayLastReceive = PlayerPrefs.GetString("DailyRewardDate", dayReceive);
+            if (dayReceive.CompareTo(dayLastReceive) != 0) //Neu nhan qua lan dau trong ngay
+            {
+                ReceiveDailyReward();
+                PlayerPrefs.SetString("DailyRewardDate", dayReceive);
+                PlayerPrefs.SetInt("AdsRewardRemain", shopConfig.maxDailyAdsLimit);
+                numAdsRemainCanWatch = PlayerPrefs.GetInt("AdsRewardRemain", shopConfig.maxDailyAdsLimit);
+            }
+            else //Cac lan nhan sau do se phai xem quang cao cho toi khi het gioi han quang cao co the xem
+            {
+                AdsManager.Instance.ON_REWARD_DAILY_ADS += ReceiveDailyReward;
+                AdsManager.Instance.ShowRewardAds();
+                CheckAdsRemainCanWatch(true);
+            }
+        }
+        else
+        {
+            ReceiveDailyReward();
+            PlayerPrefs.SetString("DailyRewardDate", dayReceive);
+            PlayerPrefs.SetInt("AdsRewardRemain", shopConfig.maxDailyAdsLimit);
+            numAdsRemainCanWatch = PlayerPrefs.GetInt("AdsRewardRemain", shopConfig.maxDailyAdsLimit);
+            CheckAdsRemainCanWatch();
+        }
+    }
+    private void ReceiveDailyReward()
     {
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_OPEN_CHEST);
         PopupManager.Instance.ShowDailyReward(dailyRewardConfig);
-        string dayReceive = DateTime.Now.Date.ToString();
-        PlayerPrefs.SetString("DailyRewardDate", dayReceive);
-        SetOpenDailyReward(false);
         UpdatePlayerInfo();
+        AdsManager.Instance.ON_REWARD_DAILY_ADS -= ReceiveDailyReward;
     }
-    private void SetOpenDailyReward(bool isOpen)
+    private void CheckAdsRemainCanWatch(bool isReduce = false)
+    {
+        if (isReduce)
+        {
+            PlayerPrefs.SetInt("AdsRewardRemain", numAdsRemainCanWatch-1);
+            numAdsRemainCanWatch = PlayerPrefs.GetInt("AdsRewardRemain", shopConfig.maxDailyAdsLimit);
+            //numAdsRemainCanWatch--;
+        }
+
+        Debug.Log("Num ads remain: "+ numAdsRemainCanWatch);
+        if (numAdsRemainCanWatch <= 0)
+        {
+            SetOpenDailyReward(false);
+        }
+        else
+        {
+            SetOpenDailyReward(true, true);
+        }
+    }
+    private void SetOpenDailyReward(bool isOpen, bool isWatchAds = false)
     {
         if (isOpen)
         {
@@ -123,6 +178,15 @@ public class UIShopManager : MonoBehaviour
             comeBackTomorrowRect.gameObject.SetActive(false);
             dailyRewardButton.image.sprite = dailyRewardOpenSprite;
             dailyRewardButton.GetComponent<Animator>().enabled = true;
+            if (isWatchAds)
+            {
+                dailyAdsLimitRect.gameObject.SetActive(true);
+                adsLimitText.text = numAdsRemainCanWatch.ToString();
+            }    
+            else
+            {
+                dailyAdsLimitRect.gameObject.SetActive(false);               
+            }
         }
         else
         {
@@ -131,6 +195,7 @@ public class UIShopManager : MonoBehaviour
             comeBackTomorrowRect.gameObject.SetActive(true);
             dailyRewardButton.image.sprite = dailyRewardCloseSprite;
             dailyRewardButton.GetComponent<Animator>().enabled = false;
+            dailyAdsLimitRect.gameObject.SetActive(false);
         }
     }
 }
