@@ -641,8 +641,8 @@ public class GameplayManager : MonoBehaviour
         isShowHint = false;
 
         // Undo in UI - Khang update
-        //uiGameplayManager.ChessPanelOnGameUndo(playerArmy);
-        //uiGameplayManager.ChessPanelOnGameUndo(enemyArmy);
+        uiGameplayManager.ChessPanelOnGameUndo(playerArmy);
+        uiGameplayManager.ChessPanelOnGameUndo(enemyArmy);
 
 
 
