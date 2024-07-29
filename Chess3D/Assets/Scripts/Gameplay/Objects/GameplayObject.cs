@@ -141,6 +141,7 @@ public class GameplayObject : MonoBehaviour
             }
 
             tile = GameUtils.GetTileBelowObject(current);
+
             while (tile == TileType.NONE)
             {
                 path.Add(current);
@@ -168,6 +169,8 @@ public class GameplayObject : MonoBehaviour
 
             path.Add(current);
         }
+
+        if (isStandOnSlope) path.RemoveAt(0);
         return path;
     }
     public void AjustPosToGround(Vector3 target)
@@ -219,7 +222,7 @@ public class GameplayObject : MonoBehaviour
 
         TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
 
-        if (!isStandOnSlope)
+        if (!isStandOnSlope || !isOnSlope)
         {
             rotation = RotateOnSlope(tileType);
         }

@@ -200,6 +200,7 @@ public class ChessMan : GameplayObject
             isMove = false;
             SetPosIndex();
             CheckBox(target);
+            GameplayManager.Instance.CheckActiveButtonObjects();
             GameplayManager.Instance.EndTurn();
         });
     }
