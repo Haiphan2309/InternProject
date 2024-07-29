@@ -182,7 +182,7 @@ namespace GDC.Managers
         }
         IEnumerator Cor_TransitionOut(System.Action cb = null, TransitionType transitionType = TransitionType.NONE)
         {
-            yield return new WaitForSeconds(GameConstants.TRANSITION_TIME);
+            yield return new WaitForSeconds(GameConstants.LOADING_TIME);
             yield return null;
             SceneTransition.Instance.TransitionOut(transitionType);
             //SetInitData();

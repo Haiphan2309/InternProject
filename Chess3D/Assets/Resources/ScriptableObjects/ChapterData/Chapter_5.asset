@@ -20,4 +20,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d4ff1c31f2da79a4da3efd8d6d37045b, type: 2}
   thumbnail: {fileID: 21300000, guid: 15dc58ac1c3789040885332577dea503, type: 3}
   skyBox: {fileID: 2100000, guid: 792d1cc73129a2b44993cfe2902e7a38, type: 2}
-  starRequire: 0
+  starRequire: 36
