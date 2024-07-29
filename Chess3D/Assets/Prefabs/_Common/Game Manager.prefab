@@ -1085,8 +1085,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 818.9739, y: 131.38974}
-  m_SizeDelta: {x: 1415.8535, y: 154.3248}
+  m_AnchoredPosition: {x: 818.9739, y: 169.14948}
+  m_SizeDelta: {x: 1415.8535, y: 204.7697}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3507206690514525696
 CanvasRenderer:
@@ -1118,7 +1118,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Qu\xE2n M\xE3 c\xF3 kh\u1EA3 n\u0103ng nh\u1EA3y, nh\u01B0ng c\u0169ng
     c\xF3 gi\u1EDBi h\u1EA1n, kh\xF4ng th\u1EC3 nh\u1EA3y l\xEAn n\u01A1i qu\xE1
-    cao so v\u1EDBi hi\u1EC7n t\u1EA1i"
+    cao so v\u1EDBi\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1fd642c50482e534fb9835f5e07968db, type: 2}
   m_sharedMaterial: {fileID: 1578326750946727285, guid: 1fd642c50482e534fb9835f5e07968db, type: 2}
@@ -1151,9 +1151,9 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
