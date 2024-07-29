@@ -18,7 +18,7 @@ namespace GDC.Managers
         [SerializeField] List<Sprite> loadingSprites;
         [SerializeField] TipConfig tipConfig;
         [SerializeField] TMP_Text loadingText, tipText;
-        [SerializeField] LanguageDictionary loadingDict;
+        [SerializeField] LanguageDictionary loadingDict, tipDict;
         List<TipData> tipDatas;
         void Awake()
         {
@@ -67,7 +67,7 @@ namespace GDC.Managers
                 }
                     
                 int rand2 = Random.Range(0, tipDatas.Count);
-                tipText.text = tipDatas[rand2].tipDict[SaveLoadManager.Instance.GameData.language];
+                tipText.text = tipDict[SaveLoadManager.Instance.GameData.language] + ": " + tipDatas[rand2].tipDict[SaveLoadManager.Instance.GameData.language];
             }    
         }
     }
