@@ -298,11 +298,7 @@ public class ChessManConfig : ScriptableObject
                 // Find the lower ground
                 move += Vector3.down;
                 // Check if that ground is BOULDER
-                if (GameUtils.GetTile(move) == TileType.BOULDER)
-                {
-                    // Debug.Log("Boulder");
-                    return;
-                }
+                if (GameUtils.GetTile(move) == TileType.BOULDER) return;
                 // Debug.Log("DOWN " + move.ToString());
             }
 
