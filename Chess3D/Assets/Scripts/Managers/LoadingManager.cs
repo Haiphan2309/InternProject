@@ -16,6 +16,10 @@ namespace GDC.Managers
         [SerializeField] GameObject loadingCanvas;
         [SerializeField] Image loadingIcon;
         [SerializeField] List<Sprite> loadingSprites;
+        [SerializeField] TipConfig tipConfig;
+        [SerializeField] TMP_Text loadingText, tipText;
+        [SerializeField] LanguageDictionary loadingDict;
+        List<TipData> tipDatas;
         void Awake()
         {
             if (Instance != null)
@@ -45,6 +49,25 @@ namespace GDC.Managers
                 int rand = Random.Range(0, loadingSprites.Count);
                 loadingIcon.sprite = loadingSprites[rand];
                 loadingIcon.SetNativeSize();
+
+                loadingText.text = loadingDict[SaveLoadManager.Instance.GameData.language];
+
+                if (tipDatas == null)
+                {
+                    tipDatas = new List<TipData>();
+                }
+                tipDatas.Clear();
+                foreach(var tipData in tipConfig.commonTipDatas)
+                {
+                    tipDatas.Add(tipData);
+                }
+                foreach(var tipData in tipConfig.tipChapterDatas[SaveLoadManager.Instance.CacheData.currentChapter].tipDatas)
+                {
+                    tipDatas.Add(tipData);
+                }
+                    
+                int rand2 = Random.Range(0, tipDatas.Count);
+                tipText.text = tipDatas[rand2].tipDict[SaveLoadManager.Instance.GameData.language];
             }    
         }
     }
