@@ -22,5 +22,6 @@ namespace GDC.Events
     public class GameConstants
     {
         public static float TRANSITION_TIME = 1f;
+        public static float LOADING_TIME = 1.5f;
     }
 }

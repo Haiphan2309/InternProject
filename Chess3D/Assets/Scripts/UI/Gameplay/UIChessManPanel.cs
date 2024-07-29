@@ -273,7 +273,9 @@ public class UIChessManPanel : MonoBehaviour
             if (holder.chessMan == chessMan)
             {
                 holder.holderObject.GetComponent<Button>().interactable = false;
+
                 ChangeHolderColor(holder, false, true);
+                
                 if (activatingHolder == holder)
                 {
                     GameplayManager.Instance.camController.ChangeToDefaultCamera();
@@ -330,13 +332,10 @@ public class UIChessManPanel : MonoBehaviour
                 Debug.LogError("Cannot find Holder from Chessman: "+ chessMan.index);
             }
 
-            if (holder.chessMan == null)
-            {
-                holder.chessMan = chessMan;
-                EnableHolder(holder);
-            }
+            holder.chessMan = chessMan;
+            UpdateHolderStatus(holder);
 
-            
+
 
         }
 
