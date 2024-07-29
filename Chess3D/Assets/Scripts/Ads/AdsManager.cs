@@ -1,3 +1,4 @@
+using GDC.Constants;
 using GDC.Managers;
 using NaughtyAttributes;
 using System;
@@ -49,7 +50,10 @@ public class AdsManager : MonoBehaviour
     }
     public void ShowRewardAds()
     {
-        rewardedAds.LoadAd();
-        rewardedAds.ShowAd();
+        //rewardedAds.LoadAd();
+        //rewardedAds.ShowAd();
+
+        ON_REWARD_DAILY_ADS?.Invoke();
+        ON_REWARD_TURN?.Invoke(GameConstants.TURN_REWARD);
     }
 }
