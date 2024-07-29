@@ -194,6 +194,7 @@ namespace GDC.Managers
         }
         public void SetInitData(int chapterIndex, int levelIndex)
         {
+            SaveLoadManager.Instance.CacheData.currentChapter = chapterIndex;
             StartCoroutine(Cor_InitData(chapterIndex, levelIndex));
         }
         public void LoadMenuChapter()

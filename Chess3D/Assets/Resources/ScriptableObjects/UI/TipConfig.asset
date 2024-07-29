@@ -1,0 +1,855 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae506c2ab040db14bb53772808e0c7f9, type: 3}
+  m_Name: TipConfig
+  m_EditorClassIdentifier: 
+  commonTipDatas:
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "N\u1EBFu m\xE0n ch\u01A1i kh\xF3 qu\xE1, h\xE3y ngh\u0129 \u0111\u1EBFn
+        s\u1EED d\u1EE5ng Hint n\u1EBFu \u0111\u01B0\u1EE3c, ho\u1EB7c sang ch\u01A1i
+        Chapter kh\xE1c."
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "S\u1ED1 l\u01B0\u1EE3t \u0111i c\xF2n l\u1EA1i c\u1EE7a b\u1EA1n c\xE0ng
+        nhi\u1EC1u, s\u1ED1 sao b\u1EA1n nh\u1EADn \u0111\u01B0\u1EE3c khi th\u1EAFng
+        m\xE0n c\xE0ng cao"
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "S\u1EED d\u1EE5ng n\xFAt Undo gi\xFAp b\u1EA1n quay tr\u1EDF l\u1EA1i n\u01B0\u1EDBc
+        \u0111i tr\u01B0\u1EDBc \u0111\xF3."
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "S\u1EED d\u1EE5ng n\xFAt +Turn gi\xFAp b\u1EA1n t\u0103ng th\xEAm s\u1ED1
+        l\u01B0\u1EE3t \u0111i c\xF2n l\u1EA1i c\u1EE7a m\xECnh"
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "N\xFAt g\u1EE3i \xFD n\xEAn \u0111\u01B0\u1EE3c s\u1EED d\u1EE5ng khi b\u1EA1n
+        c\u1EA3m th\u1EA5y b\xED trong vi\u1EC7c gi\u1EA3i \u0111\u1ED1."
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "S\u1ED1 l\u01B0\u1EE3t \u0111i c\xF2n l\u1EA1i c\u1EE7a b\u1EA1n c\xE0ng
+        nhi\u1EC1u, s\u1ED1 sao b\u1EA1n nh\u1EADn \u0111\u01B0\u1EE3c khi th\u1EAFng
+        m\xE0n c\xE0ng cao."
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "S\u1ED1 sao m\xE0 b\u1EA1n ki\u1EBFm \u0111\u01B0\u1EE3c \u0111\u01B0\u1EE3c
+        d\xF9ng cho vi\u1EC7c m\u1EDF kh\xF3a c\xE1c chapter k\u1EBF ti\u1EBFp. H\xE3y
+        c\u1ED1 ki\u1EBFm th\u1EADt nhi\u1EC1u!"
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "B\u1EA1n c\xF3 th\u1EC3 \u0111i\u1EC1u ch\u1EC9nh g\xF3c quay camera, v\u1ECB
+        tr\xED camera, t\u1EADp trung v\xE0o qu\xE2n c\u1EDD hay \u0111i\u1EC1u ch\u1EC9nh
+        t\u1ED1c \u0111\u1ED9 c\u1EE7a camera \u0111\u1EA5y!"
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "N\u1EBFu m\xE0n ch\u01A1i kh\xF3 qu\xE1, h\xE3y ngh\u0129 \u0111\u1EBFn
+        s\u1EED d\u1EE5ng Hint n\u1EBFu \u0111\u01B0\u1EE3c, ho\u1EB7c sang ch\u01A1i
+        Chapter kh\xE1c."
+      - 
+  - tipDict:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 0100000000000000
+      _keys: 0100000000000000
+      _values:
+      - "C\xE1c qu\xE2n c\u1EDD \u0111\u1ECBch c\xF3 nh\u1EEFng th\u1EE9 t\u1EF1
+        di chuy\u1EC3n nh\u1EA5t \u0111\u1ECBnh, h\xE3y \u0111\u1EC3 \xFD \u0111i\u1EC1u
+        \u0111\xF3!"
+      - 
+  tipChapterDatas:
+  - tipDatas:
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Qu\xE2n c\u1EDD \u0111\u1ED1i th\u1EE7 s\u1EBD l\u1EA5p t\u1EE9c \u0103n
+          qu\xE2n m\xECnh ngay n\u1EBFu l\u1ECDt v\xE0o t\u1EA7m \u0103n \u0111\u01B0\u1EE3c
+          c\u1EE7a ch\xFAng."
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Qu\xE2n M\xE3 tuy nh\u1EA3y cao nh\u01B0ng c\u0169ng c\xF3 gi\u1EDBi h\u1EA1n,
+          kh\xF4ng th\u1EC3 nh\u1EA3y l\xEAn n\u01A1i qu\xE1 cao so v\u1EDBi v\u1ECB
+          tr\xED hi\u1EC7n t\u1EA1i."
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Nh\u1EEFng ch\u1EA5m tr\u1EAFng tr\xEAn b\xE0n c\u1EDD ch\xEDnh l\xE0
+          nh\u1EEFng n\u01B0\u1EDBc \u0111i m\u1EB7c \u0111\u1ECBnh c\u1EE7a qu\xE2n
+          \u0111\u1ECBch, h\xE3y \u0111\u1EC3 \xFD k\u0129 \u0111\u1EC3 suy ngh\u0129
+          chi\u1EBFn l\u01B0\u1EE3c."
+        - 
+  - tipDatas:
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Kh\u1ED1i H\u1ED8P c\xF3 th\u1EC3 \u0111\u01B0\u1EE3c \u0111\u1EA9y xu\u1ED1ng
+          n\u01B0\u1EDBc ho\u1EB7c r\u01A1i ra ngo\xE0i b\xE0n c\u1EDD."
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Kh\u1ED1i H\u1ED8P kh\xF4ng th\u1EC3 \u0111\u1EA9y ch\xE9o \u0111\u01B0\u1EE3c."
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Kh\u1ED1i H\u1ED8P c\xF3 th\u1EC3 \u0111\u01B0\u1EE3c \u0111\u1EA9y ngay
+          c\u1EA3 khi ph\xEDa tr\xEAn box \u0111ang c\xF3 m\u1ED9t v\u1EADt th\u1EC3
+          kh\xE1c. V\u1EADt th\u1EC3 \u0111\xF3 c\u0169ng s\u1EBD di chuy\u1EC3n
+          theo kh\u1ED1i H\u1ED8P"
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "C\u1EA9n th\u1EADn \u0111\u1EEBng \u0111\u1EC3 kh\u1ED1i H\u1ED8P r\u01A1i
+          tr\xFAng \u0111\u1EA7u!"
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "B\u1EA1n ch\u1EC9 c\xF3 th\u1EC3 \u0111\u1EA9y kh\u1ED1i H\u1ED8P t\u1EDBi
+          s\xE1t g\u1EDD c\u1EE7a v\u1EF1c, sau khi kh\u1ED1i H\u1ED8P r\u01A1i xu\u1ED1ng
+          b\u1EA1n m\u1EDBi c\xF3 th\u1EC3 \u0111i ti\u1EBFp t\u1EDBi tr\u01B0\u1EDBc
+          \u0111\u01B0\u1EE3c."
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "N\u1EBFu m\xE0n ch\u01A1i kh\xF3 qu\xE1, h\xE3y ngh\u0129 \u0111\u1EBFn
+          s\u1EED d\u1EE5ng Hint n\u1EBFu \u0111\u01B0\u1EE3c, ho\u1EB7c sang ch\u01A1i
+          Chapter kh\xE1c."
+        - 
+  - tipDatas:
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Qu\xE2n t\u1ED1t tuy kh\xF4ng c\xF3 nhi\u1EC1u ch\u1EE9c n\u0103ng nh\u01B0ng
+          kh\u1EA3 n\u0103ng phong th\xE0nh qu\xE2n c\u1EDD kh\xE1c th\u1EADt phi
+          th\u01B0\u1EDDng!"
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Kh\xE1c v\u1EDBi kh\u1ED1i H\u1ED8P, kh\u1ED1i C\u1EA6U ho\xE0n to\xE0n
+          c\xF3 th\u1EC3 \u0111\u1EA9y ch\xE9o \u0111\u01B0\u1EE3c."
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Khi l\u0103n xu\u1ED1ng d\u1ED1c, kh\u1ED1i C\u1EA6U c\xF3 th\u1EC3 c\xE1n
+          b\u1EC3 b\u1EA5t  c\u1EE9 v\u1EADt th\u1EC3 n\xE0o\xEC n\xF3 g\u1EB7p ph\u1EA3i,
+          k\u1EC3 c\u1EA3 m\u1ED9t kh\u1ED1i C\u1EA6U kh\xE1c."
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "B\u1EDDi v\xEC b\u1EC1 m\u1EB7t tr\xF2n n\xEAn b\u1EA1n kh\xF4ng th\u1EC3
+          \u0111\u1EE9ng tr\xEAn kh\u1ED1i c\u1EA7u \u0111\u01B0\u1EE3c."
+        - 
+  - tipDatas:
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "N\xFAt Hint kh\xF4ng th\u1EC3 \u0111\u01B0\u1EE3c s\u1EED d\u1EE5ng trong
+          nh\u1EEFng m\xE0n ch\u01A1i c\xF3 qu\xE2n c\u1EDD m\xE0u t\xEDm"
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "\u0110\u1ED1i v\u1EDBi qu\xE2n Vua m\xE0u t\xEDm, n\xF3 s\u1EBD t\xECm
+          c\xE1ch \u0111\u1EC3 n\xE9 tr\xE1nh kh\xF4ng \u0111\u1EC3 l\u1ECDt v\xE0o
+          t\u1EA7m \u0103n \u0111\u01B0\u1EE3c c\u1EE7a m\xECnh. H\xE3y chi\u1EBFu
+          b\xED n\xF3!"
+        - 
+  - tipDatas:
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "M\u1ED9t v\u1EADt th\u1EC3 \u0111ang \u0111\u1EE9ng tr\xEAn Toggle Block
+          s\u1EBD r\u01A1i xu\u1ED1ng n\u1EBFu Toggle Block \u0111\xF3 b\u1ECB t\u1EAFt
+          \u0111i."
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "N\u1EBFu Toggle Block \u0111\u01B0\u1EE3c b\u1EADt l\xEAn, b\u1EA5t k\xEC
+          v\u1EADt th\u1EC3 n\xE0o \u1EDF t\u1EA1i v\u1ECB tr\xED c\u1EE7a Toggle
+          Block \u0111\u1EC1u b\u1ECB ph\xE1 h\u1EE7y!"
+        - 
+    - tipDict:
+        reorderableList:
+          canAdd: 1
+          canRemove: 1
+          draggable: 1
+          expandable: 1
+          multipleSelection: 1
+          isExpanded: 1
+          label:
+            m_Text: Keys
+            m_Image: {fileID: 0}
+            m_Tooltip: 
+          headerHeight: 18
+          footerHeight: 13
+          slideEasing: 0.15
+          verticalSpacing: 2
+          showDefaultBackground: 1
+          elementDisplayType: 0
+          elementNameProperty: 
+          elementNameOverride: 
+          elementIcon: {fileID: 0}
+        reqReferences: {fileID: 0}
+        isExpanded: 1
+        _keyValues: 0100000000000000
+        _keys: 0100000000000000
+        _values:
+        - "Ph\u1EA3i c\xF3 v\u1EADt th\u1EC3 n\xE0o \u0111\xF3 \u0111\u1EE9ng \u0111\xE8
+          ph\xEDa tr\xEAn BUTTON, Toggle Block m\u1EDBi \u0111\u01B0\u1EE3c k\xEDch
+          ho\u1EA1t."
+        - 
