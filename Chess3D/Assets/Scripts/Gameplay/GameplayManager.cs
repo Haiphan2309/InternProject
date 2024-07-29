@@ -639,6 +639,14 @@ public class GameplayManager : MonoBehaviour
             
         }
         isShowHint = false;
+
+        // Undo in UI - Khang update
+        //uiGameplayManager.ChessPanelOnGameUndo(playerArmy);
+        //uiGameplayManager.ChessPanelOnGameUndo(enemyArmy);
+
+
+
+
     }
     [Button]
     public void IncreaseTurn()
