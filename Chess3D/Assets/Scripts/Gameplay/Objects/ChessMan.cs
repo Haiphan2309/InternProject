@@ -204,6 +204,7 @@ public class ChessMan : GameplayObject
             AjustPosToGround(target);
             isStandOnSlope = isOnSlope;
             isMove = false;
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
             SetPosIndex();
             CheckBox(target);
             GameplayManager.Instance.CheckActiveButtonObjects();
@@ -296,8 +297,6 @@ public class ChessMan : GameplayObject
         SetPosIndex();
         
         CheckBox(target);
-
-        Debug.Log(GameUtils.GetTile(posIndex));
 
         GameplayManager.Instance.CheckActiveButtonObjects();
 
