@@ -60,6 +60,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
+  vfxDrop: {fileID: 6452308133831282335, guid: dd130e6f848772e4a8ef55f8306637c0, type: 3}
+  parentObject: {fileID: 0}
   config: {fileID: 11400000, guid: 7ac94aed580bed84a82e33cb11e2aa70, type: 2}
   groundLayerMask:
     serializedVersion: 2
@@ -70,6 +72,7 @@ MonoBehaviour:
   moveIndex: 0
   deltaMoveIndex: 1
   isAI: 0
+  isDrop: 0
 --- !u!65 &1652286005729679838
 BoxCollider:
   m_ObjectHideFlags: 0

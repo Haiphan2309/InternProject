@@ -255,8 +255,74 @@ public class Boulder : GameplayObject
         base.SetPosIndex();
     }
 
+    private IEnumerator Cor_DropAnim(Vector3 target, Vector3 direction)
+    {
+        isAnim = true;
+
+        Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
+        direction = GameUtils.SnapToGrid(direction);
+        target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
+        targetPosition = target;
+        Debug.Log("BOULDER Position: " + posIndex + " Target: " + targetPosition);
+
+        // Calculate Path from First Pos to Target Pos
+        List<Vector3> path = CalculatePath(currIdx, target);
+
+        // Move
+        foreach (var gridCell in path)
+        {
+            while (currIdx != gridCell)
+            {
+                AjustPosToGround(transform.position, gridCell, direction, true);
+
+                if (!isOnSlope) currIdx = transform.position;
+                else currIdx = transform.position + Vector3.up * 0.4f;
+
+                yield return null;
+            }
+
+            TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(gridCell));
+
+            if (tile == TileType.ENEMY_CHESS)
+            {
+                GameplayObject destroyGO = GetChessman(gridCell, gridCell, Vector3.zero);
+                GameplayManager.Instance.DefeatEnemyChessMan(destroyGO.index);
+                destroyGO.Defeated();
+            }
+            else if (tile == TileType.PLAYER_CHESS)
+            {
+                GameplayObject destroyGO = GetChessman(gridCell, gridCell, Vector3.zero);
+                GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
+                destroyGO.Defeated();
+            }
+            else if (tile == TileType.BOX)
+            {
+                GameplayObject destroyGO = GameUtils.GetGameplayObjectByPosition(gridCell);
+                GameplayManager.Instance.UpdateTile(gridCell);
+                destroyGO.Defeated();
+            }
+            else if (tile == TileType.WATER)
+            {
+                SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_WATER_SPLASH);
+                IsDrop();
+            }
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
+        {
+            IsDrop();
+        }
+
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+        Instantiate(vfxDefeated, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+
+        isAnim = false;
+    }
+
     public override void Drop()
     {
-        StartCoroutine(Cor_BoulderMoveAnim(GameUtils.SnapToGrid(transform.position + Vector3.down), Vector3.down));
+        StartCoroutine(Cor_DropAnim(GameUtils.SnapToGrid(transform.position + Vector3.down), Vector3.down));
     }
 }

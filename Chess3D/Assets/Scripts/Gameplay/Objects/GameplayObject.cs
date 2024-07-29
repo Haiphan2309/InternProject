@@ -31,6 +31,7 @@ public class GameplayObject : MonoBehaviour
 
     public LayerMask objectLayer;
     [SerializeField] public GameObject vfxDefeated;
+    [SerializeField] public GameObject vfxDrop;
 
     [SerializeField] protected GameObject parentObject;
 

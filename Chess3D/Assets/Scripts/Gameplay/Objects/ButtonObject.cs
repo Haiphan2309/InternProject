@@ -1,3 +1,4 @@
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ public class ButtonObject : GameplayObject
     private void ActiveButton()
     {
         if (isActive == true) return;
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
 
         //isActive = true;
         foreach (ToggleBlock block in toggleBlocks)
