@@ -55,8 +55,6 @@ public class ButtonObject : GameplayObject
             }
             isActive = false;
         }
-
-        GameplayManager.Instance.EndTurn();
     }
 
 }

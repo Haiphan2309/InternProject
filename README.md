@@ -26,7 +26,7 @@ chơi, màu sắc của trò chơi)
 - Thêm hệ thống quảng cáo mẫu.
 - Sửa lỗi.
 
-## Log thay đổi của bản 1.1.0 - 2024/26/07:
+## Log thay đổi của bản 1.2.0 - 2024/26/07:
 - Cập nhật thêm màn chơi.
 - Thêm vật thể Button - Toggle Block
 - Thêm điều chỉnh tốc độ Camera trong Setting.
