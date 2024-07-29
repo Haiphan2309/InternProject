@@ -54,7 +54,7 @@ public class ButtonObject : GameplayObject
                 InactiveButton();
             }
             isActive = false;
-        }    
+        }
     }
 
 }
