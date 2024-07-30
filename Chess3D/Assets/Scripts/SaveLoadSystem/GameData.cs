@@ -60,7 +60,7 @@ namespace GDC.Managers
                 for (int i= gameDataOrigin.playerLevelStars.Count; i< GameConstants.MAX_CHAPTER * GameConstants.MAX_LEVEL; i++)
                 {
                     gameDataOrigin.playerLevelStars.Add(0);
-                    gameDataOrigin.playerLevelHighScores.Add(99);
+                    gameDataOrigin.playerLevelHighScores.Add(0);
                     gameDataOrigin.isPlayBefores.Add(false);
                 }
             }
@@ -158,7 +158,7 @@ namespace GDC.Managers
         public bool CheckNewRecord(int chapterId, int levelId, int remainTurn)
         {
             int index = chapterId * GameConstants.MAX_LEVEL + levelId;
-            return playerLevelDatas[index].highScore > remainTurn;
+            return playerLevelDatas[index].highScore < remainTurn;
         }
         public void SetLevelData(int chapterId, int levelId, int star, int remainTurn)
         {
