@@ -31,6 +31,8 @@ public class Boulder : GameplayObject
     {
         isAnim = true;
 
+        Vector3 initTarget = GameUtils.SnapToGrid(target + direction);
+
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
         direction = GameUtils.SnapToGrid(direction);
         target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
@@ -88,6 +90,12 @@ public class Boulder : GameplayObject
         if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
         {
             IsDrop();
+        }
+
+        if (initTarget.y > GameUtils.SnapToGrid(transform.position).y)
+        {
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+            Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
         }
 
         isAnim = false;
@@ -322,7 +330,7 @@ public class Boulder : GameplayObject
         }
 
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
-        Instantiate(vfxDefeated, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+        Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
 
         isAnim = false;
 

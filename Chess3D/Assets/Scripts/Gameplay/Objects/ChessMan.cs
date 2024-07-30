@@ -202,12 +202,16 @@ public class ChessMan : GameplayObject
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             AjustPosToGround(target);
-            isStandOnSlope = isOnSlope;
+            // isStandOnSlope = isOnSlope;
             isMove = false;
             SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
             SetPosIndex();
             CheckBox(target);
+
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+            Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
             GameplayManager.Instance.CheckActiveButtonObjects();
+
             GameplayManager.Instance.EndTurn();
         });
     }
