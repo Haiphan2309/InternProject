@@ -299,8 +299,19 @@ public class ChessMan : GameplayObject
         isStandOnSlope = isOnSlope;
 
         SetPosIndex();
-        
+
+        if (objectInteract != null && objectInteract.CompareTag("Object") && objectInteract.name == "201(Clone)")
+        {
+            Vector3 pos = GameUtils.SnapToGrid(objectInteract.transform.position);
+            Vector3 dir = objectInteract.GetDirectionThroughSlope();
+
+            objectInteract.MoveAnim(pos, dir, 5f * Time.deltaTime);
+            yield return new WaitUntil(() => objectInteract.isAnim == false);
+            objectInteract.SetPosIndex();
+        }
+
         CheckBox(target);
+
 
         GameplayManager.Instance.CheckActiveButtonObjects();
 
