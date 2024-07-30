@@ -295,4 +295,33 @@ public class GameplayObject : MonoBehaviour
     {
         
     }
+
+    public Vector3 GetDirectionThroughSlope()
+    {
+        TileType tile = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(transform.position));
+        Vector3 direction = Vector3.zero;
+        switch (tile)
+        {
+            case TileType.SLOPE_0:
+                direction = Vector3.forward;
+                break;
+
+            case TileType.SLOPE_90:
+                direction = Vector3.left;
+                break;
+
+            case TileType.SLOPE_180:
+                direction = Vector3.back;
+                break;
+
+            case TileType.SLOPE_270:
+                direction = Vector3.right;
+                break;
+
+            default:
+                break;
+        }
+
+        return direction;
+    }
 }

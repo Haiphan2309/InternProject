@@ -3,11 +3,11 @@ using GDC.Enums;
 using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Boulder : GameplayObject
 {
-
     private bool isDestroy = false;
     private int destroyPositionY = -3;
 
@@ -29,6 +29,7 @@ public class Boulder : GameplayObject
 
     IEnumerator Cor_BoulderMoveAnim(Vector3 target, Vector3 direction)
     {
+        if (direction == Vector3.zero) yield break;
         isAnim = true;
 
         Vector3 initTarget = GameUtils.SnapToGrid(target + direction);
