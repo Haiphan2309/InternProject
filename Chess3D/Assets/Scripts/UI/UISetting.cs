@@ -14,7 +14,7 @@ public class UISetting : MonoBehaviour
     [SerializeField] private UIPopupAnim uiPopupAnim;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] RectTransform bottomGroupRect;
-    [SerializeField] private Button menuBtn, replayBtn, hideButton;
+    [SerializeField] private Button menuBtn, replayBtn, hideButton, unlockButton;
     [SerializeField] private Slider musicSlider, soundSlider, cameraSpeedSlider;
     [SerializeField] private TMP_Dropdown languageDropdown;
     private Coroutine hideCor;
@@ -54,6 +54,7 @@ public class UISetting : MonoBehaviour
         menuBtn.onClick.AddListener(OnMenu);
         replayBtn.onClick.AddListener(OnReplay);
         hideButton.onClick.AddListener(Hide);
+        unlockButton.onClick.AddListener(UnlockAll);
 
         musicSlider.onValueChanged.AddListener(delegate { OnChangeMusicVolume(); });
         soundSlider.onValueChanged.AddListener(delegate { OnChangeSoundVolume(); });
@@ -91,6 +92,7 @@ public class UISetting : MonoBehaviour
         menuBtn.onClick.RemoveAllListeners();
         replayBtn.onClick.RemoveAllListeners();
         hideButton.onClick.RemoveAllListeners();
+        unlockButton.onClick.RemoveAllListeners();
 
         musicSlider.onValueChanged.RemoveAllListeners();
         soundSlider.onValueChanged.RemoveAllListeners();
@@ -165,4 +167,8 @@ public class UISetting : MonoBehaviour
         }
         PlayerPrefs.SetInt("CameraTargetSpeed", (int)cameraSpeedSlider.value);
     }
+    private void UnlockAll()
+    {
+        //todo
+    }    
 }
