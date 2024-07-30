@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level_Test_Button
   m_EditorClassIdentifier: 
   id: 0
-  center: {x: 0, y: 0, z: 0}
-  distance: 0
-  maxTurn: 0
+  center: {x: 5, y: 0, z: 5}
+  distance: 15
+  maxTurn: 99
   starTurn2: 0
   starTurn3: 0
   tileInfo:
@@ -1697,8 +1697,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 3, y: 2, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 305
+      tileType: 11
   - pos: {x: 3, y: 2, z: 4}
     tileInfo:
       id: 203
@@ -3221,40 +3221,40 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 2, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 301
+      tileType: 11
   - pos: {x: 6, y: 2, z: 1}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 201
+      tileType: 5
   - pos: {x: 6, y: 2, z: 2}
     tileInfo:
-      id: 305
-      tileType: 11
+      id: 0
+      tileType: 0
   - pos: {x: 6, y: 2, z: 3}
     tileInfo:
       id: 0
       tileType: 0
   - pos: {x: 6, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 106
+      tileType: 8
   - pos: {x: 6, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 6}
     tileInfo:
-      id: 301
-      tileType: 11
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 2, z: 7}
     tileInfo:
       id: 0
       tileType: 0
   - pos: {x: 6, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 106
+      tileType: 8
   - pos: {x: 6, y: 2, z: 9}
     tileInfo:
       id: 0
@@ -3305,12 +3305,12 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 3, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 106
+      tileType: 8
   - pos: {x: 6, y: 3, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 6, y: 3, z: 7}
     tileInfo:
       id: 0
@@ -3373,15 +3373,15 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 6, y: 4, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 106
+      tileType: 8
   - pos: {x: 6, y: 4, z: 7}
     tileInfo:
-      id: 0
+      id: 205
       tileType: 0
   - pos: {x: 6, y: 4, z: 8}
     tileInfo:
-      id: 0
+      id: 205
       tileType: 0
   - pos: {x: 6, y: 4, z: 9}
     tileInfo:
@@ -3733,8 +3733,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 2, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 301
+      tileType: 11
   - pos: {x: 7, y: 2, z: 1}
     tileInfo:
       id: 0
@@ -3745,28 +3745,28 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 2, z: 3}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 200
+      tileType: 4
   - pos: {x: 7, y: 2, z: 4}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 106
+      tileType: 8
   - pos: {x: 7, y: 2, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 2, z: 7}
     tileInfo:
       id: 0
       tileType: 0
   - pos: {x: 7, y: 2, z: 8}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 106
+      tileType: 8
   - pos: {x: 7, y: 2, z: 9}
     tileInfo:
       id: 0
@@ -3817,12 +3817,12 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 3, z: 5}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 106
+      tileType: 8
   - pos: {x: 7, y: 3, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 100
+      tileType: 1
   - pos: {x: 7, y: 3, z: 7}
     tileInfo:
       id: 0
@@ -3885,15 +3885,15 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 7, y: 4, z: 6}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 106
+      tileType: 8
   - pos: {x: 7, y: 4, z: 7}
     tileInfo:
-      id: 0
+      id: 205
       tileType: 0
   - pos: {x: 7, y: 4, z: 8}
     tileInfo:
-      id: 0
+      id: 205
       tileType: 0
   - pos: {x: 7, y: 4, z: 9}
     tileInfo:
@@ -4245,8 +4245,8 @@ MonoBehaviour:
       tileType: 0
   - pos: {x: 8, y: 2, z: 0}
     tileInfo:
-      id: 0
-      tileType: 0
+      id: 301
+      tileType: 11
   - pos: {x: 8, y: 2, z: 1}
     tileInfo:
       id: 0
@@ -8213,14 +8213,20 @@ MonoBehaviour:
       tileType: 0
   playerArmies:
   - chessManType: 5
-    posIndex: {x: 6, y: 2, z: 2}
+    posIndex: {x: 3, y: 2, z: 3}
   - chessManType: 1
-    posIndex: {x: 6, y: 2, z: 6}
+    posIndex: {x: 6, y: 2, z: 0}
+  - chessManType: 1
+    posIndex: {x: 7, y: 2, z: 0}
+  - chessManType: 1
+    posIndex: {x: 8, y: 2, z: 0}
   enemyArmies:
   - chessManType: 5
     posIndex: {x: 2, y: 2, z: 9}
     isAI: 0
     priority: 0
-    movePosIndexs: []
+    movePosIndexs:
+    - {x: 2, y: 2, z: 10}
+    - {x: 2, y: 2, z: 9}
   hintMoves: []
   thumbnail: {fileID: 0}

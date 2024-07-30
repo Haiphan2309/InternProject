@@ -47,23 +47,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   posIndex: {x: 6, y: 3, z: 4}
+  targetPosition: {x: 0, y: 0, z: 0}
+  isAnim: 0
+  index: 0
   defaultSpeed: 0
   outline: {fileID: 183277108}
   isOnSlope: 0
-  isOnPathSlope: 0
+  isStandOnSlope: 0
   isFalling: 0
+  isMove: 0
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
+  vfxDrop: {fileID: 6452308133831282335, guid: dd130e6f848772e4a8ef55f8306637c0, type: 3}
+  parentObject: {fileID: 0}
   config: {fileID: 11400000, guid: 99a5b448e7ea9e647939ee37a647ec42, type: 2}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  testPromoteType: 0
+  vfxPromote: {fileID: 0}
   isEnemy: 0
-  index: 0
-  isTouchBox: 0
-  isTouchBoulder: 0
+  moveIndex: 0
+  deltaMoveIndex: 1
+  isAI: 0
+  isDrop: 0
 --- !u!65 &1652286005729679838
 BoxCollider:
   m_ObjectHideFlags: 0

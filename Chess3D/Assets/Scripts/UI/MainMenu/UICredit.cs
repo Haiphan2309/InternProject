@@ -16,6 +16,7 @@ public class UICredit : MonoBehaviour
     }
     public void Hide()
     {
+        hideButton.onClick.RemoveAllListeners();
         PopupManager.Instance.HideBlackBg();
         uiPopupAnim.Hide();
     }

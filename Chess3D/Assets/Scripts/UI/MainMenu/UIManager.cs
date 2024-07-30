@@ -299,14 +299,4 @@ public class UIManager : MonoBehaviour
         returnButton.GetComponent<Button>().interactable = true;
         creditButton.GetComponent<Button>().interactable = true;
     }
-
-    //public void ClearPopup()
-    //{
-    //    if (!isPopupLoad) return;
-    //    for (int i = 0; i < pageSystem.childCount; ++i)
-    //    {
-    //        Destroy(pageSystem.GetChild(i).gameObject);
-    //    }
-    //    isPopupLoad = false;
-    //}
 }

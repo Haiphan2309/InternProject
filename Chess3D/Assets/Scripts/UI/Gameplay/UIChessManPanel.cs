@@ -1,5 +1,6 @@
 using DG.Tweening;
 using GDC.Enums;
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,12 +16,15 @@ public class ChessHolder
     
     public GameObject holderObject;
 
+    public int index;
+
     public bool isEnemy;
     
     public ChessHolder(ChessMan chessMan)
     {
         this.chessMan = chessMan;
-        
+        this.index = chessMan.index;
+        this.isEnemy = chessMan.isEnemy;
     }
 
 }
@@ -57,7 +61,7 @@ public class UIChessManPanel : MonoBehaviour
         activatingHolder = null;
 
         LoadChessIcon();
-        UpdateChessPanel();
+        CreateChessPanel();
         UpdateOnClickEvent();
         
         
@@ -102,7 +106,7 @@ public class UIChessManPanel : MonoBehaviour
         }   
         
     }
-    private void UpdateChessPanel()
+    private void CreateChessPanel()
     {
         foreach(var army in GameplayManager.Instance.playerArmy)
         {
@@ -145,6 +149,7 @@ public class UIChessManPanel : MonoBehaviour
                 () => OnHolderClicked(holder)
             );
         }
+
         foreach (var holder in enemyHolderList)
         {
             holder.holderObject.GetComponent<Button>().onClick.AddListener(
@@ -170,31 +175,40 @@ public class UIChessManPanel : MonoBehaviour
 
     private void OnHolderClicked(ChessHolder holder)
     {
-        
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_CHESSMAN);
         if (activatingHolder != null && activatingHolder == holder)
         {
             ChangeHolderColor(activatingHolder, false);
+            activatingHolder?.chessMan.SetOutline(0);
+
             activatingHolder = null;
+
             GameplayManager.Instance.camController.ChangeToDefaultCamera();
+
             return;
         } 
         Transform target = holder.chessMan.gameObject.transform;
         GameplayManager.Instance.camController.ChangeFollow(target);
         
-        //
+        
         ChangeHolderColor(activatingHolder, false);
         activatingHolder?.chessMan.SetOutline(0);
  
-        //
         activatingHolder = holder;
         ChangeHolderColor(activatingHolder, true);
         activatingHolder?.chessMan.SetOutline(10, Color.white);
         
     }
+    /// <summary>
+    /// Change Color of a ChessHolder
+    /// </summary>
+    /// <param name="holder"></param>
+    /// <param name="isOn">True if chess holder is activating</param>
+    /// <param name="isDisable">True if chessMan is destroyed (null)</param>
     private void ChangeHolderColor(ChessHolder holder, bool isOn, bool isDisable = false)
     {
         if (holder == null) return;
-        bool isEnemy = holder.chessMan.isEnemy;
+        bool isEnemy = holder.isEnemy;
         Color backgroundColor, foregroundColor;
         ChessHolderConfig holderConfig = isEnemy ? enemyChessHolderConfig : playerChessHolderConfig;
         if (isDisable)
@@ -221,18 +235,23 @@ public class UIChessManPanel : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Update Holder after promote a Pawn
+    /// </summary>
+    /// <param name="chessMan"></param>
     public void UpdateHolder(ChessMan chessMan) 
     {
         foreach(var holder in playerHolderList)
         {
             if (holder.chessMan == chessMan)
             {
-                ReLoadHolderImg(holder);
+                ReloadHolderImg(holder);
             }
         }
     }
-    private void ReLoadHolderImg(ChessHolder holder)
+
+
+    private void ReloadHolderImg(ChessHolder holder)
     {
         Transform chessImg = holder.holderObject.transform.Find("ChessImage");
         chessImg.gameObject.GetComponent<Image>().sprite = chessSpriteDic[holder.chessMan.config.chessManType];
@@ -242,6 +261,10 @@ public class UIChessManPanel : MonoBehaviour
         activatingHolder?.chessMan.SetOutline(0);
     }
 
+    /// <summary>
+    /// Disable chess holder from chessMan
+    /// </summary>
+    /// <param name="chessMan"></param>
     public void DisableChess(ChessMan chessMan)
     {
    
@@ -252,7 +275,9 @@ public class UIChessManPanel : MonoBehaviour
             if (holder.chessMan == chessMan)
             {
                 holder.holderObject.GetComponent<Button>().interactable = false;
+
                 ChangeHolderColor(holder, false, true);
+                
                 if (activatingHolder == holder)
                 {
                     GameplayManager.Instance.camController.ChangeToDefaultCamera();
@@ -260,5 +285,97 @@ public class UIChessManPanel : MonoBehaviour
             }
         }
         
+    }
+
+    /// <summary>
+    /// Disable a ChessHolder in panel
+    /// </summary>
+    /// <param name="holder"></param>
+    private void DisableHolder(ChessHolder holder)
+    {
+        holder.holderObject.GetComponent<Button>().interactable = false;
+
+        ChangeHolderColor(holder, false, true);
+    }
+
+    /// <summary>
+    /// Enable a Chessholder in panel
+    /// </summary>
+    /// <param name="holder"></param>
+    private void EnableHolder(ChessHolder holder)
+    {
+        bool isOn = false;
+        
+        if (holder.chessMan != null && activatingHolder != null)
+        {
+            isOn = (activatingHolder == holder);
+        }
+
+        holder.holderObject.GetComponent<Button>().interactable = true;
+        
+        ChangeHolderColor(holder, isOn, false);
+    }
+
+
+    /// <summary>
+    /// Update Chessman Panel when game undo
+    /// </summary>
+    /// <param name="chessManList">
+    /// List of all chessMans
+    /// </param>
+    public void OnGameUndo(List<ChessMan> chessManList)
+    {
+        // Update Chessman of Chessholder if destroyed
+        foreach(var chessMan in chessManList) 
+        { 
+            ChessHolder holder = FindHolderFromChessMan(chessMan);
+            if (holder == null)
+            {
+                Debug.LogError("Cannot find Holder from Chessman: "+ chessMan.index);
+            }
+
+            holder.chessMan = chessMan;
+            UpdateHolderStatus(holder);
+
+
+
+        }
+
+        //Update holder status
+       
+
+    }
+
+    
+    private ChessHolder FindHolderFromChessMan(ChessMan chessMan)
+    {
+        List<ChessHolder> chessHolders = chessMan.isEnemy ? enemyHolderList : playerHolderList;
+
+        foreach (var holder in chessHolders)
+        {
+            if (holder.index == chessMan.index)
+            {
+                return holder;
+            }
+           
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Update all holders if Chessman is destroyed or not 
+    /// </summary>
+  
+
+    private void UpdateHolderStatus(ChessHolder holder)
+    {
+        if (holder.chessMan == null) // Disable Holder when null
+        {
+            DisableHolder(holder);
+        }
+        else
+        {
+            EnableHolder(holder);
+        }
     }
 }

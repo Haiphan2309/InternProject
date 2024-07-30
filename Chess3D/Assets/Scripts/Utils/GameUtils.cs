@@ -37,6 +37,11 @@ public static class GameUtils
         return tileType == TileType.PLAYER_CHESS || tileType == TileType.ENEMY_CHESS;
     }
 
+    public static bool CheckBox(TileType tileType)
+    {
+        return tileType == TileType.BOX;
+    }
+
     public static TileType GetTileBelowObject(Vector3 position)
     {
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(position + Vector3.down);
@@ -71,7 +76,7 @@ public static class GameUtils
         GameplayObject foundObject = null;
         foreach (GameplayObject obj in Object.FindObjectsOfType<GameplayObject>())
         {
-            if (CompareVector3(obj.transform.position, position))
+            if (CompareVector3(SnapToGrid(obj.transform.position), position))
             {
                 foundObject = obj.GetComponent<GameplayObject>();
                 break;
@@ -93,6 +98,29 @@ public static class GameUtils
             inBound = false;
         }
         if (Ypos <= 0 || Ypos >= GDC.Constants.GameConstants.MAX_Y_SIZE)
+        {
+            inBound = false;
+        }
+        if (Zpos < 0 || Zpos >= GDC.Constants.GameConstants.MAX_Z_SIZE)
+        {
+            inBound = false;
+        }
+        // Debug.Log("InBound = " + inBound);
+        return inBound;
+    }
+
+    public static bool InBoundMove(Vector3 currentMove)
+    {
+        bool inBound = true;
+        float Xpos = currentMove.x;
+        float Ypos = currentMove.y;
+        float Zpos = currentMove.z;
+
+        if (Xpos < 0 || Xpos >= GDC.Constants.GameConstants.MAX_X_SIZE)
+        {
+            inBound = false;
+        }
+        if (Ypos <= 0)
         {
             inBound = false;
         }

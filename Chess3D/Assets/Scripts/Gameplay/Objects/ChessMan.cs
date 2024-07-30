@@ -11,6 +11,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using static UnityEditor.PlayerSettings;
 
 public class ChessMan : GameplayObject
 {
@@ -27,6 +28,7 @@ public class ChessMan : GameplayObject
 
     public int deltaMoveIndex = 1; //Biến này dùng để xác định enemy di chuyển theo chiều tới hoặc chiều lùi theo pattern (1 là tới, -1 là lùi)
     public bool isAI;
+    public bool isDrop;
 
     List<Vector3> showPath = new List<Vector3>();
 
@@ -37,14 +39,17 @@ public class ChessMan : GameplayObject
         this.posIndex = posIndex;
 
         testPromoteType = config.chessManType;
+        parentObject = transform.parent.gameObject;
     }
     public void Setup(EnemyArmy enemyArmy, int index, Vector3 posIndex)
     {
         isEnemy = true;
         this.index = index;
         this.posIndex = posIndex;
+
+        parentObject = transform.parent.gameObject;
     }
-    public void SetChessManData(PlayerChessManData chessManData)
+    public void SetChessManData(PlayerChessManData chessManData, Transform parentTransform = null)
     {
         if (config.chessManType != chessManData.chessManType)
         {
@@ -52,19 +57,26 @@ public class ChessMan : GameplayObject
             testPromoteType = chessManData.chessManType;
             ChangeMesh(chessManData.chessManType);
         }
-        
+
+        isStandOnSlope = false;
+
         index = chessManData.index;
         posIndex = chessManData.posIndex;
         isEnemy = false;
+
+        SetParentObject(parentTransform.gameObject);
+        SetParentDefault();
 
         // transform.parent = null;
 
         //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
         AjustPosToGround(posIndex);
+        isStandOnSlope = isOnSlope;
         CheckBox(posIndex);
     }
-    public void SetChessManData(EnemyChessManData chessManData)
+    public void SetChessManData(EnemyChessManData chessManData, Transform parentTransform = null)
     {
+        isStandOnSlope = false;
         config = GetConfigFromType(chessManData.chessManType);
         index = chessManData.index;
         posIndex = chessManData.posIndex;
@@ -73,11 +85,16 @@ public class ChessMan : GameplayObject
         isEnemy = true;
         isAI = chessManData.isAI;
 
+        SetParentObject(parentTransform.gameObject);
+        SetParentDefault();
+
         // transform.parent = null;
         //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
         AjustPosToGround(posIndex);
+        isStandOnSlope = isOnSlope;
         CheckBox(posIndex);
     }
+
 
     public bool EnemyMove()
     {
@@ -185,10 +202,16 @@ public class ChessMan : GameplayObject
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             AjustPosToGround(target);
-            isStandOnSlope = isOnSlope;
+            // isStandOnSlope = isOnSlope;
             isMove = false;
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
             SetPosIndex();
             CheckBox(target);
+
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+            Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+            GameplayManager.Instance.CheckActiveButtonObjects();
+
             GameplayManager.Instance.EndTurn();
         });
     }
@@ -266,7 +289,7 @@ public class ChessMan : GameplayObject
 
         if (objectInteract != null && objectInteract.CompareTag("Object"))
         {
-            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + gameplayObject.isAnim);
+            Debug.Log("Object: " + objectInteract.name + " GameplayObject isAnim: " + objectInteract.isAnim);
             yield return new WaitUntil(() => objectInteract.isAnim == false);
             Debug.Log("GameplayObject isAnim: " + objectInteract.isAnim);
             objectInteract.SetPosIndex();
@@ -277,7 +300,21 @@ public class ChessMan : GameplayObject
 
         SetPosIndex();
 
+        if (objectInteract != null && objectInteract.CompareTag("Object") && objectInteract.name == "201(Clone)")
+        {
+            Vector3 pos = GameUtils.SnapToGrid(objectInteract.transform.position);
+            Vector3 dir = objectInteract.GetDirectionThroughSlope();
+
+            objectInteract.MoveAnim(pos, dir, 5f * Time.deltaTime);
+            yield return new WaitUntil(() => objectInteract.isAnim == false);
+            objectInteract.SetPosIndex();
+        }
+
         CheckBox(target);
+
+
+        GameplayManager.Instance.CheckActiveButtonObjects();
+
         StartCoroutine(CheckPromote());
         
     }
@@ -305,8 +342,8 @@ public class ChessMan : GameplayObject
             Promote(testPromoteType);
             GameplayManager.Instance.uiGameplayManager.UpdateHolder(this);
         }
-
-        GameplayManager.Instance.EndTurn();
+        if (!isDrop) GameplayManager.Instance.EndTurn();
+        isDrop = false;
     }
 
     void RotateToDirection(Vector3 direction)
@@ -421,6 +458,97 @@ public class ChessMan : GameplayObject
         }
         gameObject.GetComponentInChildren<MeshFilter>().mesh = newMesh;
         outline.LoadSmoothNormals();
+    }
+
+    public override void Drop()
+    {
+        Vector3 currentPos = GameUtils.SnapToGrid(posIndex);
+
+        TileType tileType = GameUtils.GetTileBelowObject(currentPos);
+
+        while (tileType == TileType.NONE)
+        {
+            currentPos.y--;
+
+            if (currentPos.y <= -3)
+            {
+                break;
+            }
+
+            tileType = GameUtils.GetTileBelowObject(currentPos);
+        }
+
+        StartCoroutine(Cor_DropAnim(currentPos));
+    }
+
+    private IEnumerator Cor_DropAnim(Vector3 target)
+    {
+        isMove = true;
+        isDrop = true;
+        // Unset Parent for chess piece
+        SetParentDefault();
+        target = GameUtils.SnapToGrid(target);
+
+        // Store current position and current index
+        Vector3 currPos = transform.position;
+        Vector3 currIdx = posIndex;
+
+        Vector3 direction = (target - currIdx).normalized;
+
+
+        // Calculate Path from First Pos to Target Pos
+        List<Vector3> path = CalculatePath(currIdx, target);
+
+        targetPosition = target;
+
+        // Move
+        foreach (var gridCell in path)
+        {
+            while (currPos != gridCell)
+            {
+                AjustPosToGround(transform.position, gridCell, direction, true);
+
+                if (!isOnSlope) currPos = transform.position;
+                else currPos = transform.position + Vector3.up * 0.4f;
+
+                yield return null;
+            }
+        }
+
+        yield return null;
+        isMove = false;
+
+        isStandOnSlope = isOnSlope;
+
+        if (GameUtils.SnapToGrid(transform.position).y <= -3)
+        {
+            isAnim = false;
+
+            TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(posIndex));
+
+            Debug.Log("Tile: " + tile);
+
+            if (tile == TileType.ENEMY_CHESS)
+            {
+                GameplayManager.Instance.DefeatEnemyChessMan(index);
+            }
+            else if (tile == TileType.PLAYER_CHESS)
+            {
+                GameplayManager.Instance.DefeatPlayerChessMan(index);
+            }
+
+            this.Defeated();
+        }
+
+        SetPosIndex();
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+        Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+
+        CheckBox(target);
+
+        GameplayManager.Instance.CheckActiveButtonObjects();
+
+        StartCoroutine(CheckPromote());
     }
 
 #if UNITY_EDITOR

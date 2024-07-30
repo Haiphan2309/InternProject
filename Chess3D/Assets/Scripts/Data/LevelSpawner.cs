@@ -84,6 +84,7 @@ public class LevelSpawner : MonoBehaviour
                     if (tileId < 0 || tileId > GameConstants.obstacleIdBoundary.y) continue;
 
                     GameObject tile = Instantiate(tilePrefabDic[tileId], spawnPos, tilePrefabDic[tileId].transform.rotation);
+                    tile.transform.parent = floor.transform;
                     if (tileId == 200) // Box
                     {
                         tile.GetComponent<Box>().Setup(GameUtils.SnapToGrid(tile.transform.position));
@@ -106,7 +107,6 @@ public class LevelSpawner : MonoBehaviour
                         toggleBlockList.Add(block);
                     }
                     
-                    tile.transform.parent = floor.transform;
                 }
             }
 
@@ -187,13 +187,29 @@ public class LevelSpawner : MonoBehaviour
             index++;
         }
     }
-    void SpawnEnemyDefaultMove()
+    void SpawnEnemyDefaultMove() //Spawn nhung cham trang bieu thi nuoc di mac dinh cua enemy
     {
         var defaultMovePointObj = Resources.Load<GameObject>( objectPrefabPath + "/999");
         List<Vector3> defaultMoves = levelData.GetAllDefaultMove();
         foreach (var move in defaultMoves) 
         {
-            Instantiate(defaultMovePointObj, move, Quaternion.identity);
+            Vector3 posSpawn = move;
+            switch (levelData.GetTileInfoNoDeep(move + Vector3.down).tileType)
+            {
+                case TileType.SLOPE_0:
+                    posSpawn += new Vector3(0f, -0.45f, 0.1f);
+                    break;
+                case TileType.SLOPE_90:
+                    posSpawn += new Vector3(-0.1f, -0.45f, 0f);
+                    break;
+                case TileType.SLOPE_180:
+                    posSpawn += new Vector3(0f, -0.45f, -0.1f);
+                    break;
+                case TileType.SLOPE_270:
+                    posSpawn += new Vector3(1f, -0.45f, 0f);
+                    break;
+            }
+            Instantiate(defaultMovePointObj, posSpawn, Quaternion.identity);
         }
     }
     public ChapterData GetChapterData(int chapterId)

@@ -30,7 +30,7 @@ public class UIPawnPromotion : MonoBehaviour
     { 
        
         uiPopupAnim = GetComponent<UIPopupAnim>();
-        uiPopupAnim.Hide();
+        uiPopupAnim.HideNoAnim();
         SetupHolderButtons();
 
     }

@@ -17,7 +17,7 @@ public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance { get; private set; }
 
-    public bool isBeginRound = true;
+    public int isBeginRound = 0;
 
     [SerializeField] private LevelSpawner levelSpawner;
     [SerializeField] private GridStateManager gridSateManager;
@@ -106,6 +106,9 @@ public class GameplayManager : MonoBehaviour
             case 3:
                 SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_4);
                 break;
+            case 4:
+                SoundManager.Instance.PlayMusic(AudioPlayer.SoundID.GAMEPLAY_5);
+                break;
         }
     }
 
@@ -149,7 +152,7 @@ public class GameplayManager : MonoBehaviour
         remainTurn = value;
         if (remainTurn < 0) remainTurn = 0;
 
-        if (remainTurn >= levelData.maxTurn)
+        if (remainTurn > levelData.maxTurn)
         {
             remainTurn = levelData.maxTurn;
         }
@@ -169,6 +172,7 @@ public class GameplayManager : MonoBehaviour
         SetRemainTurn(remainTurn + value);
         isEndGame = false;
         ChangeTurn(!enemyTurn);
+        AdsManager.Instance.ON_REWARD_TURN -= RewardTurn;
     }
     private IEnumerator Cor_EndTurn()
     {
@@ -450,25 +454,19 @@ public class GameplayManager : MonoBehaviour
         }
         return false;
     }    
-    public void CheckActiveButtonObjects()
+    public void CheckActiveButtonObjects(bool isUndo = false)
     {
         foreach(var button in buttonObjects)
         {
-            if (GameUtils.GetTile(button.posIndex) != TileType.NONE)
-            {
-                button.ActiveButton();
-            }
-            else
-            {
-                button.InActiveButton();
-            }
+            button.CheckActiveButton(isUndo);
         }
     }    
     public void MakeMove(ChessMan chessMan, Vector3 posIndexToMove, ChessMan defeatedChessMan = null)
     {
-        isBeginRound = false;
+        
         if (chessMan.isEnemy == false) //Nếu là player thì lưu vết để có thể undo nước đi được
         {
+            isBeginRound++;
             gridSateManager.AddState(levelData.tileInfo, playerArmy, enemyArmy, listEnemyPriorityLowest, toggleBlocks);
         }
         camController.MovingFocus(chessMan.transform);
@@ -522,6 +520,10 @@ public class GameplayManager : MonoBehaviour
     public void UpdateTile(Vector3 oldPos, TileInfo tileInfo = null)
     {
         levelData.SetTileInfoNoDeep(oldPos, 0, TileType.NONE);
+    }
+    public void SetTile(Vector3 pos, TileType tileType)
+    {
+        levelData.SetTileInfoNoDeep(pos, 0, tileType);
     }
     public void EndTurn() //Duoc goi sau khi ket thuc luot
     {
@@ -624,11 +626,12 @@ public class GameplayManager : MonoBehaviour
         gridSateManager.Undo();
         SaveLoadManager.Instance.Save();
         BackHintMove();
-        
-        if (remainTurn == levelSpawner.levelData.maxTurn)
+
+        isBeginRound--;
+
+        if (isBeginRound == 0)
         {
             canHint = true;
-            isBeginRound = true;
         }
         else
         {
@@ -636,6 +639,14 @@ public class GameplayManager : MonoBehaviour
             
         }
         isShowHint = false;
+
+        // Undo in UI - Khang update
+        uiGameplayManager.ChessPanelOnGameUndo(playerArmy);
+        uiGameplayManager.ChessPanelOnGameUndo(enemyArmy);
+
+
+
+
     }
     [Button]
     public void IncreaseTurn()
@@ -700,17 +711,15 @@ public class GameplayManager : MonoBehaviour
 
     private void BackHintMove()
     {
-        if (moveListTmp.Count <= 0) return;
-
+        if (Cor_HintAnim != null) StopCoroutine(Cor_HintAnim);
         if (isShowHint) ResetChessManAfterAnim();
+
+        if (moveListTmp.Count <= 0) return;
 
         moveList.Insert(0, moveListTmp[moveListTmp.Count - 1]);
         moveListTmp.RemoveAt(moveListTmp.Count - 1);
 
         DestroyAllChildren(baseHint.gameObject);
-
-        if (Cor_HintAnim != null) StopCoroutine(Cor_HintAnim);
-
     }
 
     private void ResetChessManAfterAnim()
@@ -718,6 +727,10 @@ public class GameplayManager : MonoBehaviour
         if (moveListTmp.Count <= 0) return;
 
         GameplayObject chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(moveListTmp.Count - 1).playerArmy.posIndex);
+        chessman.outline.OutlineWidth = 0f;
+
+        if (moveList.Count <= 0) return;
+        chessman = GameUtils.GetGameplayObjectByPosition(moveListTmp.ElementAt(0).playerArmy.posIndex);
         chessman.outline.OutlineWidth = 0f;
     }
 

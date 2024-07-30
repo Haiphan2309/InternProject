@@ -167,7 +167,7 @@ namespace GDC.Managers
         {
             if (soundType != SoundType.NONE)
             {
-                SoundManager.Instance.ClearSoundMapExceptCommonSoundMap();
+                //SoundManager.Instance.ClearSoundMapExceptCommonSoundMap();
                 SoundManager.Instance.LoadSoundMap(soundType);
             }
 
@@ -182,7 +182,7 @@ namespace GDC.Managers
         }
         IEnumerator Cor_TransitionOut(System.Action cb = null, TransitionType transitionType = TransitionType.NONE)
         {
-            yield return new WaitForSeconds(GameConstants.TRANSITION_TIME);
+            yield return new WaitForSeconds(GameConstants.LOADING_TIME);
             yield return null;
             SceneTransition.Instance.TransitionOut(transitionType);
             //SetInitData();
@@ -194,6 +194,7 @@ namespace GDC.Managers
         }
         public void SetInitData(int chapterIndex, int levelIndex)
         {
+            SaveLoadManager.Instance.CacheData.currentChapter = chapterIndex;
             StartCoroutine(Cor_InitData(chapterIndex, levelIndex));
         }
         public void LoadMenuChapter()

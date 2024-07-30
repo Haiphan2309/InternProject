@@ -28,6 +28,8 @@ namespace GDC.Managers
     {
         public bool IsSaveLoadProcessing;
 
+        public bool isHaveSaveData;
+
         //public int coin;
         //public string playerName;
         public List<PlayerLevelData> playerLevelDatas;
@@ -45,18 +47,20 @@ namespace GDC.Managers
             //coin = gameDataOrigin.coin;
             //playerName = gameDataOrigin.playerName;
 
+            isHaveSaveData = gameDataOrigin.IsHaveSaveData;
+
             if (gameDataOrigin.playerLevelStars == null)
             {
                 gameDataOrigin.playerLevelStars = new List<int>();
                 gameDataOrigin.playerLevelHighScores = new List<int>();
                 gameDataOrigin.isPlayBefores = new List<bool>();
             }
-            if (gameDataOrigin.playerLevelStars.Count == 0) 
+            if (gameDataOrigin.playerLevelStars.Count < GameConstants.MAX_CHAPTER * GameConstants.MAX_LEVEL) 
             {
-                for (int i=0; i< GameConstants.MAX_CHAPTER * GameConstants.MAX_LEVEL; i++)
+                for (int i= gameDataOrigin.playerLevelStars.Count; i< GameConstants.MAX_CHAPTER * GameConstants.MAX_LEVEL; i++)
                 {
                     gameDataOrigin.playerLevelStars.Add(0);
-                    gameDataOrigin.playerLevelHighScores.Add(99);
+                    gameDataOrigin.playerLevelHighScores.Add(0);
                     gameDataOrigin.isPlayBefores.Add(false);
                 }
             }
@@ -70,28 +74,41 @@ namespace GDC.Managers
                 playerLevelDatas.Add(new PlayerLevelData(gameDataOrigin.playerLevelStars[i], gameDataOrigin.playerLevelHighScores[i], gameDataOrigin.isPlayBefores[i]));
             }
 
-            if (gameDataOrigin.currentLevelOfChapters == null || gameDataOrigin.currentLevelOfChapters.Count == 0)
+            if (gameDataOrigin.currentLevelOfChapters == null)
             {
                 gameDataOrigin.currentLevelOfChapters = new List<int>();
-                for (int i = 0; i < GameConstants.MAX_CHAPTER; i++)
+            }    
+            if (gameDataOrigin.currentLevelOfChapters.Count < GameConstants.MAX_CHAPTER)
+            {     
+                for (int i = gameDataOrigin.currentLevelOfChapters.Count; i < GameConstants.MAX_CHAPTER; i++)
                 {
                     gameDataOrigin.currentLevelOfChapters.Add(0);
                 }
-            }       
+            }
 
-            if (currentLevelOfChapters == null || currentLevelOfChapters.Count == 0)
+            if (currentLevelOfChapters == null)
             {
                 currentLevelOfChapters = new List<int>();
             }
-            for (int i = 0; i < GameConstants.MAX_CHAPTER; i++)
+            if (currentLevelOfChapters.Count < GameConstants.MAX_CHAPTER)
             {
-                currentLevelOfChapters.Add(gameDataOrigin.currentLevelOfChapters[i]);
+                for (int i = currentLevelOfChapters.Count; i < GameConstants.MAX_CHAPTER; i++)
+                {
+                    currentLevelOfChapters.Add(gameDataOrigin.currentLevelOfChapters[i]);
+                }
             }
 
             language = (Language)gameDataOrigin.languageId;
-            undoNum = gameDataOrigin.undoNum;
-            solveNum = gameDataOrigin.solveNum;
-            turnNum = gameDataOrigin.turnNum;
+            if (isHaveSaveData)
+            {
+                undoNum = gameDataOrigin.undoNum;
+                solveNum = gameDataOrigin.solveNum;
+                turnNum = gameDataOrigin.turnNum;
+            }
+            else
+            {
+                ReceiveInitItem();
+            }
 
             isPurchaseAds = gameDataOrigin.isPurchaseAds;
 
@@ -102,6 +119,8 @@ namespace GDC.Managers
         {
             IsSaveLoadProcessing = true;
             GameDataOrigin gameDataOrigin = new GameDataOrigin();
+
+            gameDataOrigin.IsHaveSaveData = true;
 
             //gameDataOrigin.coin = coin;
             //gameDataOrigin.playerName = playerName;
@@ -130,10 +149,16 @@ namespace GDC.Managers
         }
 
         #region support function
+        public void ReceiveInitItem()
+        {
+            solveNum = 3;
+            turnNum = 5;
+            undoNum = 5;
+        }
         public bool CheckNewRecord(int chapterId, int levelId, int remainTurn)
         {
             int index = chapterId * GameConstants.MAX_LEVEL + levelId;
-            return playerLevelDatas[index].highScore > remainTurn;
+            return playerLevelDatas[index].highScore < remainTurn;
         }
         public void SetLevelData(int chapterId, int levelId, int star, int remainTurn)
         {
@@ -229,6 +254,6 @@ namespace GDC.Managers
     [Serializable]
     public struct CacheData //Luu cac data tam thoi trong game, ko luu khi tat
     {
-
+        public int currentChapter;
     }
 }

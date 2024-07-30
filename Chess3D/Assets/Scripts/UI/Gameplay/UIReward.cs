@@ -72,6 +72,7 @@ public class UIReward : MonoBehaviour
     }
     public void Hide()
     {
+        exitButton.onClick.RemoveAllListeners();
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         PopupManager.Instance.HideBlackBg();
         rect.DOScale(0, 0.5f).SetEase(Ease.InBack);

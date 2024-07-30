@@ -163,5 +163,12 @@ public class UIGameplayManager : MonoBehaviour
     {
         return uIButtonManager.ChekcCanUndo();
     }
-   
+
+    /// <summary>
+    /// Update Chessman Panel when game undo
+    /// </summary>
+    public void ChessPanelOnGameUndo(List<ChessMan> chessManList)
+    {
+        uIChessManPanel.OnGameUndo(chessManList);
+    }
 }

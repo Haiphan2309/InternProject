@@ -61,16 +61,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -382652638819485698, guid: 5615a4bd35fc3214bba57f471ccc303b, type: 3}
+      objectReference: {fileID: 2100000, guid: 23cebd9b3b2be42498d89d0257cc2ad8, type: 2}
     - target: {fileID: -7511558181221131132, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 7c01cd57461b8964ba135630f5a2a3c8, type: 2}
+      objectReference: {fileID: 2100000, guid: 9d809fe2e2b00dd4d9b6a3bc3fb09a8c, type: 2}
+    - target: {fileID: -5754084199372789682, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -2595130509732629779, guid: afa70b0e284ce1149a882c0751035656, type: 3}
     - target: {fileID: 919132149155446097, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_Name
       value: 208
@@ -81,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_TagString
-      value: Object
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d31740353b1bd5641b8ed5749602a910, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -120,3 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOn: 0
+  materialOn0: {fileID: 2100000, guid: 23cebd9b3b2be42498d89d0257cc2ad8, type: 2}
+  materialOn1: {fileID: 2100000, guid: 9d809fe2e2b00dd4d9b6a3bc3fb09a8c, type: 2}
+  materialOff: {fileID: 2100000, guid: 7dd278952f3cb5441b7cfa2ce48cfa4e, type: 2}
