@@ -252,21 +252,28 @@ public class UIManager : MonoBehaviour
 
     public void HideAllButtons()
     {
-        for (int i = 0; i < levelButton.Count; ++i)
+        if (levelButton.Count > 0)
         {
-            if (levelButton[i] != null)
+            for (int i = 0; i < levelButton.Count; ++i)
             {
-            levelButton[i].interactable = false;
+                if (levelButton[i] != null)
+                {
+                    levelButton[i].interactable = false;
+                }
             }
         }
 
-        for (int i = 0; i < chapterButton.Count; ++i)
+        if (chapterButton.Count > 0)
         {
-            if (chapterButton[i] != null)
+            for (int i = 0; i < chapterButton.Count; ++i)
             {
-                chapterButton[i].interactable = false;
+                if (chapterButton[i] != null)
+                {
+                    chapterButton[i].interactable = false;
+                }
             }
         }
+
         startButton.GetComponent<Button>().interactable = false;
         settingButton.GetComponent<Button>().interactable = false;
         shopButton.GetComponent<Button>().interactable = false;
@@ -276,14 +283,20 @@ public class UIManager : MonoBehaviour
 
     public void ShowAllButtons()
     {
-        for (int i = 0; i < levelButton.Count; ++i)
+        if (levelButton.Count > 0)
         {
-            levelButton[i].interactable = true;
+            for (int i = 0; i < levelButton.Count; ++i)
+            {
+                levelButton[i].interactable = true;
+            }
         }
 
-        for (int i = 0; i < chapterButton.Count; ++i)
+        if (chapterButton.Count > 0)
         {
-            chapterButton[i].interactable = true;
+            for (int i = 0; i < chapterButton.Count; ++i)
+            {
+                chapterButton[i].interactable = true;
+            }
         }
         startButton.GetComponent<Button>().interactable = true;
         settingButton.GetComponent<Button>().interactable = true;
@@ -298,6 +311,7 @@ public class UIManager : MonoBehaviour
         {
             Destroy(chapterContent.GetChild(i).gameObject);
         }
+        chapterButton.Clear();
         while (UIStack.Count > 0) ReturnButton();
         this.isAvaliable = true;
         ChapterPreset();
