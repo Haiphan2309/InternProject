@@ -78,6 +78,7 @@ public class UIWinPanel : MonoBehaviour
         if (isNewRecord)
         {
             //Congrats! It's a new record!
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_STAR);
             newRecordText.color = Color.white;
             newRecordText.rectTransform.DOScale(1,0.3f).SetEase(Ease.OutBack).OnComplete(()=>
             {
