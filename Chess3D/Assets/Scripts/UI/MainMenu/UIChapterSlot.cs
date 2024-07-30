@@ -12,7 +12,7 @@ public class UIChapterSlot : MonoBehaviour
     public TMP_Text requirementsText;
 
     public int chapterIndex = 0;
-    private bool isAvailable = true;
+    private bool isAvailable = false;
     private ChapterData chapterData;
 
     public void ChapterSetup(int chapterIndex)
