@@ -6,12 +6,7 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
-using static UnityEditor.PlayerSettings;
 
 public class ChessMan : GameplayObject
 {
@@ -202,12 +197,16 @@ public class ChessMan : GameplayObject
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             AjustPosToGround(target);
-            isStandOnSlope = isOnSlope;
+            // isStandOnSlope = isOnSlope;
             isMove = false;
             SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
             SetPosIndex();
             CheckBox(target);
+
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+            Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
             GameplayManager.Instance.CheckActiveButtonObjects();
+
             GameplayManager.Instance.EndTurn();
         });
     }
@@ -295,8 +294,19 @@ public class ChessMan : GameplayObject
         isStandOnSlope = isOnSlope;
 
         SetPosIndex();
-        
+
+        if (objectInteract != null && objectInteract.CompareTag("Object") && objectInteract.name == "201(Clone)")
+        {
+            Vector3 pos = GameUtils.SnapToGrid(objectInteract.transform.position);
+            Vector3 dir = objectInteract.GetDirectionThroughSlope();
+
+            objectInteract.MoveAnim(pos, dir, 5f * Time.deltaTime);
+            yield return new WaitUntil(() => objectInteract.isAnim == false);
+            objectInteract.SetPosIndex();
+        }
+
         CheckBox(target);
+
 
         GameplayManager.Instance.CheckActiveButtonObjects();
 

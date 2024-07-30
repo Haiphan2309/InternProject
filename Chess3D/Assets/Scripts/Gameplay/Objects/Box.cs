@@ -5,9 +5,7 @@ using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Box : GameplayObject
 {
@@ -35,8 +33,9 @@ public class Box : GameplayObject
 
     IEnumerator Cor_BoxMoveAnim(Vector3 target, Vector3 direction)
     {
+        isFalling = false;
         transform.parent = holder.transform;
-
+        Vector3 initTarget = target + direction;
 
         isAnim = true;
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
@@ -97,6 +96,12 @@ public class Box : GameplayObject
 
         CheckBox(target);
 
+        if (isFalling)
+        {
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+            Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+        }
+
     }
 
     private Vector3 CalculateTarget(Vector3 target, Vector3 direction)
@@ -117,6 +122,8 @@ public class Box : GameplayObject
             nextCell.y -= 1;
 
             tileBelow = GameUtils.GetTileBelowObject(nextCell);
+
+            isFalling = true;
 
             if (nextCell.y <= -3)
             {
@@ -348,7 +355,7 @@ public class Box : GameplayObject
         isAnim = false;
         isDropToWater = false;
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
-        Instantiate(vfxDefeated, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+        Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
         CheckBox(target);
         SetPosIndex();
     }

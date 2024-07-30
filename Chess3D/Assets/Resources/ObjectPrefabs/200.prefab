@@ -124,10 +124,13 @@ MonoBehaviour:
   isOnSlope: 0
   isStandOnSlope: 0
   isFalling: 0
+  isMove: 0
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
   vfxDefeated: {fileID: 6452308133831282335, guid: 2ccce19713ef2554cabe693245c48edd, type: 3}
+  vfxDrop: {fileID: 6452308133831282335, guid: dd130e6f848772e4a8ef55f8306637c0, type: 3}
+  parentObject: {fileID: 0}
   vfxWaterSplash: {fileID: 6452308133831282335, guid: 9dc490e9a5d005340b0235c461e1d668, type: 3}
 --- !u!114 &154858078353309136
 MonoBehaviour:

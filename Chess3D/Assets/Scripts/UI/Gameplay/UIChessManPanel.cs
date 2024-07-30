@@ -1,5 +1,6 @@
 using DG.Tweening;
 using GDC.Enums;
+using GDC.Managers;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -174,10 +175,11 @@ public class UIChessManPanel : MonoBehaviour
 
     private void OnHolderClicked(ChessHolder holder)
     {
-        
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_CHESSMAN);
         if (activatingHolder != null && activatingHolder == holder)
         {
             ChangeHolderColor(activatingHolder, false);
+            activatingHolder?.chessMan.SetOutline(0);
 
             activatingHolder = null;
 

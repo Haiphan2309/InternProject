@@ -76,7 +76,7 @@ public static class GameUtils
         GameplayObject foundObject = null;
         foreach (GameplayObject obj in Object.FindObjectsOfType<GameplayObject>())
         {
-            if (CompareVector3(obj.transform.position, position))
+            if (CompareVector3(SnapToGrid(obj.transform.position), position))
             {
                 foundObject = obj.GetComponent<GameplayObject>();
                 break;

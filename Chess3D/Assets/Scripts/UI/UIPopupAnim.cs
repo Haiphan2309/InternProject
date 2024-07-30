@@ -114,6 +114,11 @@ public class UIPopupAnim : MonoBehaviour
         panelRect.DOScale(0, 0.5f).SetEase(Ease.InBack);
     }
 
+    public void HideNoAnim()
+    {
+        panelRect.localScale = Vector2.zero;
+    }    
+
     public void ReloadOriginImageColor()
     {
         if (imageOriginColor == null) imageOriginColor = new List<Color>();

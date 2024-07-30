@@ -41,21 +41,25 @@ public class UIButtonManager : MonoBehaviour
     private void OnSetting()
     {
   
-        
         PlayClickAnim(settingBtn);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         UIGameplayManager.Instance.OnSetting();
     }
     private void OnToggleBtnClicked()
     {
         PlayClickAnim(toggleChessManBtn);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         UIGameplayManager.Instance.OnToggleBtnClicked();
 
     }
     private void OnCameraModeBtnClicked()
     {
         PlayClickAnim(cameraModeBtn);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+
         bool isMove = GameplayManager.Instance.camController.ChangeCameraMode();
         Image btnImg = cameraModeBtn.transform.GetChild(0).GetComponent<Image>();
+
         // Change button appearence when clicked
         if (isMove)
         {
@@ -70,8 +74,11 @@ public class UIButtonManager : MonoBehaviour
     private void OnBackBtnClicked()
     {
         PlayClickAnim(backBtn);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+
         // Call Back method from GamePlay 
         GameplayManager.Instance.Undo();
+
         // Update Number
         UpdateNumber();
 
@@ -82,7 +89,10 @@ public class UIButtonManager : MonoBehaviour
         // Call Solve method from GamePlay
         PlayButtonAnim(hintEffectCanvas);
         PlayClickAnim(solveBtn);
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+
         GameplayManager.Instance.ShowHint();
+
         // Update Number
         UpdateNumber();
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_STAR);
@@ -96,6 +106,8 @@ public class UIButtonManager : MonoBehaviour
     {
         PlayButtonAnim(turnEffectCanvas);
         PlayClickAnim(turnBtn);
+        SoundManager.Instance.PauseSFX(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
+
         GameplayManager.Instance.IncreaseTurn();
         UpdateNumber();
     }
