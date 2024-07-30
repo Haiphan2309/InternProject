@@ -350,6 +350,7 @@ public class Box : GameplayObject
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
         Instantiate(vfxDefeated, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
         CheckBox(target);
+        SetPosIndex();
     }
 
     public override void Drop()

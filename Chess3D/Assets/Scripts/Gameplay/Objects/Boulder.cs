@@ -59,24 +59,21 @@ public class Boulder : GameplayObject
             {
                 GameplayObject destroyGO = GetChessman(gridCell, gridCell, Vector3.zero);
                 GameplayManager.Instance.DefeatEnemyChessMan(destroyGO.index);
-                TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(GameUtils.SnapToGrid(gridCell));
-                GameplayManager.Instance.UpdateTile(GameUtils.SnapToGrid(gridCell), tileInfo);
+                GameplayManager.Instance.SetTile(destroyGO.posIndex, TileType.NONE);
                 destroyGO.Defeated();
             }
             else if (tile == TileType.PLAYER_CHESS)
             {
                 GameplayObject destroyGO = GetChessman(gridCell, gridCell, Vector3.zero);
                 GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
-                TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(GameUtils.SnapToGrid(gridCell));
-                GameplayManager.Instance.UpdateTile(GameUtils.SnapToGrid(gridCell), tileInfo);
+                GameplayManager.Instance.SetTile(destroyGO.posIndex, TileType.NONE);
                 destroyGO.Defeated();
             }
             else if (tile == TileType.BOX)
             {
                 GameplayObject destroyGO = GameUtils.GetGameplayObjectByPosition(gridCell);
                 GameplayManager.Instance.UpdateTile(gridCell);
-                TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(GameUtils.SnapToGrid(gridCell));
-                GameplayManager.Instance.UpdateTile(GameUtils.SnapToGrid(gridCell), tileInfo);
+                GameplayManager.Instance.SetTile(destroyGO.posIndex, TileType.NONE);
                 destroyGO.Defeated();
             }
             else if (tile == TileType.WATER)
@@ -293,18 +290,21 @@ public class Boulder : GameplayObject
             {
                 GameplayObject destroyGO = GetChessman(gridCell, gridCell, Vector3.zero);
                 GameplayManager.Instance.DefeatEnemyChessMan(destroyGO.index);
+                GameplayManager.Instance.SetTile(destroyGO.posIndex, TileType.NONE);
                 destroyGO.Defeated();
             }
             else if (tile == TileType.PLAYER_CHESS)
             {
                 GameplayObject destroyGO = GetChessman(gridCell, gridCell, Vector3.zero);
                 GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
+                GameplayManager.Instance.SetTile(destroyGO.posIndex, TileType.NONE);
                 destroyGO.Defeated();
             }
             else if (tile == TileType.BOX)
             {
                 GameplayObject destroyGO = GameUtils.GetGameplayObjectByPosition(gridCell);
                 GameplayManager.Instance.UpdateTile(gridCell);
+                GameplayManager.Instance.SetTile(destroyGO.posIndex, TileType.NONE);
                 destroyGO.Defeated();
             }
             else if (tile == TileType.WATER)
@@ -325,6 +325,8 @@ public class Boulder : GameplayObject
         Instantiate(vfxDefeated, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
 
         isAnim = false;
+
+        SetPosIndex();
     }
 
     public override void Drop()

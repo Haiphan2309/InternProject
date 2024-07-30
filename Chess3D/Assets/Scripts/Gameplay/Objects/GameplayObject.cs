@@ -169,8 +169,6 @@ public class GameplayObject : MonoBehaviour
 
             path.Add(current);
         }
-
-        if (isStandOnSlope) path.RemoveAt(0);
         return path;
     }
     public void AjustPosToGround(Vector3 target)
@@ -183,6 +181,8 @@ public class GameplayObject : MonoBehaviour
 
         //transform.rotation = Quaternion.Euler(rotation);
         transform.DORotate(rotation, 0.3f);
+
+        isStandOnSlope = isOnSlope;
     }
 
     protected Vector3 RotateOnSlope(TileType tileType)
@@ -222,7 +222,7 @@ public class GameplayObject : MonoBehaviour
 
         TileType tileType = GameUtils.GetTileBelowObject(GameUtils.SnapToGrid(target));
 
-        if (!isStandOnSlope || !isOnSlope)
+        if (!isStandOnSlope)
         {
             rotation = RotateOnSlope(tileType);
         }
