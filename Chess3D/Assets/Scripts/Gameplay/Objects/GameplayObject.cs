@@ -116,6 +116,7 @@ public class GameplayObject : MonoBehaviour
     {
         List<Vector3> path = new List<Vector3>();
         Vector3 current = start;
+        int count = 0;
 
         while (current != end)
         {
@@ -130,7 +131,7 @@ public class GameplayObject : MonoBehaviour
             }
 
             MoveToNextPath(ref current, end);
-             
+
             tile = GameUtils.GetTile(current);
 
             if (GameUtils.CheckSlope(tile))
@@ -154,8 +155,10 @@ public class GameplayObject : MonoBehaviour
             if (GameUtils.CheckSlope(tile))
             {
                 //if (path.Count >= 1 && temp > 0) path.RemoveAt(path.Count - 1);
+                if (path.Count > 0 && GameUtils.GetTileBelowObject(path[path.Count - 1]) == TileType.NONE) path.RemoveAt(path.Count - 1);
                 path.Add(current);
                 current.y -= 1;
+                count++;
                 continue;
             }
 
@@ -167,6 +170,8 @@ public class GameplayObject : MonoBehaviour
                 continue;
             }
 
+            if (isStandOnSlope && count <= 1 && path.Count > 0 && GameUtils.GetTileBelowObject(path[path.Count - 1]) == TileType.NONE)
+                path.RemoveAt(path.Count - 1);
             path.Add(current);
         }
         return path;
@@ -181,8 +186,6 @@ public class GameplayObject : MonoBehaviour
 
         //transform.rotation = Quaternion.Euler(rotation);
         transform.DORotate(rotation, 0.3f);
-
-        isStandOnSlope = isOnSlope;
     }
 
     protected Vector3 RotateOnSlope(TileType tileType)
@@ -236,6 +239,7 @@ public class GameplayObject : MonoBehaviour
             {
                 rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
                 isOnSlope = false;
+                isStandOnSlope = false;
             }
         }
 
