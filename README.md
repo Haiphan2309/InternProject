@@ -29,7 +29,7 @@ chơi, màu sắc của trò chơi)
 ## Log thay đổi của bản 1.2.0 - 2024/26/07:
 - Cập nhật thêm màn chơi.
 - Thêm vật thể Button - Toggle Block
-- Thêm điều chỉnh tốc độ Camera trong Setting.
+- Thêm điều chỉnh tốc độ Camera và đa ngôn ngữ trong Setting.
 - Cập nhật Shop.
 - Cập nhật UI.
 - Tăng trải nghiệm người dùng.
