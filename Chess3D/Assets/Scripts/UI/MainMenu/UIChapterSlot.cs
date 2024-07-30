@@ -21,13 +21,20 @@ public class UIChapterSlot : MonoBehaviour
         StartCoroutine(Cor_ChapterSetup());
     }
 
+    public void ChapterSetup(int chapterIndex, bool isAvailable)
+    {
+        this.chapterIndex = chapterIndex;
+        this.isAvailable = isAvailable;
+        StartCoroutine(Cor_ChapterSetup());
+    }
+
     IEnumerator Cor_ChapterSetup()
     {
         yield return new WaitUntil(() => SaveLoadManager.Instance != null);
         chapterData = GameUtils.GetChapterData(this.chapterIndex);
         GameData gameData = SaveLoadManager.Instance.GameData;
 
-        if (chapterData.starRequire > gameData.GetAllStar())
+        if (!isAvailable && chapterData.starRequire > gameData.GetAllStar())
         {
             transform.GetComponent<Image>().color = Color.gray;
             isAvailable = false;
