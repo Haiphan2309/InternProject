@@ -31,6 +31,7 @@ public class GameplayObject : MonoBehaviour
 
     public LayerMask objectLayer;
     [SerializeField] public GameObject vfxDefeated;
+    [SerializeField] public GameObject vfxDrop;
 
     [SerializeField] protected GameObject parentObject;
 
@@ -115,6 +116,7 @@ public class GameplayObject : MonoBehaviour
     {
         List<Vector3> path = new List<Vector3>();
         Vector3 current = start;
+        int count = 0;
 
         while (current != end)
         {
@@ -129,7 +131,7 @@ public class GameplayObject : MonoBehaviour
             }
 
             MoveToNextPath(ref current, end);
-             
+
             tile = GameUtils.GetTile(current);
 
             if (GameUtils.CheckSlope(tile))
@@ -140,6 +142,7 @@ public class GameplayObject : MonoBehaviour
             }
 
             tile = GameUtils.GetTileBelowObject(current);
+
             while (tile == TileType.NONE)
             {
                 path.Add(current);
@@ -152,8 +155,10 @@ public class GameplayObject : MonoBehaviour
             if (GameUtils.CheckSlope(tile))
             {
                 //if (path.Count >= 1 && temp > 0) path.RemoveAt(path.Count - 1);
+                if (path.Count > 0 && GameUtils.GetTileBelowObject(path[path.Count - 1]) == TileType.NONE) path.RemoveAt(path.Count - 1);
                 path.Add(current);
                 current.y -= 1;
+                count++;
                 continue;
             }
 
@@ -165,6 +170,8 @@ public class GameplayObject : MonoBehaviour
                 continue;
             }
 
+            if (isStandOnSlope && count <= 1 && path.Count > 0 && GameUtils.GetTileBelowObject(path[path.Count - 1]) == TileType.NONE)
+                path.RemoveAt(path.Count - 1);
             path.Add(current);
         }
         return path;
@@ -232,6 +239,7 @@ public class GameplayObject : MonoBehaviour
             {
                 rotation = Vector3.zero + Vector3.up * transform.rotation.eulerAngles.y;
                 isOnSlope = false;
+                isStandOnSlope = false;
             }
         }
 

@@ -27,7 +27,8 @@ public class AdsManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        adsInitializer.InitializeAds();
+
+        //adsInitializer.InitializeAds();
     }
     private void Start()
     {

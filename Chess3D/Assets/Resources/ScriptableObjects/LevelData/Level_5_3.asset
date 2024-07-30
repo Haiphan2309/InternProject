@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_5_3
   m_EditorClassIdentifier: 
   id: 2
-  center: {x: 5, y: 1, z: 6}
+  center: {x: 5, y: 3, z: 6}
   distance: 15
   maxTurn: 28
   starTurn2: 4
@@ -8362,3 +8362,7 @@ MonoBehaviour:
     isPromote: 0
     promoteType: 0
   thumbnail: {fileID: 21300000, guid: 81c8e8143a758b2449a124ee6f31c6d2, type: 3}
+  posEdit: {x: 0, y: 0, z: 0}
+  tileInfoEdit:
+    id: 0
+    tileType: 0

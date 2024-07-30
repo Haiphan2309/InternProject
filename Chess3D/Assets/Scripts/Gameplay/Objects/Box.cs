@@ -5,6 +5,7 @@ using GDC.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Android.Types;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -35,8 +36,9 @@ public class Box : GameplayObject
 
     IEnumerator Cor_BoxMoveAnim(Vector3 target, Vector3 direction)
     {
+        isFalling = false;
         transform.parent = holder.transform;
-
+        Vector3 initTarget = target + direction;
 
         isAnim = true;
         Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
@@ -97,6 +99,12 @@ public class Box : GameplayObject
 
         CheckBox(target);
 
+        if (isFalling)
+        {
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+            Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+        }
+
     }
 
     private Vector3 CalculateTarget(Vector3 target, Vector3 direction)
@@ -117,6 +125,8 @@ public class Box : GameplayObject
             nextCell.y -= 1;
 
             tileBelow = GameUtils.GetTileBelowObject(nextCell);
+
+            isFalling = true;
 
             if (nextCell.y <= -3)
             {
@@ -286,9 +296,76 @@ public class Box : GameplayObject
         this.Defeated();
     }
 
+    private IEnumerator Cor_DropAnim(Vector3 target, Vector3 direction)
+    {
+        transform.parent = holder.transform;
+
+
+        isAnim = true;
+        Vector3 currIdx = GameUtils.SnapToGrid(transform.position);
+        target = GameUtils.SnapToGrid(CalculateTarget(target, direction));
+        targetPosition = target;
+        Debug.Log("BOX Position: " + posIndex + " Target: " + targetPosition);
+
+        // Calculate Path from First Pos to Target Pos
+        List<Vector3> path = CalculatePath(currIdx, target);
+
+        // Move
+        foreach (var gridCell in path)
+        {
+            while (currIdx != gridCell)
+            {
+                if (GameUtils.GetTile(GameUtils.SnapToGrid(transform.position)) == TileType.WATER && !isDropToWater)
+                {
+                    Instantiate(vfxWaterSplash, target + Vector3.up, Quaternion.identity);
+                    SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_WATER_SPLASH);
+                    isDropToWater = true;
+                }
+
+                AjustPosToGround(transform.position, gridCell, direction, true);
+
+                if (!isOnSlope) currIdx = transform.position;
+                else currIdx = transform.position + Vector3.up * 0.4f;
+
+                yield return null;
+            }
+        }
+
+        yield return null;
+
+        TileType tile = GameUtils.GetTile(GameUtils.SnapToGrid(transform.position));
+
+        if (tile == TileType.ENEMY_CHESS)
+        {
+            GameplayObject destroyGO = GetChessman(target, target, Vector3.zero);
+            GameplayManager.Instance.DefeatEnemyChessMan(destroyGO.index);
+            destroyGO.Defeated();
+        }
+        else if (tile == TileType.PLAYER_CHESS)
+        {
+            GameplayObject destroyGO = GetChessman(target, target, Vector3.zero);
+            GameplayManager.Instance.DefeatPlayerChessMan(destroyGO.index);
+            destroyGO.Defeated();
+        }
+
+        GameplayObject gameplayObject = GetChessman(this.posIndex, target, Vector3.up);
+
+        if (GameUtils.SnapToGrid(transform.position).y <= destroyPositionY)
+        {
+            IsDrop(gameplayObject);
+        }
+
+        isAnim = false;
+        isDropToWater = false;
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+        Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+        CheckBox(target);
+        SetPosIndex();
+    }
+
     public override void Drop()
     {
-        StartCoroutine(Cor_BoxMoveAnim(GameUtils.SnapToGrid(transform.position + Vector3.down), Vector3.down));
+        StartCoroutine(Cor_DropAnim(GameUtils.SnapToGrid(transform.position + Vector3.down), Vector3.down));
     }
 
     public override void SetPosIndex()

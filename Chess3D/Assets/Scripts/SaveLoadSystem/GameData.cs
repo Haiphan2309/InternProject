@@ -254,6 +254,6 @@ namespace GDC.Managers
     [Serializable]
     public struct CacheData //Luu cac data tam thoi trong game, ko luu khi tat
     {
-
+        public int currentChapter;
     }
 }

@@ -276,7 +276,6 @@ public class ChessManConfig : ScriptableObject
         // The Vector3 that stores the current position for the next move
         bool dynamicObjectOnDirection = false;
         bool isEnemy = false;
-        // bool isOnAir = false;
         Vector3 currentMove = currentPositionIndex;
         Vector3 move;
         // This is for KNIGHT only
@@ -289,19 +288,22 @@ public class ChessManConfig : ScriptableObject
             // Debug.Log("Load " + move.ToString());
             if (IsBlocked(move, direction))
             {
+                // Debug.Log("Blocked");
                 break;
             }
             // We find the first tile below the next move
-            while (move.y >= 1f && GameUtils.InBound(move) && !CanStandOn(move))
+            while (move.y >= 1f && GameUtils.InBoundMove(move) && !CanStandOn(move))
             {
                 if (dynamicObjectOnDirection) return;
                 // Find the lower ground
                 move += Vector3.down;
+                // Check if that ground is BOULDER
+                if (GameUtils.GetTile(move) == TileType.BOULDER) return;
                 // Debug.Log("DOWN " + move.ToString());
             }
 
             // Check if the potential move is in bound
-            if (!GameUtils.InBound(move))
+            if (!GameUtils.InBoundMove(move))
             {
                 // Debug.Log("OOB " + move.ToString());
                 return;
@@ -317,6 +319,7 @@ public class ChessManConfig : ScriptableObject
             // Check if the potential move is jumpable
             if (!ValidateJump(knightMove, direction))
             {
+                Debug.Log("Jump");
                 break;
             }
 
@@ -391,7 +394,7 @@ public class ChessManConfig : ScriptableObject
                 bool canPush = true;
                 Vector3 nextMove = currentMove + direction;
                 // If the next tile is out of bound we don't care
-                if (!GameUtils.InBound(nextMove)) return;
+                if (!GameUtils.InBoundMove(nextMove)) return;
 
                 TileType type = GameUtils.GetTile(nextMove);
                 // If the next tile is not OBJECT / CHESS we keep the move

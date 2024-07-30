@@ -57,7 +57,9 @@ public class ChessMan : GameplayObject
             testPromoteType = chessManData.chessManType;
             ChangeMesh(chessManData.chessManType);
         }
-        
+
+        isStandOnSlope = false;
+
         index = chessManData.index;
         posIndex = chessManData.posIndex;
         isEnemy = false;
@@ -69,10 +71,12 @@ public class ChessMan : GameplayObject
 
         //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
         AjustPosToGround(posIndex);
+        isStandOnSlope = isOnSlope;
         CheckBox(posIndex);
     }
     public void SetChessManData(EnemyChessManData chessManData, Transform parentTransform = null)
     {
+        isStandOnSlope = false;
         config = GetConfigFromType(chessManData.chessManType);
         index = chessManData.index;
         posIndex = chessManData.posIndex;
@@ -87,8 +91,10 @@ public class ChessMan : GameplayObject
         // transform.parent = null;
         //transform.position = posIndex;  //Chỗ này cần là 1 hàm để check player đứng ở vị trí slope hay phẳng
         AjustPosToGround(posIndex);
+        isStandOnSlope = isOnSlope;
         CheckBox(posIndex);
     }
+
 
     public bool EnemyMove()
     {
@@ -196,10 +202,16 @@ public class ChessMan : GameplayObject
         transform.DOJump(target, 3, 1, 1).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             AjustPosToGround(target);
-            isStandOnSlope = isOnSlope;
+            // isStandOnSlope = isOnSlope;
             isMove = false;
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
             SetPosIndex();
             CheckBox(target);
+
+            SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+            Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
+            GameplayManager.Instance.CheckActiveButtonObjects();
+
             GameplayManager.Instance.EndTurn();
         });
     }
@@ -289,8 +301,6 @@ public class ChessMan : GameplayObject
         SetPosIndex();
         
         CheckBox(target);
-
-        Debug.Log(GameUtils.GetTile(posIndex));
 
         GameplayManager.Instance.CheckActiveButtonObjects();
 
@@ -520,6 +530,8 @@ public class ChessMan : GameplayObject
         }
 
         SetPosIndex();
+        SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_CLICK_TILE);
+        Instantiate(vfxDrop, GameUtils.SnapToGrid(transform.position), Quaternion.identity);
 
         CheckBox(target);
 
