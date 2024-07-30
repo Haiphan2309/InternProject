@@ -19,13 +19,21 @@ public class UILevelSlot : MonoBehaviour
 
     private int maxStarCount = 3;
     private int currentStarCount;
-    private bool isAvailable = true;
+    private bool isAvailable = false;
     private LevelData levelData;
 
     public void LevelSetup(int chapterIndex, int levelIndex)
     {
         this.chapterIndex = chapterIndex;
         this.levelIndex = levelIndex;
+        StartCoroutine(Cor_LevelSetup());
+    }
+
+    public void LevelSetup(int chapterIndex, int levelIndex, bool isAvailable)
+    {
+        this.chapterIndex = chapterIndex;
+        this.levelIndex = levelIndex;
+        this.isAvailable = isAvailable;
         StartCoroutine(Cor_LevelSetup());
     }
 
@@ -36,7 +44,7 @@ public class UILevelSlot : MonoBehaviour
         levelData = GameUtils.GetLevelData(chapterIndex, levelIndex);
         GameData gameData = SaveLoadManager.Instance.GameData;
 
-        if (levelIndex > gameData.currentLevelOfChapters[chapterIndex])
+        if (!isAvailable && levelIndex > gameData.currentLevelOfChapters[chapterIndex])
         {
             this.isAvailable = false;
             transform.GetComponent<Image>().color = Color.gray;
@@ -47,11 +55,6 @@ public class UILevelSlot : MonoBehaviour
             this.isAvailable = true;
             transform.GetComponent<Image>().color = Color.white;
         }
-
-        // EASY ACCESS PURPORSE
-#if UNITY_EDITOR
-        isAvailable = true;
-#endif
 
         SpriteSetup();
         ButtonSetup();

@@ -169,6 +169,6 @@ public class UISetting : MonoBehaviour
     }
     private void UnlockAll()
     {
-        //todo
+        if (UIManager.Instance) UIManager.Instance.UIReset();
     }    
 }

@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
 
     public bool isClick = false;
 
+    private bool isAvaliable = false;
     private bool isButtonLoad = false;
     private bool isCustomLoad = false;
 
@@ -165,7 +166,8 @@ public class UIManager : MonoBehaviour
         for (int chapterIndex = 0; chapterIndex < GDC.Constants.GameConstants.MAX_CHAPTER; ++chapterIndex)
         {
             UIChapterSlot chapterSlot = Instantiate(chapterSlotPrefab, chapterContent);
-            chapterSlot.ChapterSetup(chapterIndex);
+            if (isAvaliable) chapterSlot.ChapterSetup(chapterIndex, isAvaliable);
+            else chapterSlot.ChapterSetup(chapterIndex);
             chapterButton.Add(chapterSlot.GetComponent<Button>());
         }
         isClick = false;
@@ -180,7 +182,8 @@ public class UIManager : MonoBehaviour
         for (int levelIndex = 0; levelIndex < maxLevelIndex; ++levelIndex)
         {
             UILevelSlot levelSlot = Instantiate(levelSlotPrefab, levelContent);
-            levelSlot.LevelSetup(chapterIndex,levelIndex);
+            if (isAvaliable) levelSlot.LevelSetup(chapterIndex, levelIndex, isAvaliable);
+            else levelSlot.LevelSetup(chapterIndex, levelIndex);
             levelButton.Add(levelSlot.GetComponent<Button>());
         }
         isClick = false;
@@ -206,6 +209,7 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_TRANSITION_OUT);
         Debug.Log("Return");
+        if (UIStack.Count == 0) return;
         UI lastUI = UIStack.Peek();
         if (lastUI.GetType() == typeof(UIChapterMenu))
         {
@@ -224,38 +228,26 @@ public class UIManager : MonoBehaviour
 
     private void SettingButton()
     {
-        //if (isPopupLoad) return;
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Settings");
-        //UISetting settingPage = Instantiate(settingPagePrefab, pageSystem);
-        //settingPage.Show();
         PopupManager.Instance.ShowSetting();
-        //isPopupLoad = true;
     }
 
     private void CreditButton()
     {
-        //if (isPopupLoad) return;
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Credit");
-        //UIPopupAnim creditPage = Instantiate(creditPagePrefab, pageSystem);
-        //creditPage.Show();
         PopupManager.Instance.ShowCredit();
-        //isPopupLoad = true;
     }
 
     private void ShopButton()
     {
-        //if (isPopupLoad) return;
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         HideAllButtons();
         Debug.Log("Shop");
-        //UIShopManager shopPage = Instantiate(shopPagePrefab, pageSystem);
-        //shopPage.Show();
         PopupManager.Instance.ShowShop();
-        //isPopupLoad = true;
     }
 
     public void HideAllButtons()
@@ -298,5 +290,16 @@ public class UIManager : MonoBehaviour
         shopButton.GetComponent<Button>().interactable = true;
         returnButton.GetComponent<Button>().interactable = true;
         creditButton.GetComponent<Button>().interactable = true;
+    }
+
+    public void UIReset()
+    {
+        for (int i = 0; i < chapterContent.childCount; ++i)
+        {
+            Destroy(chapterContent.GetChild(i).gameObject);
+        }
+        while (UIStack.Count > 0) ReturnButton();
+        this.isAvaliable = true;
+        ChapterPreset();
     }
 }
