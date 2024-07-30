@@ -209,6 +209,7 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_BUTTON_CLICK);
         SoundManager.Instance.PlaySound(AudioPlayer.SoundID.SFX_TRANSITION_OUT);
         Debug.Log("Return");
+        if (UIStack.Count == 0) return;
         UI lastUI = UIStack.Peek();
         if (lastUI.GetType() == typeof(UIChapterMenu))
         {
