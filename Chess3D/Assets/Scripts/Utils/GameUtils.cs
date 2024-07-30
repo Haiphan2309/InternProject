@@ -109,6 +109,29 @@ public static class GameUtils
         return inBound;
     }
 
+    public static bool InBoundMove(Vector3 currentMove)
+    {
+        bool inBound = true;
+        float Xpos = currentMove.x;
+        float Ypos = currentMove.y;
+        float Zpos = currentMove.z;
+
+        if (Xpos < 0 || Xpos >= GDC.Constants.GameConstants.MAX_X_SIZE)
+        {
+            inBound = false;
+        }
+        if (Ypos <= 0)
+        {
+            inBound = false;
+        }
+        if (Zpos < 0 || Zpos >= GDC.Constants.GameConstants.MAX_Z_SIZE)
+        {
+            inBound = false;
+        }
+        // Debug.Log("InBound = " + inBound);
+        return inBound;
+    }
+
     public static ChapterData GetChapterData(int chapterId) //ChapterId bat dau tu 0
     {
         string chapterName = "Chapter_" + (chapterId + 1).ToString();

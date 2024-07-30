@@ -11678,6 +11678,10 @@ PrefabInstance:
       propertyPath: buildSubTime
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9043842848288793548, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
+      propertyPath: sfxVolume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae4e335983ae9b14d91d6e833fc97d11, type: 3}
 --- !u!1 &1613947535

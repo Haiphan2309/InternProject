@@ -31,6 +31,7 @@ public class GameplayObject : MonoBehaviour
 
     public LayerMask objectLayer;
     [SerializeField] public GameObject vfxDefeated;
+    [SerializeField] public GameObject vfxDrop;
 
     [SerializeField] protected GameObject parentObject;
 
@@ -140,6 +141,7 @@ public class GameplayObject : MonoBehaviour
             }
 
             tile = GameUtils.GetTileBelowObject(current);
+
             while (tile == TileType.NONE)
             {
                 path.Add(current);
@@ -179,6 +181,8 @@ public class GameplayObject : MonoBehaviour
 
         //transform.rotation = Quaternion.Euler(rotation);
         transform.DORotate(rotation, 0.3f);
+
+        isStandOnSlope = isOnSlope;
     }
 
     protected Vector3 RotateOnSlope(TileType tileType)
