@@ -47,6 +47,7 @@ public class GameplayObject : MonoBehaviour
 
     public void SetGameplayObjectData(GameplayObjectData gameplayObjectData)
     {
+        index = gameplayObjectData.index;
         posIndex = gameplayObjectData.posIndex;
         AjustPosToGround(posIndex);
     }

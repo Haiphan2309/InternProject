@@ -181,7 +181,7 @@ public class GridStateManager : MonoBehaviour
             bool isFind = false;
             foreach (var gameplayObj in gameplayObjs)
             {
-                if (gameplayObj.gameObject.GetInstanceID() == gameplayObjData.index)
+                if (gameplayObj.index == gameplayObjData.index)
                 {
                     gameplayObj.SetGameplayObjectData(gameplayObjData);
                     isFind = true;
