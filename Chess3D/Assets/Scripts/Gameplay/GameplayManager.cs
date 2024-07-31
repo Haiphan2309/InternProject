@@ -225,11 +225,16 @@ public class GameplayManager : MonoBehaviour
         {
             foreach (var player in playerArmy)
             {
-                foreach (var move in enemy.config.Move(enemy.posIndex))
+                List<Vector3> enemyAvailableMoves = new List<Vector3>();
+                foreach(var move in enemy.config.Move(enemy.posIndex))
+                {
+                    enemyAvailableMoves.Add(move);
+                }
+                foreach (var move in enemyAvailableMoves)
                 {
                     if (GameUtils.CompareVector3(player.posIndex, move))
                     {
-                        if (enemy.config.chessManType == ChessManType.KING && levelData.GetEnemyArmies()[enemy.index].isAI && enemy.config.CheckMoveIsSafe(enemy.posIndex) == false)
+                        if (enemy.config.chessManType == ChessManType.KING && levelData.GetEnemyArmies()[enemy.index].isAI && enemy.config.CheckMoveIsSafe(move, enemy.posIndex) == false)
                         {
                             continue;
                         }
@@ -237,6 +242,7 @@ public class GameplayManager : MonoBehaviour
                         return;
                     }
                 }
+                enemyAvailableMoves.Clear();
             }
         }
 
