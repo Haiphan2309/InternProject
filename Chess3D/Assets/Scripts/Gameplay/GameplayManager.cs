@@ -86,6 +86,7 @@ public class GameplayManager : MonoBehaviour
         //SetPowerUpNum();
         int cameraSpeed = PlayerPrefs.GetInt("CameraTargetSpeed", 8);
         camController.ChangeTargetSpeedValue(cameraSpeed);
+        RenderSettings.ambientIntensity = PlayerPrefs.GetInt("LightIntensity", 8)/8;
 
         SaveLoadManager.Instance.GameData.SetPlayedLevelBefore(chapterIndex, levelIndex, true);
     }

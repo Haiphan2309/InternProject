@@ -15,7 +15,7 @@ public class UISetting : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
     [SerializeField] RectTransform bottomGroupRect;
     [SerializeField] private Button menuBtn, replayBtn, hideButton, unlockButton;
-    [SerializeField] private Slider musicSlider, soundSlider, cameraSpeedSlider;
+    [SerializeField] private Slider musicSlider, soundSlider, cameraSpeedSlider, lightIntensitySlider;
     [SerializeField] private TMP_Dropdown languageDropdown;
     private Coroutine hideCor;
     [SerializeField] private int maxVolume = 10;
@@ -59,14 +59,18 @@ public class UISetting : MonoBehaviour
         musicSlider.onValueChanged.AddListener(delegate { OnChangeMusicVolume(); });
         soundSlider.onValueChanged.AddListener(delegate { OnChangeSoundVolume(); });
         cameraSpeedSlider.onValueChanged.AddListener(delegate { OnChangeCameraSpeed(); });
+        lightIntensitySlider.onValueChanged.AddListener(delegate {OnChangeLightIntensity(); });
         languageDropdown.onValueChanged.AddListener(delegate { OnChangeLanguage(); });
 
         musicSlider.maxValue = maxVolume;
         soundSlider.maxValue = maxVolume;
         cameraSpeedSlider.maxValue = maxVolume;
+        lightIntensitySlider.maxValue = maxVolume;
+
         musicSlider.value = SoundManager.Instance.GetMusicVolume() * maxVolume;
         soundSlider.value = SoundManager.Instance.GetSFXVolume() * maxVolume;
         cameraSpeedSlider.value = PlayerPrefs.GetInt("CameraTargetSpeed", 8);
+        lightIntensitySlider.value = PlayerPrefs.GetInt("LightIntensity", 8);
 
         if (levelText.gameObject.activeSelf)
         {
@@ -97,6 +101,7 @@ public class UISetting : MonoBehaviour
         musicSlider.onValueChanged.RemoveAllListeners();
         soundSlider.onValueChanged.RemoveAllListeners();
         cameraSpeedSlider.onValueChanged.RemoveAllListeners();
+        lightIntensitySlider.onValueChanged.RemoveAllListeners();
         languageDropdown.onValueChanged.RemoveAllListeners();
         uiPopupAnim.Hide();
         PopupManager.Instance.HideBlackBg();
@@ -167,6 +172,12 @@ public class UISetting : MonoBehaviour
         }
         PlayerPrefs.SetInt("CameraTargetSpeed", (int)cameraSpeedSlider.value);
     }
+
+    private void OnChangeLightIntensity()
+    {
+        RenderSettings.ambientIntensity = (float) lightIntensitySlider.value / 8; // = 8 la bth
+        PlayerPrefs.SetInt("LightIntensity", (int)lightIntensitySlider.value);
+    }    
     private void UnlockAll()
     {
         if (UIManager.Instance) UIManager.Instance.UIReset();
