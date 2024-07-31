@@ -10,8 +10,9 @@ public class Boulder : GameplayObject
     private bool isDestroy = false;
     private int destroyPositionY = -3;
 
-    public void Setup(Vector3 posIndex)
+    public void Setup(Vector3 posIndex, int index)
     {
+        this.index = index;
         this.posIndex = posIndex;
     }
 
