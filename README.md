@@ -36,7 +36,7 @@ chơi, màu sắc của trò chơi)
 - Sửa lỗi.
 
 ## Log thay đổi của bản 1.2.1 - 2024/31/07
-- Đổi tên game từ "Chess 3D" sáng "Chess Land"
+- Đổi tên game từ "Chess 3D" sang "Chess Land"
 - Thêm điều chỉnh độ sáng của Gameplay trong Setting
 - Thêm hệ thống mẹo.
 - Đa ngôn ngữ cho hệ thống mẹo và hướng dẫn.
