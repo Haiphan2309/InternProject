@@ -26,6 +26,7 @@ public class LevelSpawner : MonoBehaviour
     private Dictionary<int, GameObject> tilePrefabDic = new Dictionary<int, GameObject>();
     private Dictionary<int, GameObject> chessPrefabDic = new Dictionary<int, GameObject>();
     private Dictionary<ChessManType, int> chessDic;
+    private int boxIndexCount, boulderIndexCount, buttonIndexCount;
     void Setup(int chapterId, int levelId)
     {
         chessDic = new Dictionary<ChessManType, int> 
@@ -65,6 +66,10 @@ public class LevelSpawner : MonoBehaviour
         int dim1 = map.GetLength(1);
         int dim2 = map.GetLength(2);
 
+        boxIndexCount = 0;
+        boulderIndexCount = 0;
+        buttonIndexCount = 0;
+
         for (int j = 0; j < dim1; j++)
         {
             GameObject floor = new GameObject("Floor_" + j);
@@ -87,11 +92,13 @@ public class LevelSpawner : MonoBehaviour
                     tile.transform.parent = floor.transform;
                     if (tileId == 200) // Box
                     {
-                        tile.GetComponent<Box>().Setup(GameUtils.SnapToGrid(tile.transform.position));
+                        tile.GetComponent<Box>().Setup(GameUtils.SnapToGrid(tile.transform.position),boxIndexCount);
+                        boxIndexCount++;
                     }
                     else if (tileId == 201) // Boulder
                     {
-                        tile.GetComponent<Boulder>().Setup(GameUtils.SnapToGrid(tile.transform.position));
+                        tile.GetComponent<Boulder>().Setup(GameUtils.SnapToGrid(tile.transform.position),boulderIndexCount);
+                        boulderIndexCount++;
                     }
                     else if(tileId == 203 || tileId == 204) // Button
                     {

@@ -47,6 +47,7 @@ public class GameplayObject : MonoBehaviour
 
     public void SetGameplayObjectData(GameplayObjectData gameplayObjectData)
     {
+        index = gameplayObjectData.index;
         posIndex = gameplayObjectData.posIndex;
         AjustPosToGround(posIndex);
     }
@@ -282,13 +283,11 @@ public class GameplayObject : MonoBehaviour
 
     public virtual void SetPosIndex()
     {
+        if (posIndex == targetPosition) return;
         TileInfo tileInfo = GameplayManager.Instance.levelData.GetTileInfoNoDeep(posIndex);
         GameplayManager.Instance.UpdateTile(posIndex, targetPosition, tileInfo);
 
-        Debug.Log("Update Position: " + this.name + " Start: " + posIndex + " Target: " + targetPosition);
-
         posIndex = targetPosition;
-
     }
 
     public virtual void Drop()

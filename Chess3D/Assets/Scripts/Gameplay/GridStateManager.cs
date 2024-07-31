@@ -181,7 +181,7 @@ public class GridStateManager : MonoBehaviour
             bool isFind = false;
             foreach (var gameplayObj in gameplayObjs)
             {
-                if (gameplayObj.gameObject.GetInstanceID() == gameplayObjData.index)
+                if (gameplayObj.index == gameplayObjData.index)
                 {
                     gameplayObj.SetGameplayObjectData(gameplayObjData);
                     isFind = true;
@@ -224,7 +224,7 @@ public class GridStateManager : MonoBehaviour
         GameplayManager.Instance.enemyArmy.Clear();
         foreach (var chessManData in gridState.enemyChessManDatas)
         {
-            ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true);
+            ChessMan chessMan = SpawnChessMan(chessManData.chessManType, true, chessManData.isAI);
             chessMan.SetChessManData(chessManData, enemyParent.transform);
             GameplayManager.Instance.enemyArmy.Add(chessMan);
         }

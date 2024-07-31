@@ -18,8 +18,9 @@ public class Box : GameplayObject
 
     [SerializeField] private GameObject vfxWaterSplash;
 
-    public void Setup(Vector3 posIndex)
+    public void Setup(Vector3 posIndex, int index)
     {
+        this.index = index;
         this.posIndex = posIndex;
         this.holder = transform.parent.gameObject;
     }
