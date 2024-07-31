@@ -180,6 +180,10 @@ public class UISetting : MonoBehaviour
     }    
     private void UnlockAll()
     {
-        if (UIManager.Instance) UIManager.Instance.UIReset();
+        if (UIManager.Instance)
+        {
+            UIManager.Instance.UIReset();
+            Hide();
+        }
     }    
 }
