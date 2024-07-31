@@ -27,10 +27,17 @@ chơi, màu sắc của trò chơi)
 - Sửa lỗi.
 
 ## Log thay đổi của bản 1.2.0 - 2024/26/07:
-- Cập nhật thêm màn chơi.
+- Cập nhật thêm chương mới và màn chơi tương ứng.
 - Thêm vật thể Button - Toggle Block
 - Thêm điều chỉnh tốc độ Camera và đa ngôn ngữ trong Setting.
 - Cập nhật Shop.
 - Cập nhật UI.
 - Tăng trải nghiệm người dùng.
+- Sửa lỗi.
+
+## Log thay đổi của bản 1.2.1 - 2024/31/07
+- Thêm điều chỉnh độ sáng của Gameplay trong Setting
+- Thêm hệ thống mẹo.
+- Đa ngôn ngữ cho hệ thống mẹo và hướng dẫn.
+- Cập nhật UI.
 - Sửa lỗi.
