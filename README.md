@@ -1,5 +1,7 @@
 # InternProject
 Link các bản build: https://drive.google.com/drive/folders/1NGdEDRWh-iyYwrTezkeBwmGxGANbHrVM?usp=drive_link
+Link youtube: https://youtu.be/wWYRnqxiozY?si=UOrCzr3JfZh7If_A
+Link play itch.io: https://haiphan2309.itch.io/chess-3d
 # Change log
 ## Log thay đổi của bản 1.0.1 - 2024/10/07:
 - Cập nhật thông tin hiển thị của hệ thống chapter và level.
@@ -35,7 +37,7 @@ chơi, màu sắc của trò chơi)
 - Tăng trải nghiệm người dùng.
 - Sửa lỗi.
 
-## Log thay đổi của bản 1.2.1 - 2024/31/07
+## Log thay đổi của bản 1.2.1 - 2024/31/07:
 - Đổi tên game từ "Chess 3D" sang "Chess Land"
 - Thêm điều chỉnh độ sáng của Gameplay trong Setting
 - Thêm hệ thống mẹo.
