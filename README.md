@@ -1,7 +1,8 @@
 # InternProject
-Link các bản build: https://drive.google.com/drive/folders/1NGdEDRWh-iyYwrTezkeBwmGxGANbHrVM?usp=drive_link
-Link youtube: https://youtu.be/wWYRnqxiozY?si=UOrCzr3JfZh7If_A
-Link play itch.io: https://haiphan2309.itch.io/chess-3d
+![image](https://github.com/user-attachments/assets/b74bae5c-c7f9-4b97-8da9-fbf915ceeb53)
+- Link các bản build: https://drive.google.com/drive/folders/1NGdEDRWh-iyYwrTezkeBwmGxGANbHrVM?usp=drive_link
+- Link youtube: https://youtu.be/wWYRnqxiozY?si=UOrCzr3JfZh7If_A
+- Link play itch.io: https://haiphan2309.itch.io/chess-3d
 # Change log
 ## Log thay đổi của bản 1.0.1 - 2024/10/07:
 - Cập nhật thông tin hiển thị của hệ thống chapter và level.
